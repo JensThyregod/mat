@@ -1,0 +1,43 @@
+id: geo_vinkelsum
+name: Vinkelsum i trekant
+category: geometri_og_maaling
+subcategory: vinkler
+level: fp9
+exam_part: uden_hjaelpemidler
+difficulty: let
+
+description: |
+  At beregne den ukendte vinkel i en trekant ved brug af vinkelsummen.
+  Eleverne skal vide at A + B + C = 180° i alle trekanter.
+  Ofte kombineret med kontrol af svaret.
+
+allowed_tools:
+  calculator: false
+  formula_sheet: false
+
+figure_type: triangle
+
+variables:
+  - name: angle_a
+    type: integer
+    constraints:
+      min: 30
+      max: 90
+  - name: angle_b
+    type: integer
+    constraints:
+      min: 30
+      max: 90
+  # angle_c = 180 - angle_a - angle_b
+
+question_patterns:
+  - "Beregn vinkel C"
+  - "Kontroller at A + B + C = 180°"
+  - "Hvilken type trekant er det? (spidsvinklet, retvinklet, stumpvinklet)"
+
+official_examples:
+  - exam: FP9
+    year: 2022
+    month: maj
+    task_number: 3
+

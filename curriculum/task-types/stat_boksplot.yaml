@@ -1,0 +1,61 @@
+id: stat_boksplot
+name: Boksplot
+category: statistik_og_sandsynlighed
+subcategory: boksplot
+level: fp9
+exam_part: uden_hjaelpemidler
+difficulty: middel
+
+description: |
+  At fortolke boksplot og sammenligne datasæt.
+  Eleverne skal kunne aflæse:
+  - Minimum og maksimum
+  - Nedre og øvre kvartil (Q1, Q3)
+  - Median
+  - Spredning/variation
+
+allowed_tools:
+  calculator: false
+  formula_sheet: false
+
+figure_type: chart
+
+variables:
+  - name: minimum
+    type: integer
+    constraints:
+      min: 0
+      max: 50
+  - name: q1
+    type: integer
+    constraints:
+      min: 20
+      max: 80
+  - name: median
+    type: integer
+    constraints:
+      min: 40
+      max: 120
+  - name: q3
+    type: integer
+    constraints:
+      min: 60
+      max: 150
+  - name: maksimum
+    type: integer
+    constraints:
+      min: 100
+      max: 200
+
+question_patterns:
+  - "Hvad er medianen for datasæt X?"
+  - "Hvilket datasæt har størst spredning?"
+  - "Hvilket datasæt har den mindste/største median?"
+  - "Hvad er variationsbredden?"
+
+official_examples:
+  - exam: FP9
+    year: 2022
+    month: maj
+    task_number: 19
+

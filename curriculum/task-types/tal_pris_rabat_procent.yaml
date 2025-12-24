@@ -1,0 +1,59 @@
+id: tal_pris_rabat_procent
+name: Pris, rabat og procent
+category: tal_og_algebra
+subcategory: procent
+level: fp9
+exam_part: uden_hjaelpemidler
+difficulty: middel
+
+description: |
+  At regne med priser, rabat og procent. 
+  Eleverne skal lægge priser sammen, trække rabat fra og vurdere rabatten i procent.
+  Kræver forståelse for procentregning og hovedregning.
+
+allowed_tools:
+  calculator: false
+  formula_sheet: false
+
+figure_type: illustration
+
+variables:
+  - name: pris1
+    type: integer
+    constraints:
+      min: 20
+      max: 200
+      divisible_by: 10
+  - name: pris2
+    type: integer
+    constraints:
+      min: 20
+      max: 200
+      divisible_by: 10
+  - name: rabat_procent
+    type: integer
+    constraints:
+      min: 10
+      max: 50
+      divisible_by: 10
+  - name: vare1
+    type: text
+    constraints:
+      options: [pung, taske, penalhus, etui, rygsæk]
+  - name: vare2
+    type: text
+    constraints:
+      options: [t-shirt, bukser, kjole, jakke, sko]
+
+question_patterns:
+  - Hvad koster varerne tilsammen før rabat?
+  - Hvad er den samlede pris efter rabat?
+  - Hvor mange procent er rabatten?
+  - Hvor meget sparer man i alt?
+
+official_examples:
+  - exam: FP9
+    year: 2022
+    month: maj
+    task_number: 1
+

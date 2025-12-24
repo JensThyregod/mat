@@ -1,0 +1,28 @@
+id: tal_pris_rabat_001
+type: tal_pris_rabat_procent
+title: "Opgave 1: Pris, rabat og procent"
+
+intro: |
+  I en sportsbutik koster en fodbold 120 kr og et par løbesko 280 kr.
+  Der er 25% rabat på alle varer i weekenden.
+
+figure: null
+
+questions:
+  - text: Hvad koster de to varer tilsammen før rabat?
+    answer: "400"
+    answer_type: number
+  - text: Hvor meget sparer man i alt med rabatten?
+    answer: "100"
+    answer_type: number
+  - text: Hvad er den samlede pris efter rabat?
+    answer: "300"
+    answer_type: number
+
+variables:
+  pris1: 120
+  pris2: 280
+  rabat_procent: 25
+  vare1: fodbold
+  vare2: løbesko
+

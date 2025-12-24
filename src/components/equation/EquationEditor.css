@@ -1,0 +1,403 @@
+/* ═══════════════════════════════════════════════════════════════════
+   EQUATION EDITOR - Fluid & Natural
+   ═══════════════════════════════════════════════════════════════════ */
+
+.eq-editor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.eq-editor__equation {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 40px 50px 60px;
+  background: rgba(18, 18, 26, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  backdrop-filter: blur(16px);
+}
+
+/* Equals Sign */
+.eq-editor__equals {
+  display: flex;
+  align-items: center;
+}
+
+.eq-editor__equals-symbol {
+  font-family: var(--eq-font-display);
+  font-size: 44px;
+  color: var(--eq-text);
+  opacity: 0.6;
+}
+
+/* Hint */
+.eq-editor__hint {
+  font-size: 13px;
+  color: var(--eq-text-dim);
+  margin: 0;
+}
+
+.eq-editor__hint strong {
+  color: #c084fc;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   EQUATION SIDE
+   ═══════════════════════════════════════════════════════════════════ */
+
+.eq-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 100px;
+}
+
+/* Expression area */
+.eq-side__expression {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.1s ease;
+}
+
+.eq-side__expression:hover {
+  background: rgba(0, 212, 255, 0.06);
+}
+
+.eq-side--inline .eq-side__expression {
+  background: rgba(0, 212, 255, 0.1);
+}
+
+/* Tokens */
+.eq-side__tokens {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  transition: transform 0.1s ease;
+}
+
+.eq-side--inline .eq-side__tokens {
+  transform: translateX(-6px);
+}
+
+.eq-token {
+  font-family: var(--eq-font-display);
+  font-size: 44px;
+  font-weight: 500;
+  color: var(--eq-text);
+  letter-spacing: -0.02em;
+}
+
+.eq-token--variable {
+  color: var(--eq-accent);
+  font-style: italic;
+}
+
+.eq-token--operator {
+  color: var(--eq-secondary);
+  font-size: 32px;
+  opacity: 0.7;
+  padding: 0 2px;
+}
+
+.eq-token--paren {
+  color: var(--eq-text-muted);
+  font-weight: 300;
+  opacity: 0.5;
+}
+
+.eq-token__power {
+  font-size: 0.5em;
+  color: var(--eq-success);
+  vertical-align: super;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   Common Factor Highlighting
+   ───────────────────────────────────────────────────────────────────── */
+
+/* Denominator tokens that can be used to simplify */
+.eq-token--can-simplify {
+  cursor: pointer;
+  transition: color 0.1s ease, text-shadow 0.1s ease, transform 0.1s ease;
+  border-radius: 4px;
+}
+
+.eq-token--can-simplify:hover {
+  color: #ff4d6a !important;
+  text-shadow: 0 0 12px rgba(255, 77, 106, 0.6);
+  transform: scale(1.05);
+}
+
+/* Denominator token currently being hovered */
+.eq-token--hovered {
+  color: #ff4d6a !important;
+  text-shadow: 0 0 16px rgba(255, 77, 106, 0.7);
+}
+
+/* Numerator tokens that share the common factor */
+.eq-token--common-factor {
+  color: #ff4d6a !important;
+  text-shadow: 0 0 12px rgba(255, 77, 106, 0.5);
+  animation: factorPulse 0.6s ease-in-out infinite alternate;
+}
+
+@keyframes factorPulse {
+  from {
+    text-shadow: 0 0 8px rgba(255, 77, 106, 0.4);
+  }
+  to {
+    text-shadow: 0 0 16px rgba(255, 77, 106, 0.7);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   FRACTION DISPLAY
+   ───────────────────────────────────────────────────────────────────── */
+
+.eq-fraction {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.eq-fraction__numerator,
+.eq-fraction__denominator {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  padding: 4px 8px;
+}
+
+.eq-fraction__numerator .eq-token,
+.eq-fraction__denominator .eq-token {
+  font-size: 32px;
+}
+
+.eq-fraction__numerator .eq-token--operator,
+.eq-fraction__denominator .eq-token--operator {
+  font-size: 24px;
+}
+
+.eq-fraction__bar {
+  width: 100%;
+  min-width: 60px;
+  height: 3px;
+  background: var(--eq-accent);
+  border-radius: 2px;
+  box-shadow: 0 0 8px var(--eq-accent-glow);
+}
+
+/* Fraction shifts left when inline input visible */
+.eq-side--inline .eq-fraction {
+  transform: translateX(-6px);
+  transition: transform 0.1s ease;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   Inline Input
+   ───────────────────────────────────────────────────────────────────── */
+
+.eq-side__inline {
+  width: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: width 0.1s ease, opacity 0.08s ease;
+}
+
+.eq-side__inline--visible {
+  width: 80px;
+  opacity: 1;
+}
+
+.eq-side__input {
+  width: 64px;
+  margin-left: 10px;
+  padding: 8px 10px;
+  background: rgba(0, 212, 255, 0.08);
+  border: 2px solid rgba(0, 212, 255, 0.4);
+  border-radius: 10px;
+  color: var(--eq-text);
+  font-family: var(--eq-font-mono);
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  outline: none;
+  transition: border-color 0.08s ease, background 0.08s ease;
+}
+
+.eq-side__input::placeholder {
+  color: rgba(0, 212, 255, 0.4);
+}
+
+.eq-side__input:focus {
+  border-color: var(--eq-accent);
+  background: rgba(0, 212, 255, 0.12);
+}
+
+/* Operation colors */
+.eq-side__input--add {
+  border-color: #10ffaa;
+  background: rgba(16, 255, 170, 0.1);
+}
+.eq-side__input--subtract {
+  border-color: #ff6b6b;
+  background: rgba(255, 107, 107, 0.1);
+}
+.eq-side__input--multiply {
+  border-color: #ffd93d;
+  background: rgba(255, 217, 61, 0.1);
+}
+.eq-side__input--divide {
+  border-color: #c084fc;
+  background: rgba(192, 132, 252, 0.1);
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   Below Zone (for adding new division)
+   ───────────────────────────────────────────────────────────────────── */
+
+.eq-side__below-zone {
+  width: 100%;
+  min-height: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* New fraction bar - hidden by default */
+.eq-side__new-fraction-bar {
+  width: 0;
+  height: 3px;
+  background: #c084fc;
+  border-radius: 2px;
+  opacity: 0;
+  box-shadow: 0 0 12px rgba(192, 132, 252, 0.5);
+  transition: 
+    width 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.1s ease;
+}
+
+.eq-side__new-fraction-bar--visible {
+  width: 100%;
+  opacity: 1;
+}
+
+/* If already a fraction, the new bar appears below everything */
+.eq-side--is-fraction .eq-side__below-zone {
+  margin-top: 4px;
+}
+
+/* Denominator input */
+.eq-side__denominator {
+  display: flex;
+  justify-content: center;
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: height 0.1s ease, opacity 0.08s ease;
+}
+
+.eq-side__denominator--visible {
+  height: 48px;
+  opacity: 1;
+}
+
+.eq-side__division-input {
+  width: 64px;
+  margin-top: 8px;
+  padding: 8px 10px;
+  background: rgba(192, 132, 252, 0.1);
+  border: 2px solid rgba(192, 132, 252, 0.5);
+  border-radius: 10px;
+  color: var(--eq-text);
+  font-family: var(--eq-font-mono);
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  outline: none;
+  transition: border-color 0.08s ease, background 0.08s ease;
+}
+
+.eq-side__division-input::placeholder {
+  color: rgba(192, 132, 252, 0.4);
+}
+
+.eq-side__division-input:focus {
+  border-color: #c084fc;
+  background: rgba(192, 132, 252, 0.15);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Responsive
+   ═══════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 640px) {
+  .eq-editor__equation {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 30px 30px 50px;
+  }
+  
+  .eq-editor__equals-symbol {
+    font-size: 32px;
+  }
+  
+  .eq-token {
+    font-size: 32px;
+  }
+  
+  .eq-token--operator {
+    font-size: 24px;
+  }
+  
+  .eq-fraction__numerator .eq-token,
+  .eq-fraction__denominator .eq-token {
+    font-size: 24px;
+  }
+  
+  .eq-fraction__numerator .eq-token--operator,
+  .eq-fraction__denominator .eq-token--operator {
+    font-size: 18px;
+  }
+  
+  .eq-side__input,
+  .eq-side__division-input {
+    font-size: 16px;
+    width: 56px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Animations
+   ═══════════════════════════════════════════════════════════════════ */
+
+.eq-side {
+  animation: fadeUp 0.3s ease backwards;
+}
+
+.eq-side[data-side="left"] { animation-delay: 0.05s; }
+.eq-editor__equals { animation: fadeUp 0.3s ease 0.1s backwards; }
+.eq-side[data-side="right"] { animation-delay: 0.15s; }
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

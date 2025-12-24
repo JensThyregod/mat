@@ -1,0 +1,47 @@
+id: tal_regnearter
+name: Almindelige regnearter
+category: tal_og_algebra
+subcategory: regnearter
+level: fp9
+exam_part: uden_hjaelpemidler
+difficulty: let
+
+description: |
+  Almindelige regnearter: addition, subtraktion, multiplikation og division.
+  Grundlæggende hovedregning uden kontekst.
+  Tal vælges så de er rimelige at regne i hovedet.
+
+allowed_tools:
+  calculator: false
+  formula_sheet: false
+
+figure_type: none
+
+variables:
+  - name: a
+    type: integer
+    constraints:
+      min: 2
+      max: 99
+  - name: b
+    type: integer
+    constraints:
+      min: 2
+      max: 99
+  - name: operator
+    type: text
+    constraints:
+      options: ["+", "-", "·", ":"]
+
+question_patterns:
+  - "Beregn a + b"
+  - "Beregn a - b"
+  - "Beregn a · b"
+  - "Beregn a : b"
+
+official_examples:
+  - exam: FP9
+    year: 2022
+    month: maj
+    task_number: 5
+

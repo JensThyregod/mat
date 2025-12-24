@@ -1,0 +1,55 @@
+id: tal_forholdstalsregning
+name: Forholdstalsregning og proportionalitet
+category: tal_og_algebra
+subcategory: forhold
+level: fp9
+exam_part: uden_hjaelpemidler
+difficulty: middel
+
+description: |
+  At arbejde med forholdstal og proportionalitet.
+  Typisk i en opskrift-kontekst (mel, mælk, æg til pandekager).
+  Eleverne skal skalere mængder op eller ned efter et givet forhold.
+
+allowed_tools:
+  calculator: false
+  formula_sheet: false
+
+figure_type: illustration
+
+variables:
+  - name: basis_portioner
+    type: integer
+    constraints:
+      min: 2
+      max: 6
+  - name: basis_maengde
+    type: integer
+    constraints:
+      min: 100
+      max: 500
+      divisible_by: 50
+  - name: maal_portioner
+    type: integer
+    constraints:
+      min: 4
+      max: 12
+  - name: ingrediens
+    type: text
+    constraints:
+      options: [mel, mælk, sukker, smør, æg, jordbær]
+  - name: enhed
+    type: text
+    constraints:
+      options: [g, dL, stk]
+
+question_patterns:
+  - "Hvor meget {ingrediens} skal der bruges til {antal} portioner?"
+  - "Hvor mange portioner kan man lave med {mængde} {ingrediens}?"
+
+official_examples:
+  - exam: FP9
+    year: 2022
+    month: maj
+    task_number: 2
+

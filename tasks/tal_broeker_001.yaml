@@ -1,0 +1,31 @@
+id: tal_broeker_001
+type: tal_broeker_og_antal
+title: "Opgave 1: Brøker og antal"
+
+intro: |
+  I en klasse er \(\tfrac{7}{18}\) af eleverne 16 år.
+  Der er 36 elever i klassen.
+
+figure: null
+
+questions:
+  - text: Hvor stor en brøkdel af eleverne er ikke 16 år?
+    answer: "11/18"
+    answer_type: fraction
+  - text: Hvor mange af eleverne er 16 år?
+    answer: "14"
+    answer_type: number
+
+variables:
+  taeller: 7
+  naevner: 18
+  total: 36
+  kontekst: klasse
+  egenskab: "er 16 år"
+
+source:
+  exam: FP9
+  year: 2022
+  month: maj
+  task_number: 4
+

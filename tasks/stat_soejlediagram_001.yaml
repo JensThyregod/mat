@@ -1,0 +1,32 @@
+id: stat_soejlediagram_001
+type: stat_soejlediagram
+title: "Opgave 18: Søjlediagram"
+
+intro: |
+  Magnus har talt hvor mange bøger han læser hver måned.
+
+figure:
+  type: bar_chart
+  data:
+    Januar: 3
+    Februar: 5
+    Marts: 2
+    April: 4
+    Maj: 6
+    Juni: 4
+
+questions:
+  - text: Hvor mange bøger læste Magnus i februar?
+    answer: "5"
+    answer_type: number
+  - text: I hvilken måned læste Magnus færrest bøger?
+    answer: "marts"
+    answer_type: text
+    accept_alternatives: ["Marts"]
+  - text: Hvor mange bøger læste Magnus i alt i de 6 måneder?
+    answer: "24"
+    answer_type: number
+  - text: Hvad er gennemsnittet pr. måned?
+    answer: "4"
+    answer_type: number
+

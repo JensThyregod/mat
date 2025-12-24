@@ -1,0 +1,28 @@
+id: geo_vinkelsum_001
+type: geo_vinkelsum
+title: "Opgave 3: Vinkelsum"
+
+intro: |
+  I en trekant gælder at vinklerne er \(A = 65^\circ\) og \(B = 45^\circ\).
+
+figure:
+  type: triangle
+  vertices:
+    A: { angle: 65 }
+    B: { angle: 45 }
+    C: { angle: "?" }
+
+questions:
+  - text: Beregn \(C\).
+    answer: "70"
+    answer_type: number
+    accept_alternatives: ["70°"]
+  - text: Kontroller at \(A + B + C = 180^\circ\).
+    answer: "180"
+    answer_type: number
+    accept_alternatives: ["180°", "ja", "yes"]
+
+variables:
+  angle_a: 65
+  angle_b: 45
+

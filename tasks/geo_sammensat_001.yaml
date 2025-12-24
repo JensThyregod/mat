@@ -1,0 +1,34 @@
+id: geo_sammensat_001
+type: geo_sammensat_figur
+title: "Opgave 4: Areal og omkreds"
+
+intro: |
+  Et rektangel har sidelængderne \(2a\) og \(3\), hvor \(a = 4\).
+
+figure:
+  type: polygon
+  vertices:
+    A: [0, 0]
+    B: [4, 0]
+    C: [4, 3]
+    D: [0, 3]
+  sides:
+    AB: "2a"
+    BC: "3"
+    CD: "2a"
+    DA: "3"
+  right_angles: ["A", "B", "C", "D"]
+
+questions:
+  - text: Beregn arealet af rektanglet.
+    answer: "24"
+    answer_type: number
+  - text: Beregn omkredsen af rektanglet.
+    answer: "22"
+    answer_type: number
+
+variables:
+  a: 4
+  laengde: "2a"
+  bredde: 3
+

@@ -1,0 +1,48 @@
+id: stat_sandsynlighed
+name: Sandsynlighed
+category: statistik_og_sandsynlighed
+subcategory: sandsynlighed
+level: fp9
+exam_part: uden_hjaelpemidler
+difficulty: middel
+
+description: |
+  At beregne sandsynlighed for udfald.
+  Simple sandsynligheder: gunstige/mulige
+  Komplementær sandsynlighed: P(ikke A) = 1 - P(A)
+  Sammensatte hændelser: P(A og A) = P(A)²
+
+allowed_tools:
+  calculator: false
+  formula_sheet: false
+
+figure_type: diagram
+
+variables:
+  - name: antal_felter
+    type: integer
+    constraints:
+      min: 4
+      max: 12
+  - name: antal_gunstige
+    type: integer
+    constraints:
+      min: 1
+      max: 6
+  - name: felt_navn
+    type: text
+    constraints:
+      options: [rabat, præmie, nitte, prøv igen, gevinst, rød, blå, grøn]
+
+question_patterns:
+  - "Hvad er sandsynligheden for at få {felt}?"
+  - "Hvad er sandsynligheden for IKKE at få {felt}?"
+  - "Hvad er sandsynligheden for at få {felt} to gange i træk?"
+  - "Hvor mange af hver farve er der i posen?"
+
+official_examples:
+  - exam: FP9
+    year: 2022
+    month: maj
+    task_number: 20
+

@@ -1,0 +1,27 @@
+id: tal_forholdstalsregning_001
+type: tal_forholdstalsregning
+title: "Opgave 2: Forholdstalsregning"
+
+intro: |
+  Til 4 smoothies skal der bruges 200 g jordbær og 3 dL mælk.
+
+figure: null
+
+questions:
+  - text: Hvor mange gram jordbær skal der bruges til 6 smoothies?
+    answer: "300"
+    answer_type: number
+  - text: Hvor mange dL mælk skal der bruges til 8 smoothies?
+    answer: "6"
+    answer_type: number
+  - text: Hvor mange smoothies kan man lave med 500 g jordbær?
+    answer: "10"
+    answer_type: number
+
+variables:
+  basis_portioner: 4
+  basis_maengde_jordbaer: 200
+  basis_maengde_maelk: 3
+  ingrediens: jordbær
+  enhed: g
+

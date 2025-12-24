@@ -1,0 +1,46 @@
+id: fp9
+name: Folkeskolens Prøver 9. klasse
+description: |
+  Afgangsprøve i matematik for 9. klasse.
+  Prøven består af to dele: uden hjælpemidler og med hjælpemidler.
+
+exam_parts:
+  - id: uden_hjaelpemidler
+    name: Uden hjælpemidler
+    duration_minutes: 60
+    task_count: 20
+    allowed_tools:
+      calculator: false
+      formula_sheet: false
+      ruler: false
+      protractor: false
+      compass: false
+    description: |
+      Del 1 af prøven. Eleven må ikke bruge lommeregner eller formelsamling.
+      Fokus på hovedregning, overslag og grundlæggende forståelse.
+
+  - id: med_hjaelpemidler
+    name: Med hjælpemidler
+    duration_minutes: 180
+    task_count: 10
+    allowed_tools:
+      calculator: true
+      formula_sheet: true
+      ruler: true
+      protractor: true
+      compass: true
+    description: |
+      Del 2 af prøven. Eleven må bruge alle hjælpemidler.
+      Fokus på problemløsning, modellering og anvendelse.
+
+categories:
+  - id: tal_og_algebra
+    name: Tal og algebra
+    typical_task_count: 10
+  - id: geometri_og_maaling
+    name: Geometri og måling
+    typical_task_count: 7
+  - id: statistik_og_sandsynlighed
+    name: Statistik og sandsynlighed
+    typical_task_count: 3
+

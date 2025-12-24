@@ -1,0 +1,38 @@
+id: geo_sammensat_002
+type: geo_sammensat_figur
+title: "Opgave 5: Sammensat figur"
+
+intro: |
+  Beregn arealet af den sammensatte figur herunder.
+
+figure:
+  type: polygon
+  vertices:
+    A: [0, 0]
+    B: [6, 0]
+    C: [6, 2]
+    D: [3, 2]
+    E: [3, 5]
+    F: [0, 5]
+  sides:
+    AB: "6"
+    BC: "2"
+    CD: "3"
+    DE: "3"
+    EF: "3"
+    FA: "5"
+  show_angles: false
+  show_labels: false
+
+questions:
+  - text: Del figuren op i to rektangler og beregn arealet af hver.
+    answer: "12 og 9"
+    answer_type: text
+    accept_alternatives: ["12, 9", "9 og 12", "9, 12"]
+  - text: Beregn det samlede areal af figuren.
+    answer: "21"
+    answer_type: number
+  - text: Beregn omkredsen af figuren.
+    answer: "22"
+    answer_type: number
+

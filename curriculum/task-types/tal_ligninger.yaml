@@ -1,0 +1,48 @@
+id: tal_ligninger
+name: Ligninger
+category: tal_og_algebra
+subcategory: ligninger
+level: fp9
+exam_part: uden_hjaelpemidler
+difficulty: middel
+
+description: |
+  At løse ligninger og finde værdien af x.
+  Simple førsteordens ligninger der kan løses med hovedregning.
+  Typer: ax = b, x + b = c, ax + b = c
+
+allowed_tools:
+  calculator: false
+  formula_sheet: false
+
+figure_type: none
+
+variables:
+  - name: a
+    type: integer
+    constraints:
+      min: 2
+      max: 10
+  - name: b
+    type: integer
+    constraints:
+      min: 1
+      max: 20
+  - name: c
+    type: integer
+    constraints:
+      min: 10
+      max: 100
+
+question_patterns:
+  - "Løs ligningen: ax + b = c"
+  - "Løs ligningen: ax = c"
+  - "Løs ligningen: x + b = c"
+  - "Løs ligningen: ax - b = c"
+
+official_examples:
+  - exam: FP9
+    year: 2022
+    month: maj
+    task_number: 7
+

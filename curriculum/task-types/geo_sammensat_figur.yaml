@@ -1,0 +1,51 @@
+id: geo_sammensat_figur
+name: Sammensat figur
+category: geometri_og_maaling
+subcategory: areal
+level: fp9
+exam_part: uden_hjaelpemidler
+difficulty: middel
+
+description: |
+  At beregne areal og omkreds af sammensatte figurer.
+  Typisk L-formede figurer eller bordplader.
+  Eleven skal opdele figuren i simple rektangler og summere.
+
+allowed_tools:
+  calculator: false
+  formula_sheet: false
+
+figure_type: polygon
+
+variables:
+  - name: laengde1
+    type: integer
+    constraints:
+      min: 50
+      max: 200
+      divisible_by: 10
+  - name: laengde2
+    type: integer
+    constraints:
+      min: 30
+      max: 100
+      divisible_by: 10
+  - name: bredde
+    type: integer
+    constraints:
+      min: 40
+      max: 80
+      divisible_by: 10
+
+question_patterns:
+  - "Del figuren op i rektangler"
+  - "Beregn arealet af hver del"
+  - "Beregn det samlede areal"
+  - "Beregn omkredsen"
+
+official_examples:
+  - exam: FP9
+    year: 2022
+    month: maj
+    task_number: 14
+

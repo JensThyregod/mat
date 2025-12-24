@@ -1,0 +1,46 @@
+id: stat_boksplot_001
+type: stat_boksplot
+title: "Opgave 19: Boksplot"
+
+intro: |
+  Fire klasser har målt deres højde i cm. Resultaterne vises i boksplot.
+
+figure:
+  type: boxplot
+  data:
+    A:
+      min: 145
+      q1: 155
+      median: 162
+      q3: 170
+      max: 182
+    B:
+      min: 150
+      q1: 158
+      median: 165
+      q3: 172
+      max: 180
+    C:
+      min: 140
+      q1: 152
+      median: 160
+      q3: 168
+      max: 185
+    D:
+      min: 148
+      q1: 160
+      median: 168
+      q3: 175
+      max: 188
+
+questions:
+  - text: Hvilken klasse har den højeste median?
+    answer: "D"
+    answer_type: multiple_choice
+  - text: Hvilken klasse har den største variation (max - min)?
+    answer: "C"
+    answer_type: multiple_choice
+  - text: Hvad er medianen for klasse B?
+    answer: "165"
+    answer_type: number
+

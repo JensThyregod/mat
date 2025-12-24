@@ -1,0 +1,61 @@
+id: tal_broeker_og_antal
+name: Brøker og antal
+category: tal_og_algebra
+subcategory: broeker
+level: fp9
+exam_part: uden_hjaelpemidler
+difficulty: middel
+
+description: |
+  At arbejde med brøker og antal i hverdagskontekst.
+  Eleverne skal kunne udregne hvor mange en brøkdel svarer til,
+  og finde komplementære brøker (hvad er tilbage).
+  Typisk: "I en klasse er 7/18 af eleverne 16 år. Der er 36 elever."
+
+allowed_tools:
+  calculator: false
+  formula_sheet: false
+
+figure_type: none
+
+variables:
+  - name: taeller
+    type: integer
+    constraints:
+      min: 1
+      max: 9
+  - name: naevner
+    type: integer
+    constraints:
+      options: [2, 3, 4, 5, 6, 8, 10, 12, 18]
+  - name: total
+    type: integer
+    constraints:
+      min: 20
+      max: 50
+      # Note: Should be divisible by naevner for clean answers
+  - name: kontekst
+    type: text
+    constraints:
+      options: [klasse, hold, gruppe, skole, forening]
+  - name: egenskab
+    type: text
+    constraints:
+      options:
+        - er 16 år
+        - går til fodbold
+        - har briller
+        - cykler i skole
+        - spiller musik
+
+question_patterns:
+  - Hvor mange {subjekter} {egenskab}?
+  - Hvor stor en brøkdel af {subjekterne} {egenskab} ikke?
+  - Beregn brøkdel × total
+
+official_examples:
+  - exam: FP9
+    year: 2022
+    month: maj
+    task_number: 4
+

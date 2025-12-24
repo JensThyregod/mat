@@ -1,0 +1,42 @@
+id: stat_soejlediagram
+name: Søjlediagram
+category: statistik_og_sandsynlighed
+subcategory: diagrammer
+level: fp9
+exam_part: uden_hjaelpemidler
+difficulty: let
+
+description: |
+  At aflæse og fortolke et søjlediagram.
+  Eleverne skal kunne aflæse værdier, finde højeste/laveste,
+  beregne sum og gennemsnit.
+
+allowed_tools:
+  calculator: false
+  formula_sheet: false
+
+figure_type: chart
+
+variables:
+  - name: kategori
+    type: text
+    constraints:
+      options: [dage, måneder, personer, hold]
+  - name: vaerdi
+    type: integer
+    constraints:
+      min: 1
+      max: 20
+
+question_patterns:
+  - "Hvor mange/meget viser {kategori}?"
+  - "Hvilken {kategori} har højest/lavest værdi?"
+  - "Hvad er den samlede sum?"
+  - "Hvad er gennemsnittet?"
+
+official_examples:
+  - exam: FP9
+    year: 2022
+    month: maj
+    task_number: 18
+

@@ -1,0 +1,16 @@
+id: geo_projektioner_001
+type: geo_projektioner
+title: "Opgave 17: Projektioner"
+
+intro: |
+  Fire 3D-figurer er vist sammen med tre projektioner (forfra, fra siden, fra oven).
+
+figure:
+  type: voxel
+  difficulty: medium
+
+questions:
+  - text: Hvilken 3D-figur passer til de viste projektioner?
+    answer: "Se figur"
+    answer_type: multiple_choice
+

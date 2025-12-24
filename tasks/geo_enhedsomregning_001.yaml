@@ -1,0 +1,26 @@
+id: geo_enhedsomregning_001
+type: geo_enhedsomregning
+title: "Opgave 11: Enhedsomregning"
+
+intro: |
+  Omregn følgende:
+
+figure: null
+
+questions:
+  - text: 35 mm = ? cm
+    answer: "3,5"
+    answer_type: number
+    accept_alternatives: ["3.5"]
+  - text: 2500 g = ? kg
+    answer: "2,5"
+    answer_type: number
+    accept_alternatives: ["2.5"]
+  - text: 45 dL = ? L
+    answer: "4,5"
+    answer_type: number
+    accept_alternatives: ["4.5"]
+  - text: 48 timer = ? døgn
+    answer: "2"
+    answer_type: number
+

@@ -1,0 +1,38 @@
+id: geo_projektioner
+name: 3D-figurer og projektioner
+category: geometri_og_maaling
+subcategory: rumlig
+level: fp9
+exam_part: uden_hjaelpemidler
+difficulty: svaer
+
+description: |
+  At koble top-, side- og frontprojektioner til den rigtige 3D-figur.
+  Rumlig forståelse og visualisering.
+  
+  Figurer genereres procedurelt med klodser:
+  - Let: 4 klodser, 3 svarmuligheder (A-C)
+  - Middel: 7 klodser, 4 svarmuligheder (A-D)
+  - Svær: 10 klodser, 5 svarmuligheder (A-E)
+
+allowed_tools:
+  calculator: false
+  formula_sheet: false
+
+figure_type: voxel
+
+variables:
+  - name: difficulty
+    type: text
+    constraints:
+      options: [easy, medium, hard]
+
+question_patterns:
+  - "Hvilken 3D-figur passer til de viste projektioner?"
+
+official_examples:
+  - exam: FP9
+    year: 2022
+    month: maj
+    task_number: 17
+

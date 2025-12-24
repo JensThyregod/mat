@@ -1,0 +1,44 @@
+id: geo_enhedsomregning
+name: Enhedsomregning
+category: geometri_og_maaling
+subcategory: enheder
+level: fp9
+exam_part: uden_hjaelpemidler
+difficulty: let
+
+description: |
+  At omregne enheder mellem metriske størrelser.
+  Længde: mm ↔ cm ↔ m ↔ km
+  Vægt: g ↔ kg
+  Rumfang: dL ↔ L
+  Tid: timer ↔ døgn
+
+allowed_tools:
+  calculator: false
+  formula_sheet: false
+
+figure_type: none
+
+variables:
+  - name: vaerdi
+    type: integer
+    constraints:
+      min: 1
+      max: 1000
+  - name: enhedstype
+    type: text
+    constraints:
+      options: [laengde, vaegt, rumfang, tid]
+
+question_patterns:
+  - "Omregn X mm til cm"
+  - "Omregn X g til kg"
+  - "Omregn X dL til L"
+  - "Omregn X timer til døgn"
+
+official_examples:
+  - exam: FP9
+    year: 2022
+    month: maj
+    task_number: 11
+

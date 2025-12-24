@@ -1,0 +1,23 @@
+id: tal_regnearter_001
+type: tal_regnearter
+title: "Opgave 5: Almindelige regnearter"
+
+intro: |
+  Beregn følgende uden lommeregner:
+
+figure: null
+
+questions:
+  - text: "\\(48 + 37\\)"
+    answer: "85"
+    answer_type: number
+  - text: "\\(103 - 58\\)"
+    answer: "45"
+    answer_type: number
+  - text: "\\(7 \\cdot 13\\)"
+    answer: "91"
+    answer_type: number
+  - text: "\\(144 : 12\\)"
+    answer: "12"
+    answer_type: number
+

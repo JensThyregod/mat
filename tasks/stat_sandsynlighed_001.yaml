@@ -1,0 +1,33 @@
+id: stat_sandsynlighed_001
+type: stat_sandsynlighed
+title: "Opgave 20: Sandsynlighed"
+
+intro: |
+  En pose indeholder 12 kugler: 4 røde, 5 blå og 3 grønne.
+  Man trækker én kugle tilfældigt.
+
+figure: null
+
+questions:
+  - text: Hvad er sandsynligheden for at trække en rød kugle?
+    answer: "4/12"
+    answer_type: fraction
+    accept_alternatives: ["1/3"]
+  - text: Hvad er sandsynligheden for at trække en blå kugle?
+    answer: "5/12"
+    answer_type: fraction
+  - text: Hvad er sandsynligheden for IKKE at trække en grøn kugle?
+    answer: "9/12"
+    answer_type: fraction
+    accept_alternatives: ["3/4"]
+  - text: Man trækker to kugler med tilbagelægning. Hvad er sandsynligheden for at begge er røde?
+    answer: "1/9"
+    answer_type: fraction
+    accept_alternatives: ["4/12·4/12"]
+
+variables:
+  antal_roede: 4
+  antal_blaa: 5
+  antal_groenne: 3
+  total: 12
+

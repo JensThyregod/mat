@@ -1,0 +1,25 @@
+id: tal_broeker_002
+type: tal_broeker_og_antal
+title: "Opgave 2: Brøker i udskolingen"
+
+intro: |
+  På en skole går \(\tfrac{3}{5}\) af eleverne i udskolingen.
+  Skolen har i alt 420 elever.
+
+figure: null
+
+questions:
+  - text: Hvor mange elever går i udskolingen?
+    answer: "252"
+    answer_type: number
+  - text: Hvor mange elever går ikke i udskolingen?
+    answer: "168"
+    answer_type: number
+
+variables:
+  taeller: 3
+  naevner: 5
+  total: 420
+  kontekst: skole
+  egenskab: "går i udskolingen"
+

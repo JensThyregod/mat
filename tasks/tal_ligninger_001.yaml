@@ -1,0 +1,23 @@
+id: tal_ligninger_001
+type: tal_ligninger
+title: "Opgave 7: Ligninger"
+
+intro: |
+  Løs følgende ligninger:
+
+figure: null
+
+questions:
+  - text: \(x + 15 = 42\)
+    answer: "27"
+    answer_type: number
+  - text: \(3x = 36\)
+    answer: "12"
+    answer_type: number
+  - text: \(2x + 8 = 24\)
+    answer: "8"
+    answer_type: number
+  - text: \(5x - 10 = 35\)
+    answer: "9"
+    answer_type: number
+

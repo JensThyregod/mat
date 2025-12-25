@@ -7,6 +7,7 @@ import { TasksView } from './views/TasksView'
 import { TaskDetailView } from './views/TaskDetailView'
 import { GeneratorTestView } from './views/GeneratorTestView'
 import { LigningerView } from './views/LigningerView'
+import { SkillTreeView } from './views/SkillTreeView'
 import { Layout } from './components/Layout'
 import { Navbar } from './components/Navbar'
 import { VoxelTaskDemo } from './components/VoxelTaskDemo'
@@ -89,6 +90,14 @@ const App = observer(() => {
         <Route
           path="/ligninger"
           element={<LigningerView />}
+        />
+        <Route
+          path="/skills"
+          element={
+            <RequireAuth>
+              <SkillTreeView />
+            </RequireAuth>
+          }
         />
         <Route
           path="*"

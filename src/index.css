@@ -1597,6 +1597,19 @@ textarea:focus-visible {
   color: #00d4ff;
 }
 
+.nav-tab--skills {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(245, 158, 11, 0.08));
+}
+
+.nav-tab--skills:hover {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(245, 158, 11, 0.15));
+}
+
+.nav-tab--skills.active {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(245, 158, 11, 0.2));
+  color: #6366F1;
+}
+
 .pill-badge {
   font-size: 10px;
   font-weight: 700;

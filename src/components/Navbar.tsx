@@ -13,6 +13,7 @@ export const Navbar = ({ studentName, studentId, onLogout }: Props) => {
   const isOnTasks = location.pathname === '/tasks'
   const isOnTestLab = location.pathname === '/test-lab'
   const isOnLigninger = location.pathname === '/ligninger'
+  const isOnSkills = location.pathname === '/skills'
 
   return (
     <header className="navbar glass-panel">
@@ -38,6 +39,12 @@ export const Navbar = ({ studentName, studentId, onLogout }: Props) => {
             to="/ligninger"
           >
             ✨ Ligninger
+          </Link>
+          <Link 
+            className={`nav-tab nav-tab--skills ${isOnSkills ? 'active' : ''}`} 
+            to="/skills"
+          >
+            🎮 Skill Tree
           </Link>
           {isTestUser && (
             <Link 

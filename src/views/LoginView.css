@@ -1,0 +1,132 @@
+/* ═══════════════════════════════════════════════════════════════════
+   LoginView - Premium iOS-Style Authentication
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Center the login form */
+.auth {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 200px);
+  padding: var(--space-10) var(--space-5);
+}
+
+/* Glass card */
+.auth__card {
+  width: min(420px, 92vw);
+  padding: var(--space-10);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative gradient glow */
+.auth__card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle at 50% 0%,
+    rgba(194, 114, 90, 0.08) 0%,
+    transparent 40%
+  );
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Logo */
+.auth__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-8);
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.auth__logo-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-hover));
+  box-shadow: 
+    0 0 0 4px rgba(194, 114, 90, 0.15),
+    0 4px 12px rgba(194, 114, 90, 0.3);
+}
+
+/* Header */
+.auth__header {
+  margin-bottom: var(--space-2);
+}
+
+.auth__header h1 {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 900;
+  margin: 0 0 var(--space-2);
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, var(--color-text) 0%, var(--color-text-secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.auth__header p {
+  font-size: var(--text-base);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+/* Form */
+.auth__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+  text-align: left;
+}
+
+/* Form inputs - enhanced */
+.auth__form .field-input {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur-light);
+  -webkit-backdrop-filter: var(--glass-blur-light);
+  border: 1px solid var(--glass-border);
+  transition: 
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    background var(--transition-fast);
+}
+
+.auth__form .field-input:hover {
+  background: var(--glass-bg-elevated);
+  border-color: var(--color-border-strong);
+}
+
+.auth__form .field-input:focus {
+  background: var(--color-surface);
+  border-color: var(--color-accent);
+  box-shadow: 
+    0 0 0 4px var(--color-accent-subtle),
+    var(--shadow-sm);
+}
+
+/* Buttons in form */
+.auth__form .btn {
+  margin-top: var(--space-2);
+}
+
+.auth__form .btn-primary {
+  padding: var(--space-4) var(--space-6);
+  font-size: var(--text-base);
+}
+
+.auth__form .btn-secondary {
+  background: transparent;
+}
+

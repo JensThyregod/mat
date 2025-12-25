@@ -5,6 +5,7 @@ import { useStore } from '../stores/storeProvider'
 import { TaskContent } from '../components/TaskContent'
 import { Spinner } from '../components/Spinner'
 import { EmptyState } from '../components/EmptyState'
+import { PageTransition } from '../components/animation'
 import { parseLatexToStructure } from '../utils/latexParser'
 import { loadTaskSetState, saveQuestionAnswer } from '../services/mockApi'
 import { getCategoryByPartIndex, CATEGORIES } from '../utils/taskCategory'
@@ -128,19 +129,21 @@ export const TaskDetailView = observer(() => {
 
   if (taskStore.loading) {
     return (
-      <div className="center">
+      <PageTransition className="center">
         <Spinner />
         <p className="text-muted">Henter opgave...</p>
-      </div>
+      </PageTransition>
     )
   }
 
   if (!taskId || (!task && !taskStore.loading)) {
     return (
-      <EmptyState
-        title="Opgaven blev ikke fundet"
-        description="Prøv at gå tilbage til opgavelisten."
-      />
+      <PageTransition>
+        <EmptyState
+          title="Opgaven blev ikke fundet"
+          description="Prøv at gå tilbage til opgavelisten."
+        />
+      </PageTransition>
     )
   }
 
@@ -160,77 +163,79 @@ export const TaskDetailView = observer(() => {
   const currentCategory = getCategoryByPartIndex(partIndex)
 
   return (
-    <section className="task-detail glass-panel">
-      <div className="task-detail__header">
-        <div>
-          <div className={`category-badge category-badge--${currentCategory.id}`}>
-            <span className="category-badge__dot" />
-            {currentCategory.name}
-          </div>
-          <h1>{task?.title}</h1>
-        </div>
-        {totalParts > 1 && (
-          <div className="pill">Opgave {partIndex + 1} / {totalParts}</div>
-        )}
-      </div>
-
-      {task ? (
-        <div className="task-detail__body">
-          <TaskContent
-            latex={currentPartLatex}
-            answers={answers}
-            answerStates={answerStates}
-            onAnswerChange={handleAnswerChange}
-            onAnswerBlur={handleAnswerBlur}
-            disabled={!authStore.student}
-          />
-
-          {totalParts > 1 && (
-            <div className="task-detail__pager">
-              <div className="dot-nav">
-                {parts.map((_, i) => {
-                  const hasAnswers = taskState?.parts[i] && Object.keys(taskState.parts[i]).length > 0
-                  const partCategory = getCategoryByPartIndex(i)
-                  return (
-                    <button
-                      key={i}
-                      type="button"
-                      className={`dot ${partCategory.cssClass} ${i === partIndex ? 'active' : ''} ${
-                        hasAnswers ? 'done' : ''
-                      }`}
-                      onClick={() => goTo(i)}
-                      aria-label={`Opgave ${i + 1} - ${partCategory.name}`}
-                      title={`Opgave ${i + 1}: ${partCategory.name}`}
-                    >
-                      {i + 1}
-                    </button>
-                  )
-                })}
-              </div>
-              <div className="category-legend">
-                <span className="category-legend__item">
-                  <span className="category-legend__dot category-legend__dot--algebra" />
-                  {CATEGORIES.algebra.shortName}
-                </span>
-                <span className="category-legend__item">
-                  <span className="category-legend__dot category-legend__dot--geometri" />
-                  {CATEGORIES.geometri.shortName}
-                </span>
-                <span className="category-legend__item">
-                  <span className="category-legend__dot category-legend__dot--statistik" />
-                  {CATEGORIES.statistik.shortName}
-                </span>
-              </div>
+    <PageTransition>
+      <section className="task-detail glass-panel">
+        <div className="task-detail__header">
+          <div>
+            <div className={`category-badge category-badge--${currentCategory.id}`}>
+              <span className="category-badge__dot" />
+              {currentCategory.name}
             </div>
-          )}
-
-          {taskStore.error && (
-            <div className="form-error">{taskStore.error}</div>
+            <h1>{task?.title}</h1>
+          </div>
+          {totalParts > 1 && (
+            <div className="pill">Opgave {partIndex + 1} / {totalParts}</div>
           )}
         </div>
-      ) : (
-        <div className="text-muted">Henter opgaven...</div>
-      )}
-    </section>
+
+        {task ? (
+          <div className="task-detail__body">
+            <TaskContent
+              latex={currentPartLatex}
+              answers={answers}
+              answerStates={answerStates}
+              onAnswerChange={handleAnswerChange}
+              onAnswerBlur={handleAnswerBlur}
+              disabled={!authStore.student}
+            />
+
+            {totalParts > 1 && (
+              <div className="task-detail__pager">
+                <div className="dot-nav">
+                  {parts.map((_, i) => {
+                    const hasAnswers = taskState?.parts[i] && Object.keys(taskState.parts[i]).length > 0
+                    const partCategory = getCategoryByPartIndex(i)
+                    return (
+                      <button
+                        key={i}
+                        type="button"
+                        className={`dot ${partCategory.cssClass} ${i === partIndex ? 'active' : ''} ${
+                          hasAnswers ? 'done' : ''
+                        }`}
+                        onClick={() => goTo(i)}
+                        aria-label={`Opgave ${i + 1} - ${partCategory.name}`}
+                        title={`Opgave ${i + 1}: ${partCategory.name}`}
+                      >
+                        {i + 1}
+                      </button>
+                    )
+                  })}
+                </div>
+                <div className="category-legend">
+                  <span className="category-legend__item">
+                    <span className="category-legend__dot category-legend__dot--algebra" />
+                    {CATEGORIES.algebra.shortName}
+                  </span>
+                  <span className="category-legend__item">
+                    <span className="category-legend__dot category-legend__dot--geometri" />
+                    {CATEGORIES.geometri.shortName}
+                  </span>
+                  <span className="category-legend__item">
+                    <span className="category-legend__dot category-legend__dot--statistik" />
+                    {CATEGORIES.statistik.shortName}
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {taskStore.error && (
+              <div className="form-error">{taskStore.error}</div>
+            )}
+          </div>
+        ) : (
+          <div className="text-muted">Henter opgaven...</div>
+        )}
+      </section>
+    </PageTransition>
   )
 })

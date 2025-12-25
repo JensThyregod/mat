@@ -87,6 +87,42 @@ export function getCategoryByPartIndex(partIndex: number): CategoryInfo {
   return getCategoryByTaskNumber(taskNumber)
 }
 
+/**
+ * Get category ID from task type string
+ * Maps task types like 'equation', 'geometry', etc. to categories
+ */
+export function getCategoryFromType(type: string): TaskCategory {
+  const typeLower = type.toLowerCase()
+  
+  // Geometry-related types
+  if (
+    typeLower.includes('geometr') ||
+    typeLower.includes('areal') ||
+    typeLower.includes('omkreds') ||
+    typeLower.includes('vinkel') ||
+    typeLower.includes('trekant') ||
+    typeLower.includes('cirkel') ||
+    typeLower.includes('pythagoras')
+  ) {
+    return 'geometri'
+  }
+  
+  // Statistics-related types
+  if (
+    typeLower.includes('statistik') ||
+    typeLower.includes('sandsynlighed') ||
+    typeLower.includes('gennemsnit') ||
+    typeLower.includes('median') ||
+    typeLower.includes('diagram') ||
+    typeLower.includes('data')
+  ) {
+    return 'statistik'
+  }
+  
+  // Default to algebra for equations, fractions, etc.
+  return 'algebra'
+}
+
 
 
 

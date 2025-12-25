@@ -10,6 +10,7 @@ import { observer } from 'mobx-react-lite'
 import { Button } from '../components/Button'
 import { Spinner } from '../components/Spinner'
 import { GeneratedTaskPreview } from '../components/GeneratedTaskPreview'
+import { PageTransition } from '../components/animation'
 import { 
   initGenerators, 
   getSupportedTypes, 
@@ -161,7 +162,8 @@ export const GeneratorTestView = observer(() => {
   }
 
   return (
-    <section className="testlab">
+    <PageTransition>
+      <section className="testlab">
       {/* Hero Header */}
       <header className="testlab__hero">
         <div className="testlab__hero-content">
@@ -362,6 +364,7 @@ export const GeneratorTestView = observer(() => {
           </div>
         </div>
       )}
-    </section>
+      </section>
+    </PageTransition>
   )
 })

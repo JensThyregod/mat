@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react'
 import { EquationEditor } from '../components/equation/EquationEditor'
 import { evaluateString } from '../utils/expression'
+import { PageTransition } from '../components/animation'
 import './LigningerView.css'
 
 export type ExpressionPart = {
@@ -159,8 +160,9 @@ export const LigningerView = () => {
   ]
 
   return (
-    <div className="ligninger">
-      {/* Ambient background effects */}
+    <PageTransition>
+      <div className="ligninger">
+        {/* Ambient background effects */}
       <div className="ligninger__ambient">
         <div className="ligninger__grid" />
         <div className="ligninger__glow ligninger__glow--1" />
@@ -238,13 +240,14 @@ export const LigningerView = () => {
         </div>
       )}
 
-      {/* Quick Help */}
-      <div className="ligninger__help">
-        <span className="ligninger__help-item"><code>+5</code> add</span>
-        <span className="ligninger__help-item"><code>-3</code> subtract</span>
-        <span className="ligninger__help-item"><code>*2</code> multiply</span>
-        <span className="ligninger__help-item ligninger__help-item--division">hover below → divide</span>
+        {/* Quick Help */}
+        <div className="ligninger__help">
+          <span className="ligninger__help-item"><code>+5</code> add</span>
+          <span className="ligninger__help-item"><code>-3</code> subtract</span>
+          <span className="ligninger__help-item"><code>*2</code> multiply</span>
+          <span className="ligninger__help-item ligninger__help-item--division">hover below → divide</span>
+        </div>
       </div>
-    </div>
+    </PageTransition>
   )
 }

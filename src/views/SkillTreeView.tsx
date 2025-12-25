@@ -1,4 +1,6 @@
-import { useState, useCallback, useRef, useMemo } from 'react'
+import { useState, useCallback, useRef, useMemo, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { PageTransition } from '../components/animation'
 import './SkillTreeView.css'
 
 // Skill data structure
@@ -512,6 +514,17 @@ export const SkillTreeView = () => {
   const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   
+  // Handle escape key to close skill panel
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && selectedSkill) {
+        setSelectedSkill(null)
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [selectedSkill])
+  
   // Use the designed grid positions from skillData, scaled to pixel coordinates
   const { nodePositions, graphWidth, graphHeight, schoolZones, edgeRoutes } = useMemo(() => {
     // Grid spacing for the designed layout
@@ -868,9 +881,10 @@ export const SkillTreeView = () => {
   const progressPercent = Math.round((masteredCount / totalSkills) * 100)
 
   return (
-    <div className="skill-tree-page">
-      {/* Header */}
-      <header className="skill-tree-header">
+    <PageTransition>
+      <div className="skill-tree-page">
+        {/* Header */}
+        <header className="skill-tree-header">
         <div className="skill-tree-header__content">
           <div className="skill-tree-header__badge">
             <span>🎮</span>
@@ -1057,17 +1071,33 @@ export const SkillTreeView = () => {
         </div>
       </div>
 
-      {/* Skill detail panel */}
-      {selectedSkill && (
-        <div className="skill-detail-overlay" onClick={() => setSelectedSkill(null)}>
-          <div 
-            className="skill-detail-panel"
-            onClick={e => e.stopPropagation()}
-            style={{ '--category-color': getCategoryColor(selectedSkill.category) } as React.CSSProperties}
+      {/* Skill detail panel - animated overlay */}
+      <AnimatePresence>
+        {selectedSkill && (
+          <motion.div 
+            className="skill-detail-overlay" 
+            onClick={() => setSelectedSkill(null)}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
           >
-            <button className="skill-detail-close" onClick={() => setSelectedSkill(null)}>
-              ✕
-            </button>
+            <motion.div 
+              className="skill-detail-panel"
+              onClick={e => e.stopPropagation()}
+              style={{ '--category-color': getCategoryColor(selectedSkill.category) } as React.CSSProperties}
+              initial={{ opacity: 0, x: 50, scale: 0.95 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={{ opacity: 0, x: 50, scale: 0.95 }}
+              transition={{
+                type: 'spring',
+                stiffness: 300,
+                damping: 30,
+              }}
+            >
+              <button className="skill-detail-close" onClick={() => setSelectedSkill(null)}>
+                ✕
+              </button>
             
             <div className="skill-detail-header">
               <div 
@@ -1216,9 +1246,11 @@ export const SkillTreeView = () => {
                 </button>
               )}
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       )}
-    </div>
+      </AnimatePresence>
+      </div>
+    </PageTransition>
   )
 }

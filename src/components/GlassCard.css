@@ -1,0 +1,189 @@
+/* ═══════════════════════════════════════════════════════════════════
+   GlassCard - iOS-Inspired Glass Morphism Component
+   ═══════════════════════════════════════════════════════════════════ */
+
+.glass-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card__content {
+  position: relative;
+  z-index: 1;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Gradient Border Effect
+   ═══════════════════════════════════════════════════════════════════ */
+
+.glass-card__border {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.6) 0%,
+    rgba(255, 255, 255, 0.15) 40%,
+    rgba(255, 255, 255, 0.05) 60%,
+    rgba(255, 255, 255, 0.3) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Glow Effect
+   ═══════════════════════════════════════════════════════════════════ */
+
+.glass-card__glow {
+  position: absolute;
+  inset: -50%;
+  background: radial-gradient(
+    circle at 50% 0%,
+    rgba(194, 114, 90, 0.15) 0%,
+    transparent 50%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--duration-slow) var(--ease-out-expo);
+}
+
+.glass-card--glow:hover .glass-card__glow {
+  opacity: 1;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Variant: Default
+   ═══════════════════════════════════════════════════════════════════ */
+
+.glass-card--default {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Variant: Elevated
+   ═══════════════════════════════════════════════════════════════════ */
+
+.glass-card--elevated {
+  background: var(--glass-bg-elevated);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow-elevated);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Variant: Floating (Modal-like)
+   ═══════════════════════════════════════════════════════════════════ */
+
+.glass-card--floating {
+  background: var(--glass-bg-heavy);
+  backdrop-filter: var(--glass-blur-heavy);
+  -webkit-backdrop-filter: var(--glass-blur-heavy);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow: var(--glass-shadow-floating);
+}
+
+.glass-card--floating .glass-card__border {
+  opacity: 1;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0.2) 40%,
+    rgba(255, 255, 255, 0.1) 60%,
+    rgba(255, 255, 255, 0.5) 100%
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Variant: Surface (Solid)
+   ═══════════════════════════════════════════════════════════════════ */
+
+.glass-card--surface {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.glass-card--surface .glass-card__border {
+  display: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Variant: Interactive
+   ═══════════════════════════════════════════════════════════════════ */
+
+.glass-card--interactive {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: 
+    box-shadow var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.glass-card--interactive:hover {
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-md);
+}
+
+.glass-card--interactive .glass-card__border {
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.glass-card--interactive:hover .glass-card__border {
+  opacity: 0.5;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Variant: Accent
+   ═══════════════════════════════════════════════════════════════════ */
+
+.glass-card--accent {
+  background: linear-gradient(
+    135deg,
+    rgba(194, 114, 90, 0.08) 0%,
+    rgba(194, 114, 90, 0.02) 100%
+  );
+  backdrop-filter: var(--glass-blur-light);
+  -webkit-backdrop-filter: var(--glass-blur-light);
+  border: 1px solid rgba(194, 114, 90, 0.15);
+  box-shadow: 
+    0 4px 16px rgba(194, 114, 90, 0.08),
+    0 0 0 1px rgba(255, 255, 255, 0.3) inset;
+}
+
+.glass-card--accent .glass-card__border {
+  background: linear-gradient(
+    135deg,
+    rgba(194, 114, 90, 0.3) 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(194, 114, 90, 0.2) 100%
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Hoverable Modifier
+   ═══════════════════════════════════════════════════════════════════ */
+
+.glass-card--hoverable {
+  cursor: pointer;
+  will-change: transform;
+}
+
+.glass-card--hoverable:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+

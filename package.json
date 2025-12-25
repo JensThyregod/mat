@@ -13,6 +13,7 @@
     "@types/dagre": "^0.7.53",
     "classnames": "^2.5.1",
     "dagre": "^0.8.5",
+    "framer-motion": "^12.23.26",
     "js-yaml": "^4.1.1",
     "katex": "^0.16.27",
     "mobx": "^6.15.0",

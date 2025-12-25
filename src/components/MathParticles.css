@@ -1,0 +1,43 @@
+/* ═══════════════════════════════════════════════════════════════════
+   MathParticles - Subtle floating math symbols background effect
+   ═══════════════════════════════════════════════════════════════════ */
+
+.math-particles {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.math-particle {
+  position: absolute;
+  left: var(--x);
+  bottom: -50px;
+  font-size: var(--size);
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-weight: 600;
+  color: #c2725a;
+  opacity: var(--opacity);
+  animation: float-up var(--duration) linear var(--delay) infinite;
+  user-select: none;
+}
+
+@keyframes float-up {
+  0% {
+    transform: translateY(0) rotate(var(--rotate-start));
+  }
+  100% {
+    transform: translateY(calc(-100vh - 100px)) rotate(var(--rotate-end));
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .math-particle {
+    animation: none;
+    bottom: auto;
+    top: 50%;
+    opacity: 0.15;
+  }
+}

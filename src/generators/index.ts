@@ -2,6 +2,7 @@
  * Task Generation System
  * 
  * A modular system for procedurally generating math tasks.
+ * All 22 generators are logic-based (no LLM/API required).
  * 
  * ═══════════════════════════════════════════════════════════════
  * QUICK START
@@ -10,41 +11,37 @@
  * ```typescript
  * import { initGenerators, generateTask } from './generators'
  * 
- * // Initialize with OpenAI API key (optional, for LLM-powered tasks)
- * initGenerators('sk-...')
+ * // Initialize the generator system
+ * initGenerators()
  * 
- * // Generate a logic-based task (no API key needed)
+ * // Generate a task
  * const task1 = await generateTask('tal_regnearter')
  * 
- * // Generate an LLM-powered task (requires API key)
- * const task2 = await generateTask('tal_broeker_og_antal')
- * 
  * // Generate with configuration
- * const task3 = await generateTask('geo_vinkelsum', {
+ * const task2 = await generateTask('geo_vinkelsum', {
  *   difficulty: 'svaer',
  *   seed: 12345  // For reproducibility
  * })
  * ```
  * 
  * ═══════════════════════════════════════════════════════════════
- * SUPPORTED TASK TYPES
+ * SUPPORTED TASK TYPES (22 total)
  * ═══════════════════════════════════════════════════════════════
  * 
- * LOGIC-BASED (No LLM required):
- * - tal_regnearter        - Basic arithmetic
- * - tal_ligninger         - Simple equations
- * - geo_enhedsomregning   - Unit conversions
- * - geo_vinkelsum         - Triangle angle sum
- * - geo_sammensat_figur   - Composite figures
- * - geo_projektioner      - 3D projections
- * - stat_boksplot         - Boxplot interpretation
- * - stat_sandsynlighed    - Probability
- * - stat_soejlediagram    - Bar chart interpretation
+ * TAL OG ALGEBRA (10):
+ * - tal_regnearter, tal_regnehierarki, tal_ligninger
+ * - tal_hastighed_tid, tal_overslag, tal_algebraiske_udtryk
+ * - tal_lineaere_funktioner, tal_pris_rabat_procent
+ * - tal_forholdstalsregning, tal_broeker_og_antal
  * 
- * LLM-POWERED (Requires OpenAI API key):
- * - tal_broeker_og_antal      - Fractions in context
- * - tal_forholdstalsregning   - Proportions/recipes
- * - tal_pris_rabat_procent    - Price and discounts
+ * GEOMETRI OG MÅLING (8):
+ * - geo_enhedsomregning, geo_vinkelsum, geo_trekant_elementer
+ * - geo_ligedannethed, geo_sammensat_figur, geo_rumfang
+ * - geo_transformationer, geo_projektioner
+ * 
+ * STATISTIK OG SANDSYNLIGHED (4):
+ * - stat_soejlediagram, stat_statistiske_maal
+ * - stat_boksplot, stat_sandsynlighed
  * 
  * ═══════════════════════════════════════════════════════════════
  */
@@ -101,15 +98,12 @@ export {
   StatistiskeMaalGenerator,
 } from './logic'
 
-// Note: LLM generators have been converted to logic-based for reliability
-// The llm/ folder is preserved for future use if needed
-
 // ═══════════════════════════════════════════════════════════════
 // CONVENIENCE FUNCTIONS
 // ═══════════════════════════════════════════════════════════════
 
 import { initRegistry, getRegistry } from './registry'
-import { initOpenAI, getOpenAI } from './openai'
+import { initOpenAI } from './openai'
 import type { GeneratorConfig, GeneratedTask } from './types'
 import type { TaskInstance } from '../types/taskSchema'
 

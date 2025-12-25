@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { Sidebar, type NavItem } from './Sidebar'
 import { TabBar, type TabBarItem } from './TabBar'
+import { MathParticles } from './MathParticles'
 
 type LayoutProps = {
   children: React.ReactNode
@@ -94,8 +95,13 @@ export const Layout = ({
     setSidebarCollapsed(prev => !prev)
   }, [])
 
+  const showParticles = basePath === '/'
+
   return (
     <div className={`app-shell ${showNavigation ? 'app-shell--with-sidebar' : ''}`}>
+      {/* Math particles on dashboard/home page */}
+      {showParticles && <MathParticles count={25} />}
+      
       {/* Ambient background layer */}
       <div className="ambient-layer">
         {/* Gradient orbs that follow mouse subtly and change color with page */}

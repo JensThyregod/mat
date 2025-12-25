@@ -209,9 +209,9 @@ export function getRegistry(openai?: OpenAIService): GeneratorRegistry {
 }
 
 /**
- * Initialize registry with OpenAI service
+ * Initialize registry with optional OpenAI service
  */
-export function initRegistry(openai: OpenAIService): GeneratorRegistry {
+export function initRegistry(openai?: OpenAIService): GeneratorRegistry {
   registryInstance = new GeneratorRegistry(openai)
   return registryInstance
 }

@@ -1,0 +1,6 @@
+@MatBackend.Api_HostAddress = http://localhost:5193
+
+GET {{MatBackend.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

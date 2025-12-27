@@ -1,0 +1,303 @@
+/* ============================================
+   FRACTION INPUT - iOS Glass Makeover
+   Silky smooth, premium feel
+   ============================================ */
+
+.fraction-input {
+  --fi-accent: #60a5fa; /* Silky blue */
+  --fi-accent-glow: rgba(96, 165, 250, 0.4);
+  --fi-glass-bg: rgba(255, 255, 255, 0.08);
+  --fi-glass-border: rgba(255, 255, 255, 0.15);
+  --fi-text: #ffffff;
+  --fi-text-muted: rgba(255, 255, 255, 0.5);
+  --fi-shadow: 0 4px 20px -1px rgba(0, 0, 0, 0.2);
+  
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  
+  width: fit-content;
+  
+  /* Premium Glass Surface */
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.12) 0%,
+    rgba(255, 255, 255, 0.06) 50%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  
+  border: 1px solid var(--fi-glass-border);
+  border-radius: 20px;
+  
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2); /* Top highlight */
+    
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform: translateZ(0); /* Hardware acceleration */
+}
+
+/* Hover State - Subtle Lift */
+.fraction-input:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.16) 0%,
+    rgba(255, 255, 255, 0.08) 100%
+  );
+  box-shadow: 
+    0 10px 25px -5px rgba(0, 0, 0, 0.15),
+    0 8px 10px -6px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Focus State - Glow and Scale */
+.fraction-input:focus-within {
+  transform: translateY(-2px) scale(1.02);
+  border-color: var(--fi-accent);
+  box-shadow: 
+    0 0 0 2px rgba(96, 165, 250, 0.2), /* Focus ring */
+    0 12px 30px -4px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.18) 0%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+}
+
+/* ============================================
+   FRACTION STACK - The Core
+   ============================================ */
+
+.fraction-input__stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  
+  padding: 6px 12px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  
+  transition: background 0.3s ease;
+}
+
+.fraction-input:focus-within .fraction-input__stack {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================
+   INPUT FIELDS
+   ============================================ */
+
+.fraction-input__field {
+  width: 36px;
+  height: 20px;
+  padding: 0;
+  margin: 0;
+  
+  font-family: 'SF Mono', 'Segoe UI Mono', 'Fira Code', monospace;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 20px;
+  
+  color: var(--fi-text);
+  background: transparent;
+  border: none;
+  outline: none;
+  
+  /* Reset */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  caret-color: var(--fi-accent);
+  
+  transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Empty state - subtle square placeholder */
+.fraction-input__field:placeholder-shown {
+  background-image: url("data:image/svg+xml,%3Csvg width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='1' y='1' width='12' height='12' rx='3' stroke='white' stroke-opacity='0.8' stroke-width='2' stroke-dasharray='3 3'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.fraction-input__field:focus,
+.fraction-input__field:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+  background: transparent !important;
+  transform: scale(1.1);
+}
+
+.fraction-input__field::placeholder {
+  color: var(--fi-text-muted);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.fraction-input__field::selection {
+  background: var(--fi-accent-glow);
+  color: white;
+}
+
+/* ============================================
+   DIVIDER LINE
+   ============================================ */
+
+.fraction-input__line {
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0.95) 50%,
+    rgba(255, 255, 255, 0.4) 100%
+  );
+  border-radius: 1px;
+  opacity: 1;
+  margin: 2px 0;
+}
+
+/* ============================================
+   STATUS INDICATORS
+   ============================================ */
+
+.fraction-input__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  
+  /* Glassy Icon Bg */
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  
+  animation: iconPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.fraction-input__icon svg {
+  width: 14px;
+  height: 14px;
+  stroke-width: 3;
+}
+
+/* CORRECT STATE */
+.fraction-input--correct {
+  border-color: rgba(34, 197, 94, 0.5);
+  box-shadow: 
+    0 0 0 1px rgba(34, 197, 94, 0.2),
+    0 4px 12px rgba(34, 197, 94, 0.15);
+  background: linear-gradient(
+    145deg,
+    rgba(34, 197, 94, 0.15) 0%,
+    rgba(34, 197, 94, 0.05) 100%
+  );
+}
+
+.fraction-input--correct:hover {
+  background: linear-gradient(
+    145deg,
+    rgba(34, 197, 94, 0.2) 0%,
+    rgba(34, 197, 94, 0.1) 100%
+  );
+  border-color: rgba(34, 197, 94, 0.6);
+}
+
+.fraction-input--correct .fraction-input__icon {
+  background: #22c55e;
+  color: white;
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.4);
+}
+
+.fraction-input--correct .fraction-input__line {
+  background: #22c55e;
+}
+
+/* INCORRECT STATE */
+.fraction-input--incorrect {
+  border-color: rgba(239, 68, 68, 0.5);
+  box-shadow: 
+    0 0 0 1px rgba(239, 68, 68, 0.2),
+    0 4px 12px rgba(239, 68, 68, 0.15);
+  background: linear-gradient(
+    145deg,
+    rgba(239, 68, 68, 0.15) 0%,
+    rgba(239, 68, 68, 0.05) 100%
+  );
+  animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+.fraction-input--incorrect:hover {
+  background: linear-gradient(
+    145deg,
+    rgba(239, 68, 68, 0.2) 0%,
+    rgba(239, 68, 68, 0.1) 100%
+  );
+  border-color: rgba(239, 68, 68, 0.6);
+}
+
+.fraction-input--incorrect .fraction-input__icon {
+  background: #ef4444;
+  color: white;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
+}
+
+.fraction-input--incorrect .fraction-input__line {
+  background: #ef4444;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes iconPop {
+  0% { transform: scale(0) rotate(-45deg); opacity: 0; }
+  70% { transform: scale(1.2) rotate(10deg); }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+@keyframes shake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-3px, 0, 0); }
+  40%, 60% { transform: translate3d(3px, 0, 0); }
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 480px) {
+  .fraction-input {
+    padding: 6px 8px;
+    gap: 8px;
+  }
+  
+  .fraction-input__stack {
+    padding: 4px 10px;
+  }
+  
+  .fraction-input__field {
+    font-size: 14px;
+    width: 26px;
+    height: 16px;
+  }
+}

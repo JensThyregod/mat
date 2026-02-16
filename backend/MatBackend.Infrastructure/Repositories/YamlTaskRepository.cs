@@ -58,6 +58,39 @@ public class YamlTaskRepository : ITaskRepository
         return (typeData.Category, typeData.Subcategory, typeData.Difficulty);
     }
     
+    public async Task<IEnumerable<TaskTypeInfo>> GetTaskTypesAsync()
+    {
+        var taskTypes = new List<TaskTypeInfo>();
+        
+        if (!Directory.Exists(_taskTypesRoot))
+            return taskTypes;
+        
+        var yamlFiles = Directory.GetFiles(_taskTypesRoot, "*.yaml");
+        
+        foreach (var file in yamlFiles)
+        {
+            try
+            {
+                var content = await File.ReadAllTextAsync(file);
+                var typeData = _deserializer.Deserialize<TaskTypeYamlModelExtended>(content);
+                
+                taskTypes.Add(new TaskTypeInfo(
+                    typeData.Id ?? Path.GetFileNameWithoutExtension(file),
+                    typeData.Name ?? typeData.Id ?? Path.GetFileNameWithoutExtension(file),
+                    typeData.Category ?? "unknown",
+                    typeData.Subcategory ?? "unknown",
+                    typeData.Difficulty ?? "middel"
+                ));
+            }
+            catch
+            {
+                // Skip files that can't be parsed
+            }
+        }
+        
+        return taskTypes;
+    }
+    
     private class TaskYamlModel
     {
         public string Type { get; set; } = string.Empty;
@@ -74,6 +107,15 @@ public class YamlTaskRepository : ITaskRepository
         public string Category { get; set; } = string.Empty;
         public string Subcategory { get; set; } = string.Empty;
         public string Difficulty { get; set; } = string.Empty;
+    }
+    
+    private class TaskTypeYamlModelExtended
+    {
+        public string? Id { get; set; }
+        public string? Name { get; set; }
+        public string? Category { get; set; }
+        public string? Subcategory { get; set; }
+        public string? Difficulty { get; set; }
     }
 }
 

@@ -9,6 +9,7 @@ import { TasksView } from './views/TasksView'
 import { GeneratorTestView } from './views/GeneratorTestView'
 import { LigningerView } from './views/LigningerView'
 import { SkillTreeView } from './views/SkillTreeView'
+import { TerminsproveGeneratorView } from './views/TerminsproveGeneratorView'
 import { Layout } from './components/Layout'
 import { VoxelTaskDemo } from './components/VoxelTaskDemo'
 
@@ -127,6 +128,16 @@ const App = observer(() => {
             element={
               <RequireTestUser>
                 <GeneratorTestView />
+              </RequireTestUser>
+            }
+          />
+          
+          {/* Terminsprøve Generator - test only */}
+          <Route
+            path="/terminsprove"
+            element={
+              <RequireTestUser>
+                <TerminsproveGeneratorView />
               </RequireTestUser>
             }
           />

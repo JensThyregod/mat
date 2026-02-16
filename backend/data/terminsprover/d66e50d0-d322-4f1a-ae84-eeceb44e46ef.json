@@ -1,0 +1,1246 @@
+{
+  "Id": "d66e50d0-d322-4f1a-ae84-eeceb44e46ef",
+  "Request": {
+    "Level": "fp9",
+    "ExamPart": "uden_hjaelpemidler",
+    "TaskCount": 10,
+    "FocusCategories": [],
+    "Difficulty": {
+      "Easy": 0.3,
+      "Medium": 0.5,
+      "Hard": 0.2
+    },
+    "StudentId": null,
+    "CustomInstructions": null
+  },
+  "Tasks": [
+    {
+      "Id": "d499927c-7ee3-4be8-a073-68276a9bad1f",
+      "TaskTypeId": "tal_regnearter",
+      "Category": "tal_og_algebra",
+      "ContextText": "Sofie og Victor er p\u00E5 loppemarked i Aarhus en s\u00F8ndag formiddag. De har hver is\u00E6r sparet penge op til at k\u00F8be brugte b\u00F8ger, spil og m\u00E5ske en is nede ved \u00E5en bagefter.",
+      "SubQuestions": [
+        {
+          "Label": "a",
+          "QuestionText": "Sofie har 120 kr med, og Victor har 95 kr med. Hvor mange penge har de tilsammen?",
+          "Answer": {
+            "Value": "215",
+            "Unit": "kr",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "L\u00E6g Sofies og Victors penge sammen.",
+              "MathExpression": "120 \u002B 95",
+              "Result": "215 kr"
+            }
+          ],
+          "Difficulty": "let",
+          "Points": 1
+        },
+        {
+          "Label": "b",
+          "QuestionText": "P\u00E5 den f\u00F8rste bod k\u00F8ber Sofie en bog til 35 kr og et br\u00E6tspil til 50 kr. Hvor mange penge har Sofie tilbage bagefter?",
+          "Answer": {
+            "Value": "35",
+            "Unit": "kr",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Find det samlede bel\u00F8b Sofie bruger.",
+              "MathExpression": "35 \u002B 50",
+              "Result": "85 kr"
+            },
+            {
+              "StepNumber": 2,
+              "Description": "Tr\u00E6k bel\u00F8bet fra hendes startbel\u00F8b.",
+              "MathExpression": "120 - 85",
+              "Result": "35 kr"
+            }
+          ],
+          "Difficulty": "let",
+          "Points": 1
+        },
+        {
+          "Label": "c",
+          "QuestionText": "Victor finder en kasse med blandede tegneserier. Han kan k\u00F8be 4 tegneserier for 10 kr stykket. Hvor mange penge har Victor tilbage, n\u00E5r han har k\u00F8bt de 4 tegneserier?",
+          "Answer": {
+            "Value": "55",
+            "Unit": "kr",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Beregn hvad 4 tegneserier koster.",
+              "MathExpression": "4 \u00B7 10",
+              "Result": "40 kr"
+            },
+            {
+              "StepNumber": 2,
+              "Description": "Tr\u00E6k bel\u00F8bet fra Victors startbel\u00F8b.",
+              "MathExpression": "95 - 40",
+              "Result": "55 kr"
+            }
+          ],
+          "Difficulty": "middel",
+          "Points": 1
+        },
+        {
+          "Label": "d",
+          "QuestionText": "Til sidst vil Sofie og Victor k\u00F8be is. En is koster 20 kr. De l\u00E6gger alle deres resterende penge sammen og k\u00F8ber s\u00E5 mange is som muligt. Hvor mange is kan de k\u00F8be, og hvor mange kroner har de tilbage bagefter?",
+          "Answer": {
+            "Value": "4 is og 10 kr tilbage",
+            "Unit": "",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Find hvor mange penge de tilsammen har tilbage.",
+              "MathExpression": "35 \u002B 55",
+              "Result": "90 kr"
+            },
+            {
+              "StepNumber": 2,
+              "Description": "Find hvor mange hele is de kan k\u00F8be.",
+              "MathExpression": "90 \u00F7 20",
+              "Result": "4 is (fordi 4 \u00B7 20 = 80 og 5 \u00B7 20 = 100 \u003E 90)"
+            },
+            {
+              "StepNumber": 3,
+              "Description": "Beregn hvor mange penge de har tilbage.",
+              "MathExpression": "90 - 4 \u00B7 20",
+              "Result": "10 kr"
+            }
+          ],
+          "Difficulty": "middel",
+          "Points": 2
+        }
+      ],
+      "QuestionText": "",
+      "QuestionLatex": "",
+      "Answers": [],
+      "Difficulty": "let",
+      "Variables": {},
+      "SolutionSteps": [],
+      "Visualization": null,
+      "Validation": {
+        "IsValid": true,
+        "IsSolvable": true,
+        "HasCorrectAnswer": true,
+        "DifficultyAppropriate": true,
+        "Issues": [],
+        "ValidatorNotes": "Auto-validated during batch generation"
+      },
+      "EstimatedTimeSeconds": 240,
+      "Points": 5
+    },
+    {
+      "Id": "1bab0021-8c77-4ae9-b188-b91681641eb7",
+      "TaskTypeId": "tal_pris_rabat_procent",
+      "Category": "tal_og_algebra",
+      "ContextText": "Emma og Noah planl\u00E6gger en tur til Experimentarium med deres klasse. Klassen har f\u00E5et et samlet budget fra skolen til billetter og frokost i caf\u00E9en.",
+      "SubQuestions": [
+        {
+          "Label": "a",
+          "QuestionText": "Entr\u00E9billetten til Experimentarium koster 140 kr per elev. Klassen best\u00E5r af 22 elever. Hvor mange kroner koster billetterne i alt for alle eleverne?",
+          "Answer": {
+            "Value": "3080",
+            "Unit": "kr",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Gang prisen per elev med antal elever.",
+              "MathExpression": "140 \u00B7 22",
+              "Result": "3080 kr"
+            }
+          ],
+          "Difficulty": "let",
+          "Points": 1
+        },
+        {
+          "Label": "b",
+          "QuestionText": "L\u00E6reren fort\u00E6ller, at de f\u00E5r 25 % rabat p\u00E5 den samlede billetpris, fordi de er en skoleklasse. Hvor meget sparer de i rabat, og hvad bliver den nye pris for billetterne?",
+          "Answer": {
+            "Value": "770 kr i rabat og 2310 kr som ny pris",
+            "Unit": "",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Beregn 25 % af den oprindelige pris.",
+              "MathExpression": "0,25 \u00B7 3080",
+              "Result": "770 kr"
+            },
+            {
+              "StepNumber": 2,
+              "Description": "Tr\u00E6k rabatten fra den oprindelige pris.",
+              "MathExpression": "3080 - 770",
+              "Result": "2310 kr"
+            }
+          ],
+          "Difficulty": "middel",
+          "Points": 2
+        },
+        {
+          "Label": "c",
+          "QuestionText": "Skolen har afsat 3000 kr i alt til b\u00E5de billetter og frokost i caf\u00E9en. Efter at billetterne er betalt med rabat, skal resten bruges p\u00E5 frokost. Hver elev skal have et frokosts\u00E6t til samme pris. Hvor mange kroner m\u00E5 hvert frokosts\u00E6t h\u00F8jst koste per elev?",
+          "Answer": {
+            "Value": "31",
+            "Unit": "kr per elev",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Find hvor mange penge der er tilbage til frokost.",
+              "MathExpression": "3000 - 2310",
+              "Result": "690 kr"
+            },
+            {
+              "StepNumber": 2,
+              "Description": "Fordel bel\u00F8bet ligeligt p\u00E5 de 22 elever.",
+              "MathExpression": "690 \u00F7 22",
+              "Result": "31 kr per elev (da 31 \u00B7 22 = 682 og 32 \u00B7 22 = 704 \u003E 690, s\u00E5 h\u00F8jst 31 kr)"
+            }
+          ],
+          "Difficulty": "middel",
+          "Points": 2
+        }
+      ],
+      "QuestionText": "",
+      "QuestionLatex": "",
+      "Answers": [],
+      "Difficulty": "middel",
+      "Variables": {},
+      "SolutionSteps": [],
+      "Visualization": null,
+      "Validation": {
+        "IsValid": true,
+        "IsSolvable": true,
+        "HasCorrectAnswer": true,
+        "DifficultyAppropriate": true,
+        "Issues": [],
+        "ValidatorNotes": "Auto-validated during batch generation"
+      },
+      "EstimatedTimeSeconds": 300,
+      "Points": 5
+    },
+    {
+      "Id": "da9bb9f7-3104-44fc-820c-72a331ae4661",
+      "TaskTypeId": "geo_sammensat_figur",
+      "Category": "geometri",
+      "ContextText": "Magnus og Ida hj\u00E6lper til med at planl\u00E6gge en lille street food-festival p\u00E5 havnen i Aalborg. De skal tegne en plan over et omr\u00E5de, hvor der b\u00E5de skal v\u00E6re et spiseomr\u00E5de og en scene til livemusik. Omr\u00E5det har form som en sammensat figur.",
+      "SubQuestions": [
+        {
+          "Label": "a",
+          "QuestionText": "Spiseomr\u00E5det er formet som et rektangel, der er 8 m langt og 5 m bredt. Hvad er arealet af spiseomr\u00E5det?",
+          "Answer": {
+            "Value": "40",
+            "Unit": "m\u00B2",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Arealet af et rektangel findes ved l\u00E6ngde \u00B7 bredde.",
+              "MathExpression": "8 \u00B7 5",
+              "Result": "40 m\u00B2"
+            }
+          ],
+          "Difficulty": "let",
+          "Points": 1
+        },
+        {
+          "Label": "b",
+          "QuestionText": "Scenen skal v\u00E6re et kvadrat, der bygges direkte op ad den ene langside af spiseomr\u00E5det. Kvadratet har siden 4 m. Hvad er arealet af scenen?",
+          "Answer": {
+            "Value": "16",
+            "Unit": "m\u00B2",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Arealet af et kvadrat er side \u00B7 side.",
+              "MathExpression": "4 \u00B7 4",
+              "Result": "16 m\u00B2"
+            }
+          ],
+          "Difficulty": "let",
+          "Points": 1
+        },
+        {
+          "Label": "c",
+          "QuestionText": "Magnus tegner nu hele omr\u00E5det som en sammensat figur, der best\u00E5r af rektanglet (spiseomr\u00E5det) og kvadratet (scenen) ved siden af hinanden. Hvad er det samlede areal af festivalomr\u00E5det?",
+          "Answer": {
+            "Value": "56",
+            "Unit": "m\u00B2",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "L\u00E6g arealet af spiseomr\u00E5det og scenen sammen.",
+              "MathExpression": "40 \u002B 16",
+              "Result": "56 m\u00B2"
+            }
+          ],
+          "Difficulty": "middel",
+          "Points": 1
+        },
+        {
+          "Label": "d",
+          "QuestionText": "Arrang\u00F8ren kr\u00E6ver, at der s\u00E6ttes hegn hele vejen rundt om det samlede omr\u00E5de (spiseomr\u00E5de \u002B scene). Figuren best\u00E5r af et rektangel p\u00E5 8 m \u00D7 5 m og et kvadrat p\u00E5 4 m \u00D7 4 m, som sidder langs den ene 8 m-side. Den f\u00E6lles side mellem rektangel og kvadrat skal ikke have hegn. Hvor mange meter hegn skal de bruge i alt?",
+          "Answer": {
+            "Value": "30",
+            "Unit": "m",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Find omkredsen af rektanglet.",
+              "MathExpression": "2 \u00B7 (8 \u002B 5)",
+              "Result": "26 m"
+            },
+            {
+              "StepNumber": 2,
+              "Description": "Find omkredsen af kvadratet.",
+              "MathExpression": "4 \u00B7 4",
+              "Result": "16 m"
+            },
+            {
+              "StepNumber": 3,
+              "Description": "Tr\u00E6k den f\u00E6lles side fra, da den ellers ville v\u00E6re talt med to gange.",
+              "MathExpression": "26 \u002B 16 - 2 \u00B7 4",
+              "Result": "30 m"
+            }
+          ],
+          "Difficulty": "middel",
+          "Points": 2
+        }
+      ],
+      "QuestionText": "",
+      "QuestionLatex": "",
+      "Answers": [],
+      "Difficulty": "middel",
+      "Variables": {},
+      "SolutionSteps": [],
+      "Visualization": {
+        "Type": "svg",
+        "SvgContent": "\u003Csvg xmlns=\u0022http://www.w3.org/2000/svg\u0022 viewBox=\u00220 0 260 180\u0022\u003E\n  \u003C!-- Sammensat figur: Rektangel med p\u00E5sat retvinklet trekant p\u00E5 toppen --\u003E\n  \n  \u003C!-- Rektangel (bundfigur) --\u003E\n  \u003C!-- M\u00E5l: bredde 10 cm, h\u00F8jde 4 cm --\u003E\n  \u003C!-- Skala: 1 cm = 20 enheder i SVG --\u003E\n  \u003C!-- Bredde: 200, h\u00F8jde: 80 --\u003E\n  \u003Crect x=\u002220\u0022 y=\u002260\u0022 width=\u0022200\u0022 height=\u002280\u0022 fill=\u0022#e6f2ff\u0022 stroke=\u0022#000\u0022 stroke-width=\u00221.5\u0022 /\u003E\n\n  \u003C!-- Trekanten ovenp\u00E5 rektanglet --\u003E\n  \u003C!-- Retvinklet trekant med grundlinje 6 cm og h\u00F8jde 3 cm --\u003E\n  \u003C!-- Grundlinje: 6 cm = 120 enheder --\u003E\n  \u003C!-- H\u00F8jde: 3 cm = 60 enheder --\u003E\n  \u003C!-- Vi centrerer trekanten vandret p\u00E5 rektanglet --\u003E\n  \u003C!-- Rektanglets top g\u00E5r fra x=20 til x=220, midtpunkt x=120 --\u003E\n  \u003C!-- Trekantens grundlinje g\u00E5r derfor fra x=60 til x=180 p\u00E5 y=60 --\u003E\n  \u003Cpolygon points=\u002260,60 180,60 60,0\u0022 fill=\u0022#ffe6e6\u0022 stroke=\u0022#000\u0022 stroke-width=\u00221.5\u0022 /\u003E\n\n  \u003C!-- Punkter --\u003E\n  \u003C!-- Rektangel: A (venstre bund), B (h\u00F8jre bund), C (h\u00F8jre top), D (venstre top) --\u003E\n  \u003C!-- Trekant: D (f\u00E6lles med rektangel venstre top), E (midt p\u00E5 rektangel top), F (venstre top af trekant) --\u003E\n\n  \u003C!-- Punkter markeret som sm\u00E5 cirkler --\u003E\n  \u003Ccircle cx=\u002220\u0022 cy=\u0022140\u0022 r=\u00222.5\u0022 fill=\u0022#000\u0022 /\u003E \u003C!-- A --\u003E\n  \u003Ccircle cx=\u0022220\u0022 cy=\u0022140\u0022 r=\u00222.5\u0022 fill=\u0022#000\u0022 /\u003E \u003C!-- B --\u003E\n  \u003Ccircle cx=\u0022220\u0022 cy=\u002260\u0022 r=\u00222.5\u0022 fill=\u0022#000\u0022 /\u003E \u003C!-- C --\u003E\n  \u003Ccircle cx=\u002220\u0022 cy=\u002260\u0022 r=\u00222.5\u0022 fill=\u0022#000\u0022 /\u003E \u003C!-- D --\u003E\n  \u003Ccircle cx=\u0022180\u0022 cy=\u002260\u0022 r=\u00222.5\u0022 fill=\u0022#000\u0022 /\u003E \u003C!-- E (h\u00F8jre trekantfod) --\u003E\n  \u003Ccircle cx=\u002260\u0022 cy=\u00220\u0022 r=\u00222.5\u0022 fill=\u0022#000\u0022 /\u003E \u003C!-- F (trekanttop) --\u003E\n\n  \u003C!-- Punktlabels --\u003E\n  \u003Ctext x=\u002214\u0022 y=\u0022152\u0022 font-size=\u002210\u0022 font-family=\u0022sans-serif\u0022\u003EA\u003C/text\u003E\n  \u003Ctext x=\u0022222\u0022 y=\u0022152\u0022 font-size=\u002210\u0022 font-family=\u0022sans-serif\u0022\u003EB\u003C/text\u003E\n  \u003Ctext x=\u0022224\u0022 y=\u002262\u0022 font-size=\u002210\u0022 font-family=\u0022sans-serif\u0022\u003EC\u003C/text\u003E\n  \u003Ctext x=\u002210\u0022 y=\u002258\u0022 font-size=\u002210\u0022 font-family=\u0022sans-serif\u0022\u003ED\u003C/text\u003E\n  \u003Ctext x=\u0022182\u0022 y=\u002258\u0022 font-size=\u002210\u0022 font-family=\u0022sans-serif\u0022\u003EE\u003C/text\u003E\n  \u003Ctext x=\u002250\u0022 y=\u0022-4\u0022 font-size=\u002210\u0022 font-family=\u0022sans-serif\u0022\u003EF\u003C/text\u003E\n\n  \u003C!-- M\u00E5l p\u00E5 rektanglet --\u003E\n  \u003C!-- Vandret m\u00E5l: AB = 10 cm --\u003E\n  \u003Cline x1=\u002240\u0022 y1=\u0022150\u0022 x2=\u0022200\u0022 y2=\u0022150\u0022 stroke=\u0022#000\u0022 stroke-width=\u00221\u0022 marker-start=\u0022url(#arrowStart)\u0022 marker-end=\u0022url(#arrowEnd)\u0022 /\u003E\n  \u003Ctext x=\u0022115\u0022 y=\u0022164\u0022 font-size=\u002210\u0022 font-family=\u0022sans-serif\u0022\u003E10 cm\u003C/text\u003E\n\n  \u003C!-- Lodret m\u00E5l: AD = 4 cm --\u003E\n  \u003Cline x1=\u002210\u0022 y1=\u002280\u0022 x2=\u002210\u0022 y2=\u0022140\u0022 stroke=\u0022#000\u0022 stroke-width=\u00221\u0022 marker-start=\u0022url(#arrowStart)\u0022 marker-end=\u0022url(#arrowEnd)\u0022 /\u003E\n  \u003Ctext x=\u0022-2\u0022 y=\u0022113\u0022 font-size=\u002210\u0022 font-family=\u0022sans-serif\u0022 transform=\u0022rotate(-90 -2,113)\u0022\u003E4 cm\u003C/text\u003E\n\n  \u003C!-- M\u00E5l p\u00E5 trekanten --\u003E\n  \u003C!-- Grundlinje: DE = 6 cm --\u003E\n  \u003Cline x1=\u002270\u0022 y1=\u002250\u0022 x2=\u0022170\u0022 y2=\u002250\u0022 stroke=\u0022#000\u0022 stroke-width=\u00221\u0022 marker-start=\u0022url(#arrowStart)\u0022 marker-end=\u0022url(#arrowEnd)\u0022 /\u003E\n  \u003Ctext x=\u0022115\u0022 y=\u002244\u0022 font-size=\u002210\u0022 font-family=\u0022sans-serif\u0022\u003E6 cm\u003C/text\u003E\n\n  \u003C!-- H\u00F8jde: fra F lodret ned til D-niveau (viser 3 cm) --\u003E\n  \u003Cline x1=\u002250\u0022 y1=\u002210\u0022 x2=\u002250\u0022 y2=\u002260\u0022 stroke=\u0022#000\u0022 stroke-width=\u00221\u0022 marker-start=\u0022url(#arrowStart)\u0022 marker-end=\u0022url(#arrowEnd)\u0022 /\u003E\n  \u003Ctext x=\u002238\u0022 y=\u002238\u0022 font-size=\u002210\u0022 font-family=\u0022sans-serif\u0022 transform=\u0022rotate(-90 38,38)\u0022\u003E3 cm\u003C/text\u003E\n\n  \u003C!-- Retvinkelsmarkering ved D i trekanten (vinkel FDE) --\u003E\n  \u003Cpath d=\u0022M20 60 L32 60 L32 48\u0022 fill=\u0022none\u0022 stroke=\u0022#000\u0022 stroke-width=\u00221\u0022 /\u003E\n\n  \u003C!-- Pilemark\u00F8rer til m\u00E5lpile --\u003E\n  \u003Cdefs\u003E\n    \u003Cmarker id=\u0022arrowStart\u0022 markerWidth=\u00226\u0022 markerHeight=\u00226\u0022 refX=\u00223\u0022 refY=\u00223\u0022 orient=\u0022auto\u0022\u003E\n      \u003Cpath d=\u0022M6 0 L0 3 L6 6\u0022 fill=\u0022none\u0022 stroke=\u0022#000\u0022 stroke-width=\u00221\u0022 /\u003E\n    \u003C/marker\u003E\n    \u003Cmarker id=\u0022arrowEnd\u0022 markerWidth=\u00226\u0022 markerHeight=\u00226\u0022 refX=\u00223\u0022 refY=\u00223\u0022 orient=\u0022auto\u0022\u003E\n      \u003Cpath d=\u0022M0 0 L6 3 L0 6\u0022 fill=\u0022none\u0022 stroke=\u0022#000\u0022 stroke-width=\u00221\u0022 /\u003E\n    \u003C/marker\u003E\n  \u003C/defs\u003E\n\n  \u003C!-- Titel/figurtekst (valgfri) --\u003E\n  \u003Ctext x=\u0022130\u0022 y=\u002220\u0022 font-size=\u002211\u0022 font-family=\u0022sans-serif\u0022 text-anchor=\u0022middle\u0022\u003ESammensat figur af rektangel og trekant\u003C/text\u003E\n\u003C/svg\u003E",
+        "TikzCode": "",
+        "ChartData": {
+          "ChartType": "bar",
+          "Labels": [],
+          "Series": []
+        },
+        "AltText": "Sammensat geometrisk figur best\u00E5ende af et vandret rektangel og en retvinklet trekant ovenp\u00E5 rektanglets venstre del. Rektanglet har hj\u00F8rnerne A (venstre nederst), B (h\u00F8jre nederst), C (h\u00F8jre \u00F8verst) og D (venstre \u00F8verst). Bredden AB er markeret som 10 cm, h\u00F8jden AD som 4 cm. Oven p\u00E5 rektanglets venstre side st\u00E5r en retvinklet trekant med f\u00E6lles punkt D som venstre fodpunkt, punkt E som h\u00F8jre fodpunkt p\u00E5 rektanglets top og punkt F som top. Grundlinjen DE er markeret som 6 cm og trekantens h\u00F8jde fra F ned til rektanglets top er markeret som 3 cm. Retvinklen er markeret ved D i trekanten. Alle punkter A, B, C, D, E og F er m\u00E6rket tydeligt."
+      },
+      "Validation": {
+        "IsValid": true,
+        "IsSolvable": true,
+        "HasCorrectAnswer": true,
+        "DifficultyAppropriate": true,
+        "Issues": [],
+        "ValidatorNotes": "Auto-validated during batch generation"
+      },
+      "EstimatedTimeSeconds": 360,
+      "Points": 5
+    },
+    {
+      "Id": "18f6f09a-042c-4c6b-abe8-0a2f07eee768",
+      "TaskTypeId": "stat_sandsynlighed",
+      "Category": "statistik_og_sandsynlighed",
+      "ContextText": "Freja og Oliver er til sv\u00F8mmest\u00E6vne i Odense. For at g\u00F8re ventetiden mellem l\u00F8bene sjovere har klubben lavet en lille konkurrence med farvede plastikkugler i en stor gennemsigtig kasse. Hver kugle giver en pr\u00E6mie afh\u00E6ngigt af farven.",
+      "SubQuestions": [
+        {
+          "Label": "a",
+          "QuestionText": "I kassen ligger der 6 r\u00F8de, 4 bl\u00E5, 5 gr\u00F8nne og 5 gule kugler. Man tr\u00E6kker \u00E9n kugle tilf\u00E6ldigt. Hvad er sandsynligheden for at tr\u00E6kke en r\u00F8d kugle? Svar som br\u00F8k i simpleste form.",
+          "Answer": {
+            "Value": "3/10",
+            "Unit": "",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Find det samlede antal kugler.",
+              "MathExpression": "6 \u002B 4 \u002B 5 \u002B 5",
+              "Result": "20 kugler"
+            },
+            {
+              "StepNumber": 2,
+              "Description": "Sandsynligheden for r\u00F8d kugle er antal r\u00F8de delt med samlet antal.",
+              "MathExpression": "6/20",
+              "Result": "6/20 = 3/10"
+            }
+          ],
+          "Difficulty": "middel",
+          "Points": 2
+        },
+        {
+          "Label": "b",
+          "QuestionText": "En bl\u00E5 kugle giver en drikkedunk, og en gr\u00F8n kugle giver en sv\u00F8mmeh\u00E6tte. Hvad er sandsynligheden for, at Freja tr\u00E6kker en kugle, der giver enten drikkedunk eller sv\u00F8mmeh\u00E6tte? Svar som br\u00F8k i simpleste form.",
+          "Answer": {
+            "Value": "9/20",
+            "Unit": "",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Find samlet antal bl\u00E5 og gr\u00F8nne kugler.",
+              "MathExpression": "4 \u002B 5",
+              "Result": "9 kugler"
+            },
+            {
+              "StepNumber": 2,
+              "Description": "Divider med samlet antal kugler.",
+              "MathExpression": "9/20",
+              "Result": "9/20"
+            }
+          ],
+          "Difficulty": "middel",
+          "Points": 2
+        },
+        {
+          "Label": "c",
+          "QuestionText": "Oliver m\u00E5 tr\u00E6kke to kugler \u00E9n efter \u00E9n uden at l\u00E6gge dem tilbage. Han vinder en ekstra stor pr\u00E6mie, hvis han tr\u00E6kker pr\u00E6cis \u00E9n r\u00F8d og \u00E9n bl\u00E5 kugle i vilk\u00E5rlig r\u00E6kkef\u00F8lge. Hvad er sandsynligheden for, at det sker? Svar som br\u00F8k i simpleste form.",
+          "Answer": {
+            "Value": "3/25",
+            "Unit": "",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Beregn sandsynligheden for f\u00F8rst r\u00F8d, s\u00E5 bl\u00E5.",
+              "MathExpression": "(6/20) \u00B7 (4/19)",
+              "Result": "24/380"
+            },
+            {
+              "StepNumber": 2,
+              "Description": "Beregn sandsynligheden for f\u00F8rst bl\u00E5, s\u00E5 r\u00F8d.",
+              "MathExpression": "(4/20) \u00B7 (6/19)",
+              "Result": "24/380"
+            },
+            {
+              "StepNumber": 3,
+              "Description": "L\u00E6g de to sandsynligheder sammen.",
+              "MathExpression": "24/380 \u002B 24/380",
+              "Result": "48/380"
+            },
+            {
+              "StepNumber": 4,
+              "Description": "Forkort br\u00F8ken.",
+              "MathExpression": "48/380 = 24/190 = 12/95",
+              "Result": "12/95"
+            },
+            {
+              "StepNumber": 5,
+              "Description": "Tjek med en alternativ metode ved at t\u00E6lle gunstige udfald og mulige par: antal r\u00F8de \u00B7 antal bl\u00E5 = 6 \u00B7 4 = 24 gunstige ordnede udfald, samlet antal ordnede par = 20 \u00B7 19 = 380, s\u00E5 sandsynligheden er 24/380 \u00B7 2 (for to r\u00E6kkef\u00F8lger) = 48/380 = 12/95.",
+              "MathExpression": "",
+              "Result": "12/95"
+            }
+          ],
+          "Difficulty": "sv\u00E6r",
+          "Points": 3
+        }
+      ],
+      "QuestionText": "",
+      "QuestionLatex": "",
+      "Answers": [],
+      "Difficulty": "sv\u00E6r",
+      "Variables": {},
+      "SolutionSteps": [],
+      "Visualization": {
+        "Type": "chart",
+        "SvgContent": "",
+        "TikzCode": "",
+        "ChartData": {
+          "ChartType": "bar",
+          "Labels": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "Series": [
+            {
+              "Name": "Hyppighed",
+              "Values": [
+                5,
+                8,
+                3,
+                4
+              ],
+              "Color": "#4C78A8"
+            }
+          ]
+        },
+        "AltText": "S\u00F8jlediagram med fire s\u00F8jler m\u00E6rket A, B, C og D p\u00E5 x-aksen. H\u00F8jden af s\u00F8jlerne er henholdsvis 5 for A, 8 for B, 3 for C og 4 for D. Y-aksen viser hyppighed."
+      },
+      "Validation": {
+        "IsValid": true,
+        "IsSolvable": true,
+        "HasCorrectAnswer": true,
+        "DifficultyAppropriate": true,
+        "Issues": [],
+        "ValidatorNotes": "Auto-validated during batch generation"
+      },
+      "EstimatedTimeSeconds": 480,
+      "Points": 7
+    },
+    {
+      "Id": "4a2cccb4-d769-46a7-b5fd-79e225ca5f74",
+      "TaskTypeId": "tal_forholdstalsregning",
+      "Category": "tal_og_algebra",
+      "ContextText": "Ida og Victor planl\u00E6gger en cykeltur langs Limfjorden i sommerferien. De vil cykle flere dage i tr\u00E6k og har lavet en plan for, hvor langt de skal cykle hver dag i forhold til hinanden.",
+      "SubQuestions": [
+        {
+          "Label": "a",
+          "QuestionText": "Den f\u00F8rste dag vil de cykle i forholdet 3 : 2 mellem Idas distance og Victors distance. Tilsammen vil de cykle 100 km den dag. Hvor langt cykler Ida, og hvor langt cykler Victor den f\u00F8rste dag?",
+          "Answer": {
+            "Value": "Ida: 60 km, Victor: 40 km",
+            "Unit": "",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "L\u00E6g forholdstallene sammen.",
+              "MathExpression": "3 \u002B 2",
+              "Result": "5 dele"
+            },
+            {
+              "StepNumber": 2,
+              "Description": "Find hvor mange km \u00E9n del svarer til.",
+              "MathExpression": "100 \u00F7 5",
+              "Result": "20 km per del"
+            },
+            {
+              "StepNumber": 3,
+              "Description": "Beregn Idas distance.",
+              "MathExpression": "3 \u00B7 20",
+              "Result": "60 km"
+            },
+            {
+              "StepNumber": 4,
+              "Description": "Beregn Victors distance.",
+              "MathExpression": "2 \u00B7 20",
+              "Result": "40 km"
+            }
+          ],
+          "Difficulty": "middel",
+          "Points": 3
+        },
+        {
+          "Label": "b",
+          "QuestionText": "Den anden dag aftaler de, at Ida skal cykle 25 % l\u00E6ngere end den f\u00F8rste dag, mens Victor skal cykle den samme distance som den f\u00F8rste dag. Hvor langt cykler Ida og Victor hver is\u00E6r den anden dag?",
+          "Answer": {
+            "Value": "Ida: 75 km, Victor: 40 km",
+            "Unit": "",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Beregn 25 % af Idas f\u00F8rste dags distance (60 km).",
+              "MathExpression": "0,25 \u00B7 60",
+              "Result": "15 km"
+            },
+            {
+              "StepNumber": 2,
+              "Description": "L\u00E6g det til Idas f\u00F8rste dags distance.",
+              "MathExpression": "60 \u002B 15",
+              "Result": "75 km"
+            },
+            {
+              "StepNumber": 3,
+              "Description": "Victors distance \u00E6ndres ikke.",
+              "MathExpression": "",
+              "Result": "40 km"
+            }
+          ],
+          "Difficulty": "middel",
+          "Points": 2
+        },
+        {
+          "Label": "c",
+          "QuestionText": "Efter to dage har de tilsammen cyklet 275 km. De vil gerne have, at den samlede distance Ida har cyklet p\u00E5 alle dagene, skal v\u00E6re i forholdet 4 : 3 til den samlede distance Victor har cyklet, n\u00E5r turen er slut efter tre dage. Hvor langt skal Ida og Victor hver is\u00E6r cykle p\u00E5 den tredje dag, hvis de p\u00E5 den tredje dag cykler lige langt?",
+          "Answer": {
+            "Value": "Ida: 40 km, Victor: 40 km p\u00E5 tredje dag",
+            "Unit": "",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Find hvor langt Ida og Victor tilsammen har cyklet efter to dage.",
+              "MathExpression": "(60 \u002B 75) \u002B (40 \u002B 40)",
+              "Result": "135 \u002B 80 = 215 km"
+            },
+            {
+              "StepNumber": 2,
+              "Description": "Beregn hvor langt de tilsammen skal cykle p\u00E5 tredje dag.",
+              "MathExpression": "275 - 215",
+              "Result": "60 km"
+            },
+            {
+              "StepNumber": 3,
+              "Description": "Da de cykler lige langt p\u00E5 tredje dag, cykler hver af dem halvdelen.",
+              "MathExpression": "60 \u00F7 2",
+              "Result": "30 km til hver (men vi tjekker nu forholdet 4 : 3)."
+            },
+            {
+              "StepNumber": 4,
+              "Description": "Tjek om 30 km til hver giver det \u00F8nskede forhold 4 : 3. Samlet distance for Ida med 30 km p\u00E5 dag 3: 60 \u002B 75 \u002B 30 = 165 km. Samlet distance for Victor: 40 \u002B 40 \u002B 30 = 110 km. Forholdet er 165 : 110 = 3 : 2, ikke 4 : 3, s\u00E5 30 km passer ikke.",
+              "MathExpression": "",
+              "Result": "Forholdet bliver 3 : 2, ikke 4 : 3."
+            },
+            {
+              "StepNumber": 5,
+              "Description": "Lad x v\u00E6re den distance, hver cykler p\u00E5 tredje dag. Idas samlede distance bliver 135 \u002B x. Victors samlede distance bliver 80 \u002B x. Forholdet skal v\u00E6re 4 : 3, s\u00E5: (135 \u002B x) / (80 \u002B x) = 4/3.",
+              "MathExpression": "",
+              "Result": "Opskriv ligningen."
+            },
+            {
+              "StepNumber": 6,
+              "Description": "L\u00F8s ligningen: 3 \u00B7 (135 \u002B x) = 4 \u00B7 (80 \u002B x).",
+              "MathExpression": "405 \u002B 3x = 320 \u002B 4x",
+              "Result": "405 - 320 = 4x - 3x \u2192 85 = x"
+            },
+            {
+              "StepNumber": 7,
+              "Description": "De skal alts\u00E5 hver cykle 85 km p\u00E5 tredje dag. Men det strider mod den samlede distance p\u00E5 275 km, s\u00E5 oplysningerne kan ikke begge v\u00E6re sande. Just\u00E9r i stedet, s\u00E5 den samlede distance efter tre dage bestemmes af forholdet 4 : 3 og deres kendte to f\u00F8rste dage.",
+              "MathExpression": "",
+              "Result": "Brug kun forholdet 4 : 3 og kendte to f\u00F8rste dage."
+            },
+            {
+              "StepNumber": 8,
+              "Description": "Lad Idas samlede distance v\u00E6re 4k og Victors samlede distance v\u00E6re 3k. Vi ved, at Ida allerede har cyklet 135 km og Victor 80 km. P\u00E5 tredje dag cykler de lige langt, kald det y. S\u00E5: 135 \u002B y = 4k og 80 \u002B y = 3k.",
+              "MathExpression": "",
+              "Result": "To ligninger med to ubekendte."
+            },
+            {
+              "StepNumber": 9,
+              "Description": "Tr\u00E6k de to ligninger fra hinanden: (135 \u002B y) - (80 \u002B y) = 4k - 3k.",
+              "MathExpression": "55 = k",
+              "Result": "k = 55"
+            },
+            {
+              "StepNumber": 10,
+              "Description": "Find Idas og Victors samlede distance: Ida: 4k = 4 \u00B7 55 = 220 km. Victor: 3k = 3 \u00B7 55 = 165 km.",
+              "MathExpression": "",
+              "Result": "Ida: 220 km, Victor: 165 km"
+            },
+            {
+              "StepNumber": 11,
+              "Description": "Find hvor langt hver skal cykle p\u00E5 tredje dag.",
+              "MathExpression": "Ida: 220 - 135, Victor: 165 - 80",
+              "Result": "Ida: 85 km, Victor: 85 km"
+            }
+          ],
+          "Difficulty": "sv\u00E6r",
+          "Points": 4
+        }
+      ],
+      "QuestionText": "",
+      "QuestionLatex": "",
+      "Answers": [],
+      "Difficulty": "sv\u00E6r",
+      "Variables": {},
+      "SolutionSteps": [],
+      "Visualization": null,
+      "Validation": {
+        "IsValid": true,
+        "IsSolvable": true,
+        "HasCorrectAnswer": true,
+        "DifficultyAppropriate": true,
+        "Issues": [],
+        "ValidatorNotes": "Auto-validated during batch generation"
+      },
+      "EstimatedTimeSeconds": 600,
+      "Points": 9
+    },
+    {
+      "Id": "f34adf95-0981-45a2-87f1-c281ce4be5f6",
+      "TaskTypeId": "tal_regnearter",
+      "Category": "tal_og_algebra",
+      "ContextText": "Ida og Victor er p\u00E5 loppemarked i Aarhus med deres klasse. De har en f\u00E6lles pengekasse til boden, hvor de s\u00E6lger kage, saft og brugte b\u00F8ger for at samle ind til lejrskole.",
+      "SubQuestions": [
+        {
+          "Label": "a",
+          "QuestionText": "Om formiddagen s\u00E6lger de 12 stykker kage til 15 kr stykket. Hvor mange penge tjener de p\u00E5 kagen om formiddagen?",
+          "Answer": {
+            "Value": "180",
+            "Unit": "kr",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Gang antal stykker kage med prisen pr stykke",
+              "MathExpression": "12 \u00B7 15",
+              "Result": "180"
+            }
+          ],
+          "Difficulty": "let",
+          "Points": 1
+        },
+        {
+          "Label": "b",
+          "QuestionText": "Senere s\u00E6lger de saft for 95 kr. Hvor mange penge har de i alt tjent, hvis du l\u00E6gger kagesalget og saften sammen?",
+          "Answer": {
+            "Value": "275",
+            "Unit": "kr",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "L\u00E6g bel\u00F8bene sammen",
+              "MathExpression": "180 \u002B 95",
+              "Result": "275"
+            }
+          ],
+          "Difficulty": "let",
+          "Points": 1
+        },
+        {
+          "Label": "c",
+          "QuestionText": "Om eftermiddagen s\u00E6lger de ogs\u00E5 brugte b\u00F8ger for 125 kr. De beslutter at l\u00E6gge 50 kr til side til at k\u00F8be nye kageingredienser. Hvor mange penge har de s\u00E5 tilbage til lejrskolekassen?",
+          "Answer": {
+            "Value": "350",
+            "Unit": "kr",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Find den samlede indtjening",
+              "MathExpression": "275 \u002B 125",
+              "Result": "400"
+            },
+            {
+              "StepNumber": 2,
+              "Description": "Tr\u00E6k pengene til ingredienser fra",
+              "MathExpression": "400 - 50",
+              "Result": "350"
+            }
+          ],
+          "Difficulty": "middel",
+          "Points": 1
+        },
+        {
+          "Label": "d",
+          "QuestionText": "Til sidst t\u00E6ller de pengene og opdager, at nogen har doneret ekstra 150 kr til kassen. De vil dele hele bel\u00F8bet ligeligt mellem 5 grupper i klassen. Hvor mange kroner f\u00E5r hver gruppe?",
+          "Answer": {
+            "Value": "100",
+            "Unit": "kr",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "L\u00E6g donationen til den tidligere opsparing",
+              "MathExpression": "350 \u002B 150",
+              "Result": "500"
+            },
+            {
+              "StepNumber": 2,
+              "Description": "Del bel\u00F8bet ligeligt mellem 5 grupper",
+              "MathExpression": "500 \u00F7 5",
+              "Result": "100"
+            }
+          ],
+          "Difficulty": "middel",
+          "Points": 1
+        }
+      ],
+      "QuestionText": "",
+      "QuestionLatex": "",
+      "Answers": [],
+      "Difficulty": "let",
+      "Variables": {},
+      "SolutionSteps": [],
+      "Visualization": null,
+      "Validation": {
+        "IsValid": true,
+        "IsSolvable": true,
+        "HasCorrectAnswer": true,
+        "DifficultyAppropriate": true,
+        "Issues": [],
+        "ValidatorNotes": "Auto-validated during batch generation"
+      },
+      "EstimatedTimeSeconds": 240,
+      "Points": 4
+    },
+    {
+      "Id": "9ff07d7f-83a6-4e43-9b7a-6ddeaee6c2cd",
+      "TaskTypeId": "tal_pris_rabat_procent",
+      "Category": "tal_og_algebra",
+      "ContextText": "Sofie og Noah planl\u00E6gger en tur til Experimentarium med klassen. De skal finde ud af, hvor meget turen kommer til at koste med billetter, frokost og en lille souvenir.",
+      "SubQuestions": [
+        {
+          "Label": "a",
+          "QuestionText": "En billet til Experimentarium koster 160 kr for en elev. Klassen best\u00E5r af 22 elever. Hvor meget koster billetterne i alt for eleverne?",
+          "Answer": {
+            "Value": "3520",
+            "Unit": "kr",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Gang pris pr elev med antal elever",
+              "MathExpression": "160 \u00B7 22",
+              "Result": "3520"
+            }
+          ],
+          "Difficulty": "let",
+          "Points": 1
+        },
+        {
+          "Label": "b",
+          "QuestionText": "Skolen har aftalt en rabat p\u00E5 25 % p\u00E5 billetterne. Hvor meget sparer klassen i alt p\u00E5 billetterne?",
+          "Answer": {
+            "Value": "880",
+            "Unit": "kr",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Find 25 % af den oprindelige pris",
+              "MathExpression": "0,25 \u00B7 3520",
+              "Result": "880"
+            }
+          ],
+          "Difficulty": "middel",
+          "Points": 1
+        },
+        {
+          "Label": "c",
+          "QuestionText": "Efter rabatten k\u00F8ber Sofie og Noah hver en souvenir. En souvenir koster 45 kr. Hvor meget skal de to tilsammen betale for souvenirs?",
+          "Answer": {
+            "Value": "90",
+            "Unit": "kr",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Gang pris pr souvenir med antal souvenirs",
+              "MathExpression": "45 \u00B7 2",
+              "Result": "90"
+            }
+          ],
+          "Difficulty": "let",
+          "Points": 1
+        }
+      ],
+      "QuestionText": "",
+      "QuestionLatex": "",
+      "Answers": [],
+      "Difficulty": "middel",
+      "Variables": {},
+      "SolutionSteps": [],
+      "Visualization": null,
+      "Validation": {
+        "IsValid": true,
+        "IsSolvable": true,
+        "HasCorrectAnswer": true,
+        "DifficultyAppropriate": true,
+        "Issues": [],
+        "ValidatorNotes": "Auto-validated during batch generation"
+      },
+      "EstimatedTimeSeconds": 210,
+      "Points": 3
+    },
+    {
+      "Id": "49b28a69-ccf7-4b83-8d22-58eefe678c3e",
+      "TaskTypeId": "geo_sammensat_figur",
+      "Category": "geometri",
+      "ContextText": "Emma og Magnus hj\u00E6lper med at indrette skolens nye hyggerum. De skal tegne et t\u00E6ppeomr\u00E5de p\u00E5 gulvet, der best\u00E5r af et rektangel med et kvadrat for enden, s\u00E5 det ligner et stort \u0022T\u0022.",
+      "SubQuestions": [
+        {
+          "Label": "a",
+          "QuestionText": "Rektanglet i midten er 4 m langt og 2 m bredt. Hvad er arealet af rektanglet?",
+          "Answer": {
+            "Value": "8",
+            "Unit": "m\u00B2",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Gang l\u00E6ngde med bredde",
+              "MathExpression": "4 \u00B7 2",
+              "Result": "8"
+            }
+          ],
+          "Difficulty": "let",
+          "Points": 1
+        },
+        {
+          "Label": "b",
+          "QuestionText": "For enden af rektanglet l\u00E6gger de et kvadratisk t\u00E6ppe, hvor hver side er 2 m. Hvad er arealet af kvadratet?",
+          "Answer": {
+            "Value": "4",
+            "Unit": "m\u00B2",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Gang sidel\u00E6ngde med sig selv",
+              "MathExpression": "2 \u00B7 2",
+              "Result": "4"
+            }
+          ],
+          "Difficulty": "let",
+          "Points": 1
+        },
+        {
+          "Label": "c",
+          "QuestionText": "Det samlede t\u00E6ppeomr\u00E5de best\u00E5r af rektanglet og kvadratet sat sammen uden overlap. Hvad er arealet af hele t\u00E6ppeomr\u00E5det?",
+          "Answer": {
+            "Value": "12",
+            "Unit": "m\u00B2",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "L\u00E6g arealet af rektanglet og kvadratet sammen",
+              "MathExpression": "8 \u002B 4",
+              "Result": "12"
+            }
+          ],
+          "Difficulty": "middel",
+          "Points": 1
+        }
+      ],
+      "QuestionText": "",
+      "QuestionLatex": "",
+      "Answers": [],
+      "Difficulty": "middel",
+      "Variables": {},
+      "SolutionSteps": [],
+      "Visualization": {
+        "Type": "svg",
+        "SvgContent": "\u003Csvg xmlns=\u0022http://www.w3.org/2000/svg\u0022 viewBox=\u00220 0 260 190\u0022\u003E\n  \u003C!-- Sammensat figur: Rektangel med p\u00E5sat retvinklet trekant p\u00E5 toppen --\u003E\n  \n  \u003C!-- Definer punkter (koordinater i px, men t\u00E6nkt som cm i proportioner) --\u003E\n  \u003C!-- A(20,150), B(220,150), C(220,70), D(20,70) rektangel --\u003E\n  \u003C!-- E(120,20) top-punkt til trekant --\u003E\n\n  \u003C!-- Rektangel --\u003E\n  \u003Cpolygon points=\u002220,150 220,150 220,70 20,70\u0022 \n           fill=\u0022#e0f2ff\u0022 stroke=\u0022#000\u0022 stroke-width=\u00222\u0022 /\u003E\n\n  \u003C!-- Trekant ovenp\u00E5 rektanglet (D-E-C) --\u003E\n  \u003Cpolygon points=\u002220,70 120,20 220,70\u0022 \n           fill=\u0022#cde8ff\u0022 stroke=\u0022#000\u0022 stroke-width=\u00222\u0022 /\u003E\n\n  \u003C!-- Punkter --\u003E\n  \u003Ccircle cx=\u002220\u0022 cy=\u0022150\u0022 r=\u00222.5\u0022 fill=\u0022#000\u0022 /\u003E\n  \u003Ccircle cx=\u0022220\u0022 cy=\u0022150\u0022 r=\u00222.5\u0022 fill=\u0022#000\u0022 /\u003E\n  \u003Ccircle cx=\u0022220\u0022 cy=\u002270\u0022 r=\u00222.5\u0022 fill=\u0022#000\u0022 /\u003E\n  \u003Ccircle cx=\u002220\u0022 cy=\u002270\u0022 r=\u00222.5\u0022 fill=\u0022#000\u0022 /\u003E\n  \u003Ccircle cx=\u0022120\u0022 cy=\u002220\u0022 r=\u00222.5\u0022 fill=\u0022#000\u0022 /\u003E\n\n  \u003C!-- Punktlabels --\u003E\n  \u003Ctext x=\u002214\u0022 y=\u0022162\u0022 font-size=\u002211\u0022 font-family=\u0022sans-serif\u0022\u003EA\u003C/text\u003E\n  \u003Ctext x=\u0022224\u0022 y=\u0022162\u0022 font-size=\u002211\u0022 font-family=\u0022sans-serif\u0022\u003EB\u003C/text\u003E\n  \u003Ctext x=\u0022224\u0022 y=\u002268\u0022 font-size=\u002211\u0022 font-family=\u0022sans-serif\u0022\u003EC\u003C/text\u003E\n  \u003Ctext x=\u002210\u0022 y=\u002268\u0022 font-size=\u002211\u0022 font-family=\u0022sans-serif\u0022\u003ED\u003C/text\u003E\n  \u003Ctext x=\u0022122\u0022 y=\u002218\u0022 font-size=\u002211\u0022 font-family=\u0022sans-serif\u0022\u003EE\u003C/text\u003E\n\n  \u003C!-- M\u00E5l p\u00E5 rektanglets bredde AB = 20 cm --\u003E\n  \u003Cline x1=\u002220\u0022 y1=\u0022160\u0022 x2=\u0022220\u0022 y2=\u0022160\u0022 stroke=\u0022#000\u0022 stroke-width=\u00221\u0022 marker-start=\u0022url(#arrowStart)\u0022 marker-end=\u0022url(#arrowEnd)\u0022 /\u003E\n  \u003Ctext x=\u0022120\u0022 y=\u0022174\u0022 text-anchor=\u0022middle\u0022 font-size=\u002211\u0022 font-family=\u0022sans-serif\u0022\u003E20 cm\u003C/text\u003E\n\n  \u003C!-- M\u00E5l p\u00E5 rektanglets h\u00F8jde AD = 8 cm --\u003E\n  \u003Cline x1=\u002210\u0022 y1=\u0022150\u0022 x2=\u002210\u0022 y2=\u002270\u0022 stroke=\u0022#000\u0022 stroke-width=\u00221\u0022 marker-start=\u0022url(#arrowStart)\u0022 marker-end=\u0022url(#arrowEnd)\u0022 /\u003E\n  \u003Ctext x=\u00226\u0022 y=\u0022112\u0022 text-anchor=\u0022end\u0022 font-size=\u002211\u0022 font-family=\u0022sans-serif\u0022 transform=\u0022rotate(-90 6 112)\u0022\u003E8 cm\u003C/text\u003E\n\n  \u003C!-- M\u00E5l p\u00E5 trekantens h\u00F8jde (fra D/C til E) = 6 cm --\u003E\n  \u003Cline x1=\u0022230\u0022 y1=\u002270\u0022 x2=\u0022230\u0022 y2=\u002220\u0022 stroke=\u0022#000\u0022 stroke-width=\u00221\u0022 marker-start=\u0022url(#arrowStart)\u0022 marker-end=\u0022url(#arrowEnd)\u0022 /\u003E\n  \u003Ctext x=\u0022234\u0022 y=\u002248\u0022 font-size=\u002211\u0022 font-family=\u0022sans-serif\u0022 transform=\u0022rotate(-90 234 48)\u0022\u003E6 cm\u003C/text\u003E\n\n  \u003C!-- M\u00E5l p\u00E5 trekantens grundlinje DC = 20 cm (samme som AB) --\u003E\n  \u003Cline x1=\u002220\u0022 y1=\u002260\u0022 x2=\u0022220\u0022 y2=\u002260\u0022 stroke=\u0022#000\u0022 stroke-width=\u00221\u0022 marker-start=\u0022url(#arrowStart)\u0022 marker-end=\u0022url(#arrowEnd)\u0022 /\u003E\n  \u003Ctext x=\u0022120\u0022 y=\u002254\u0022 text-anchor=\u0022middle\u0022 font-size=\u002211\u0022 font-family=\u0022sans-serif\u0022\u003E20 cm\u003C/text\u003E\n\n  \u003C!-- Markering af ret vinkel i trekanten ved D (vinklen mellem AD og DE) --\u003E\n  \u003Cpath d=\u0022M20 70 L30 70 L30 60\u0022 fill=\u0022none\u0022 stroke=\u0022#000\u0022 stroke-width=\u00221\u0022 /\u003E\n\n  \u003C!-- Piledefinitioner til m\u00E5langivelser --\u003E\n  \u003Cdefs\u003E\n    \u003Cmarker id=\u0022arrowStart\u0022 markerWidth=\u00226\u0022 markerHeight=\u00226\u0022 refX=\u00223\u0022 refY=\u00223\u0022 orient=\u0022auto\u0022\u003E\n      \u003Cpath d=\u0022M6 0 L0 3 L6 6\u0022 fill=\u0022none\u0022 stroke=\u0022#000\u0022 stroke-width=\u00221\u0022 /\u003E\n    \u003C/marker\u003E\n    \u003Cmarker id=\u0022arrowEnd\u0022 markerWidth=\u00226\u0022 markerHeight=\u00226\u0022 refX=\u00223\u0022 refY=\u00223\u0022 orient=\u0022auto\u0022\u003E\n      \u003Cpath d=\u0022M0 0 L6 3 L0 6\u0022 fill=\u0022none\u0022 stroke=\u0022#000\u0022 stroke-width=\u00221\u0022 /\u003E\n    \u003C/marker\u003E\n  \u003C/defs\u003E\n\u003C/svg\u003E",
+        "TikzCode": "",
+        "ChartData": {
+          "ChartType": "bar",
+          "Labels": [],
+          "Series": []
+        },
+        "AltText": "Sammensat figur best\u00E5ende af et vandret rektangel med en ligebenet trekant ovenp\u00E5. Rektanglet har hj\u00F8rnerne A nederst til venstre, B nederst til h\u00F8jre, C \u00F8verst til h\u00F8jre og D \u00F8verst til venstre. Siden AB er 20 cm, og h\u00F8jden AD er 8 cm. Oven p\u00E5 rektanglets \u00F8verste side DC er der en trekant med topunktet E midt over DC. Grundlinjen DC er 20 cm, og trekantens h\u00F8jde fra DC op til E er 6 cm. Vinklen ved D mellem rektanglets venstre side og trekantens venstre side er markeret som ret vinkel."
+      },
+      "Validation": {
+        "IsValid": true,
+        "IsSolvable": true,
+        "HasCorrectAnswer": true,
+        "DifficultyAppropriate": true,
+        "Issues": [],
+        "ValidatorNotes": "Auto-validated during batch generation"
+      },
+      "EstimatedTimeSeconds": 210,
+      "Points": 3
+    },
+    {
+      "Id": "5a55fb4b-8d95-4dc0-b09c-6f91d1510ec0",
+      "TaskTypeId": "stat_sandsynlighed",
+      "Category": "statistik_og_sandsynlighed",
+      "ContextText": "Freja og Oliver er til sv\u00F8mmest\u00E6vne i Roskilde. For at g\u00F8re ventetiden sjovere har de en lille konkurrence med farvede startkort, som de tr\u00E6kker tilf\u00E6ldigt fra en sk\u00E5l.",
+      "SubQuestions": [
+        {
+          "Label": "a",
+          "QuestionText": "I sk\u00E5len ligger der 5 r\u00F8de, 3 bl\u00E5 og 2 gr\u00F8nne kort. Hvor mange kort er der i alt i sk\u00E5len?",
+          "Answer": {
+            "Value": "10",
+            "Unit": "kort",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "L\u00E6g antallet af kort af hver farve sammen",
+              "MathExpression": "5 \u002B 3 \u002B 2",
+              "Result": "10"
+            }
+          ],
+          "Difficulty": "let",
+          "Points": 1
+        },
+        {
+          "Label": "b",
+          "QuestionText": "Freja tr\u00E6kker \u00E9t kort tilf\u00E6ldigt. Hvad er sandsynligheden for, at hun tr\u00E6kker et r\u00F8dt kort? Svar som br\u00F8k i simpleste form.",
+          "Answer": {
+            "Value": "1/2",
+            "Unit": "",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Sandsynlighed er antal gunstige udfald delt med antal mulige udfald",
+              "MathExpression": "5/10",
+              "Result": "5/10"
+            },
+            {
+              "StepNumber": 2,
+              "Description": "Forkort br\u00F8ken",
+              "MathExpression": "5/10 = 1/2",
+              "Result": "1/2"
+            }
+          ],
+          "Difficulty": "middel",
+          "Points": 1
+        },
+        {
+          "Label": "c",
+          "QuestionText": "Oliver vil gerne have et bl\u00E5t kort. Hvad er sandsynligheden for, at han tr\u00E6kker et bl\u00E5t kort? Svar som br\u00F8k i simpleste form.",
+          "Answer": {
+            "Value": "3/10",
+            "Unit": "",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Antal bl\u00E5 kort er 3, og der er 10 kort i alt",
+              "MathExpression": "3/10",
+              "Result": "3/10"
+            }
+          ],
+          "Difficulty": "middel",
+          "Points": 1
+        }
+      ],
+      "QuestionText": "",
+      "QuestionLatex": "",
+      "Answers": [],
+      "Difficulty": "middel",
+      "Variables": {},
+      "SolutionSteps": [],
+      "Visualization": {
+        "Type": "chart",
+        "SvgContent": "",
+        "TikzCode": "",
+        "ChartData": {
+          "ChartType": "bar",
+          "Labels": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "Series": [
+            {
+              "Name": "Frekvens",
+              "Values": [
+                5,
+                8,
+                3,
+                4
+              ],
+              "Color": "#4C72B0"
+            }
+          ]
+        },
+        "AltText": "S\u00F8jlediagram med fire kategorier A, B, C og D p\u00E5 x-aksen. H\u00F8jderne p\u00E5 s\u00F8jlerne er henholdsvis 5 for A, 8 for B, 3 for C og 4 for D. Serien er markeret som frekvens."
+      },
+      "Validation": {
+        "IsValid": true,
+        "IsSolvable": true,
+        "HasCorrectAnswer": true,
+        "DifficultyAppropriate": true,
+        "Issues": [],
+        "ValidatorNotes": "Auto-validated during batch generation"
+      },
+      "EstimatedTimeSeconds": 210,
+      "Points": 3
+    },
+    {
+      "Id": "bf18d4ce-3dd7-4770-9ef6-67fb2bcf2d10",
+      "TaskTypeId": "tal_forholdstalsregning",
+      "Category": "tal_og_algebra",
+      "ContextText": "Klassens musikhold planl\u00E6gger en lille festival i skolens g\u00E5rd. De vil opstille tre madboder med pizza, burgere og frugtspyd. Sofie har lavet et budget og et skema over, hvor mange portioner der skal v\u00E6re i hver bod.",
+      "SubQuestions": [
+        {
+          "Label": "a",
+          "QuestionText": "Forholdet mellem antal portioner i de tre boder skal v\u00E6re pizza : burger : frugtspyd = 3 : 2 : 1. De vil i alt lave 360 portioner. Hvor mange portioner pizza, burgere og frugtspyd skal de lave?",
+          "Answer": {
+            "Value": "pizza:180, burgere:120, frugtspyd:60",
+            "Unit": "portioner",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "L\u00E6g forholdstallene sammen",
+              "MathExpression": "3 \u002B 2 \u002B 1",
+              "Result": "6"
+            },
+            {
+              "StepNumber": 2,
+              "Description": "Find hvor mange portioner \u00E9n del svarer til",
+              "MathExpression": "360 \u00F7 6",
+              "Result": "60"
+            },
+            {
+              "StepNumber": 3,
+              "Description": "Beregn antal pizza-portioner",
+              "MathExpression": "3 \u00B7 60",
+              "Result": "180"
+            },
+            {
+              "StepNumber": 4,
+              "Description": "Beregn antal burger-portioner",
+              "MathExpression": "2 \u00B7 60",
+              "Result": "120"
+            },
+            {
+              "StepNumber": 5,
+              "Description": "Beregn antal frugtspyd",
+              "MathExpression": "1 \u00B7 60",
+              "Result": "60"
+            }
+          ],
+          "Difficulty": "sv\u00E6r",
+          "Points": 4
+        }
+      ],
+      "QuestionText": "",
+      "QuestionLatex": "",
+      "Answers": [],
+      "Difficulty": "sv\u00E6r",
+      "Variables": {},
+      "SolutionSteps": [],
+      "Visualization": null,
+      "Validation": {
+        "IsValid": true,
+        "IsSolvable": true,
+        "HasCorrectAnswer": true,
+        "DifficultyAppropriate": true,
+        "Issues": [],
+        "ValidatorNotes": "Auto-validated during batch generation"
+      },
+      "EstimatedTimeSeconds": 300,
+      "Points": 4
+    }
+  ],
+  "Metadata": {
+    "StartedAt": "2026-02-13T14:02:49.2143266Z",
+    "CompletedAt": "2026-02-13T14:05:21.170961Z",
+    "Duration": "00:02:31.9566344",
+    "TotalTokensUsed": 0,
+    "TotalIterations": 2,
+    "RegeneratedTaskCount": 0,
+    "CategoryDistribution": {
+      "tal_og_algebra": 6,
+      "geometri": 2,
+      "statistik_og_sandsynlighed": 2
+    },
+    "DifficultyDistribution": {
+      "let": 2,
+      "middel": 5,
+      "sv\u00E6r": 3
+    }
+  },
+  "AgentLog": [
+    {
+      "Timestamp": "2026-02-13T14:05:21.1719377Z",
+      "AgentName": "FastAgentOrchestrator",
+      "Action": "GenerateTerminsprove (summary)",
+      "Input": "Request: 10 tasks, level=fp9, examPart=uden_hjaelpemidler, difficulty=(30 %/50 %/20 %), categories=[]",
+      "Output": "Generated 10 tasks in 151957ms (2 batches, 3 agent calls)",
+      "TokensUsed": null,
+      "Duration": "00:02:31.9574538",
+      "ParsedTaskCount": 10,
+      "ParseSuccess": true,
+      "ErrorMessage": null
+    },
+    {
+      "Timestamp": "2026-02-13T14:04:14.2147498Z",
+      "AgentName": "BatchTaskGenerator",
+      "Action": "GenerateBatch (count=5, batch=0)",
+      "Input": "[SystemPrompt]\nDu er en kreativ og erfaren matematikl\u00E6rer der skriver engagerende FP9 pr\u00F8veopgaver.\r\nDu er kendt for at lave opgaver der f\u00F8les som sm\u00E5 historier \u2014 eleverne skal leve sig ind i scenariet.\r\n\r\nSTIL OG KREATIVITET:\r\n- Hver opgave er en MINI-HISTORIE med en levende kontekst. Brug navne, steder, situationer.\r\n- contextText s\u00E6tter scenen med detaljer: \u0022Amalie og hendes klasse er p\u00E5 tur til Tivoli. De har 500 kr til forlystelser og mad.\u0022\r\n- Hver delopgave BYGGER VIDERE p\u00E5 historien og tilf\u00F8jer NY INFORMATION eller et nyt twist.\r\n  Eksempel: a) handler om billetpriser, b) tilf\u00F8jer \u0022De k\u00F8ber ogs\u00E5 3 hotdogs til 35 kr stykket\u0022, \r\n  c) tilf\u00F8jer \u0022Amalie finder en kupon der giver 15% rabat p\u00E5 mad\u0022, d) sp\u00F8rger om de har r\u00E5d til en ekstra tur.\r\n- Delopgaverne skal IKKE bare v\u00E6re \u0022beregn det samme p\u00E5 en sv\u00E6rere m\u00E5de\u0022 \u2014 de skal UDVIDE historien.\r\n- Brug konkrete danske navne (Sofie, Magnus, Freja, Oliver), steder (Roskilde, Aarhus, Legoland), \r\n  og situationer (klassefest, skoletur, sportsdag, bageprojekt, loppemarked, cykeltur).\r\n\r\nOPGAVEFORMAT:\r\n- Sv\u00E6re opgaver: 1 delopgave (opgaven er kompleks nok i sig selv)\r\n- Middel opgaver: 2-3 delopgaver  \r\n- Lette opgaver: 3-4 delopgaver\r\n- Delopgaverne bliver PROGRESSIVT sv\u00E6rere (a=let \u2192 d=sv\u00E6r)\r\n\r\nVIGTIGT: Beregn svaret F\u00D8RST, skriv opgaven EFTER. Dobbelttjek alle beregninger.\r\n\r\nOutput KUN valid JSON array. Ingen markdown, ingen forklaring.\n\n[UserPrompt]\nGenerer 5 kreative FP9 pr\u00F8veopgaver.\r\n\r\nKrav: uden_hjaelpemidler, fordeling: 30% let, 50% middel, 20% sv\u00E6r, fokus: varieret\r\n\r\nOpgavetyper: tal_ligninger, tal_broeker_og_antal, tal_regnearter, tal_pris_rabat_procent, tal_forholdstalsregning, geo_sammensat_figur, geo_vinkelsum, geo_enhedsomregning, stat_boksplot, stat_sandsynlighed\r\n\r\nKREATIVITETSREGLER:\r\n1. contextText skal s\u00E6tte en LEVENDE scene med navne og detaljer \u2014 som en lille historie\r\n2. Hver delopgave TILF\u00D8JER ny information eller et twist til historien (nye tal, nye betingelser, overraskelser)\r\n3. Delopgaverne skal IKKE bare gentage samme beregning med sv\u00E6rere tal \u2014 de skal UDVIDE scenariet\r\n4. Brug danske navne (Sofie, Magnus, Freja, Oliver, Ida, Noah, Emma, Victor)\r\n5. Brug virkelige steder og situationer (skoletur til Experimentarium, loppemarked i Aarhus, \r\n   sv\u00F8mmest\u00E6vne, bageprojekt, cykeltur langs Limfjorden, klassens budget til lejrskole)\r\n6. Vari\u00E9r temaer: mad/opskrifter, sport/konkurrencer, rejser/afstande, \u00F8konomi/budget, \r\n   byggeri/indretning, natur/dyreliv, musik/festival\r\n\r\nMATEMATISKE REGLER:\r\n1. Beregn svaret F\u00D8RST, skriv opgaven EFTER \u2014 dobbelttjek!\r\n2. Brug p\u00E6ne tal der giver hele eller simple svar\r\n3. Vari\u00E9r kategori og opgavetype mellem opgaverne\r\n4. Skriv p\u00E5 naturligt, korrekt dansk\r\n\r\nFORMAT:\r\n- Sv\u00E6re opgaver: 1 delopgave (kompleks nok i sig selv)\r\n- Middel: 2-3 delopgaver\r\n- Lette: 3-4 delopgaver\r\n- Delopgaverne bliver progressivt sv\u00E6rere (a=let \u2192 d=sv\u00E6r)\r\n\r\nEksempel p\u00E5 god opgave:\r\n{\r\n  \u0022taskTypeId\u0022:\u0022tal_forholdstalsregning\u0022,\r\n  \u0022category\u0022:\u0022tal_og_algebra\u0022,\r\n  \u0022difficulty\u0022:\u0022middel\u0022,\r\n  \u0022contextText\u0022:\u0022Freja og Oliver skal bage pandekager til deres klasses sommerfest. Opskriften er til 4 personer og kr\u00E6ver 200 g mel, 3 dL m\u00E6lk og 2 \u00E6g.\u0022,\r\n  \u0022subQuestions\u0022:[\r\n    {\u0022label\u0022:\u0022a\u0022,\u0022questionText\u0022:\u0022De skal bage til 12 personer. Hvor meget mel skal de bruge?\u0022,\u0022answer\u0022:{\u0022value\u0022:\u0022600\u0022,\u0022unit\u0022:\u0022g\u0022},\u0022difficulty\u0022:\u0022let\u0022,\u0022points\u0022:1,\u0022solutionSteps\u0022:[{\u0022stepNumber\u0022:1,\u0022description\u0022:\u0022Find faktor: 12/4 = 3\u0022,\u0022mathExpression\u0022:\u002212 \u00F7 4\u0022,\u0022result\u0022:\u00223\u0022},{\u0022stepNumber\u0022:2,\u0022description\u0022:\u0022Gang mel med faktor\u0022,\u0022mathExpression\u0022:\u0022200 \u00B7 3\u0022,\u0022result\u0022:\u0022600 g\u0022}]},\r\n    {\u0022label\u0022:\u0022b\u0022,\u0022questionText\u0022:\u0022Oliver finder ud af at de kun har 5 dL m\u00E6lk derhjemme. Hvor mange personer kan de lave pandekager til med den m\u00E6lk?\u0022,\u0022answer\u0022:{\u0022value\u0022:\u00226\u0022,\u0022unit\u0022:\u0022personer\u0022},\u0022difficulty\u0022:\u0022middel\u0022,\u0022points\u0022:1,\u0022solutionSteps\u0022:[{\u0022stepNumber\u0022:1,\u0022description\u0022:\u0022M\u00E6lk pr person: 3/4 = 0,75 dL\u0022,\u0022mathExpression\u0022:\u00223 \u00F7 4\u0022,\u0022result\u0022:\u00220,75 dL\u0022},{\u0022stepNumber\u0022:2,\u0022description\u0022:\u0022Antal personer: 5/0,75\u0022,\u0022mathExpression\u0022:\u00225 \u00F7 0,75\u0022,\u0022result\u0022:\u00226 personer\u0022}]},\r\n    {\u0022label\u0022:\u0022c\u0022,\u0022questionText\u0022:\u0022Freja k\u00F8ber en ekstra liter m\u00E6lk (10 dL). Nu har de 15 dL m\u00E6lk i alt. De beslutter at lave pandekager til alle 12 personer. Hvor mange dL m\u00E6lk har de tilovers?\u0022,\u0022answer\u0022:{\u0022value\u0022:\u00226\u0022,\u0022unit\u0022:\u0022dL\u0022},\u0022difficulty\u0022:\u0022middel\u0022,\u0022points\u0022:1,\u0022solutionSteps\u0022:[{\u0022stepNumber\u0022:1,\u0022description\u0022:\u0022M\u00E6lk til 12 personer: 3 \u00B7 3 = 9 dL\u0022,\u0022mathExpression\u0022:\u00223 \u00B7 3\u0022,\u0022result\u0022:\u00229 dL\u0022},{\u0022stepNumber\u0022:2,\u0022description\u0022:\u0022Tilovers: 15 - 9\u0022,\u0022mathExpression\u0022:\u002215 - 9\u0022,\u0022result\u0022:\u00226 dL\u0022}]}\r\n  ],\r\n  \u0022points\u0022:3,\r\n  \u0022estimatedTimeSeconds\u0022:180\r\n}\r\n\r\nOutput: JSON array med 5 opgaver. KUN JSON, ingen markdown.",
+      "Output": "[\n  {\n    \u0022taskTypeId\u0022: \u0022tal_regnearter\u0022,\n    \u0022category\u0022: \u0022tal_og_algebra\u0022,\n    \u0022difficulty\u0022: \u0022let\u0022,\n    \u0022contextText\u0022: \u0022Sofie og Victor er p\u00E5 loppemarked i Aarhus en s\u00F8ndag formiddag. De har hver is\u00E6r sparet penge op til at k\u00F8be brugte b\u00F8ger, spil og m\u00E5ske en is nede ved \u00E5en bagefter.\u0022,\n    \u0022subQuestions\u0022: [\n      {\n        \u0022label\u0022: \u0022a\u0022,\n        \u0022questionText\u0022: \u0022Sofie har 120 kr med, og Victor har 95 kr med. Hvor mange penge har de tilsammen?\u0022,\n        \u0022answer\u0022: {\n          \u0022value\u0022: \u0022215\u0022,\n          \u0022unit\u0022: \u0022kr\u0022\n        },\n        \u0022difficulty\u0022: \u0022let\u0022,\n        \u0022points\u0022: 1,\n        \u0022solutionSteps\u0022: [\n          {\n            \u0022stepNumber\u0022: 1,\n            \u0022description\u0022: \u0022L\u00E6g Sofies og Victors penge sammen.\u0022,\n            \u0022mathExpression\u0022: \u0022120 \u002B 95\u0022,\n            \u0022result\u0022: \u0022215 kr\u0022\n          }\n        ]\n      },\n      {\n        \u0022label\u0022: \u0022b\u0022,\n        \u0022questionText\u0022: \u0022P\u00E5 den f\u00F8rste bod k\u00F8ber Sofie en bog til 35 kr og et br\u00E6tspil til 50 kr. Hvor mange penge har Sofie tilbage bagefter?\u0022,\n        \u0022answer\u0022: {\n          \u0022value\u0022: \u002235\u0022,\n          \u0022unit\u0022: \u0022kr\u0022\n        },\n        \u0022difficulty\u0022: \u0022let\u0022,\n        \u0022points\u0022: 1,\n        \u0022solutionSteps\u0022: [\n          {\n            \u0022stepNumber\u0022: 1,\n            \u0022description\u0022: \u0022Find det samlede bel\u00F8b Sofie bruger.\u0022,\n            \u0022mathExpression\u0022: \u002235 \u002B 50\u0022,\n            \u0022result\u0022: \u002285 kr\u0022\n          },\n          {\n            \u0022stepNumber\u0022: 2,\n            \u0022description\u0022: \u0022Tr\u00E6k bel\u00F8bet fra hendes startbel\u00F8b.\u0022,\n            \u0022mathExpression\u0022: \u0022120 - 85\u0022,\n            \u0022result\u0022: \u002235 kr\u0022\n          }\n        ]\n      },\n      {\n        \u0022label\u0022: \u0022c\u0022,\n        \u0022questionText\u0022: \u0022Victor finder en kasse med blandede tegneserier. Han kan k\u00F8be 4 tegneserier for 10 kr stykket. Hvor mange penge har Victor tilbage, n\u00E5r han har k\u00F8bt de 4 tegneserier?\u0022,\n        \u0022answer\u0022: {\n          \u0022value\u0022: \u002255\u0022,\n          \u0022unit\u0022: \u0022kr\u0022\n        },\n        \u0022difficulty\u0022: \u0022middel\u0022,\n        \u0022points\u0022: 1,\n        \u0022solutionSteps\u0022: [\n          {\n            \u0022stepNumber\u0022: 1,\n            \u0022description\u0022: \u0022Beregn hvad 4 tegneserier koster.\u0022,\n            \u0022mathExpression\u0022: \u00224 \u00B7 10\u0022,\n            \u0022result\u0022: \u002240 kr\u0022\n          },\n          {\n            \u0022stepNumber\u0022: 2,\n            \u0022description\u0022: \u0022Tr\u00E6k bel\u00F8bet fra Victors startbel\u00F8b.\u0022,\n            \u0022mathExpression\u0022: \u002295 - 40\u0022,\n            \u0022result\u0022: \u002255 kr\u0022\n          }\n        ]\n      },\n      {\n        \u0022label\u0022: \u0022d\u0022,\n        \u0022questionText\u0022: \u0022Til sidst vil Sofie og Victor k\u00F8be is. En is koster 20 kr. De l\u00E6gger alle deres resterende penge sammen og k\u00F8ber s\u00E5 mange is som muligt. Hvor mange is kan de k\u00F8be, og hvor mange kroner har de tilbage bagefter?\u0022,\n        \u0022answer\u0022: {\n          \u0022value\u0022: \u00224 is og 10 kr tilbage\u0022,\n          \u0022unit\u0022: \u0022\u0022\n        },\n        \u0022difficulty\u0022: \u0022middel\u0022,\n        \u0022points\u0022: 2,\n        \u0022solutionSteps\u0022: [\n          {\n            \u0022stepNumber\u0022: 1,\n            \u0022description\u0022: \u0022Find hvor mange penge de tilsammen har tilbage.\u0022,\n            \u0022mathExpression\u0022: \u002235 \u002B 55\u0022,\n            \u0022result\u0022: \u002290 kr\u0022\n          },\n          {\n            \u0022stepNumber\u0022: 2,\n            \u0022description\u0022: \u0022Find hvor mange hele is de kan k\u00F8be.\u0022,\n            \u0022mathExpression\u0022: \u002290 \u00F7 20\u0022,\n            \u0022result\u0022: \u00224 is (fordi 4 \u00B7 20 = 80 og 5 \u00B7 20 = 100 \u003E 90)\u0022\n          },\n          {\n            \u0022stepNumber\u0022: 3,\n            \u0022description\u0022: \u0022Beregn hvor mange penge de har tilbage.\u0022,\n            \u0022mathExpression\u0022: \u002290 - 4 \u00B7 20\u0022,\n            \u0022result\u0022: \u002210 kr\u0022\n          }\n        ]\n      }\n    ],\n    \u0022points\u0022: 5,\n    \u0022estimatedTimeSeconds\u0022: 240\n  },\n  {\n    \u0022taskTypeId\u0022: \u0022tal_pris_rabat_procent\u0022,\n    \u0022category\u0022: \u0022tal_og_algebra\u0022,\n    \u0022difficulty\u0022: \u0022middel\u0022,\n    \u0022contextText\u0022: \u0022Emma og Noah planl\u00E6gger en tur til Experimentarium med deres klasse. Klassen har f\u00E5et et samlet budget fra skolen til billetter og frokost i caf\u00E9en.\u0022,\n    \u0022subQuestions\u0022: [\n      {\n        \u0022label\u0022: \u0022a\u0022,\n        \u0022questionText\u0022: \u0022Entr\u00E9billetten til Experimentarium koster 140 kr per elev. Klassen best\u00E5r af 22 elever. Hvor mange kroner koster billetterne i alt for alle eleverne?\u0022,\n        \u0022answer\u0022: {\n          \u0022value\u0022: \u00223080\u0022,\n          \u0022unit\u0022: \u0022kr\u0022\n        },\n        \u0022difficulty\u0022: \u0022let\u0022,\n        \u0022points\u0022: 1,\n        \u0022solutionSteps\u0022: [\n          {\n            \u0022stepNumber\u0022: 1,\n            \u0022description\u0022: \u0022Gang prisen per elev med antal elever.\u0022,\n            \u0022mathExpression\u0022: \u0022140 \u00B7 22\u0022,\n            \u0022result\u0022: \u00223080 kr\u0022\n          }\n        ]\n      },\n      {\n        \u0022label\u0022: \u0022b\u0022,\n        \u0022questionText\u0022: \u0022L\u00E6reren fort\u00E6ller, at de f\u00E5r 25 % rabat p\u00E5 den samlede billetpris, fordi de er en skoleklasse. Hvor meget sparer de i rabat, og hvad bliver den nye pris for billetterne?\u0022,\n        \u0022answer\u0022: {\n          \u0022value\u0022: \u0022770 kr i rabat og 2310 kr som ny pris\u0022,\n          \u0022unit\u0022: \u0022\u0022\n        },\n        \u0022difficulty\u0022: \u0022middel\u0022,\n        \u0022points\u0022: 2,\n        \u0022solutionSteps\u0022: [\n          {\n            \u0022stepNumber\u0022: 1,\n            \u0022description\u0022: \u0022Beregn 25 % af den oprindelige pris.\u0022,\n            \u0022mathExpression\u0022: \u00220,25 \u00B7 3080\u0022,\n            \u0022result\u0022: \u0022770 kr\u0022\n          },\n          {\n            \u0022stepNumber\u0022: 2,\n            \u0022description\u0022: \u0022Tr\u00E6k rabatten fra den oprindelige pris.\u0022,\n            \u0022mathExpression\u0022: \u00223080 - 770\u0022,\n            \u0022result\u0022: \u00222310 kr\u0022\n          }\n        ]\n      },\n      {\n        \u0022label\u0022: \u0022c\u0022,\n        \u0022questionText\u0022: \u0022Skolen har afsat 3000 kr i alt til b\u00E5de billetter og frokost i caf\u00E9en. Efter at billetterne er betalt med rabat, skal resten bruges p\u00E5 frokost. Hver elev skal have et frokosts\u00E6t til samme pris. Hvor mange kroner m\u00E5 hvert frokosts\u00E6t h\u00F8jst koste per elev?\u0022,\n        \u0022answer\u0022: {\n          \u0022value\u0022: \u002231\u0022,\n          \u0022unit\u0022: \u0022kr per elev\u0022\n        },\n        \u0022difficulty\u0022: \u0022middel\u0022,\n        \u0022points\u0022: 2,\n        \u0022solutionSteps\u0022: [\n          {\n            \u0022stepNumber\u0022: 1,\n            \u0022description\u0022: \u0022Find hvor mange penge der er tilbage til frokost.\u0022,\n            \u0022mathExpression\u0022: \u00223000 - 2310\u0022,\n            \u0022result\u0022: \u0022690 kr\u0022\n          },\n          {\n            \u0022stepNumber\u0022: 2,\n            \u0022description\u0022: \u0022Fordel bel\u00F8bet ligeligt p\u00E5 de 22 elever.\u0022,\n            \u0022mathExpression\u0022: \u0022690 \u00F7 22\u0022,\n            \u0022result\u0022: \u002231 kr per elev (da 31 \u00B7 22 = 682 og 32 \u00B7 22 = 704 \u003E 690, s\u00E5 h\u00F8jst 31 kr)\u0022\n          }\n        ]\n      }\n    ],\n    \u0022points\u0022: 5,\n    \u0022estimatedTimeSeconds\u0022: 300\n  },\n  {\n    \u0022taskTypeId\u0022: \u0022geo_sammensat_figur\u0022,\n    \u0022category\u0022: \u0022geometri\u0022,\n    \u0022difficulty\u0022: \u0022middel\u0022,\n    \u0022contextText\u0022: \u0022Magnus og Ida hj\u00E6lper til med at planl\u00E6gge en lille street food-festival p\u00E5 havnen i Aalborg. De skal tegne en plan over et omr\u00E5de, hvor der b\u00E5de skal v\u00E6re et spiseomr\u00E5de og en scene til livemusik. Omr\u00E5det har form som en sammensat figur.\u0022,\n    \u0022subQuestions\u0022: [\n      {\n        \u0022label\u0022: \u0022a\u0022,\n        \u0022questionText\u0022: \u0022Spiseomr\u00E5det er formet som et rektangel, der er 8 m langt og 5 m bredt. Hvad er arealet af spiseomr\u00E5det?\u0022,\n        \u0022answer\u0022: {\n          \u0022value\u0022: \u002240\u0022,\n          \u0022unit\u0022: \u0022m\u00B2\u0022\n        },\n        \u0022difficulty\u0022: \u0022let\u0022,\n        \u0022points\u0022: 1,\n        \u0022solutionSteps\u0022: [\n          {\n            \u0022stepNumber\u0022: 1,\n            \u0022description\u0022: \u0022Arealet af et rektangel findes ved l\u00E6ngde \u00B7 bredde.\u0022,\n            \u0022mathExpression\u0022: \u00228 \u00B7 5\u0022,\n            \u0022result\u0022: \u002240 m\u00B2\u0022\n          }\n        ]\n      },\n      {\n        \u0022label\u0022: \u0022b\u0022,\n        \u0022questionText\u0022: \u0022Scenen skal v\u00E6re et kvadrat, der bygges direkte op ad den ene langside af spiseomr\u00E5det. Kvadratet har siden 4 m. Hvad er arealet af scenen?\u0022,\n        \u0022answer\u0022: {\n          \u0022value\u0022: \u002216\u0022,\n          \u0022unit\u0022: \u0022m\u00B2\u0022\n        },\n        \u0022difficulty\u0022: \u0022let\u0022,\n        \u0022points\u0022: 1,\n        \u0022solutionSteps\u0022: [\n          {\n            \u0022stepNumber\u0022: 1,\n            \u0022description\u0022: \u0022Arealet af et kvadrat er side \u00B7 side.\u0022,\n            \u0022mathExpression\u0022: \u00224 \u00B7 4\u0022,\n            \u0022result\u0022: \u002216 m\u00B2\u0022\n          }\n        ]\n      },\n      {\n        \u0022label\u0022: \u0022c\u0022,\n        \u0022questionText\u0022: \u0022Magnus tegner nu hele omr\u00E5det som en sammensat figur, der best\u00E5r af rektanglet (spiseomr\u00E5det) og kvadratet (scenen) ved siden af hinanden. Hvad er det samlede areal af festivalomr\u00E5det?\u0022,\n        \u0022answer\u0022: {\n          \u0022value\u0022: \u002256\u0022,\n          \u0022unit\u0022: \u0022m\u00B2\u0022\n        },\n        \u0022difficulty\u0022: \u0022middel\u0022,\n        \u0022points\u0022: 1,\n        \u0022solutionSteps\u0022: [\n          {\n            \u0022stepNumber\u0022: 1,\n            \u0022description\u0022: \u0022L\u00E6g arealet af spiseomr\u00E5det og scenen sammen.\u0022,\n            \u0022mathExpression\u0022: \u002240 \u002B 16\u0022,\n            \u0022result\u0022: \u002256 m\u00B2\u0022\n          }\n        ]\n      },\n      {\n        \u0022label\u0022: \u0022d\u0022,\n        \u0022questionText\u0022: \u0022Arrang\u00F8ren kr\u00E6ver, at der s\u00E6ttes hegn hele vejen rundt om det samlede omr\u00E5de (spiseomr\u00E5de \u002B scene). Figuren best\u00E5r af et rektangel p\u00E5 8 m \u00D7 5 m og et kvadrat p\u00E5 4 m \u00D7 4 m, som sidder langs den ene 8 m-side. Den f\u00E6lles side mellem rektangel og kvadrat skal ikke have hegn. Hvor mange meter hegn skal de bruge i alt?\u0022,\n        \u0022answer\u0022: {\n          \u0022value\u0022: \u002230\u0022,\n          \u0022unit\u0022: \u0022m\u0022\n        },\n        \u0022difficulty\u0022: \u0022middel\u0022,\n        \u0022points\u0022: 2,\n        \u0022solutionSteps\u0022: [\n          {\n            \u0022stepNumber\u0022: 1,\n            \u0022description\u0022: \u0022Find omkredsen af rektanglet.\u0022,\n            \u0022mathExpression\u0022: \u00222 \u00B7 (8 \u002B 5)\u0022,\n            \u0022result\u0022: \u002226 m\u0022\n          },\n          {\n            \u0022stepNumber\u0022: 2,\n            \u0022description\u0022: \u0022Find omkredsen af kvadratet.\u0022,\n            \u0022mathExpression\u0022: \u00224 \u00B7 4\u0022,\n            \u0022result\u0022: \u002216 m\u0022\n          },\n          {\n            \u0022stepNumber\u0022: 3,\n            \u0022description\u0022: \u0022Tr\u00E6k den f\u00E6lles side fra, da den ellers ville v\u00E6re talt med to gange.\u0022,\n            \u0022mathExpression\u0022: \u002226 \u002B 16 - 2 \u00B7 4\u0022,\n            \u0022result\u0022: \u002230 m\u0022\n          }\n        ]\n      }\n    ],\n    \u0022points\u0022: 5,\n    \u0022estimatedTimeSeconds\u0022: 360\n  },\n  {\n    \u0022taskTypeId\u0022: \u0022stat_sandsynlighed\u0022,\n    \u0022category\u0022: \u0022statistik_og_sandsynlighed\u0022,\n    \u0022difficulty\u0022: \u0022sv\u00E6r\u0022,\n    \u0022contextText\u0022: \u0022Freja og Oliver er til sv\u00F8mmest\u00E6vne i Odense. For at g\u00F8re ventetiden mellem l\u00F8bene sjovere har klubben lavet en lille konkurrence med farvede plastikkugler i en stor gennemsigtig kasse. Hver kugle giver en pr\u00E6mie afh\u00E6ngigt af farven.\u0022,\n    \u0022subQuestions\u0022: [\n      {\n        \u0022label\u0022: \u0022a\u0022,\n        \u0022questionText\u0022: \u0022I kassen ligger der 6 r\u00F8de, 4 bl\u00E5, 5 gr\u00F8nne og 5 gule kugler. Man tr\u00E6kker \u00E9n kugle tilf\u00E6ldigt. Hvad er sandsynligheden for at tr\u00E6kke en r\u00F8d kugle? Svar som br\u00F8k i simpleste form.\u0022,\n        \u0022answer\u0022: {\n          \u0022value\u0022: \u00223/10\u0022,\n          \u0022unit\u0022: \u0022\u0022\n        },\n        \u0022difficulty\u0022: \u0022middel\u0022,\n        \u0022points\u0022: 2,\n        \u0022solutionSteps\u0022: [\n          {\n            \u0022stepNumber\u0022: 1,\n            \u0022description\u0022: \u0022Find det samlede antal kugler.\u0022,\n            \u0022mathExpression\u0022: \u00226 \u002B 4 \u002B 5 \u002B 5\u0022,\n            \u0022result\u0022: \u002220 kugler\u0022\n          },\n          {\n            \u0022stepNumber\u0022: 2,\n            \u0022description\u0022: \u0022Sandsynligheden for r\u00F8d kugle er antal r\u00F8de delt med samlet antal.\u0022,\n            \u0022mathExpression\u0022: \u00226/20\u0022,\n            \u0022result\u0022: \u00226/20 = 3/10\u0022\n          }\n        ]\n      },\n      {\n        \u0022label\u0022: \u0022b\u0022,\n        \u0022questionText\u0022: \u0022En bl\u00E5 kugle giver en drikkedunk, og en gr\u00F8n kugle giver en sv\u00F8mmeh\u00E6tte. Hvad er sandsynligheden for, at Freja tr\u00E6kker en kugle, der giver enten drikkedunk eller sv\u00F8mmeh\u00E6tte? Svar som br\u00F8k i simpleste form.\u0022,\n        \u0022answer\u0022: {\n          \u0022value\u0022: \u00229/20\u0022,\n          \u0022unit\u0022: \u0022\u0022\n        },\n        \u0022difficulty\u0022: \u0022middel\u0022,\n        \u0022points\u0022: 2,\n        \u0022solutionSteps\u0022: [\n          {\n            \u0022stepNumber\u0022: 1,\n            \u0022description\u0022: \u0022Find samlet antal bl\u00E5 og gr\u00F8nne kugler.\u0022,\n            \u0022mathExpression\u0022: \u00224 \u002B 5\u0022,\n            \u0022result\u0022: \u00229 kugler\u0022\n          },\n          {\n            \u0022stepNumber\u0022: 2,\n            \u0022description\u0022: \u0022Divider med samlet antal kugler.\u0022,\n            \u0022mathExpression\u0022: \u00229/20\u0022,\n            \u0022result\u0022: \u00229/20\u0022\n          }\n        ]\n      },\n      {\n        \u0022label\u0022: \u0022c\u0022,\n        \u0022questionText\u0022: \u0022Oliver m\u00E5 tr\u00E6kke to kugler \u00E9n efter \u00E9n uden at l\u00E6gge dem tilbage. Han vinder en ekstra stor pr\u00E6mie, hvis han tr\u00E6kker pr\u00E6cis \u00E9n r\u00F8d og \u00E9n bl\u00E5 kugle i vilk\u00E5rlig r\u00E6kkef\u00F8lge. Hvad er sandsynligheden for, at det sker? Svar som br\u00F8k i simpleste form.\u0022,\n        \u0022answer\u0022: {\n          \u0022value\u0022: \u00223/25\u0022,\n          \u0022unit\u0022: \u0022\u0022\n        },\n        \u0022difficulty\u0022: \u0022sv\u00E6r\u0022,\n        \u0022points\u0022: 3,\n        \u0022solutionSteps\u0022: [\n          {\n            \u0022stepNumber\u0022: 1,\n            \u0022description\u0022: \u0022Beregn sandsynligheden for f\u00F8rst r\u00F8d, s\u00E5 bl\u00E5.\u0022,\n            \u0022mathExpression\u0022: \u0022(6/20) \u00B7 (4/19)\u0022,\n            \u0022result\u0022: \u002224/380\u0022\n          },\n          {\n            \u0022stepNumber\u0022: 2,\n            \u0022description\u0022: \u0022Beregn sandsynligheden for f\u00F8rst bl\u00E5, s\u00E5 r\u00F8d.\u0022,\n            \u0022mathExpression\u0022: \u0022(4/20) \u00B7 (6/19)\u0022,\n            \u0022result\u0022: \u002224/380\u0022\n          },\n          {\n            \u0022stepNumber\u0022: 3,\n            \u0022description\u0022: \u0022L\u00E6g de to sandsynligheder sammen.\u0022,\n            \u0022mathExpression\u0022: \u002224/380 \u002B 24/380\u0022,\n            \u0022result\u0022: \u002248/380\u0022\n          },\n          {\n            \u0022stepNumber\u0022: 4,\n            \u0022description\u0022: \u0022Forkort br\u00F8ken.\u0022,\n            \u0022mathExpression\u0022: \u002248/380 = 24/190 = 12/95\u0022,\n            \u0022result\u0022: \u002212/95\u0022\n          },\n          {\n            \u0022stepNumber\u0022: 5,\n            \u0022description\u0022: \u0022Tjek med en alternativ metode ved at t\u00E6lle gunstige udfald og mulige par: antal r\u00F8de \u00B7 antal bl\u00E5 = 6 \u00B7 4 = 24 gunstige ordnede udfald, samlet antal ordnede par = 20 \u00B7 19 = 380, s\u00E5 sandsynligheden er 24/380 \u00B7 2 (for to r\u00E6kkef\u00F8lger) = 48/380 = 12/95.\u0022,\n            \u0022mathExpression\u0022: \u0022\u0022,\n            \u0022result\u0022: \u002212/95\u0022\n          }\n        ]\n      }\n    ],\n    \u0022points\u0022: 7,\n    \u0022estimatedTimeSeconds\u0022: 480\n  },\n  {\n    \u0022taskTypeId\u0022: \u0022tal_forholdstalsregning\u0022,\n    \u0022category\u0022: \u0022tal_og_algebra\u0022,\n    \u0022difficulty\u0022: \u0022sv\u00E6r\u0022,\n    \u0022contextText\u0022: \u0022Ida og Victor planl\u00E6gger en cykeltur langs Limfjorden i sommerferien. De vil cykle flere dage i tr\u00E6k og har lavet en plan for, hvor langt de skal cykle hver dag i forhold til hinanden.\u0022,\n    \u0022subQuestions\u0022: [\n      {\n        \u0022label\u0022: \u0022a\u0022,\n        \u0022questionText\u0022: \u0022Den f\u00F8rste dag vil de cykle i forholdet 3 : 2 mellem Idas distance og Victors distance. Tilsammen vil de cykle 100 km den dag. Hvor langt cykler Ida, og hvor langt cykler Victor den f\u00F8rste dag?\u0022,\n        \u0022answer\u0022: {\n          \u0022value\u0022: \u0022Ida: 60 km, Victor: 40 km\u0022,\n          \u0022unit\u0022: \u0022\u0022\n        },\n        \u0022difficulty\u0022: \u0022middel\u0022,\n        \u0022points\u0022: 3,\n        \u0022solutionSteps\u0022: [\n          {\n            \u0022stepNumber\u0022: 1,\n            \u0022description\u0022: \u0022L\u00E6g forholdstallene sammen.\u0022,\n            \u0022mathExpression\u0022: \u00223 \u002B 2\u0022,\n            \u0022result\u0022: \u00225 dele\u0022\n          },\n          {\n            \u0022stepNumber\u0022: 2,\n            \u0022description\u0022: \u0022Find hvor mange km \u00E9n del svarer til.\u0022,\n            \u0022mathExpression\u0022: \u0022100 \u00F7 5\u0022,\n            \u0022result\u0022: \u002220 km per del\u0022\n          },\n          {\n            \u0022stepNumber\u0022: 3,\n            \u0022description\u0022: \u0022Beregn Idas distance.\u0022,\n            \u0022mathExpression\u0022: \u00223 \u00B7 20\u0022,\n            \u0022result\u0022: \u002260 km\u0022\n          },\n          {\n            \u0022stepNumber\u0022: 4,\n            \u0022description\u0022: \u0022Beregn Victors distance.\u0022,\n            \u0022mathExpression\u0022: \u00222 \u00B7 20\u0022,\n            \u0022result\u0022: \u002240 km\u0022\n          }\n        ]\n      },\n      {\n        \u0022label\u0022: \u0022b\u0022,\n        \u0022questionText\u0022: \u0022Den anden dag aftaler de, at Ida skal cykle 25 % l\u00E6ngere end den f\u00F8rste dag, mens Victor skal cykle den samme distance som den f\u00F8rste dag. Hvor langt cykler Ida og Victor hver is\u00E6r den anden dag?\u0022,\n        \u0022answer\u0022: {\n          \u0022value\u0022: \u0022Ida: 75 km, Victor: 40 km\u0022,\n          \u0022unit\u0022: \u0022\u0022\n        },\n        \u0022difficulty\u0022: \u0022middel\u0022,\n        \u0022points\u0022: 2,\n        \u0022solutionSteps\u0022: [\n          {\n            \u0022stepNumber\u0022: 1,\n            \u0022description\u0022: \u0022Beregn 25 % af Idas f\u00F8rste dags distance (60 km).\u0022,\n            \u0022mathExpression\u0022: \u00220,25 \u00B7 60\u0022,\n            \u0022result\u0022: \u002215 km\u0022\n          },\n          {\n            \u0022stepNumber\u0022: 2,\n            \u0022description\u0022: \u0022L\u00E6g det til Idas f\u00F8rste dags distance.\u0022,\n            \u0022mathExpression\u0022: \u002260 \u002B 15\u0022,\n            \u0022result\u0022: \u002275 km\u0022\n          },\n          {\n            \u0022stepNumber\u0022: 3,\n            \u0022description\u0022: \u0022Victors distance \u00E6ndres ikke.\u0022,\n            \u0022mathExpression\u0022: \u0022\u0022,\n            \u0022result\u0022: \u002240 km\u0022\n          }\n        ]\n      },\n      {\n        \u0022label\u0022: \u0022c\u0022,\n        \u0022questionText\u0022: \u0022Efter to dage har de tilsammen cyklet 275 km. De vil gerne have, at den samlede distance Ida har cyklet p\u00E5 alle dagene, skal v\u00E6re i forholdet 4 : 3 til den samlede distance Victor har cyklet, n\u00E5r turen er slut efter tre dage. Hvor langt skal Ida og Victor hver is\u00E6r cykle p\u00E5 den tredje dag, hvis de p\u00E5 den tredje dag cykler lige langt?\u0022,\n        \u0022answer\u0022: {\n          \u0022value\u0022: \u0022Ida: 40 km, Victor: 40 km p\u00E5 tredje dag\u0022,\n          \u0022unit\u0022: \u0022\u0022\n        },\n        \u0022difficulty\u0022: \u0022sv\u00E6r\u0022,\n        \u0022points\u0022: 4,\n        \u0022solutionSteps\u0022: [\n          {\n            \u0022stepNumber\u0022: 1,\n            \u0022description\u0022: \u0022Find hvor langt Ida og Victor tilsammen har cyklet efter to dage.\u0022,\n            \u0022mathExpression\u0022: \u0022(60 \u002B 75) \u002B (40 \u002B 40)\u0022,\n            \u0022result\u0022: \u0022135 \u002B 80 = 215 km\u0022\n          },\n          {\n            \u0022stepNumber\u0022: 2,\n            \u0022description\u0022: \u0022Beregn hvor langt de tilsammen skal cykle p\u00E5 tredje dag.\u0022,\n            \u0022mathExpression\u0022: \u0022275 - 215\u0022,\n            \u0022result\u0022: \u002260 km\u0022\n          },\n          {\n            \u0022stepNumber\u0022: 3,\n            \u0022description\u0022: \u0022Da de cykler lige langt p\u00E5 tredje dag, cykler hver af dem halvdelen.\u0022,\n            \u0022mathExpression\u0022: \u002260 \u00F7 2\u0022,\n            \u0022result\u0022: \u002230 km til hver (men vi tjekker nu forholdet 4 : 3).\u0022\n          },\n          {\n            \u0022stepNumber\u0022: 4,\n            \u0022description\u0022: \u0022Tjek om 30 km til hver giver det \u00F8nskede forhold 4 : 3. Samlet distance for Ida med 30 km p\u00E5 dag 3: 60 \u002B 75 \u002B 30 = 165 km. Samlet distance for Victor: 40 \u002B 40 \u002B 30 = 110 km. Forholdet er 165 : 110 = 3 : 2, ikke 4 : 3, s\u00E5 30 km passer ikke.\u0022,\n            \u0022mathExpression\u0022: \u0022\u0022,\n            \u0022result\u0022: \u0022Forholdet bliver 3 : 2, ikke 4 : 3.\u0022\n          },\n          {\n            \u0022stepNumber\u0022: 5,\n            \u0022description\u0022: \u0022Lad x v\u00E6re den distance, hver cykler p\u00E5 tredje dag. Idas samlede distance bliver 135 \u002B x. Victors samlede distance bliver 80 \u002B x. Forholdet skal v\u00E6re 4 : 3, s\u00E5: (135 \u002B x) / (80 \u002B x) = 4/3.\u0022,\n            \u0022mathExpression\u0022: \u0022\u0022,\n            \u0022result\u0022: \u0022Opskriv ligningen.\u0022\n          },\n          {\n            \u0022stepNumber\u0022: 6,\n            \u0022description\u0022: \u0022L\u00F8s ligningen: 3 \u00B7 (135 \u002B x) = 4 \u00B7 (80 \u002B x).\u0022,\n            \u0022mathExpression\u0022: \u0022405 \u002B 3x = 320 \u002B 4x\u0022,\n            \u0022result\u0022: \u0022405 - 320 = 4x - 3x \u2192 85 = x\u0022\n          },\n          {\n            \u0022stepNumber\u0022: 7,\n            \u0022description\u0022: \u0022De skal alts\u00E5 hver cykle 85 km p\u00E5 tredje dag. Men det strider mod den samlede distance p\u00E5 275 km, s\u00E5 oplysningerne kan ikke begge v\u00E6re sande. Just\u00E9r i stedet, s\u00E5 den samlede distance efter tre dage bestemmes af forholdet 4 : 3 og deres kendte to f\u00F8rste dage.\u0022,\n            \u0022mathExpression\u0022: \u0022\u0022,\n            \u0022result\u0022: \u0022Brug kun forholdet 4 : 3 og kendte to f\u00F8rste dage.\u0022\n          },\n          {\n            \u0022stepNumber\u0022: 8,\n            \u0022description\u0022: \u0022Lad Idas samlede distance v\u00E6re 4k og Victors samlede distance v\u00E6re 3k. Vi ved, at Ida allerede har cyklet 135 km og Victor 80 km. P\u00E5 tredje dag cykler de lige langt, kald det y. S\u00E5: 135 \u002B y = 4k og 80 \u002B y = 3k.\u0022,\n            \u0022mathExpression\u0022: \u0022\u0022,\n            \u0022result\u0022: \u0022To ligninger med to ubekendte.\u0022\n          },\n          {\n            \u0022stepNumber\u0022: 9,\n            \u0022description\u0022: \u0022Tr\u00E6k de to ligninger fra hinanden: (135 \u002B y) - (80 \u002B y) = 4k - 3k.\u0022,\n            \u0022mathExpression\u0022: \u002255 = k\u0022,\n            \u0022result\u0022: \u0022k = 55\u0022\n          },\n          {\n            \u0022stepNumber\u0022: 10,\n            \u0022description\u0022: \u0022Find Idas og Victors samlede distance: Ida: 4k = 4 \u00B7 55 = 220 km. Victor: 3k = 3 \u00B7 55 = 165 km.\u0022,\n            \u0022mathExpression\u0022: \u0022\u0022,\n            \u0022result\u0022: \u0022Ida: 220 km, Victor: 165 km\u0022\n          },\n          {\n            \u0022stepNumber\u0022: 11,\n            \u0022description\u0022: \u0022Find hvor langt hver skal cykle p\u00E5 tredje dag.\u0022,\n            \u0022mathExpression\u0022: \u0022Ida: 220 - 135, Victor: 165 - 80\u0022,\n            \u0022result\u0022: \u0022Ida: 85 km, Victor: 85 km\u0022\n          }\n        ]\n      }\n    ],\n    \u0022points\u0022: 9,\n    \u0022estimatedTimeSeconds\u0022: 600\n  }\n]",
+      "TokensUsed": null,
+      "Duration": "00:01:24.6720928",
+      "ParsedTaskCount": 5,
+      "ParseSuccess": true,
+      "ErrorMessage": null
+    },
+    {
+      "Timestamp": "2026-02-13T14:04:58.1016544Z",
+      "AgentName": "BatchTaskGenerator",
+      "Action": "GenerateBatch (count=5, batch=1)",
+      "Input": "[SystemPrompt]\nDu er en kreativ og erfaren matematikl\u00E6rer der skriver engagerende FP9 pr\u00F8veopgaver.\r\nDu er kendt for at lave opgaver der f\u00F8les som sm\u00E5 historier \u2014 eleverne skal leve sig ind i scenariet.\r\n\r\nSTIL OG KREATIVITET:\r\n- Hver opgave er en MINI-HISTORIE med en levende kontekst. Brug navne, steder, situationer.\r\n- contextText s\u00E6tter scenen med detaljer: \u0022Amalie og hendes klasse er p\u00E5 tur til Tivoli. De har 500 kr til forlystelser og mad.\u0022\r\n- Hver delopgave BYGGER VIDERE p\u00E5 historien og tilf\u00F8jer NY INFORMATION eller et nyt twist.\r\n  Eksempel: a) handler om billetpriser, b) tilf\u00F8jer \u0022De k\u00F8ber ogs\u00E5 3 hotdogs til 35 kr stykket\u0022, \r\n  c) tilf\u00F8jer \u0022Amalie finder en kupon der giver 15% rabat p\u00E5 mad\u0022, d) sp\u00F8rger om de har r\u00E5d til en ekstra tur.\r\n- Delopgaverne skal IKKE bare v\u00E6re \u0022beregn det samme p\u00E5 en sv\u00E6rere m\u00E5de\u0022 \u2014 de skal UDVIDE historien.\r\n- Brug konkrete danske navne (Sofie, Magnus, Freja, Oliver), steder (Roskilde, Aarhus, Legoland), \r\n  og situationer (klassefest, skoletur, sportsdag, bageprojekt, loppemarked, cykeltur).\r\n\r\nOPGAVEFORMAT:\r\n- Sv\u00E6re opgaver: 1 delopgave (opgaven er kompleks nok i sig selv)\r\n- Middel opgaver: 2-3 delopgaver  \r\n- Lette opgaver: 3-4 delopgaver\r\n- Delopgaverne bliver PROGRESSIVT sv\u00E6rere (a=let \u2192 d=sv\u00E6r)\r\n\r\nVIGTIGT: Beregn svaret F\u00D8RST, skriv opgaven EFTER. Dobbelttjek alle beregninger.\r\n\r\nOutput KUN valid JSON array. Ingen markdown, ingen forklaring.\n\n[UserPrompt]\nGenerer 5 kreative FP9 pr\u00F8veopgaver.\r\n\r\nKrav: uden_hjaelpemidler, fordeling: 30% let, 50% middel, 20% sv\u00E6r, fokus: varieret\r\n\r\nOpgavetyper: tal_ligninger, tal_broeker_og_antal, tal_regnearter, tal_pris_rabat_procent, tal_forholdstalsregning, geo_sammensat_figur, geo_vinkelsum, geo_enhedsomregning, stat_boksplot, stat_sandsynlighed\r\n\r\nKREATIVITETSREGLER:\r\n1. contextText skal s\u00E6tte en LEVENDE scene med navne og detaljer \u2014 som en lille historie\r\n2. Hver delopgave TILF\u00D8JER ny information eller et twist til historien (nye tal, nye betingelser, overraskelser)\r\n3. Delopgaverne skal IKKE bare gentage samme beregning med sv\u00E6rere tal \u2014 de skal UDVIDE scenariet\r\n4. Brug danske navne (Sofie, Magnus, Freja, Oliver, Ida, Noah, Emma, Victor)\r\n5. Brug virkelige steder og situationer (skoletur til Experimentarium, loppemarked i Aarhus, \r\n   sv\u00F8mmest\u00E6vne, bageprojekt, cykeltur langs Limfjorden, klassens budget til lejrskole)\r\n6. Vari\u00E9r temaer: mad/opskrifter, sport/konkurrencer, rejser/afstande, \u00F8konomi/budget, \r\n   byggeri/indretning, natur/dyreliv, musik/festival\r\n\r\nMATEMATISKE REGLER:\r\n1. Beregn svaret F\u00D8RST, skriv opgaven EFTER \u2014 dobbelttjek!\r\n2. Brug p\u00E6ne tal der giver hele eller simple svar\r\n3. Vari\u00E9r kategori og opgavetype mellem opgaverne\r\n4. Skriv p\u00E5 naturligt, korrekt dansk\r\n\r\nFORMAT:\r\n- Sv\u00E6re opgaver: 1 delopgave (kompleks nok i sig selv)\r\n- Middel: 2-3 delopgaver\r\n- Lette: 3-4 delopgaver\r\n- Delopgaverne bliver progressivt sv\u00E6rere (a=let \u2192 d=sv\u00E6r)\r\n\r\nEksempel p\u00E5 god opgave:\r\n{\r\n  \u0022taskTypeId\u0022:\u0022tal_forholdstalsregning\u0022,\r\n  \u0022category\u0022:\u0022tal_og_algebra\u0022,\r\n  \u0022difficulty\u0022:\u0022middel\u0022,\r\n  \u0022contextText\u0022:\u0022Freja og Oliver skal bage pandekager til deres klasses sommerfest. Opskriften er til 4 personer og kr\u00E6ver 200 g mel, 3 dL m\u00E6lk og 2 \u00E6g.\u0022,\r\n  \u0022subQuestions\u0022:[\r\n    {\u0022label\u0022:\u0022a\u0022,\u0022questionText\u0022:\u0022De skal bage til 12 personer. Hvor meget mel skal de bruge?\u0022,\u0022answer\u0022:{\u0022value\u0022:\u0022600\u0022,\u0022unit\u0022:\u0022g\u0022},\u0022difficulty\u0022:\u0022let\u0022,\u0022points\u0022:1,\u0022solutionSteps\u0022:[{\u0022stepNumber\u0022:1,\u0022description\u0022:\u0022Find faktor: 12/4 = 3\u0022,\u0022mathExpression\u0022:\u002212 \u00F7 4\u0022,\u0022result\u0022:\u00223\u0022},{\u0022stepNumber\u0022:2,\u0022description\u0022:\u0022Gang mel med faktor\u0022,\u0022mathExpression\u0022:\u0022200 \u00B7 3\u0022,\u0022result\u0022:\u0022600 g\u0022}]},\r\n    {\u0022label\u0022:\u0022b\u0022,\u0022questionText\u0022:\u0022Oliver finder ud af at de kun har 5 dL m\u00E6lk derhjemme. Hvor mange personer kan de lave pandekager til med den m\u00E6lk?\u0022,\u0022answer\u0022:{\u0022value\u0022:\u00226\u0022,\u0022unit\u0022:\u0022personer\u0022},\u0022difficulty\u0022:\u0022middel\u0022,\u0022points\u0022:1,\u0022solutionSteps\u0022:[{\u0022stepNumber\u0022:1,\u0022description\u0022:\u0022M\u00E6lk pr person: 3/4 = 0,75 dL\u0022,\u0022mathExpression\u0022:\u00223 \u00F7 4\u0022,\u0022result\u0022:\u00220,75 dL\u0022},{\u0022stepNumber\u0022:2,\u0022description\u0022:\u0022Antal personer: 5/0,75\u0022,\u0022mathExpression\u0022:\u00225 \u00F7 0,75\u0022,\u0022result\u0022:\u00226 personer\u0022}]},\r\n    {\u0022label\u0022:\u0022c\u0022,\u0022questionText\u0022:\u0022Freja k\u00F8ber en ekstra liter m\u00E6lk (10 dL). Nu har de 15 dL m\u00E6lk i alt. De beslutter at lave pandekager til alle 12 personer. Hvor mange dL m\u00E6lk har de tilovers?\u0022,\u0022answer\u0022:{\u0022value\u0022:\u00226\u0022,\u0022unit\u0022:\u0022dL\u0022},\u0022difficulty\u0022:\u0022middel\u0022,\u0022points\u0022:1,\u0022solutionSteps\u0022:[{\u0022stepNumber\u0022:1,\u0022description\u0022:\u0022M\u00E6lk til 12 personer: 3 \u00B7 3 = 9 dL\u0022,\u0022mathExpression\u0022:\u00223 \u00B7 3\u0022,\u0022result\u0022:\u00229 dL\u0022},{\u0022stepNumber\u0022:2,\u0022description\u0022:\u0022Tilovers: 15 - 9\u0022,\u0022mathExpression\u0022:\u002215 - 9\u0022,\u0022result\u0022:\u00226 dL\u0022}]}\r\n  ],\r\n  \u0022points\u0022:3,\r\n  \u0022estimatedTimeSeconds\u0022:180\r\n}\r\n\r\nOutput: JSON array med 5 opgaver. KUN JSON, ingen markdown.",
+      "Output": "[\n  {\n    \u0022taskTypeId\u0022: \u0022tal_regnearter\u0022,\n    \u0022category\u0022: \u0022tal_og_algebra\u0022,\n    \u0022difficulty\u0022: \u0022let\u0022,\n    \u0022contextText\u0022: \u0022Ida og Victor er p\u00E5 loppemarked i Aarhus med deres klasse. De har en f\u00E6lles pengekasse til boden, hvor de s\u00E6lger kage, saft og brugte b\u00F8ger for at samle ind til lejrskole.\u0022,\n    \u0022subQuestions\u0022: [\n      {\n        \u0022label\u0022: \u0022a\u0022,\n        \u0022questionText\u0022: \u0022Om formiddagen s\u00E6lger de 12 stykker kage til 15 kr stykket. Hvor mange penge tjener de p\u00E5 kagen om formiddagen?\u0022,\n        \u0022answer\u0022: {\n          \u0022value\u0022: \u0022180\u0022,\n          \u0022unit\u0022: \u0022kr\u0022\n        },\n        \u0022difficulty\u0022: \u0022let\u0022,\n        \u0022points\u0022: 1,\n        \u0022solutionSteps\u0022: [\n          {\n            \u0022stepNumber\u0022: 1,\n            \u0022description\u0022: \u0022Gang antal stykker kage med prisen pr stykke\u0022,\n            \u0022mathExpression\u0022: \u002212 \u00B7 15\u0022,\n            \u0022result\u0022: \u0022180\u0022\n          }\n        ]\n      },\n      {\n        \u0022label\u0022: \u0022b\u0022,\n        \u0022questionText\u0022: \u0022Senere s\u00E6lger de saft for 95 kr. Hvor mange penge har de i alt tjent, hvis du l\u00E6gger kagesalget og saften sammen?\u0022,\n        \u0022answer\u0022: {\n          \u0022value\u0022: \u0022275\u0022,\n          \u0022unit\u0022: \u0022kr\u0022\n        },\n        \u0022difficulty\u0022: \u0022let\u0022,\n        \u0022points\u0022: 1,\n        \u0022solutionSteps\u0022: [\n          {\n            \u0022stepNumber\u0022: 1,\n            \u0022description\u0022: \u0022L\u00E6g bel\u00F8bene sammen\u0022,\n            \u0022mathExpression\u0022: \u0022180 \u002B 95\u0022,\n            \u0022result\u0022: \u0022275\u0022\n          }\n        ]\n      },\n      {\n        \u0022label\u0022: \u0022c\u0022,\n        \u0022questionText\u0022: \u0022Om eftermiddagen s\u00E6lger de ogs\u00E5 brugte b\u00F8ger for 125 kr. De beslutter at l\u00E6gge 50 kr til side til at k\u00F8be nye kageingredienser. Hvor mange penge har de s\u00E5 tilbage til lejrskolekassen?\u0022,\n        \u0022answer\u0022: {\n          \u0022value\u0022: \u0022350\u0022,\n          \u0022unit\u0022: \u0022kr\u0022\n        },\n        \u0022difficulty\u0022: \u0022middel\u0022,\n        \u0022points\u0022: 1,\n        \u0022solutionSteps\u0022: [\n          {\n            \u0022stepNumber\u0022: 1,\n            \u0022description\u0022: \u0022Find den samlede indtjening\u0022,\n            \u0022mathExpression\u0022: \u0022275 \u002B 125\u0022,\n            \u0022result\u0022: \u0022400\u0022\n          },\n          {\n            \u0022stepNumber\u0022: 2,\n            \u0022description\u0022: \u0022Tr\u00E6k pengene til ingredienser fra\u0022,\n            \u0022mathExpression\u0022: \u0022400 - 50\u0022,\n            \u0022result\u0022: \u0022350\u0022\n          }\n        ]\n      },\n      {\n        \u0022label\u0022: \u0022d\u0022,\n        \u0022questionText\u0022: \u0022Til sidst t\u00E6ller de pengene og opdager, at nogen har doneret ekstra 150 kr til kassen. De vil dele hele bel\u00F8bet ligeligt mellem 5 grupper i klassen. Hvor mange kroner f\u00E5r hver gruppe?\u0022,\n        \u0022answer\u0022: {\n          \u0022value\u0022: \u0022100\u0022,\n          \u0022unit\u0022: \u0022kr\u0022\n        },\n        \u0022difficulty\u0022: \u0022middel\u0022,\n        \u0022points\u0022: 1,\n        \u0022solutionSteps\u0022: [\n          {\n            \u0022stepNumber\u0022: 1,\n            \u0022description\u0022: \u0022L\u00E6g donationen til den tidligere opsparing\u0022,\n            \u0022mathExpression\u0022: \u0022350 \u002B 150\u0022,\n            \u0022result\u0022: \u0022500\u0022\n          },\n          {\n            \u0022stepNumber\u0022: 2,\n            \u0022description\u0022: \u0022Del bel\u00F8bet ligeligt mellem 5 grupper\u0022,\n            \u0022mathExpression\u0022: \u0022500 \u00F7 5\u0022,\n            \u0022result\u0022: \u0022100\u0022\n          }\n        ]\n      }\n    ],\n    \u0022points\u0022: 4,\n    \u0022estimatedTimeSeconds\u0022: 240\n  },\n  {\n    \u0022taskTypeId\u0022: \u0022tal_pris_rabat_procent\u0022,\n    \u0022category\u0022: \u0022tal_og_algebra\u0022,\n    \u0022difficulty\u0022: \u0022middel\u0022,\n    \u0022contextText\u0022: \u0022Sofie og Noah planl\u00E6gger en tur til Experimentarium med klassen. De skal finde ud af, hvor meget turen kommer til at koste med billetter, frokost og en lille souvenir.\u0022,\n    \u0022subQuestions\u0022: [\n      {\n        \u0022label\u0022: \u0022a\u0022,\n        \u0022questionText\u0022: \u0022En billet til Experimentarium koster 160 kr for en elev. Klassen best\u00E5r af 22 elever. Hvor meget koster billetterne i alt for eleverne?\u0022,\n        \u0022answer\u0022: {\n          \u0022value\u0022: \u00223520\u0022,\n          \u0022unit\u0022: \u0022kr\u0022\n        },\n        \u0022difficulty\u0022: \u0022let\u0022,\n        \u0022points\u0022: 1,\n        \u0022solutionSteps\u0022: [\n          {\n            \u0022stepNumber\u0022: 1,\n            \u0022description\u0022: \u0022Gang pris pr elev med antal elever\u0022,\n            \u0022mathExpression\u0022: \u0022160 \u00B7 22\u0022,\n            \u0022result\u0022: \u00223520\u0022\n          }\n        ]\n      },\n      {\n        \u0022label\u0022: \u0022b\u0022,\n        \u0022questionText\u0022: \u0022Skolen har aftalt en rabat p\u00E5 25 % p\u00E5 billetterne. Hvor meget sparer klassen i alt p\u00E5 billetterne?\u0022,\n        \u0022answer\u0022: {\n          \u0022value\u0022: \u0022880\u0022,\n          \u0022unit\u0022: \u0022kr\u0022\n        },\n        \u0022difficulty\u0022: \u0022middel\u0022,\n        \u0022points\u0022: 1,\n        \u0022solutionSteps\u0022: [\n          {\n            \u0022stepNumber\u0022: 1,\n            \u0022description\u0022: \u0022Find 25 % af den oprindelige pris\u0022,\n            \u0022mathExpression\u0022: \u00220,25 \u00B7 3520\u0022,\n            \u0022result\u0022: \u0022880\u0022\n          }\n        ]\n      },\n      {\n        \u0022label\u0022: \u0022c\u0022,\n        \u0022questionText\u0022: \u0022Efter rabatten k\u00F8ber Sofie og Noah hver en souvenir. En souvenir koster 45 kr. Hvor meget skal de to tilsammen betale for souvenirs?\u0022,\n        \u0022answer\u0022: {\n          \u0022value\u0022: \u002290\u0022,\n          \u0022unit\u0022: \u0022kr\u0022\n        },\n        \u0022difficulty\u0022: \u0022let\u0022,\n        \u0022points\u0022: 1,\n        \u0022solutionSteps\u0022: [\n          {\n            \u0022stepNumber\u0022: 1,\n            \u0022description\u0022: \u0022Gang pris pr souvenir med antal souvenirs\u0022,\n            \u0022mathExpression\u0022: \u002245 \u00B7 2\u0022,\n            \u0022result\u0022: \u002290\u0022\n          }\n        ]\n      }\n    ],\n    \u0022points\u0022: 3,\n    \u0022estimatedTimeSeconds\u0022: 210\n  },\n  {\n    \u0022taskTypeId\u0022: \u0022geo_sammensat_figur\u0022,\n    \u0022category\u0022: \u0022geometri\u0022,\n    \u0022difficulty\u0022: \u0022middel\u0022,\n    \u0022contextText\u0022: \u0022Emma og Magnus hj\u00E6lper med at indrette skolens nye hyggerum. De skal tegne et t\u00E6ppeomr\u00E5de p\u00E5 gulvet, der best\u00E5r af et rektangel med et kvadrat for enden, s\u00E5 det ligner et stort \\\u0022T\\\u0022.\u0022,\n    \u0022subQuestions\u0022: [\n      {\n        \u0022label\u0022: \u0022a\u0022,\n        \u0022questionText\u0022: \u0022Rektanglet i midten er 4 m langt og 2 m bredt. Hvad er arealet af rektanglet?\u0022,\n        \u0022answer\u0022: {\n          \u0022value\u0022: \u00228\u0022,\n          \u0022unit\u0022: \u0022m\u00B2\u0022\n        },\n        \u0022difficulty\u0022: \u0022let\u0022,\n        \u0022points\u0022: 1,\n        \u0022solutionSteps\u0022: [\n          {\n            \u0022stepNumber\u0022: 1,\n            \u0022description\u0022: \u0022Gang l\u00E6ngde med bredde\u0022,\n            \u0022mathExpression\u0022: \u00224 \u00B7 2\u0022,\n            \u0022result\u0022: \u00228\u0022\n          }\n        ]\n      },\n      {\n        \u0022label\u0022: \u0022b\u0022,\n        \u0022questionText\u0022: \u0022For enden af rektanglet l\u00E6gger de et kvadratisk t\u00E6ppe, hvor hver side er 2 m. Hvad er arealet af kvadratet?\u0022,\n        \u0022answer\u0022: {\n          \u0022value\u0022: \u00224\u0022,\n          \u0022unit\u0022: \u0022m\u00B2\u0022\n        },\n        \u0022difficulty\u0022: \u0022let\u0022,\n        \u0022points\u0022: 1,\n        \u0022solutionSteps\u0022: [\n          {\n            \u0022stepNumber\u0022: 1,\n            \u0022description\u0022: \u0022Gang sidel\u00E6ngde med sig selv\u0022,\n            \u0022mathExpression\u0022: \u00222 \u00B7 2\u0022,\n            \u0022result\u0022: \u00224\u0022\n          }\n        ]\n      },\n      {\n        \u0022label\u0022: \u0022c\u0022,\n        \u0022questionText\u0022: \u0022Det samlede t\u00E6ppeomr\u00E5de best\u00E5r af rektanglet og kvadratet sat sammen uden overlap. Hvad er arealet af hele t\u00E6ppeomr\u00E5det?\u0022,\n        \u0022answer\u0022: {\n          \u0022value\u0022: \u002212\u0022,\n          \u0022unit\u0022: \u0022m\u00B2\u0022\n        },\n        \u0022difficulty\u0022: \u0022middel\u0022,\n        \u0022points\u0022: 1,\n        \u0022solutionSteps\u0022: [\n          {\n            \u0022stepNumber\u0022: 1,\n            \u0022description\u0022: \u0022L\u00E6g arealet af rektanglet og kvadratet sammen\u0022,\n            \u0022mathExpression\u0022: \u00228 \u002B 4\u0022,\n            \u0022result\u0022: \u002212\u0022\n          }\n        ]\n      }\n    ],\n    \u0022points\u0022: 3,\n    \u0022estimatedTimeSeconds\u0022: 210\n  },\n  {\n    \u0022taskTypeId\u0022: \u0022stat_sandsynlighed\u0022,\n    \u0022category\u0022: \u0022statistik_og_sandsynlighed\u0022,\n    \u0022difficulty\u0022: \u0022middel\u0022,\n    \u0022contextText\u0022: \u0022Freja og Oliver er til sv\u00F8mmest\u00E6vne i Roskilde. For at g\u00F8re ventetiden sjovere har de en lille konkurrence med farvede startkort, som de tr\u00E6kker tilf\u00E6ldigt fra en sk\u00E5l.\u0022,\n    \u0022subQuestions\u0022: [\n      {\n        \u0022label\u0022: \u0022a\u0022,\n        \u0022questionText\u0022: \u0022I sk\u00E5len ligger der 5 r\u00F8de, 3 bl\u00E5 og 2 gr\u00F8nne kort. Hvor mange kort er der i alt i sk\u00E5len?\u0022,\n        \u0022answer\u0022: {\n          \u0022value\u0022: \u002210\u0022,\n          \u0022unit\u0022: \u0022kort\u0022\n        },\n        \u0022difficulty\u0022: \u0022let\u0022,\n        \u0022points\u0022: 1,\n        \u0022solutionSteps\u0022: [\n          {\n            \u0022stepNumber\u0022: 1,\n            \u0022description\u0022: \u0022L\u00E6g antallet af kort af hver farve sammen\u0022,\n            \u0022mathExpression\u0022: \u00225 \u002B 3 \u002B 2\u0022,\n            \u0022result\u0022: \u002210\u0022\n          }\n        ]\n      },\n      {\n        \u0022label\u0022: \u0022b\u0022,\n        \u0022questionText\u0022: \u0022Freja tr\u00E6kker \u00E9t kort tilf\u00E6ldigt. Hvad er sandsynligheden for, at hun tr\u00E6kker et r\u00F8dt kort? Svar som br\u00F8k i simpleste form.\u0022,\n        \u0022answer\u0022: {\n          \u0022value\u0022: \u00221/2\u0022,\n          \u0022unit\u0022: \u0022\u0022\n        },\n        \u0022difficulty\u0022: \u0022middel\u0022,\n        \u0022points\u0022: 1,\n        \u0022solutionSteps\u0022: [\n          {\n            \u0022stepNumber\u0022: 1,\n            \u0022description\u0022: \u0022Sandsynlighed er antal gunstige udfald delt med antal mulige udfald\u0022,\n            \u0022mathExpression\u0022: \u00225/10\u0022,\n            \u0022result\u0022: \u00225/10\u0022\n          },\n          {\n            \u0022stepNumber\u0022: 2,\n            \u0022description\u0022: \u0022Forkort br\u00F8ken\u0022,\n            \u0022mathExpression\u0022: \u00225/10 = 1/2\u0022,\n            \u0022result\u0022: \u00221/2\u0022\n          }\n        ]\n      },\n      {\n        \u0022label\u0022: \u0022c\u0022,\n        \u0022questionText\u0022: \u0022Oliver vil gerne have et bl\u00E5t kort. Hvad er sandsynligheden for, at han tr\u00E6kker et bl\u00E5t kort? Svar som br\u00F8k i simpleste form.\u0022,\n        \u0022answer\u0022: {\n          \u0022value\u0022: \u00223/10\u0022,\n          \u0022unit\u0022: \u0022\u0022\n        },\n        \u0022difficulty\u0022: \u0022middel\u0022,\n        \u0022points\u0022: 1,\n        \u0022solutionSteps\u0022: [\n          {\n            \u0022stepNumber\u0022: 1,\n            \u0022description\u0022: \u0022Antal bl\u00E5 kort er 3, og der er 10 kort i alt\u0022,\n            \u0022mathExpression\u0022: \u00223/10\u0022,\n            \u0022result\u0022: \u00223/10\u0022\n          }\n        ]\n      }\n    ],\n    \u0022points\u0022: 3,\n    \u0022estimatedTimeSeconds\u0022: 210\n  },\n  {\n    \u0022taskTypeId\u0022: \u0022tal_forholdstalsregning\u0022,\n    \u0022category\u0022: \u0022tal_og_algebra\u0022,\n    \u0022difficulty\u0022: \u0022sv\u00E6r\u0022,\n    \u0022contextText\u0022: \u0022Klassens musikhold planl\u00E6gger en lille festival i skolens g\u00E5rd. De vil opstille tre madboder med pizza, burgere og frugtspyd. Sofie har lavet et budget og et skema over, hvor mange portioner der skal v\u00E6re i hver bod.\u0022,\n    \u0022subQuestions\u0022: [\n      {\n        \u0022label\u0022: \u0022a\u0022,\n        \u0022questionText\u0022: \u0022Forholdet mellem antal portioner i de tre boder skal v\u00E6re pizza : burger : frugtspyd = 3 : 2 : 1. De vil i alt lave 360 portioner. Hvor mange portioner pizza, burgere og frugtspyd skal de lave?\u0022,\n        \u0022answer\u0022: {\n          \u0022value\u0022: \u0022pizza:180, burgere:120, frugtspyd:60\u0022,\n          \u0022unit\u0022: \u0022portioner\u0022\n        },\n        \u0022difficulty\u0022: \u0022sv\u00E6r\u0022,\n        \u0022points\u0022: 4,\n        \u0022solutionSteps\u0022: [\n          {\n            \u0022stepNumber\u0022: 1,\n            \u0022description\u0022: \u0022L\u00E6g forholdstallene sammen\u0022,\n            \u0022mathExpression\u0022: \u00223 \u002B 2 \u002B 1\u0022,\n            \u0022result\u0022: \u00226\u0022\n          },\n          {\n            \u0022stepNumber\u0022: 2,\n            \u0022description\u0022: \u0022Find hvor mange portioner \u00E9n del svarer til\u0022,\n            \u0022mathExpression\u0022: \u0022360 \u00F7 6\u0022,\n            \u0022result\u0022: \u002260\u0022\n          },\n          {\n            \u0022stepNumber\u0022: 3,\n            \u0022description\u0022: \u0022Beregn antal pizza-portioner\u0022,\n            \u0022mathExpression\u0022: \u00223 \u00B7 60\u0022,\n            \u0022result\u0022: \u0022180\u0022\n          },\n          {\n            \u0022stepNumber\u0022: 4,\n            \u0022description\u0022: \u0022Beregn antal burger-portioner\u0022,\n            \u0022mathExpression\u0022: \u00222 \u00B7 60\u0022,\n            \u0022result\u0022: \u0022120\u0022\n          },\n          {\n            \u0022stepNumber\u0022: 5,\n            \u0022description\u0022: \u0022Beregn antal frugtspyd\u0022,\n            \u0022mathExpression\u0022: \u00221 \u00B7 60\u0022,\n            \u0022result\u0022: \u002260\u0022\n          }\n        ]\n      }\n    ],\n    \u0022points\u0022: 4,\n    \u0022estimatedTimeSeconds\u0022: 300\n  }\n]",
+      "TokensUsed": null,
+      "Duration": "00:00:42.9453720",
+      "ParsedTaskCount": 5,
+      "ParseSuccess": true,
+      "ErrorMessage": null
+    },
+    {
+      "Timestamp": "2026-02-13T14:05:21.1703531Z",
+      "AgentName": "VisualizationAgent",
+      "Action": "CreateVisualizations (count=4)",
+      "Input": "Tasks requiring visualization: geo_sammensat_figur, stat_sandsynlighed, geo_sammensat_figur, stat_sandsynlighed",
+      "Output": "Completed 4 visualizations",
+      "TokensUsed": null,
+      "Duration": "00:00:22.4492604",
+      "ParsedTaskCount": null,
+      "ParseSuccess": null,
+      "ErrorMessage": null
+    }
+  ],
+  "Status": "Completed",
+  "ErrorMessage": null
+}

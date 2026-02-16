@@ -92,6 +92,429 @@ let initialized = false
 
 type ViewMode = 'explore' | 'batch'
 
+// ════════════════════════════════════════════════════════════════
+// LATEX EXPORT
+// ════════════════════════════════════════════════════════════════
+
+/**
+ * Convert task text with \(...\) and $...$ to proper LaTeX
+ */
+function convertToLatex(text: string): string {
+  if (!text) return ''
+  
+  // Convert \(...\) to $...$
+  let result = text.replace(/\\\((.+?)\\\)/g, '$$$1$$')
+  
+  // Replace newlines with LaTeX line breaks
+  result = result.replace(/\n/g, '\n\n')
+  
+  return result
+}
+
+/**
+ * Convert SVG string to PNG data URL using canvas
+ */
+async function svgToPng(svgContent: string, scale: number = 2): Promise<string> {
+  return new Promise((resolve, reject) => {
+    // Extract dimensions from SVG
+    const widthMatch = svgContent.match(/width="([0-9.]+)"/)
+    const heightMatch = svgContent.match(/height="([0-9.]+)"/)
+    
+    const width = widthMatch ? parseFloat(widthMatch[1]) : 400
+    const height = heightMatch ? parseFloat(heightMatch[1]) : 300
+    
+    // Create image from SVG
+    const img = new Image()
+    const svgBlob = new Blob([svgContent], { type: 'image/svg+xml;charset=utf-8' })
+    const url = URL.createObjectURL(svgBlob)
+    
+    img.onload = () => {
+      // Create canvas and draw
+      const canvas = document.createElement('canvas')
+      canvas.width = width * scale
+      canvas.height = height * scale
+      
+      const ctx = canvas.getContext('2d')
+      if (!ctx) {
+        reject(new Error('Could not get canvas context'))
+        return
+      }
+      
+      // White background
+      ctx.fillStyle = 'white'
+      ctx.fillRect(0, 0, canvas.width, canvas.height)
+      
+      // Draw scaled image
+      ctx.scale(scale, scale)
+      ctx.drawImage(img, 0, 0)
+      
+      // Convert to PNG
+      const pngDataUrl = canvas.toDataURL('image/png')
+      URL.revokeObjectURL(url)
+      resolve(pngDataUrl)
+    }
+    
+    img.onerror = () => {
+      URL.revokeObjectURL(url)
+      reject(new Error('Failed to load SVG'))
+    }
+    
+    img.src = url
+  })
+}
+
+/**
+ * Convert data URL to Uint8Array
+ */
+function dataUrlToBytes(dataUrl: string): Uint8Array {
+  const base64 = dataUrl.split(',')[1]
+  const binary = atob(base64)
+  const array = new Uint8Array(binary.length)
+  for (let i = 0; i < binary.length; i++) {
+    array[i] = binary.charCodeAt(i)
+  }
+  return array
+}
+
+/**
+ * Simple ZIP file creator (no external dependencies)
+ * Creates a valid ZIP archive with multiple files
+ */
+class SimpleZip {
+  private files: { name: string; data: Uint8Array }[] = []
+  
+  addFile(name: string, data: Uint8Array | string) {
+    const bytes = typeof data === 'string' 
+      ? new TextEncoder().encode(data)
+      : data
+    this.files.push({ name, data: bytes })
+  }
+  
+  generate(): Blob {
+    const localHeaders: Uint8Array[] = []
+    const centralHeaders: Uint8Array[] = []
+    let offset = 0
+    
+    for (const file of this.files) {
+      const nameBytes = new TextEncoder().encode(file.name)
+      
+      // Local file header
+      const localHeader = new Uint8Array(30 + nameBytes.length)
+      const localView = new DataView(localHeader.buffer)
+      
+      localView.setUint32(0, 0x04034b50, true)  // Local file header signature
+      localView.setUint16(4, 20, true)          // Version needed
+      localView.setUint16(6, 0, true)           // General purpose flag
+      localView.setUint16(8, 0, true)           // Compression method (store)
+      localView.setUint16(10, 0, true)          // Last mod time
+      localView.setUint16(12, 0, true)          // Last mod date
+      localView.setUint32(14, this.crc32(file.data), true)  // CRC-32
+      localView.setUint32(18, file.data.length, true)       // Compressed size
+      localView.setUint32(22, file.data.length, true)       // Uncompressed size
+      localView.setUint16(26, nameBytes.length, true)       // File name length
+      localView.setUint16(28, 0, true)          // Extra field length
+      localHeader.set(nameBytes, 30)
+      
+      localHeaders.push(localHeader)
+      localHeaders.push(file.data)
+      
+      // Central directory header
+      const centralHeader = new Uint8Array(46 + nameBytes.length)
+      const centralView = new DataView(centralHeader.buffer)
+      
+      centralView.setUint32(0, 0x02014b50, true)  // Central directory signature
+      centralView.setUint16(4, 20, true)          // Version made by
+      centralView.setUint16(6, 20, true)          // Version needed
+      centralView.setUint16(8, 0, true)           // General purpose flag
+      centralView.setUint16(10, 0, true)          // Compression method
+      centralView.setUint16(12, 0, true)          // Last mod time
+      centralView.setUint16(14, 0, true)          // Last mod date
+      centralView.setUint32(16, this.crc32(file.data), true)  // CRC-32
+      centralView.setUint32(20, file.data.length, true)       // Compressed size
+      centralView.setUint32(24, file.data.length, true)       // Uncompressed size
+      centralView.setUint16(28, nameBytes.length, true)       // File name length
+      centralView.setUint16(30, 0, true)          // Extra field length
+      centralView.setUint16(32, 0, true)          // File comment length
+      centralView.setUint16(34, 0, true)          // Disk number start
+      centralView.setUint16(36, 0, true)          // Internal file attributes
+      centralView.setUint32(38, 0, true)          // External file attributes
+      centralView.setUint32(42, offset, true)     // Relative offset of local header
+      centralHeader.set(nameBytes, 46)
+      
+      centralHeaders.push(centralHeader)
+      offset += localHeader.length + file.data.length
+    }
+    
+    // End of central directory
+    const centralDirSize = centralHeaders.reduce((sum, h) => sum + h.length, 0)
+    const endRecord = new Uint8Array(22)
+    const endView = new DataView(endRecord.buffer)
+    
+    endView.setUint32(0, 0x06054b50, true)          // End of central directory signature
+    endView.setUint16(4, 0, true)                    // Disk number
+    endView.setUint16(6, 0, true)                    // Disk number with central directory
+    endView.setUint16(8, this.files.length, true)    // Number of entries on this disk
+    endView.setUint16(10, this.files.length, true)   // Total number of entries
+    endView.setUint32(12, centralDirSize, true)      // Size of central directory
+    endView.setUint32(16, offset, true)              // Offset of central directory
+    endView.setUint16(20, 0, true)                   // Comment length
+    
+    const allParts = [...localHeaders, ...centralHeaders, endRecord]
+    return new Blob(allParts as BlobPart[], { type: 'application/zip' })
+  }
+  
+  private crc32(data: Uint8Array): number {
+    let crc = 0xFFFFFFFF
+    const table = this.getCrcTable()
+    for (let i = 0; i < data.length; i++) {
+      crc = (crc >>> 8) ^ table[(crc ^ data[i]) & 0xFF]
+    }
+    return (crc ^ 0xFFFFFFFF) >>> 0
+  }
+  
+  private getCrcTable(): Uint32Array {
+    const table = new Uint32Array(256)
+    for (let i = 0; i < 256; i++) {
+      let c = i
+      for (let j = 0; j < 8; j++) {
+        c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1)
+      }
+      table[i] = c
+    }
+    return table
+  }
+}
+
+/**
+ * Render a figure to SVG string for export
+ */
+function figureToSvg(figure: TaskInstance['figure']): string | null {
+  if (!figure) return null
+  
+  switch (figure.type) {
+    case 'svg':
+      return figure.content
+    
+    case 'bar_chart': {
+      const entries = Object.entries(figure.data)
+      const maxVal = Math.max(...Object.values(figure.data))
+      const barWidth = 50
+      const gap = 10
+      const chartHeight = 200
+      const chartWidth = entries.length * (barWidth + gap) + gap
+      
+      let svg = `<svg width="${chartWidth}" height="${chartHeight + 40}" xmlns="http://www.w3.org/2000/svg">`
+      svg += `<rect width="100%" height="100%" fill="white"/>`
+      
+      entries.forEach(([label, value], i) => {
+        const barHeight = (value / maxVal) * chartHeight
+        const x = gap + i * (barWidth + gap)
+        const y = chartHeight - barHeight
+        
+        svg += `<rect x="${x}" y="${y}" width="${barWidth}" height="${barHeight}" fill="#6366F1"/>`
+        svg += `<text x="${x + barWidth/2}" y="${y - 5}" text-anchor="middle" font-size="12" fill="#333">${value}</text>`
+        svg += `<text x="${x + barWidth/2}" y="${chartHeight + 20}" text-anchor="middle" font-size="11" fill="#666">${label}</text>`
+      })
+      
+      svg += '</svg>'
+      return svg
+    }
+    
+    case 'boxplot': {
+      const entries = Object.entries(figure.data)
+      const allVals = entries.flatMap(([, d]) => [d.min, d.max])
+      const dataMin = Math.min(...allVals)
+      const dataMax = Math.max(...allVals)
+      const range = dataMax - dataMin || 1
+      
+      const plotWidth = 400
+      const rowHeight = 40
+      const labelWidth = 60
+      const chartHeight = entries.length * rowHeight + 40
+      
+      const toX = (v: number) => labelWidth + ((v - dataMin) / range) * (plotWidth - labelWidth - 20)
+      
+      let svg = `<svg width="${plotWidth}" height="${chartHeight}" xmlns="http://www.w3.org/2000/svg">`
+      svg += `<rect width="100%" height="100%" fill="white"/>`
+      
+      entries.forEach(([label, stats], i) => {
+        const y = 20 + i * rowHeight + rowHeight / 2
+        
+        // Whisker lines
+        svg += `<line x1="${toX(stats.min)}" y1="${y}" x2="${toX(stats.q1)}" y2="${y}" stroke="#333" stroke-width="1.5"/>`
+        svg += `<line x1="${toX(stats.q3)}" y1="${y}" x2="${toX(stats.max)}" y2="${y}" stroke="#333" stroke-width="1.5"/>`
+        // Whisker caps
+        svg += `<line x1="${toX(stats.min)}" y1="${y-8}" x2="${toX(stats.min)}" y2="${y+8}" stroke="#333" stroke-width="1.5"/>`
+        svg += `<line x1="${toX(stats.max)}" y1="${y-8}" x2="${toX(stats.max)}" y2="${y+8}" stroke="#333" stroke-width="1.5"/>`
+        // Box
+        svg += `<rect x="${toX(stats.q1)}" y="${y-12}" width="${toX(stats.q3) - toX(stats.q1)}" height="24" fill="#E8F4F8" stroke="#333" stroke-width="1.5"/>`
+        // Median
+        svg += `<line x1="${toX(stats.median)}" y1="${y-12}" x2="${toX(stats.median)}" y2="${y+12}" stroke="#C2725A" stroke-width="2"/>`
+        // Label
+        svg += `<text x="5" y="${y + 4}" font-size="12" fill="#333">${label}</text>`
+      })
+      
+      svg += '</svg>'
+      return svg
+    }
+    
+    // For other types, return null (will show placeholder in LaTeX)
+    default:
+      return null
+  }
+}
+
+/**
+ * Export tasks to LaTeX format with PNG figures as a ZIP file
+ */
+async function exportToLatex(tasks: TaskInstance[]): Promise<void> {
+  const today = new Date().toLocaleDateString('da-DK', { 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  })
+  const dateStr = new Date().toISOString().slice(0, 10)
+  
+  // Group tasks by category
+  const tasksByType = tasks.reduce((acc, task) => {
+    const typeInfo = TASK_TYPES.find(t => t.id === task.type)
+    const category = typeInfo?.category || 'andet'
+    if (!acc[category]) acc[category] = []
+    acc[category].push({ task, typeInfo })
+    return acc
+  }, {} as Record<string, { task: TaskInstance, typeInfo: TaskTypeInfo | undefined }[]>)
+  
+  // Create ZIP archive
+  const zip = new SimpleZip()
+  
+  // Collect figures to export
+  const figures: { filename: string; dataUrl: string }[] = []
+  let figureIndex = 0
+  
+  let latex = `\\documentclass[11pt,a4paper]{article}
+
+\\usepackage[utf8]{inputenc}
+\\usepackage[T1]{fontenc}
+\\usepackage[danish]{babel}
+\\usepackage{amsmath,amssymb}
+\\usepackage{geometry}
+\\usepackage{enumitem}
+\\usepackage{graphicx}
+
+\\geometry{margin=2.5cm}
+
+\\newcounter{opgave}
+
+\\begin{document}
+
+\\begin{center}
+{\\LARGE\\textbf{Matematik Opgavesæt}}\\\\[0.5em]
+{\\large ${today}}\\\\[0.3em]
+${tasks.length} opgaver
+\\end{center}
+
+\\vspace{1.5em}
+\\hrule
+\\vspace{1.5em}
+
+`
+
+  const categoryOrder: ('algebra' | 'geometri' | 'statistik')[] = ['algebra', 'geometri', 'statistik']
+  
+  for (const category of categoryOrder) {
+    const categoryTasks = tasksByType[category]
+    if (!categoryTasks || categoryTasks.length === 0) continue
+    
+    const info = CATEGORY_INFO[category]
+    latex += `\\section*{${info.name}}\n\n`
+    
+    for (const { task } of categoryTasks) {
+      latex += `\\stepcounter{opgave}\n`
+      latex += `\\subsection*{Opgave \\theopgave}\n\n`
+      
+      // Add intro
+      if (task.intro) {
+        latex += `${convertToLatex(task.intro)}\n\n`
+      }
+      
+      // Add figure as image
+      if (task.figure) {
+        figureIndex++
+        const filename = `figur-${figureIndex}.png`
+        
+        // Convert figure to SVG, then to PNG
+        const svgContent = figureToSvg(task.figure)
+        if (svgContent) {
+          try {
+            const pngDataUrl = await svgToPng(svgContent)
+            figures.push({ filename, dataUrl: pngDataUrl })
+            
+            latex += `\\begin{center}\n`
+            latex += `\\includegraphics[width=0.6\\textwidth]{${filename}}\n`
+            latex += `\\end{center}\n\n`
+          } catch {
+            latex += `% Figure ${figureIndex} could not be converted\n\n`
+          }
+        } else {
+          latex += `% Figure ${figureIndex}: type "${task.figure.type}" not supported\n\n`
+        }
+      }
+      
+      // Add questions
+      if (task.questions.length > 0) {
+        latex += `\\begin{enumerate}[label=\\alph*)]\n`
+        for (const q of task.questions) {
+          latex += `\\item ${convertToLatex(q.text)}\n`
+          latex += `\\vspace{3em}\n`
+        }
+        latex += `\\end{enumerate}\n`
+      }
+      
+      latex += `\\vspace{1em}\n\\hrule\n\\vspace{1em}\n\n`
+    }
+  }
+  
+  // Answer key
+  latex += `\\newpage\n\\section*{Facitliste}\n\n\\begin{enumerate}\n`
+  
+  for (const category of categoryOrder) {
+    const categoryTasks = tasksByType[category]
+    if (!categoryTasks || categoryTasks.length === 0) continue
+    
+    for (const { task } of categoryTasks) {
+      if (task.questions.length === 1) {
+        latex += `\\item ${convertToLatex(task.questions[0].answer)}\n`
+      } else {
+        const answers = task.questions.map((q, i) => 
+          `${String.fromCharCode(97 + i)}) ${convertToLatex(q.answer)}`
+        ).join(', ')
+        latex += `\\item ${answers}\n`
+      }
+    }
+  }
+  
+  latex += `\\end{enumerate}\n\n\\end{document}\n`
+  
+  // Add LaTeX file to ZIP
+  zip.addFile('opgavesaet.tex', latex)
+  
+  // Add all figure images to ZIP
+  for (const fig of figures) {
+    zip.addFile(fig.filename, dataUrlToBytes(fig.dataUrl))
+  }
+  
+  // Generate and download ZIP
+  const zipBlob = zip.generate()
+  const url = URL.createObjectURL(zipBlob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = `opgavesaet-${dateStr}.zip`
+  document.body.appendChild(a)
+  a.click()
+  document.body.removeChild(a)
+  URL.revokeObjectURL(url)
+}
+
 const DifficultySelector = ({ 
   value, 
   onChange,
@@ -145,6 +568,9 @@ export const GeneratorTestView = observer(() => {
   const [batchConfig, setBatchConfig] = useState<Record<string, { count: number, difficulty: 'let' | 'middel' | 'svaer' }>>({})
   const [totalTasks, setTotalTasks] = useState(0)
   const [batchResults, setBatchResults] = useState<TaskInstance[] | null>(null)
+  const [showAnswersInBatch, setShowAnswersInBatch] = useState(false)
+  const [rerollingIndex, setRerollingIndex] = useState<number | null>(null)
+  const [exportingLatex, setExportingLatex] = useState(false)
   
   // Initialize generators on first render
   if (!initialized) {
@@ -306,6 +732,34 @@ export const GeneratorTestView = observer(() => {
     setTotalTasks(0)
     setBatchResults(null)
     setError(null)
+  }
+
+  const handleRerollTask = async (index: number) => {
+    if (!batchResults) return
+    
+    const task = batchResults[index]
+    const difficulty = (task.variables?.difficulty as 'let' | 'middel' | 'svaer') || 'middel'
+    
+    setRerollingIndex(index)
+    
+    try {
+      const newTask = await generateTask(task.type, { difficulty })
+      
+      // Replace the task in the array
+      setBatchResults(prev => {
+        if (!prev) return prev
+        const updated = [...prev]
+        updated[index] = {
+          ...newTask,
+          id: `${newTask.type}_${Date.now()}_${index}`,
+        } as TaskInstance
+        return updated
+      })
+    } catch (err) {
+      console.error('Failed to reroll task:', err)
+    } finally {
+      setRerollingIndex(null)
+    }
   }
   
   const toggleCategory = (category: string) => {
@@ -665,7 +1119,30 @@ export const GeneratorTestView = observer(() => {
                   </div>
                   <h2 style={{ fontSize: '1.25rem', margin: 0 }}>{batchResults.length} opgaver genereret</h2>
                 </div>
-                <div style={{ display: 'flex', gap: 12 }}>
+                <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', fontSize: 14 }}>
+                    <input 
+                      type="checkbox" 
+                      checked={showAnswersInBatch} 
+                      onChange={e => setShowAnswersInBatch(e.target.checked)}
+                      style={{ width: 16, height: 16 }}
+                    />
+                    Vis svar
+                  </label>
+                  <Button 
+                    variant="secondary" 
+                    disabled={exportingLatex}
+                    onClick={async () => {
+                      setExportingLatex(true)
+                      try {
+                        await exportToLatex(batchResults)
+                      } finally {
+                        setExportingLatex(false)
+                      }
+                    }}
+                  >
+                    {exportingLatex ? '⏳ Eksporterer...' : '📄 LaTeX'}
+                  </Button>
                   <Button variant="secondary" onClick={() => window.print()}>🖨️ Udskriv</Button>
                   <Button variant="primary" onClick={() => { setBatchResults(null); setTotalTasks(0); setBatchConfig({}); }}>Ny generering</Button>
                 </div>
@@ -673,15 +1150,47 @@ export const GeneratorTestView = observer(() => {
 
               <div className="task-list" style={{ display: 'flex', flexDirection: 'column', gap: 48, paddingBottom: 100 }}>
                 {batchResults.map((task, index) => (
-                  <div key={task.id} style={{ breakInside: 'avoid' }}>
+                  <div key={task.id} style={{ breakInside: 'avoid', opacity: rerollingIndex === index ? 0.5 : 1, transition: 'opacity 0.2s' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16, paddingBottom: 8, borderBottom: '1px solid var(--color-border)' }}>
                       <span className="testlab__card-number" style={{ background: 'var(--color-text)', color: 'white', borderColor: 'transparent' }}>
                         {index + 1}
                       </span>
-                      <span style={{ fontSize: 13, color: 'var(--color-text-muted)', fontFamily: 'monospace' }}>{task.id}</span>
+                      <span style={{ fontSize: 13, color: 'var(--color-text-muted)', fontFamily: 'monospace', flex: 1 }}>{task.type}</span>
+                      <button
+                        onClick={() => handleRerollTask(index)}
+                        disabled={rerollingIndex !== null}
+                        title="Generer ny opgave"
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 6,
+                          padding: '6px 12px',
+                          borderRadius: 8,
+                          border: '1px solid var(--color-border)',
+                          background: rerollingIndex === index ? 'var(--color-bg-subtle)' : 'var(--color-surface)',
+                          color: 'var(--color-text-secondary)',
+                          cursor: rerollingIndex !== null ? 'not-allowed' : 'pointer',
+                          fontSize: 13,
+                          fontWeight: 500,
+                          transition: 'all 0.2s',
+                        }}
+                        className="hover-scale"
+                      >
+                        {rerollingIndex === index ? (
+                          <>
+                            <Spinner />
+                            <span>Genererer...</span>
+                          </>
+                        ) : (
+                          <>
+                            <span style={{ fontSize: 16 }}>🔄</span>
+                            <span>Ny opgave</span>
+                          </>
+                        )}
+                      </button>
                     </div>
                     {/* Render using preview but casting TaskInstance to GeneratedTask since they are compatible */}
-                    <GeneratedTaskPreview task={task as any} showAnswers={true} />
+                    <GeneratedTaskPreview task={task as any} showAnswers={showAnswersInBatch} />
                   </div>
                 ))}
               </div>

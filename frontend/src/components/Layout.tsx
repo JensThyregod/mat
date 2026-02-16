@@ -19,6 +19,7 @@ const NAV_ITEMS: NavItem[] = [
   { path: '/tasks', label: 'Opgaver', icon: '📚' },
   { path: '/skills', label: 'Færdigheder', icon: '⭐' },
   { path: '/practice', label: 'Øvelse', icon: '✏️' },
+  { path: '/terminsprove', label: 'Terminsprøve', icon: '🤖', testOnly: true },
   { path: '/test-lab', label: 'Test Lab', icon: '🧪', testOnly: true },
 ]
 
@@ -38,6 +39,7 @@ const PAGE_THEMES: Record<string, { primary: string; secondary: string; accent: 
   '/skills': { primary: '#8B5CF6', secondary: '#EC4899', accent: '#5856D6' },
   '/practice': { primary: '#00C8C8', secondary: '#10FFAA', accent: '#00D4FF' },
   '/ligninger': { primary: '#00C8C8', secondary: '#10FFAA', accent: '#00D4FF' },
+  '/terminsprove': { primary: '#8B5CF6', secondary: '#EC4899', accent: '#10B981' },
   '/test-lab': { primary: '#8B5CF6', secondary: '#EC4899', accent: '#FF9500' },
 }
 

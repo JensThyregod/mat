@@ -1,0 +1,1019 @@
+{
+  "Id": "a41df533-39bc-4cd0-a2f3-91879a95c1d5",
+  "Request": {
+    "Level": "fp9",
+    "ExamPart": "uden_hjaelpemidler",
+    "TaskCount": 10,
+    "FocusCategories": [],
+    "Difficulty": {
+      "Easy": 0.3,
+      "Medium": 0.5,
+      "Hard": 0.2
+    },
+    "StudentId": null,
+    "CustomInstructions": null
+  },
+  "Tasks": [
+    {
+      "Id": "87b5e2c5-6985-432b-bf8d-6a0f19ea8113",
+      "TaskTypeId": "tal_regnearter",
+      "Category": "tal_og_algebra",
+      "ContextText": "Emma er i skole og skal ordne nogle sm\u00E5 regnestykker i sin matematikbog. Hun vil gerne v\u00E6re sikker p\u00E5, at hun regner i den rigtige r\u00E6kkef\u00F8lge og ikke laver fejl undervejs.",
+      "SubQuestions": [
+        {
+          "Label": "a",
+          "QuestionText": "Emma skal beregne 35 \u002B 27. Hvad f\u00E5r hun?",
+          "Answer": {
+            "Value": "62",
+            "Unit": "",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "L\u00E6g tallene sammen",
+              "MathExpression": "35 \u002B 27 = 62",
+              "Result": "62"
+            }
+          ],
+          "Difficulty": "let",
+          "Points": 1
+        },
+        {
+          "Label": "b",
+          "QuestionText": "Emma skal nu regne 120 - 48. Hvad bliver resultatet?",
+          "Answer": {
+            "Value": "72",
+            "Unit": "",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Tr\u00E6k 48 fra 120",
+              "MathExpression": "120 - 48 = 72",
+              "Result": "72"
+            }
+          ],
+          "Difficulty": "let",
+          "Points": 1
+        },
+        {
+          "Label": "c",
+          "QuestionText": "Emma vil regne 6 \u00B7 8 \u002B 10. Hvad bliver resultatet?",
+          "Answer": {
+            "Value": "58",
+            "Unit": "",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "F\u00F8rst ganges 6 med 8",
+              "MathExpression": "6 \u00B7 8 = 48",
+              "Result": "48"
+            },
+            {
+              "StepNumber": 2,
+              "Description": "L\u00E6g 10 til resultatet",
+              "MathExpression": "48 \u002B 10 = 58",
+              "Result": "58"
+            }
+          ],
+          "Difficulty": "middel",
+          "Points": 1
+        },
+        {
+          "Label": "d",
+          "QuestionText": "Emma slutter med regnestykket (45 - 17) : 7. Hvad f\u00E5r hun?",
+          "Answer": {
+            "Value": "4",
+            "Unit": "",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Beregn f\u00F8rst parentesen",
+              "MathExpression": "45 - 17 = 28",
+              "Result": "28"
+            },
+            {
+              "StepNumber": 2,
+              "Description": "Divider resultatet med 7",
+              "MathExpression": "28 : 7 = 4",
+              "Result": "4"
+            }
+          ],
+          "Difficulty": "middel",
+          "Points": 1
+        }
+      ],
+      "QuestionText": "",
+      "QuestionLatex": "",
+      "Answers": [],
+      "Difficulty": "let",
+      "Variables": {},
+      "SolutionSteps": [],
+      "Visualization": null,
+      "Validation": {
+        "IsValid": true,
+        "IsSolvable": true,
+        "HasCorrectAnswer": true,
+        "DifficultyAppropriate": true,
+        "Issues": [],
+        "ValidatorNotes": "Auto-validated during batch generation"
+      },
+      "EstimatedTimeSeconds": 240,
+      "Points": 4
+    },
+    {
+      "Id": "541419bf-7b6f-4425-88e9-5a5a9bdb24fe",
+      "TaskTypeId": "tal_broeker_og_antal",
+      "Category": "tal_og_algebra",
+      "ContextText": "P\u00E5 skolen deler 8.a kage ud i klassen. Der er 24 stykker kage p\u00E5 fadet. Eleverne taler om, hvor stor en br\u00F8kdel af kagen de hver is\u00E6r f\u00E5r.",
+      "SubQuestions": [
+        {
+          "Label": "a",
+          "QuestionText": "Der bliver spist 12 stykker kage. Hvor stor en br\u00F8kdel af de 24 stykker er blevet spist?",
+          "Answer": {
+            "Value": "1/2",
+            "Unit": "",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "S\u00E6t antal spiste stykker over antal i alt",
+              "MathExpression": "12/24",
+              "Result": "12/24"
+            },
+            {
+              "StepNumber": 2,
+              "Description": "Forkort br\u00F8ken",
+              "MathExpression": "12/24 = 1/2",
+              "Result": "1/2"
+            }
+          ],
+          "Difficulty": "let",
+          "Points": 1
+        },
+        {
+          "Label": "b",
+          "QuestionText": "4 elever f\u00E5r hver 3 stykker kage. Hvor mange stykker kage tager de tilsammen?",
+          "Answer": {
+            "Value": "12",
+            "Unit": "stykker",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Gang antal elever med antal stykker pr. elev",
+              "MathExpression": "4 \u00B7 3 = 12",
+              "Result": "12 stykker"
+            }
+          ],
+          "Difficulty": "let",
+          "Points": 1
+        },
+        {
+          "Label": "c",
+          "QuestionText": "En elev f\u00E5r 1/4 af de 24 stykker kage. Hvor mange stykker kage f\u00E5r eleven?",
+          "Answer": {
+            "Value": "6",
+            "Unit": "stykker",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Beregn 1/4 af 24",
+              "MathExpression": "24 \u00B7 1/4 = 24 : 4",
+              "Result": "6 stykker"
+            }
+          ],
+          "Difficulty": "middel",
+          "Points": 1
+        },
+        {
+          "Label": "d",
+          "QuestionText": "To elever f\u00E5r hver 3/8 af kagen. Hvor stor en br\u00F8kdel af kagen f\u00E5r de tilsammen?",
+          "Answer": {
+            "Value": "3/4",
+            "Unit": "",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "L\u00E6g br\u00F8kerne sammen",
+              "MathExpression": "3/8 \u002B 3/8 = 6/8",
+              "Result": "6/8"
+            },
+            {
+              "StepNumber": 2,
+              "Description": "Forkort br\u00F8ken",
+              "MathExpression": "6/8 = 3/4",
+              "Result": "3/4"
+            }
+          ],
+          "Difficulty": "middel",
+          "Points": 1
+        }
+      ],
+      "QuestionText": "",
+      "QuestionLatex": "",
+      "Answers": [],
+      "Difficulty": "let",
+      "Variables": {},
+      "SolutionSteps": [],
+      "Visualization": null,
+      "Validation": {
+        "IsValid": true,
+        "IsSolvable": true,
+        "HasCorrectAnswer": true,
+        "DifficultyAppropriate": true,
+        "Issues": [],
+        "ValidatorNotes": "Auto-validated during batch generation"
+      },
+      "EstimatedTimeSeconds": 270,
+      "Points": 4
+    },
+    {
+      "Id": "2125b6e8-b781-41f8-8198-c0dc53e6f033",
+      "TaskTypeId": "tal_pris_rabat_procent",
+      "Category": "tal_og_algebra",
+      "ContextText": "Noah skal k\u00F8be sportst\u00F8j i en butik. En T-shirt koster 180 kr, og et par shorts koster 220 kr. Butikken har tilbud med procentvis rabat p\u00E5 nogle dage.",
+      "SubQuestions": [
+        {
+          "Label": "a",
+          "QuestionText": "Hvad koster T-shirten og shortsene tilsammen uden rabat?",
+          "Answer": {
+            "Value": "400",
+            "Unit": "kr",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "L\u00E6g priserne sammen",
+              "MathExpression": "180 \u002B 220 = 400",
+              "Result": "400 kr"
+            }
+          ],
+          "Difficulty": "let",
+          "Points": 1
+        },
+        {
+          "Label": "b",
+          "QuestionText": "En dag er der 25% rabat p\u00E5 hele k\u00F8bet. Hvor mange kroner sparer Noah ved at k\u00F8be T-shirt og shorts den dag?",
+          "Answer": {
+            "Value": "100",
+            "Unit": "kr",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Beregn 25% af 400 kr",
+              "MathExpression": "0,25 \u00B7 400 = 100",
+              "Result": "100 kr"
+            }
+          ],
+          "Difficulty": "middel",
+          "Points": 1
+        },
+        {
+          "Label": "c",
+          "QuestionText": "Hvor meget skal Noah betale i alt, n\u00E5r rabatten er trukket fra?",
+          "Answer": {
+            "Value": "300",
+            "Unit": "kr",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Tr\u00E6k rabatten fra den oprindelige pris",
+              "MathExpression": "400 - 100 = 300",
+              "Result": "300 kr"
+            }
+          ],
+          "Difficulty": "middel",
+          "Points": 1
+        }
+      ],
+      "QuestionText": "",
+      "QuestionLatex": "",
+      "Answers": [],
+      "Difficulty": "middel",
+      "Variables": {},
+      "SolutionSteps": [],
+      "Visualization": null,
+      "Validation": {
+        "IsValid": true,
+        "IsSolvable": true,
+        "HasCorrectAnswer": true,
+        "DifficultyAppropriate": true,
+        "Issues": [],
+        "ValidatorNotes": "Auto-validated during batch generation"
+      },
+      "EstimatedTimeSeconds": 210,
+      "Points": 3
+    },
+    {
+      "Id": "36523006-883c-44aa-876b-f385be13d22c",
+      "TaskTypeId": "geo_sammensat_figur",
+      "Category": "geometri",
+      "ContextText": "P\u00E5 skolens legeplads skal der l\u00E6gges nyt gummibel\u00E6gning p\u00E5 et omr\u00E5de, der er formet som en sammensat figur. Omr\u00E5det best\u00E5r af et rektangel med et kvadrat sat fast p\u00E5 den ene langside.",
+      "SubQuestions": [
+        {
+          "Label": "a",
+          "QuestionText": "Rektanglet er 8 m langt og 5 m bredt. Hvad er arealet af rektanglet?",
+          "Answer": {
+            "Value": "40",
+            "Unit": "m^2",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Gang l\u00E6ngde med bredde",
+              "MathExpression": "8 \u00B7 5 = 40",
+              "Result": "40 m^2"
+            }
+          ],
+          "Difficulty": "let",
+          "Points": 1
+        },
+        {
+          "Label": "b",
+          "QuestionText": "P\u00E5 den ene 5 m brede side af rektanglet sidder et kvadrat med sidel\u00E6ngden 5 m. Hvad er arealet af kvadratet?",
+          "Answer": {
+            "Value": "25",
+            "Unit": "m^2",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Gang sidel\u00E6ngden med sig selv",
+              "MathExpression": "5 \u00B7 5 = 25",
+              "Result": "25 m^2"
+            }
+          ],
+          "Difficulty": "middel",
+          "Points": 1
+        },
+        {
+          "Label": "c",
+          "QuestionText": "Hvad er det samlede areal af hele det sammensatte omr\u00E5de?",
+          "Answer": {
+            "Value": "65",
+            "Unit": "m^2",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "L\u00E6g arealet af rektanglet og kvadratet sammen",
+              "MathExpression": "40 \u002B 25 = 65",
+              "Result": "65 m^2"
+            }
+          ],
+          "Difficulty": "middel",
+          "Points": 1
+        }
+      ],
+      "QuestionText": "",
+      "QuestionLatex": "",
+      "Answers": [],
+      "Difficulty": "middel",
+      "Variables": {},
+      "SolutionSteps": [],
+      "Visualization": {
+        "Type": "svg",
+        "SvgContent": "\u003Csvg xmlns=\u0022http://www.w3.org/2000/svg\u0022 viewBox=\u00220 0 220 180\u0022\u003E\n  \u003Cstyle\u003E\n    .outline { stroke: black; stroke-width: 2; fill: none; }\n    .helper { stroke: black; stroke-width: 1; stroke-dasharray: 4 3; fill: none; }\n    .label { font-family: Arial, sans-serif; font-size: 10px; }\n    .measure { font-family: Arial, sans-serif; font-size: 9px; }\n  \u003C/style\u003E\n\n  \u003C!-- Sammensat figur: rektangel med kvadrat ovenp\u00E5 til venstre --\u003E\n  \u003C!-- Koordinater (i enheder ~10 px pr. l\u00E6ngdeenhed):\n       Rektangel ABCD: A(20,140), B(200,140), C(200,60), D(20,60)\n       Kvadrat DEFG p\u00E5 venstre side: D(20,60), E(20,20), F(60,20), G(60,60)\n       M\u00E5l: Rektangel bredde 18 enheder, h\u00F8jde 8 enheder\n             Kvadrat side 4 enheder\n  --\u003E\n\n  \u003C!-- Rektangel ABCD --\u003E\n  \u003Cpolygon class=\u0022outline\u0022 points=\u002220,140 200,140 200,60 20,60\u0022 /\u003E\n\n  \u003C!-- Kvadrat DEFG ovenp\u00E5 venstre del af rektanglet --\u003E\n  \u003Cpolygon class=\u0022outline\u0022 points=\u002220,60 20,20 60,20 60,60\u0022 /\u003E\n\n  \u003C!-- Punkter --\u003E\n  \u003Ccircle cx=\u002220\u0022 cy=\u0022140\u0022 r=\u00222\u0022 fill=\u0022black\u0022 /\u003E\n  \u003Ctext x=\u002215\u0022 y=\u0022150\u0022 class=\u0022label\u0022\u003EA\u003C/text\u003E\n\n  \u003Ccircle cx=\u0022200\u0022 cy=\u0022140\u0022 r=\u00222\u0022 fill=\u0022black\u0022 /\u003E\n  \u003Ctext x=\u0022203\u0022 y=\u0022150\u0022 class=\u0022label\u0022\u003EB\u003C/text\u003E\n\n  \u003Ccircle cx=\u0022200\u0022 cy=\u002260\u0022 r=\u00222\u0022 fill=\u0022black\u0022 /\u003E\n  \u003Ctext x=\u0022203\u0022 y=\u002260\u0022 class=\u0022label\u0022\u003EC\u003C/text\u003E\n\n  \u003Ccircle cx=\u002220\u0022 cy=\u002260\u0022 r=\u00222\u0022 fill=\u0022black\u0022 /\u003E\n  \u003Ctext x=\u002210\u0022 y=\u002260\u0022 class=\u0022label\u0022\u003ED\u003C/text\u003E\n\n  \u003Ccircle cx=\u002220\u0022 cy=\u002220\u0022 r=\u00222\u0022 fill=\u0022black\u0022 /\u003E\n  \u003Ctext x=\u002210\u0022 y=\u002220\u0022 class=\u0022label\u0022\u003EE\u003C/text\u003E\n\n  \u003Ccircle cx=\u002260\u0022 cy=\u002220\u0022 r=\u00222\u0022 fill=\u0022black\u0022 /\u003E\n  \u003Ctext x=\u002262\u0022 y=\u002220\u0022 class=\u0022label\u0022\u003EF\u003C/text\u003E\n\n  \u003Ccircle cx=\u002260\u0022 cy=\u002260\u0022 r=\u00222\u0022 fill=\u0022black\u0022 /\u003E\n  \u003Ctext x=\u002262\u0022 y=\u002260\u0022 class=\u0022label\u0022\u003EG\u003C/text\u003E\n\n  \u003C!-- M\u00E5l p\u00E5 rektanglets bredde (AB = 18 cm) --\u003E\n  \u003Cline x1=\u002220\u0022 y1=\u0022148\u0022 x2=\u0022200\u0022 y2=\u0022148\u0022 stroke=\u0022black\u0022 stroke-width=\u00221\u0022 marker-start=\u0022url(#arrowStart)\u0022 marker-end=\u0022url(#arrowEnd)\u0022 /\u003E\n  \u003Ctext x=\u0022100\u0022 y=\u0022160\u0022 class=\u0022measure\u0022\u003E18 cm\u003C/text\u003E\n\n  \u003C!-- M\u00E5l p\u00E5 rektanglets h\u00F8jde (AD = 8 cm) --\u003E\n  \u003Cline x1=\u002210\u0022 y1=\u0022140\u0022 x2=\u002210\u0022 y2=\u002260\u0022 stroke=\u0022black\u0022 stroke-width=\u00221\u0022 marker-start=\u0022url(#arrowStart)\u0022 marker-end=\u0022url(#arrowEnd)\u0022 /\u003E\n  \u003Ctext x=\u00222\u0022 y=\u0022104\u0022 class=\u0022measure\u0022 transform=\u0022rotate(-90 5 104)\u0022\u003E8 cm\u003C/text\u003E\n\n  \u003C!-- M\u00E5l p\u00E5 kvadratets side (DE = 4 cm) --\u003E\n  \u003Cline x1=\u002220\u0022 y1=\u002210\u0022 x2=\u002260\u0022 y2=\u002210\u0022 stroke=\u0022black\u0022 stroke-width=\u00221\u0022 marker-start=\u0022url(#arrowStart)\u0022 marker-end=\u0022url(#arrowEnd)\u0022 /\u003E\n  \u003Ctext x=\u002232\u0022 y=\u00225\u0022 class=\u0022measure\u0022\u003E4 cm\u003C/text\u003E\n\n  \u003C!-- Pilmark\u00F8rer --\u003E\n  \u003Cdefs\u003E\n    \u003Cmarker id=\u0022arrowStart\u0022 markerWidth=\u00226\u0022 markerHeight=\u00226\u0022 refX=\u00223\u0022 refY=\u00223\u0022 orient=\u0022auto\u0022\u003E\n      \u003Cpath d=\u0022M6,0 L0,3 L6,6\u0022 fill=\u0022none\u0022 stroke=\u0022black\u0022 stroke-width=\u00221\u0022 /\u003E\n    \u003C/marker\u003E\n    \u003Cmarker id=\u0022arrowEnd\u0022 markerWidth=\u00226\u0022 markerHeight=\u00226\u0022 refX=\u00223\u0022 refY=\u00223\u0022 orient=\u0022auto\u0022\u003E\n      \u003Cpath d=\u0022M0,0 L6,3 L0,6\u0022 fill=\u0022none\u0022 stroke=\u0022black\u0022 stroke-width=\u00221\u0022 /\u003E\n    \u003C/marker\u003E\n  \u003C/defs\u003E\n\n\u003C/svg\u003E",
+        "TikzCode": "",
+        "ChartData": {
+          "ChartType": "bar",
+          "Labels": [],
+          "Series": []
+        },
+        "AltText": "Sammensat geometrisk figur best\u00E5ende af et vandret liggende rektangel ABCD og et kvadrat DEFG ovenp\u00E5 rektanglets venstre side. Rektanglet har nederste venstre hj\u00F8rne A, nederste h\u00F8jre B, \u00F8verste h\u00F8jre C og \u00F8verste venstre D. Oven p\u00E5 siden AD sidder et kvadrat med hj\u00F8rnerne D nederst, E \u00F8verst til venstre, F \u00F8verst til h\u00F8jre og G nederst til h\u00F8jre. Siden AB i bunden er markeret som 18 cm, venstre side AD som 8 cm, og kvadratets side DE som 4 cm."
+      },
+      "Validation": {
+        "IsValid": true,
+        "IsSolvable": true,
+        "HasCorrectAnswer": true,
+        "DifficultyAppropriate": true,
+        "Issues": [],
+        "ValidatorNotes": "Auto-validated during batch generation"
+      },
+      "EstimatedTimeSeconds": 210,
+      "Points": 3
+    },
+    {
+      "Id": "6314017c-97d5-4960-8fe7-391e0ebaa099",
+      "TaskTypeId": "stat_sandsynlighed",
+      "Category": "statistik_og_sandsynlighed",
+      "ContextText": "En l\u00E6rer har en pose med farvede kugler til et sandsynlighedsfors\u00F8g i klassen. I posen ligger der 5 r\u00F8de kugler, 7 bl\u00E5 kugler og 8 gr\u00F8nne kugler. L\u00E6reren tr\u00E6kker to kugler uden at l\u00E6gge den f\u00F8rste tilbage i posen.",
+      "SubQuestions": [
+        {
+          "Label": "a",
+          "QuestionText": "Hvad er sandsynligheden for f\u00F8rst at tr\u00E6kke en r\u00F8d kugle og derefter en bl\u00E5 kugle?",
+          "Answer": {
+            "Value": "7/100",
+            "Unit": "",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Find det samlede antal kugler",
+              "MathExpression": "5 \u002B 7 \u002B 8 = 20",
+              "Result": "20 kugler"
+            },
+            {
+              "StepNumber": 2,
+              "Description": "Beregn sandsynligheden for f\u00F8rst at tr\u00E6kke en r\u00F8d kugle",
+              "MathExpression": "P(r\u00F8d f\u00F8rst) = 5/20 = 1/4",
+              "Result": "1/4"
+            },
+            {
+              "StepNumber": 3,
+              "Description": "Efter \u00E9n r\u00F8d kugle er trukket, er der 19 kugler tilbage, heraf 7 bl\u00E5",
+              "MathExpression": "P(bl\u00E5 som nr. 2 | r\u00F8d f\u00F8rst) = 7/19",
+              "Result": "7/19"
+            },
+            {
+              "StepNumber": 4,
+              "Description": "Gang sandsynlighederne sammen",
+              "MathExpression": "1/4 \u00B7 7/19 = 7/76",
+              "Result": "7/76"
+            },
+            {
+              "StepNumber": 5,
+              "Description": "Omregn til procent med to decimaler",
+              "MathExpression": "7/76 \u2248 0,0921 = 9,21%",
+              "Result": "ca. 9,21%"
+            }
+          ],
+          "Difficulty": "svaer",
+          "Points": 3
+        }
+      ],
+      "QuestionText": "",
+      "QuestionLatex": "",
+      "Answers": [],
+      "Difficulty": "svaer",
+      "Variables": {},
+      "SolutionSteps": [],
+      "Visualization": {
+        "Type": "chart",
+        "SvgContent": "",
+        "TikzCode": "",
+        "ChartData": {
+          "ChartType": "bar",
+          "Labels": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "Series": [
+            {
+              "Name": "Frekvens",
+              "Values": [
+                5,
+                8,
+                3,
+                4
+              ],
+              "Color": "#4C78A8"
+            }
+          ]
+        },
+        "AltText": "S\u00F8jlediagram med fire s\u00F8jler m\u00E6rket A, B, C og D p\u00E5 x-aksen. H\u00F8jderne er henholdsvis 5 for A, 8 for B, 3 for C og 4 for D. Serien er navngivet \u0027Frekvens\u0027."
+      },
+      "Validation": {
+        "IsValid": true,
+        "IsSolvable": true,
+        "HasCorrectAnswer": true,
+        "DifficultyAppropriate": true,
+        "Issues": [],
+        "ValidatorNotes": "Auto-validated during batch generation"
+      },
+      "EstimatedTimeSeconds": 300,
+      "Points": 3
+    },
+    {
+      "Id": "c61e2b2d-8a55-4e3a-821b-a4de28dfd372",
+      "TaskTypeId": "tal_regnearter",
+      "Category": "tal_og_algebra",
+      "ContextText": "En skoleklasse samler penge ind til en lejrtur ved at s\u00E6lge kage og kaffe til et for\u00E6ldrem\u00F8de.",
+      "SubQuestions": [
+        {
+          "Label": "a",
+          "QuestionText": "Klassen s\u00E6lger 18 stykker kage til 12 kr stykket. Hvor mange penge f\u00E5r de for kagen?",
+          "Answer": {
+            "Value": "216",
+            "Unit": "kr",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Gang antal stykker kage med prisen pr. stykke",
+              "MathExpression": "18 \u00B7 12",
+              "Result": "216 kr"
+            }
+          ],
+          "Difficulty": "let",
+          "Points": 1
+        },
+        {
+          "Label": "b",
+          "QuestionText": "De s\u00E6lger ogs\u00E5 25 kopper kaffe til 8 kr pr. kop. Hvor mange penge f\u00E5r de for kaffen?",
+          "Answer": {
+            "Value": "200",
+            "Unit": "kr",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Gang antal kopper med prisen pr. kop",
+              "MathExpression": "25 \u00B7 8",
+              "Result": "200 kr"
+            }
+          ],
+          "Difficulty": "let",
+          "Points": 1
+        },
+        {
+          "Label": "c",
+          "QuestionText": "Hvor mange penge tjener klassen i alt p\u00E5 salg af kage og kaffe?",
+          "Answer": {
+            "Value": "416",
+            "Unit": "kr",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "L\u00E6g indt\u00E6gten fra kage og kaffe sammen",
+              "MathExpression": "216 \u002B 200",
+              "Result": "416 kr"
+            }
+          ],
+          "Difficulty": "middel",
+          "Points": 1
+        },
+        {
+          "Label": "d",
+          "QuestionText": "Klassen skal bruge 1000 kr til lejrturen. Hvor mange kroner mangler de stadig, efter dette salg?",
+          "Answer": {
+            "Value": "584",
+            "Unit": "kr",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Tr\u00E6k det, de har tjent, fra det bel\u00F8b, de skal bruge",
+              "MathExpression": "1000 - 416",
+              "Result": "584 kr"
+            }
+          ],
+          "Difficulty": "middel",
+          "Points": 1
+        }
+      ],
+      "QuestionText": "",
+      "QuestionLatex": "",
+      "Answers": [],
+      "Difficulty": "let",
+      "Variables": {},
+      "SolutionSteps": [],
+      "Visualization": null,
+      "Validation": {
+        "IsValid": true,
+        "IsSolvable": true,
+        "HasCorrectAnswer": true,
+        "DifficultyAppropriate": true,
+        "Issues": [],
+        "ValidatorNotes": "Auto-validated during batch generation"
+      },
+      "EstimatedTimeSeconds": 180,
+      "Points": 4
+    },
+    {
+      "Id": "37696009-ed69-4aa6-a38e-ca8ba3cd156b",
+      "TaskTypeId": "tal_pris_rabat_procent",
+      "Category": "tal_og_algebra",
+      "ContextText": "En sportsbutik har udsalg p\u00E5 l\u00F8besko og tr\u00E6ningstr\u00F8jer. Der er rabat p\u00E5 begge varer i en weekend.",
+      "SubQuestions": [
+        {
+          "Label": "a",
+          "QuestionText": "Et par l\u00F8besko koster normalt 600 kr. Der er 25% rabat. Hvor stor er rabatten i kroner?",
+          "Answer": {
+            "Value": "150",
+            "Unit": "kr",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Beregn 25% af 600 kr",
+              "MathExpression": "0,25 \u00B7 600",
+              "Result": "150 kr"
+            }
+          ],
+          "Difficulty": "let",
+          "Points": 1
+        },
+        {
+          "Label": "b",
+          "QuestionText": "Hvad koster l\u00F8beskoene efter rabatten?",
+          "Answer": {
+            "Value": "450",
+            "Unit": "kr",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Tr\u00E6k rabatten fra den normale pris",
+              "MathExpression": "600 - 150",
+              "Result": "450 kr"
+            }
+          ],
+          "Difficulty": "middel",
+          "Points": 1
+        },
+        {
+          "Label": "c",
+          "QuestionText": "En tr\u00E6ningstr\u00F8je koster normalt 320 kr. Denne weekend koster den 256 kr. Hvor mange procent rabat er der p\u00E5 tr\u00E6ningstr\u00F8jen?",
+          "Answer": {
+            "Value": "20",
+            "Unit": "%",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Find rabatten i kroner",
+              "MathExpression": "320 - 256",
+              "Result": "64 kr"
+            },
+            {
+              "StepNumber": 2,
+              "Description": "Beregn hvor mange procent 64 kr er af 320 kr",
+              "MathExpression": "64 : 320 \u00B7 100",
+              "Result": "20%"
+            }
+          ],
+          "Difficulty": "middel",
+          "Points": 2
+        }
+      ],
+      "QuestionText": "",
+      "QuestionLatex": "",
+      "Answers": [],
+      "Difficulty": "middel",
+      "Variables": {},
+      "SolutionSteps": [],
+      "Visualization": null,
+      "Validation": {
+        "IsValid": true,
+        "IsSolvable": true,
+        "HasCorrectAnswer": true,
+        "DifficultyAppropriate": true,
+        "Issues": [],
+        "ValidatorNotes": "Auto-validated during batch generation"
+      },
+      "EstimatedTimeSeconds": 210,
+      "Points": 4
+    },
+    {
+      "Id": "76e6ae42-4800-4240-bdcc-28f623e416b9",
+      "TaskTypeId": "stat_sandsynlighed",
+      "Category": "statistik_og_sandsynlighed",
+      "ContextText": "En elev har en pose med farvede bolcher, som han deler ud i klassen. I posen er der r\u00F8de, gr\u00F8nne og bl\u00E5 bolcher.",
+      "SubQuestions": [
+        {
+          "Label": "a",
+          "QuestionText": "I posen er der 8 r\u00F8de, 6 gr\u00F8nne og 6 bl\u00E5 bolcher. Hvor mange bolcher er der i alt i posen?",
+          "Answer": {
+            "Value": "20",
+            "Unit": "bolcher",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "L\u00E6g antallet af r\u00F8de, gr\u00F8nne og bl\u00E5 bolcher sammen",
+              "MathExpression": "8 \u002B 6 \u002B 6",
+              "Result": "20 bolcher"
+            }
+          ],
+          "Difficulty": "let",
+          "Points": 1
+        },
+        {
+          "Label": "b",
+          "QuestionText": "Posen rystes, og der tr\u00E6kkes \u00E9t bolche tilf\u00E6ldigt. Hvad er sandsynligheden for at tr\u00E6kke et r\u00F8dt bolche?",
+          "Answer": {
+            "Value": "2/5",
+            "Unit": "",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Sandsynligheden er antal r\u00F8de bolcher divideret med det samlede antal bolcher",
+              "MathExpression": "8/20",
+              "Result": "8/20"
+            },
+            {
+              "StepNumber": 2,
+              "Description": "Forkort br\u00F8ken",
+              "MathExpression": "8/20 = 2/5",
+              "Result": "2/5"
+            }
+          ],
+          "Difficulty": "middel",
+          "Points": 1
+        },
+        {
+          "Label": "c",
+          "QuestionText": "Hvad er sandsynligheden for at tr\u00E6kke et gr\u00F8nt eller et bl\u00E5t bolche?",
+          "Answer": {
+            "Value": "3/5",
+            "Unit": "",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "L\u00E6g antal gr\u00F8nne og bl\u00E5 bolcher sammen",
+              "MathExpression": "6 \u002B 6",
+              "Result": "12"
+            },
+            {
+              "StepNumber": 2,
+              "Description": "Beregn sandsynligheden som antal gunstige udfald divideret med antal mulige udfald",
+              "MathExpression": "12/20",
+              "Result": "12/20"
+            },
+            {
+              "StepNumber": 3,
+              "Description": "Forkort br\u00F8ken",
+              "MathExpression": "12/20 = 3/5",
+              "Result": "3/5"
+            }
+          ],
+          "Difficulty": "middel",
+          "Points": 2
+        }
+      ],
+      "QuestionText": "",
+      "QuestionLatex": "",
+      "Answers": [],
+      "Difficulty": "middel",
+      "Variables": {},
+      "SolutionSteps": [],
+      "Visualization": {
+        "Type": "chart",
+        "SvgContent": "",
+        "TikzCode": "",
+        "ChartData": {
+          "ChartType": "bar",
+          "Labels": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "Series": [
+            {
+              "Name": "Hyppighed",
+              "Values": [
+                5,
+                8,
+                3,
+                4
+              ],
+              "Color": "#4C72B0"
+            }
+          ]
+        },
+        "AltText": "S\u00F8jlediagram med fire s\u00F8jler m\u00E6rket A, B, C og D p\u00E5 x-aksen. S\u00F8jlen for A har h\u00F8jde 5, for B h\u00F8jde 8, for C h\u00F8jde 3 og for D h\u00F8jde 4. Y-aksen angiver hyppighed."
+      },
+      "Validation": {
+        "IsValid": true,
+        "IsSolvable": true,
+        "HasCorrectAnswer": true,
+        "DifficultyAppropriate": true,
+        "Issues": [],
+        "ValidatorNotes": "Auto-validated during batch generation"
+      },
+      "EstimatedTimeSeconds": 210,
+      "Points": 4
+    },
+    {
+      "Id": "e5db4760-3a8a-40b9-b989-92e483c77b29",
+      "TaskTypeId": "geo_sammensat_figur",
+      "Category": "geometri",
+      "ContextText": "En skole skal male en rektangul\u00E6r opslagstavle med et lille kvadratisk felt i den ene ende i en anden farve.",
+      "SubQuestions": [
+        {
+          "Label": "a",
+          "QuestionText": "Opslagstavlen er formet som et stort rektangel, der er 12 cm langt og 8 cm h\u00F8jt. Hvad er arealet af hele rektanglet?",
+          "Answer": {
+            "Value": "96",
+            "Unit": "cm\u00B2",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Areal af et rektangel findes ved l\u00E6ngde gange h\u00F8jde",
+              "MathExpression": "12 \u00B7 8",
+              "Result": "96 cm\u00B2"
+            }
+          ],
+          "Difficulty": "let",
+          "Points": 1
+        },
+        {
+          "Label": "b",
+          "QuestionText": "I den ene ende af opslagstavlen er der et kvadratisk felt med sidel\u00E6ngden 4 cm, som skal males i en anden farve. Hvad er arealet af det kvadratiske felt?",
+          "Answer": {
+            "Value": "16",
+            "Unit": "cm\u00B2",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Areal af et kvadrat findes ved sidel\u00E6ngde gange sidel\u00E6ngde",
+              "MathExpression": "4 \u00B7 4",
+              "Result": "16 cm\u00B2"
+            }
+          ],
+          "Difficulty": "middel",
+          "Points": 1
+        },
+        {
+          "Label": "c",
+          "QuestionText": "Hvor stort et areal af opslagstavlen skal males i den oprindelige farve, n\u00E5r det kvadratiske felt males i en anden farve?",
+          "Answer": {
+            "Value": "80",
+            "Unit": "cm\u00B2",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Tr\u00E6k arealet af kvadratet fra arealet af hele rektanglet",
+              "MathExpression": "96 - 16",
+              "Result": "80 cm\u00B2"
+            }
+          ],
+          "Difficulty": "middel",
+          "Points": 2
+        }
+      ],
+      "QuestionText": "",
+      "QuestionLatex": "",
+      "Answers": [],
+      "Difficulty": "middel",
+      "Variables": {},
+      "SolutionSteps": [],
+      "Visualization": {
+        "Type": "svg",
+        "SvgContent": "\u003Csvg xmlns=\u0022http://www.w3.org/2000/svg\u0022 viewBox=\u00220 0 260 180\u0022\u003E\n  \u003C!-- Sammensat figur: rektangel med p\u00E5sat retvinklet trekant p\u00E5 toppen --\u003E\n  \u003C!-- Koordinater (i enhedsl\u00E6ngder, 1 enhed = 20 px):\n       A(0,0), B(8,0), C(8,4), D(0,4) rektangel\n       E(8,4), F(4,7) trekant p\u00E5 toppen (EF og DF er skr\u00E5 sider)\n       M\u00E5l: AB = 8 cm, AD = 4 cm, h\u00F8jde fra D til F = 7 cm (totalh\u00F8jde)\n  --\u003E\n\n  \u003C!-- Baggrund --\u003E\n  \u003Crect x=\u00220\u0022 y=\u00220\u0022 width=\u0022260\u0022 height=\u0022180\u0022 fill=\u0022white\u0022 /\u003E\n\n  \u003C!-- Sammensat figur --\u003E\n  \u003C!-- Rektangel A-B-C-D --\u003E\n  \u003Cpolygon points=\u002240,140 200,140 200,60 40,60\u0022 fill=\u0022#e0f2ff\u0022 stroke=\u0022#000\u0022 stroke-width=\u00222\u0022 /\u003E\n  \u003C!-- Trekanten D-C-F p\u00E5 toppen --\u003E\n  \u003Cpolygon points=\u002240,60 200,60 120,20\u0022 fill=\u0022#cde8ff\u0022 stroke=\u0022#000\u0022 stroke-width=\u00222\u0022 /\u003E\n\n  \u003C!-- Punkter --\u003E\n  \u003C!-- A(40,140), B(200,140), C(200,60), D(40,60), F(120,20) --\u003E\n  \u003Ccircle cx=\u002240\u0022 cy=\u0022140\u0022 r=\u00222.5\u0022 fill=\u0022#000\u0022 /\u003E\n  \u003Ctext x=\u002232\u0022 y=\u0022152\u0022 font-size=\u002210\u0022\u003EA\u003C/text\u003E\n\n  \u003Ccircle cx=\u0022200\u0022 cy=\u0022140\u0022 r=\u00222.5\u0022 fill=\u0022#000\u0022 /\u003E\n  \u003Ctext x=\u0022204\u0022 y=\u0022152\u0022 font-size=\u002210\u0022\u003EB\u003C/text\u003E\n\n  \u003Ccircle cx=\u0022200\u0022 cy=\u002260\u0022 r=\u00222.5\u0022 fill=\u0022#000\u0022 /\u003E\n  \u003Ctext x=\u0022204\u0022 y=\u002256\u0022 font-size=\u002210\u0022\u003EC\u003C/text\u003E\n\n  \u003Ccircle cx=\u002240\u0022 cy=\u002260\u0022 r=\u00222.5\u0022 fill=\u0022#000\u0022 /\u003E\n  \u003Ctext x=\u002230\u0022 y=\u002256\u0022 font-size=\u002210\u0022\u003ED\u003C/text\u003E\n\n  \u003Ccircle cx=\u0022120\u0022 cy=\u002220\u0022 r=\u00222.5\u0022 fill=\u0022#000\u0022 /\u003E\n  \u003Ctext x=\u0022122\u0022 y=\u002218\u0022 font-size=\u002210\u0022\u003EE\u003C/text\u003E\n\n  \u003C!-- M\u00E5langivelser --\u003E\n  \u003C!-- Vandret m\u00E5l: AB = 8 cm --\u003E\n  \u003Cline x1=\u002240\u0022 y1=\u0022150\u0022 x2=\u0022200\u0022 y2=\u0022150\u0022 stroke=\u0022#000\u0022 stroke-width=\u00221\u0022 marker-start=\u0022url(#arrowStart)\u0022 marker-end=\u0022url(#arrowEnd)\u0022 /\u003E\n  \u003Ctext x=\u0022118\u0022 y=\u0022164\u0022 font-size=\u002210\u0022\u003E8 cm\u003C/text\u003E\n\n  \u003C!-- Lodret m\u00E5l: AD = 4 cm (rektanglets h\u00F8jde) --\u003E\n  \u003Cline x1=\u002228\u0022 y1=\u0022140\u0022 x2=\u002228\u0022 y2=\u002260\u0022 stroke=\u0022#000\u0022 stroke-width=\u00221\u0022 marker-start=\u0022url(#arrowStart)\u0022 marker-end=\u0022url(#arrowEnd)\u0022 /\u003E\n  \u003Ctext x=\u002210\u0022 y=\u0022104\u0022 font-size=\u002210\u0022 transform=\u0022rotate(-90 10 104)\u0022\u003E4 cm\u003C/text\u003E\n\n  \u003C!-- Total h\u00F8jde: A til E = 7 cm --\u003E\n  \u003Cline x1=\u0022220\u0022 y1=\u0022140\u0022 x2=\u0022220\u0022 y2=\u002220\u0022 stroke=\u0022#000\u0022 stroke-width=\u00221\u0022 marker-start=\u0022url(#arrowStart)\u0022 marker-end=\u0022url(#arrowEnd)\u0022 /\u003E\n  \u003Ctext x=\u0022238\u0022 y=\u002286\u0022 font-size=\u002210\u0022 transform=\u0022rotate(-90 238 86)\u0022\u003E7 cm\u003C/text\u003E\n\n  \u003C!-- Hj\u00E6lpelinjer (stiplede) fra E lodret ned til midten af AB for at vise symmetri --\u003E\n  \u003Cline x1=\u0022120\u0022 y1=\u002220\u0022 x2=\u0022120\u0022 y2=\u0022140\u0022 stroke=\u0022#555\u0022 stroke-width=\u00220.8\u0022 stroke-dasharray=\u00224 3\u0022 /\u003E\n\n  \u003C!-- Labels for figurdele --\u003E\n  \u003Ctext x=\u002290\u0022 y=\u0022100\u0022 font-size=\u002210\u0022\u003ERektangel\u003C/text\u003E\n  \u003Ctext x=\u0022110\u0022 y=\u002240\u0022 font-size=\u002210\u0022\u003ETrekant\u003C/text\u003E\n\n  \u003C!-- Piledefinitioner til m\u00E5langivelser --\u003E\n  \u003Cdefs\u003E\n    \u003Cmarker id=\u0022arrowEnd\u0022 markerWidth=\u00226\u0022 markerHeight=\u00226\u0022 refX=\u00225\u0022 refY=\u00223\u0022 orient=\u0022auto\u0022 markerUnits=\u0022strokeWidth\u0022\u003E\n      \u003Cpath d=\u0022M0,0 L6,3 L0,6 z\u0022 fill=\u0022#000\u0022 /\u003E\n    \u003C/marker\u003E\n    \u003Cmarker id=\u0022arrowStart\u0022 markerWidth=\u00226\u0022 markerHeight=\u00226\u0022 refX=\u00221\u0022 refY=\u00223\u0022 orient=\u0022auto\u0022 markerUnits=\u0022strokeWidth\u0022\u003E\n      \u003Cpath d=\u0022M6,0 L0,3 L6,6 z\u0022 fill=\u0022#000\u0022 /\u003E\n    \u003C/marker\u003E\n  \u003C/defs\u003E\n\u003C/svg\u003E",
+        "TikzCode": "",
+        "ChartData": {
+          "ChartType": "bar",
+          "Labels": [],
+          "Series": []
+        },
+        "AltText": "Sammensat figur best\u00E5ende af et vandret rektangel med en ligebenet trekant ovenp\u00E5. Nederst er rektanglet med hj\u00F8rnerne A til venstre nederst, B til h\u00F8jre nederst, C til h\u00F8jre \u00F8verst og D til venstre \u00F8verst. Ovenp\u00E5 rektanglets \u00F8verste side DC ligger en trekant med toppunkt E midt over siden DC. Siden AB er vandret og markeret til 8 cm. Den lodrette h\u00F8jde af rektanglet AD er markeret til 4 cm. Den samlede h\u00F8jde fra bunden ved A eller B op til trekantens top E er markeret til 7 cm. Punkterne A, B, C, D og E er tydeligt markeret, og der er stiplede hj\u00E6lpelinjer, der viser at trekanten er centreret over rektanglet."
+      },
+      "Validation": {
+        "IsValid": true,
+        "IsSolvable": true,
+        "HasCorrectAnswer": true,
+        "DifficultyAppropriate": true,
+        "Issues": [],
+        "ValidatorNotes": "Auto-validated during batch generation"
+      },
+      "EstimatedTimeSeconds": 240,
+      "Points": 4
+    },
+    {
+      "Id": "03a809e1-7376-4a0c-b857-1aa0445693ee",
+      "TaskTypeId": "tal_ligninger",
+      "Category": "tal_og_algebra",
+      "ContextText": "En caf\u00E9 s\u00E6lger sandwich. En dag l\u00E6gger ejeren m\u00E6rke til, at hvis han s\u00E6lger nogle flere sandwich end normalt, stiger oms\u00E6tningen p\u00E5 en bestemt m\u00E5de.",
+      "SubQuestions": [
+        {
+          "Label": "a",
+          "QuestionText": "En sandwich koster 36 kr. En dag er oms\u00E6tningen 900 kr p\u00E5 salg af sandwich. S\u00E6t en ligning op og beregn, hvor mange sandwich der er solgt den dag.",
+          "Answer": {
+            "Value": "25",
+            "Unit": "sandwich",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Lad x v\u00E6re antal solgte sandwich. S\u00E6t ligningen op ud fra prisen pr. sandwich og den samlede oms\u00E6tning",
+              "MathExpression": "36x = 900",
+              "Result": "36x = 900"
+            },
+            {
+              "StepNumber": 2,
+              "Description": "Isol\u00E9r x ved at dividere med 36 p\u00E5 begge sider",
+              "MathExpression": "x = 900 : 36",
+              "Result": "x = 25"
+            }
+          ],
+          "Difficulty": "svaer",
+          "Points": 4
+        }
+      ],
+      "QuestionText": "",
+      "QuestionLatex": "",
+      "Answers": [],
+      "Difficulty": "svaer",
+      "Variables": {},
+      "SolutionSteps": [],
+      "Visualization": null,
+      "Validation": {
+        "IsValid": true,
+        "IsSolvable": true,
+        "HasCorrectAnswer": true,
+        "DifficultyAppropriate": true,
+        "Issues": [],
+        "ValidatorNotes": "Auto-validated during batch generation"
+      },
+      "EstimatedTimeSeconds": 240,
+      "Points": 4
+    }
+  ],
+  "Metadata": {
+    "StartedAt": "2026-02-13T13:46:24.2022813Z",
+    "CompletedAt": "2026-02-13T13:47:55.904834Z",
+    "Duration": "00:01:31.7025527",
+    "TotalTokensUsed": 0,
+    "TotalIterations": 2,
+    "RegeneratedTaskCount": 0,
+    "CategoryDistribution": {
+      "tal_og_algebra": 6,
+      "geometri": 2,
+      "statistik_og_sandsynlighed": 2
+    },
+    "DifficultyDistribution": {
+      "let": 3,
+      "middel": 5,
+      "svaer": 2
+    }
+  },
+  "AgentLog": [],
+  "Status": "Completed",
+  "ErrorMessage": null
+}

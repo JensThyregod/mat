@@ -82,7 +82,7 @@ export const LoginView = observer(() => {
           animate="visible"
         >
           <div className="auth__logo-dot" />
-          <span>TaskLab</span>
+          <span>Mat Tutor</span>
         </motion.div>
 
         <motion.div 

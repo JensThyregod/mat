@@ -1,7 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
 /**
- * Playwright Configuration for Mat Task Generator Testing
+ * Playwright Configuration for Mat Tutor Task Generator Testing
  * 
  * This configuration is optimized for testing the task generators
  * through the Test Lab UI.

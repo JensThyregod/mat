@@ -52,7 +52,7 @@ resource "scaleway_container_namespace" "main" {
 resource "scaleway_container" "backend" {
   name         = "${var.app_name}-backend"
   namespace_id = scaleway_container_namespace.main.id
-  description  = "Mat backend API (.NET 9)"
+  description  = "Mat Tutor backend API (.NET 9)"
 
   registry_image = "${scaleway_registry_namespace.main.endpoint}/${var.app_name}-backend:${var.backend_image_tag}"
   port           = 8080
@@ -90,7 +90,7 @@ resource "scaleway_container" "backend" {
 resource "scaleway_container" "frontend" {
   name         = "${var.app_name}-frontend"
   namespace_id = scaleway_container_namespace.main.id
-  description  = "Mat frontend (React SPA served by nginx)"
+  description  = "Mat Tutor frontend (React SPA served by nginx)"
 
   registry_image = "${scaleway_registry_namespace.main.endpoint}/${var.app_name}-frontend:${var.frontend_image_tag}"
   port           = 80

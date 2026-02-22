@@ -97,15 +97,13 @@ export const Layout = ({
     setSidebarCollapsed(prev => !prev)
   }, [])
 
-  const showParticles = basePath === '/'
-
   return (
     <div className={`app-shell ${showNavigation ? 'app-shell--with-sidebar' : ''}`}>
       <a href="#main-content" className="skip-to-content">
         Gå til indhold
       </a>
 
-      {showParticles && <MathParticles count={25} />}
+      <MathParticles count={25} />
       
       <div className="ambient-layer" aria-hidden="true">
         {/* Gradient orbs that follow mouse subtly and change color with page */}

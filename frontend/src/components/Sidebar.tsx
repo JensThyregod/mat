@@ -79,8 +79,7 @@ export const Sidebar = ({
                 exit={{ opacity: 0, x: -10 }}
                 transition={{ duration: 0.2 }}
               >
-                <span className="sidebar__brand-name">TaskLab</span>
-                <span className="sidebar__brand-sub">Math edition</span>
+                <span className="sidebar__brand-name">Mat Tutor</span>
               </motion.div>
             )}
           </AnimatePresence>

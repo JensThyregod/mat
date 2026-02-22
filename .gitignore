@@ -34,7 +34,7 @@ appsettings.Development.json
 
 # Terraform
 infra/.terraform/
-infra/.terraform.lock.hcl
+# infra/.terraform.lock.hcl — committed for reproducible CI builds
 infra/*.tfstate
 infra/*.tfstate.backup
 infra/terraform.tfvars

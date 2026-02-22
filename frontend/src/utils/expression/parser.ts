@@ -21,17 +21,22 @@ import {
 import type { ASTNode, TokenLocation } from './ast'
 
 export class ParseError extends Error {
-  constructor(message: string, public position: number) {
+  position: number
+  constructor(message: string, position: number) {
     super(message)
     this.name = 'ParseError'
+    this.position = position
   }
 }
 
 export class Parser {
   private tokens: Token[] = []
   private pos: number = 0
+  private input: string
 
-  constructor(private input: string) {}
+  constructor(input: string) {
+    this.input = input
+  }
 
   parse(): ASTNode {
     this.tokens = tokenize(this.input)

@@ -135,7 +135,7 @@ function tokenize(latex: string): Token[] {
     },
     // Single newline with trailing spaces (line break in .tex)
     {
-      regex: /^  \n/,
+      regex: /^ {2}\n/,
       handler: () => ({ type: 'newline' }),
     },
   ]
@@ -162,7 +162,7 @@ function tokenize(latex: string): Token[] {
 
     if (!matched) {
       // Consume text until next special character or pattern (including %% for answers)
-      const nextSpecial = remaining.search(/\\|\$|\n\s*\n|  \n|%%/)
+      const nextSpecial = remaining.search(/\\|\$|\n\s*\n| {2}\n|%%/)
       if (nextSpecial === -1) {
         // Rest is plain text
         const text = remaining.trim()

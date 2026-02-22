@@ -103,10 +103,6 @@ interface CompositeFigure {
 // POINT UTILITIES
 // ════════════════════════════════════════════════════════════════
 
-function pointsEqual(a: Point, b: Point, epsilon = 0.01): boolean {
-  return Math.abs(a.x - b.x) < epsilon && Math.abs(a.y - b.y) < epsilon
-}
-
 function distance(a: Point, b: Point): number {
   return Math.sqrt((b.x - a.x) ** 2 + (b.y - a.y) ** 2)
 }
@@ -350,50 +346,9 @@ function rotateEdges(edges: Edge[], origin: Point, angleDeg: number): void {
   }
 }
 
-/**
- * Flip edges horizontally around x = 0
- * Reserved for future mirrored attachments
- */
-function _flipEdgesHorizontal(edges: Edge[]): void {
-  for (const edge of edges) {
-    edge.p1 = { x: -edge.p1.x, y: edge.p1.y }
-    edge.p2 = { x: -edge.p2.x, y: edge.p2.y }
-    if (edge.center) {
-      edge.center = { x: -edge.center.x, y: edge.center.y }
-    }
-    if (edge.startAngle !== undefined) {
-      // Flip arc direction
-      const temp = Math.PI - edge.startAngle
-      edge.startAngle = Math.PI - edge.endAngle!
-      edge.endAngle = temp
-      edge.clockwise = !edge.clockwise
-    }
-    // Swap p1/p2 for lines to maintain winding
-    if (edge.type === 'line') {
-      const temp = edge.p1
-      edge.p1 = edge.p2
-      edge.p2 = temp
-    }
-  }
-}
-
 // ════════════════════════════════════════════════════════════════
 // EDGE MATCHING & ATTACHMENT
 // ════════════════════════════════════════════════════════════════
-
-/**
- * Check if two line edges can be merged (same line, share or overlap)
- * Reserved for future edge merging logic
- */
-function _edgesMatch(e1: Edge, e2: Edge): boolean {
-  if (e1.type !== 'line' || e2.type !== 'line') return false
-  
-  // Check if endpoints match (either direction)
-  const match1 = pointsEqual(e1.p1, e2.p2) && pointsEqual(e1.p2, e2.p1)
-  const match2 = pointsEqual(e1.p1, e2.p1) && pointsEqual(e1.p2, e2.p2)
-  
-  return match1 || match2
-}
 
 /**
  * Find an edge in the figure that a new edge could attach to
@@ -759,33 +714,6 @@ function createKnowledgeBase(): KnowledgeBase {
 }
 
 /**
- * Try to derive a value from known values using simple operations
- * Reserved for potential future use
- */
-function _tryDerive(value: number, kb: KnowledgeBase): boolean {
-  const known = Array.from(kb.values)
-  
-  // Direct match
-  if (known.some(v => Math.abs(v - value) < 0.01)) return true
-  
-  // Half of a known value
-  if (known.some(v => Math.abs(v / 2 - value) < 0.01)) return true
-  
-  // Double of a known value
-  if (known.some(v => Math.abs(v * 2 - value) < 0.01)) return true
-  
-  // Sum of two known values
-  for (let i = 0; i < known.length; i++) {
-    for (let j = i + 1; j < known.length; j++) {
-      if (Math.abs(known[i] + known[j] - value) < 0.01) return true
-      if (Math.abs(Math.abs(known[i] - known[j]) - value) < 0.01) return true
-    }
-  }
-  
-  return false
-}
-
-/**
  * Add a value to knowledge base (and derived values)
  */
 function addKnowledge(value: number, kb: KnowledgeBase): void {
@@ -991,32 +919,6 @@ function initKnowledge(figure: CompositeFigure): KnowledgeBase {
   // by recognizing that attached shapes share edge lengths.
   
   return kb
-}
-
-/**
- * Try to determine an edge's length from known information
- * Reserved for potential future use
- */
-function _tryDetermineEdge(edge: Edge, kb: KnowledgeBase, _verbose = false): number | null {
-  // Already known directly from a measurement?
-  if (edge.type === 'line' && kb.edgeLengths.has(edge.id)) {
-    return kb.edgeLengths.get(edge.id)!
-  }
-  if (edge.type === 'arc' && kb.radii.has(edge.id)) {
-    return kb.radii.get(edge.id)!
-  }
-  
-  // SEAM edges are INVISIBLE - student cannot directly determine them
-  // They can only be inferred through shape geometry (handled in tryComputeShapeArea)
-  if (!edge.visible) {
-    return null
-  }
-  
-  // For visible edges without measurements, we cannot just "guess" the length
-  // The only way to know is through geometric relationships, which are
-  // handled at the shape level (e.g., opposite sides of rectangle are equal)
-  
-  return null
 }
 
 /**
@@ -2032,25 +1934,6 @@ function renderMeasurement(
   const x = offsetX + m.position.x * scale
   const y = offsetY - m.position.y * scale
   return `<text x="${x}" y="${y}" class="dim" text-anchor="middle" dominant-baseline="middle">${m.label}</text>`
-}
-
-/** Reserved for future right-angle markers */
-function _renderRightAngle(p: Point, angle1: number, angle2: number, scale: number, offsetX: number, offsetY: number): string {
-  const x = offsetX + p.x * scale
-  const y = offsetY - p.y * scale
-  const size = 8
-  
-  const rad1 = angle1 * Math.PI / 180
-  const rad2 = angle2 * Math.PI / 180
-  
-  const p1x = x + size * Math.cos(rad1)
-  const p1y = y - size * Math.sin(rad1)
-  const p2x = x + size * Math.cos(rad1) + size * Math.cos(rad2)
-  const p2y = y - size * Math.sin(rad1) - size * Math.sin(rad2)
-  const p3x = x + size * Math.cos(rad2)
-  const p3y = y - size * Math.sin(rad2)
-  
-  return `<path d="M ${p1x} ${p1y} L ${p2x} ${p2y} L ${p3x} ${p3y}" fill="none" stroke="${COLORS.rightAngle}" stroke-width="1.5"/>`
 }
 
 function renderFigure(figure: CompositeFigure, _id: string): string {

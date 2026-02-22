@@ -1,6 +1,7 @@
+/* eslint-disable react-refresh/only-export-components */
 import { motion } from 'framer-motion'
 import { useLocation } from 'react-router-dom'
-import { useRef, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import type { ReactNode } from 'react'
 
 interface PageTransitionProps {
@@ -22,7 +23,6 @@ function getBasePath(pathname: string): string {
   return pathname
 }
 
-// Calculate 3D-like direction
 function getDirection(from: string, to: string): { x: number; y: number; z: number } {
   const fromPos = PAGE_POSITIONS[from] ?? { x: 0, y: 0, z: 0 }
   const toPos = PAGE_POSITIONS[to] ?? { x: 0, y: 0, z: 0 }
@@ -37,13 +37,13 @@ function getDirection(from: string, to: string): { x: number; y: number; z: numb
 export const PageTransition = ({ children, className }: PageTransitionProps) => {
   const location = useLocation()
   const currentPath = getBasePath(location.pathname)
-  const prevPathRef = useRef('/tasks')
+  const [prevPath, setPrevPath] = useState('/tasks')
   
   useEffect(() => {
-    prevPathRef.current = currentPath
+    setPrevPath(currentPath)
   }, [currentPath])
   
-  const direction = getDirection(prevPathRef.current, currentPath)
+  const direction = getDirection(prevPath, currentPath)
   
   // More dramatic movement distances
   const slideX = direction.x * 100
@@ -70,7 +70,7 @@ export const PageTransition = ({ children, className }: PageTransitionProps) => 
       filter: 'blur(0px)',
       transition: {
         duration: 0.5,
-        ease: [0.22, 1, 0.36, 1], // Custom easing - very smooth
+        ease: [0.22, 1, 0.36, 1] as const, // Custom easing - very smooth
         staggerChildren: 0.05,
         delayChildren: 0.1,
       },
@@ -83,7 +83,7 @@ export const PageTransition = ({ children, className }: PageTransitionProps) => 
       filter: 'blur(4px)',
       transition: {
         duration: 0.35,
-        ease: [0.22, 1, 0.36, 1],
+        ease: [0.22, 1, 0.36, 1] as const,
       },
     },
   }
@@ -128,7 +128,7 @@ export const pageItemVariants = {
     scale: 1,
     transition: {
       duration: 0.4,
-      ease: [0.22, 1, 0.36, 1],
+      ease: [0.22, 1, 0.36, 1] as const,
     },
   },
 }
@@ -146,7 +146,7 @@ export const heroVariants = {
     scale: 1,
     transition: {
       duration: 0.6,
-      ease: [0.22, 1, 0.36, 1],
+      ease: [0.22, 1, 0.36, 1] as const,
     },
   },
 }

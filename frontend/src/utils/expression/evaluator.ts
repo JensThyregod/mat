@@ -14,7 +14,6 @@ import {
   createNumber,
   createBinary,
   createUnary,
-  createVariable,
   createPower,
 } from './ast'
 import type { ASTNode } from './ast'

@@ -11,15 +11,14 @@ import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { StoreProvider, createRootStore } from '../stores/storeProvider'
 
-// Helper to strip motion props from elements
-const stripMotionProps = (props: Record<string, unknown>) => {
-  const { 
-    initial: _initial, animate: _animate, exit: _exit, transition: _transition, 
-    variants: _variants, whileHover: _whileHover, whileTap: _whileTap, whileFocus: _whileFocus,
-    layoutId: _layoutId, layout: _layout, ...rest 
-  } = props
-  return rest
-}
+const motionPropNames = new Set([
+  'initial', 'animate', 'exit', 'transition',
+  'variants', 'whileHover', 'whileTap', 'whileFocus',
+  'layoutId', 'layout',
+])
+
+const stripMotionProps = (props: Record<string, unknown>) =>
+  Object.fromEntries(Object.entries(props).filter(([k]) => !motionPropNames.has(k)))
 
 // Mock framer-motion to avoid animation issues in tests
 vi.mock('framer-motion', () => {

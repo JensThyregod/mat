@@ -753,7 +753,7 @@ export function solve(graph: DerivationGraph): DerivationSolution {
     // (simplified: just include all steps used)
     const path: DerivationPath = {
       targetId: target,
-      steps: stepsUsed.filter(s => {
+      steps: stepsUsed.filter(_s => {
         // Check if this step is on the path to this target
         // (simplified heuristic)
         return true

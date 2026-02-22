@@ -59,10 +59,9 @@ export function MathParticles({ count = 25 }: MathParticlesProps) {
     return arr
   }, [count])
 
-  // Trigger mount to start animations
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+  // Trigger mount to start animations (deferred render for CSS transitions)
+  // eslint-disable-next-line react-hooks/set-state-in-effect
+  useEffect(() => { setMounted(true) }, [])
 
   if (!mounted) return null
 

@@ -26,7 +26,7 @@ export class TransformationerGenerator extends LogicBasedGenerator {
   private generateShapeSVG(
     original: { x: number; y: number }[],
     transformed: { x: number; y: number }[],
-    transformation: TransformationType,
+    _transformation: TransformationType,
     showAxis?: { type: 'vertical' | 'horizontal'; pos: number }
   ): string {
     const width = 280

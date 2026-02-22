@@ -27,7 +27,7 @@ export interface StreamingGenerationActions {
 
 export function useStreamingGeneration(): StreamingGenerationState & StreamingGenerationActions {
   const [isGenerating, setIsGenerating] = useState(false)
-  const [_progress, setProgress] = useState<GenerationProgress | null>(null)
+  const [, setProgress] = useState<GenerationProgress | null>(null)
   const [result, setResult] = useState<TerminsproveResult | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [canvasTasks, setCanvasTasks] = useState<CanvasTask[]>([])

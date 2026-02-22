@@ -5,7 +5,7 @@
  * Generators can be either logic-based (pure math) or LLM-powered (context-rich).
  */
 
-import type { TaskInstance, TaskFigure, AnswerType } from '../types/taskSchema'
+import type { TaskFigure, AnswerType } from '../types/taskSchema'
 
 // ════════════════════════════════════════════════════════════════
 // GENERATOR CONFIGURATION
@@ -105,8 +105,11 @@ export abstract class LLMGenerator implements TaskGenerator {
   abstract readonly taskType: string
   abstract readonly name: string
   readonly requiresLLM = true
+  protected readonly openai: OpenAIService
   
-  constructor(protected readonly openai: OpenAIService) {}
+  constructor(openai: OpenAIService) {
+    this.openai = openai
+  }
   
   abstract generate(config?: GeneratorConfig): Promise<GeneratedTask>
 }

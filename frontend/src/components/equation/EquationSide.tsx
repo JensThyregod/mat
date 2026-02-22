@@ -88,36 +88,6 @@ function toDisplayTokens(tokens: CFGToken[]): DisplayToken[] {
   return result
 }
 
-// Check if a token's location overlaps with any opportunity location
-function isTokenHighlighted(
-  token: DisplayToken,
-  opportunities: SimplificationOpportunity[],
-  partType: 'numerator' | 'denominator'
-): boolean {
-  for (const opp of opportunities) {
-    if (opp.type === 'common-factor') {
-      const locs = partType === 'denominator' 
-        ? opp.denominatorLocations 
-        : opp.numeratorLocations
-      if (locs.some(l => overlaps(l, token.location))) {
-        return true
-      }
-    } else if (opp.type === 'like-terms') {
-      if (opp.locations.some(l => overlaps(l, token.location))) {
-        return true
-      }
-    } else if (opp.type === 'reducible-fraction') {
-      if (partType === 'numerator' && overlaps(opp.numeratorLocation, token.location)) {
-        return true
-      }
-      if (partType === 'denominator' && overlaps(opp.denominatorLocation, token.location)) {
-        return true
-      }
-    }
-  }
-  return false
-}
-
 // Check if a token can trigger highlighting (is in denominator and has common factor)
 function canTokenTriggerHighlight(
   token: DisplayToken,
@@ -198,6 +168,7 @@ export const EquationSide = ({
   // Reset inputs when deactivated
   useEffect(() => {
     if (!activeZone) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setInlineValue('')
       setDivisionValue('')
     }

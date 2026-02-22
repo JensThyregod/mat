@@ -82,7 +82,7 @@ const ModalHeader = ({ skill }: { skill: Skill }) => (
     className="skill-modal__header"
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
-    transition={{ delay: 0.1, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+    transition={{ delay: 0.1, duration: 0.4, ease: [0.22, 1, 0.36, 1] as const }}
   >
     <div
       className="skill-modal__icon"
@@ -130,7 +130,7 @@ const ModalProgress = ({ skill }: { skill: Skill }) => {
       className="skill-modal__progress"
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.2, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ delay: 0.2, duration: 0.4, ease: [0.22, 1, 0.36, 1] as const }}
     >
       <div className="skill-modal__progress-header">
         <span>Din fremgang</span>
@@ -141,7 +141,7 @@ const ModalProgress = ({ skill }: { skill: Skill }) => {
           className="skill-modal__progress-fill"
           initial={{ width: 0 }}
           animate={{ width: `${skill.xp}%` }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] as const, delay: 0.3 }}
           style={{ background: getCategoryColor(skill.category) }}
         />
       </div>
@@ -199,7 +199,7 @@ const ModalLineage = ({
               transform="rotate(-90 22 22)"
               initial={{ strokeDasharray: '0 113' }}
               animate={{ strokeDasharray: `${lineageProgress * 1.13} 113` }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] as const, delay: 0.4 }}
             />
           </svg>
           <span className="skill-modal__lineage-percent">{lineageProgress}%</span>
@@ -221,7 +221,7 @@ const ModalLineage = ({
               transition={{
                 delay: 0.3 + index * 0.08,
                 duration: 0.4,
-                ease: [0.22, 1, 0.36, 1]
+                ease: [0.22, 1, 0.36, 1] as const
               }}
               onClick={() => !isCurrentSkill && onSelectSkill(skill)}
             >
@@ -233,7 +233,7 @@ const ModalLineage = ({
                   transition={{
                     delay: 0.4 + index * 0.08,
                     duration: 0.3,
-                    ease: [0.22, 1, 0.36, 1]
+                    ease: [0.22, 1, 0.36, 1] as const
                   }}
                   style={{
                     background: skill.status === 'mastered' ? color : 'rgba(0,0,0,0.1)'
@@ -259,7 +259,7 @@ const ModalLineage = ({
                       animate={{ strokeDasharray: `${progress * 1.07} 107` }}
                       transition={{
                         duration: 0.6,
-                        ease: [0.22, 1, 0.36, 1],
+                        ease: [0.22, 1, 0.36, 1] as const,
                         delay: 0.5 + index * 0.08
                       }}
                     />
@@ -300,7 +300,7 @@ const ModalActions = ({ skill }: { skill: Skill }) => (
     className="skill-modal__actions"
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
-    transition={{ delay: 0.4, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+    transition={{ delay: 0.4, duration: 0.4, ease: [0.22, 1, 0.36, 1] as const }}
   >
     {skill.status === 'locked' && (
       <button className="skill-modal__btn skill-modal__btn--locked" disabled>

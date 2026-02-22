@@ -66,6 +66,13 @@ import { useStore } from '@/stores/storeProvider'
 - New components should have at least a smoke render test.
 - Run `npm run test:run` before committing.
 
+## Linting
+
+- Run `npm run lint` in `frontend/` after making changes to catch errors early.
+- All code must pass ESLint with zero errors before committing. Warnings should be addressed when practical.
+- Unused variables/parameters: prefix with `_` (e.g., `_unused`). The ESLint and TypeScript configs allow this pattern.
+- Never suppress lint rules with `eslint-disable` unless the pattern is intentionally correct (e.g., cache-buster deps in `useMemo`). Add a brief comment explaining why.
+
 ## Accessibility
 
 - Interactive elements need keyboard support (`onKeyDown`, `tabIndex`).

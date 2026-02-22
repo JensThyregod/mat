@@ -107,7 +107,7 @@
   padding: 0;
   margin: 0;
   
-  font-family: 'SF Mono', 'Segoe UI Mono', 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: 16px;
   font-weight: 600;
   text-align: center;
@@ -222,13 +222,13 @@
 }
 
 .fraction-input--correct .fraction-input__icon {
-  background: #22c55e;
+  background: var(--color-success);
   color: white;
   box-shadow: 0 2px 8px rgba(34, 197, 94, 0.4);
 }
 
 .fraction-input--correct .fraction-input__line {
-  background: #22c55e;
+  background: var(--color-success);
 }
 
 /* INCORRECT STATE */
@@ -255,13 +255,13 @@
 }
 
 .fraction-input--incorrect .fraction-input__icon {
-  background: #ef4444;
+  background: var(--color-error);
   color: white;
   box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
 }
 
 .fraction-input--incorrect .fraction-input__line {
-  background: #ef4444;
+  background: var(--color-error);
 }
 
 /* ============================================

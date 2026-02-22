@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using MatBackend.Core.Models.Agents;
 using MatBackend.Core.Models.Terminsprove;
 
 namespace MatBackend.Core.Interfaces.Agents;
@@ -8,6 +9,13 @@ namespace MatBackend.Core.Interfaces.Agents;
 /// </summary>
 public interface IAgentOrchestrator
 {
+    /// <summary>
+    /// Declarative description of the agent pipeline as a directed graph.
+    /// Used to auto-generate documentation diagrams and enforce that
+    /// every orchestrator documents its flow in code.
+    /// </summary>
+    PipelineDescriptor DescribePipeline();
+
     /// <summary>
     /// Generate a complete terminsprøve using the agent pipeline
     /// </summary>

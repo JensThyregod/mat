@@ -1,0 +1,221 @@
+
+Forbedringer til næsten perfekte billeder med Gemini 3 Pro Image i jeres agent‑orchestrering
+Hvor jeres nuværende flow typisk mister billedkvalitet
+Ud fra jeres beskrivelse er jeres nuværende pipeline stærk på to områder: (a) den undgår at generere billeder, når en visuel illustration ikke giver faglig værdi, og (b) den forsøger at “låse” geometri via en for‑ræsonneringsfase, der producerer koordinater og dimensioner, før selve billedprompten bygges.
+
+Når billedkvalitet alligevel halter i praksis (særligt “næsten perfekt” til undervisningsmateriale), skyldes det typisk fem mønstre, som også Google selv fremhæver indirekte ved at anbefale iteration og ved at pege på begrænsninger omkring tekst og faktuel nøjagtighed:
+
+For meget rå opgavetekst i prompten → modellen “ser” ekstra kontekst og kan vælge at illustrere noget fra en delopgave, der ikke burde tegnes.
+Tekst i billeder (labels, kroner/kr, tal i tabeller) → selv med bedre text rendering kræver det ofte en to‑trinsproces (generér tekst først, derefter billede med præcis tekst). 
+Sproglag, der ikke er blandt “best performance” (da‑DK er ikke i listen) → øger risikoen for små fejl i labels eller instruktionsforståelse, især når nøjagtighedskrav er hårde. 
+“One‑shot” billedgenerering uden automatisk verifikation → ingen maskinel feedbacksløjfe, der kan fange “6 cm blev til 8 cm” eller “5 røde bolde blev til 6”. Google anbefaler eksplicit at iterere og raffinere prompts i stedet for at forvente perfekt output i første forsøg. 
+Mangler brug af API‑kontroller (aspect ratio, image size, seed, candidateCount, personGeneration) → I lægger meget kontrol i selve promptteksten, men en del kontrol kan (og bør) flyttes til generationConfig.imageConfig og relaterede felter. 
+Konklusionen er ikke, at jeres promptlagdeling er forkert, men at I kan opnå en markant mere “industrialisérbar” kvalitet ved at: (a) gøre billed‑input til modellen mere struktureret og mindre “støjende”, (b) udnytte Gemini 3‑seriens parametre og (c) indføre en verifikations‑ og rettelsesloop.
+
+Hvad Gemini 3 Pro Image faktisk understøtter i API’et
+Gemini 3‑familien har både “tekstmodeller” (fx gemini-3.1-pro-preview) og en dedikeret billedudgave: Gemini 3 Pro Image med model‑ID gemini-3-pro-image-preview. Den er public preview og beskrevet som målrettet komplekse og multi‑turn image‑flows med forbedret nøjagtighed og billedkvalitet. 
+
+Der er nogle hårde rammer, som har direkte betydning for jeres arkitektur:
+
+Outputmodalitet: Billedgenerering via Gemini kræver, at I anmoder om både tekst og billede (responseModalities: ["TEXT","IMAGE"]). “Image‑only output” er ikke understøttet i de viste quickstart‑guides. 
+Modelcapabilities: I Vertex AI’s model‑detaljer fremgår, at Gemini 3 Pro Image understøtter bl.a. system instructions og thinking, men ikke function calling. 
+ImageConfig‑styring: På GenerationConfig‑niveau kan I styre aspect ratio, imageSize (1K/2K/4K) og personGeneration (fx at forhindre mennesker i at optræde i billedet). 
+Aspect ratios: I “Generate images with Gemini”‑guiden står eksplicit, at både Gemini 2.5 Flash Image og Gemini 3 Pro Image understøtter et sæt standard‑aspect ratios (inkl. 4:3 som I allerede bruger konceptuelt). 
+Sprog og tekst‑begrænsninger: Google dokumenterer, at “best performance” for Gemini 3 Pro Image er for et bestemt sæt sprog (inkl. EN, de‑DE, fr‑FR, m.fl.), og at når man skal have tekst i et billede, bør man først generere teksten og derefter generere billedet med netop den tekst. 
+Det her peger på en vigtig “designregel” for jeres orchestration: Brug en tekstmodel (Gemini 3.1 Pro / Gemini 3 Pro Preview) til at producere strukturerede specs, labels og verifikationslogik, og brug Gemini 3 Pro Image kun til selve billed‑renderingen og evt. efterfølgende billed‑editing.
+
+Promptteknikker der giver markant bedre billedresultater med Gemini 3 Pro Image
+Google’s egne anbefalinger for image prompting kan oversættes direkte til jeres use case, men med et twist: I laver ikke kunst— I laver faktabundne undervisningsillustrationer.
+
+De mest “bærende” prompting‑teknikker (som I bør operationalisere i templates) er:
+
+Specifikhed + formål (“intent”)
+Google anbefaler at være specifik og at angive kontekst/intent (“hvorfor billedet skal bruges”). For jer betyder det, at hver prompt eksplicit bør sige: “Dette er en matematik-illustration til en elevopgave; nøjagtighed er vigtigere end kreativitet.” 
+
+Strukturer prompten som scene‑beskrivelse frem for keyword‑liste
+I Google Developers Blog’s guide (for Gemini 2.5 Flash Image, men relevant som princip) fremhæves et grundprincip: beskriv scenen narrativt i stedet for at liste keywords, fordi modellen er stærk i sprogforståelse. 
+
+Brug en stabil “prompt‑rygrad” (Subject → Composition → Action → Location → Style)
+I Googles egne produkt‑tips (både generelt og specifikt for Nano Banana Pro / Gemini 3 Pro Image) går samme mønster igen: subject, composition, action, location, style, og ved editing også meget direkte redigeringsinstruktioner. For diagrammer kan “action/location” oversættes til “layout/annotering”. 
+
+Step‑by‑step for komplekse billeder
+Google anbefaler at splitte komplekse scener op i trin (“først baggrund, så forgrund, så objekt”). For jer: “Først tegn figuren, derefter tilføj dimensioner, derefter tilføj labels/legend.” 
+
+Kamera/komposition‑kontrol – også til diagrammer
+“Control the camera” er formuleret fotografisk, men fungerer også til diagrammer: top‑down, front‑on, orthographic, no perspective, tight framing, ample margins. 
+
+Vær eksplicit: “create/generate an image of …”
+Hvis prompten er tvetydig, kan modellen returnere tekst uden billede. Derfor anbefales det at skrive “create an image of / generate an image of”. 
+
+Geometry of Design 2nd Ed: Studies in Proportion and Composition (Design  Briefs): Amazon.co.uk: Elam, Kimberly: 9781616890360: Books
+statistics - Equations for Classification & Probability Problem -  Mathematics Stack Exchange
+Changeable Wall Menu: Wooden Price List Menu Board for Cafe & Bars - Etsy
+Custom Menu Board - Changeable Erasable Prices | Restaurant & Food Tru –  Business Signs & More
+
+Behandl tekst‑rendering som et separat problem
+To ting er vigtige her:
+
+Google beskriver, at hvis man vil have tekst “inde i billedet”, bør man først generere teksten og derefter billedet med netop den tekst. 
+I Nano Banana Pro‑guiden nævnes “specific text integration” og “factual constraints (for diagrams)” som noget man bør instruere direkte i prompten. 
+Det er jeres største løft: I skal stoppe med at lade modellen “opfinde” labels og i stedet fodre den med en låst tekstblok (eller endnu bedre: undgå tekst i billedet og overlay labels selv).
+
+Arkitekturforbedringer i jeres agent‑orchestrering der flytter jer fra “godt” til “meget tæt på perfekt”
+Dette afsnit er bevidst “system‑design” snarere end kun prompting, fordi “næsten perfekt” i praksis kræver både kontrol, verifikation og iteration.
+
+Flyt globale regler til system instructions
+I dag ligger jeres “global style rules” i selve prompt‑teksten. Gemini‑økosystemet understøtter en separat kanal til system instructions, som behandles før resten af prompten, og anbefales som stedet hvor man definerer adfærd, formatkrav og regler. 
+
+Praktisk effekt:
+
+I kan gøre “ikke‑forhandlingsbare” regler (ingen ekstra objekter, nøjagtige tal, white background) mere stabile.
+I kan holde “user prompt” kortere og mere faktuelt.
+Brug imageConfig i stedet for at beskrive format i prompten
+I har allerede en “landscape 4:3” konvention. I stedet for at håbe, at modellen følger det fra prompten, bør I sætte det i generationConfig.imageConfig.aspectRatio. Gemini‑dokumentationen viser dette som en del af request‑body, og angiver hvilke aspect ratios Gemini 3 Pro Image understøtter. 
+
+Samtidig bør I hæve opløsningen for de typer, hvor læsbarhed betyder alt (tabeller/prisskilte/diagrammer med mange labels). imageSize kan sættes til 2K eller 4K. 
+
+Slå people‑generation fra for undervisningsdiagrammer
+Mange af jeres billedtyper (geometri, tabeller, målediagrammer) har ingen naturlig grund til at indeholde mennesker. personGeneration kan sættes til at forhindre generering af personer. Det reducerer risikoen for “tilfældig støj” og gør outputs mere konsistente. 
+
+Indfør “spec‑først” som et generelt mønster – med struktureret output
+Jeres geometri‑flow har allerede en spec‑fase (koordinater/edges). I bør udvide dette princip til alle billedtyper, men gøre det robust med Structured Outputs (JSON Schema), så I får maskinlæsbare specs hver gang (og kan validere dem før billedgenerering). Gemini API’s structured outputs er netop tænkt til data extraction, klassifikation og agent‑workflows. 
+
+Vigtige detaljer til jeres valg af model:
+
+Structured outputs er dokumenteret som understøttet af bl.a. Gemini 3.1 Pro Preview og Gemini 3 Pro Preview (tekstmodeller). 
+Gemini 3 Pro Image er i Vertex AI modeloversigten markeret uden function calling; derfor bør spec‑produktionen ligge i tekstmodellen, og billedmodellen kun få den færdige spec. 
+Håndter da‑DK som “output‑locale”, men ikke nødvendigvis som “prompt‑language”
+Dokumentationen siger direkte, at “best performance” for Gemini 3 Pro Image er for en liste af sprog, som ikke inkluderer dansk, og den siger også at tekst‑i‑billede bør være en to‑trins proces. 
+
+Det giver jer en pragmatisk strategi, der typisk øger kvalitet:
+
+Prompt‑sprog = EN (eller de‑DE) for selve billedprompten og layoutregler.
+Label‑/tekstindhold = da‑DK, men leveret som en “låst tekstblok” (fx en liste af præcise strings), så modellen ikke skal oversætte.
+For helt kritisk tekst (tabeller, mange priser): generér billedet uden tekst og overlay tekst selv (SVG/Canvas i frontend eller server‑side). Denne strategi harmonerer med Googles anbefaling om at behandle tekst separat. 
+Generér flere kandidater og vælg bedste automatisk
+candidateCount er en officiel GenerationConfig‑parameter; Google beskriver, at flere kandidater giver flere muligheder, men koster ekstra. 
+
+I en “næsten perfekt” pipeline er den ekstra cost ofte værd at betale, hvis I samtidig automatiserer udvælgelsen (se næste afsnit). Det er især effektivt, når fejl er “sjældne men fatale” (fx et forkert tal).
+
+Brug seed til fejlfinding og regressionstests
+seed findes som officiel parameter i GenerationConfig og beskrives som en måde at gøre output “mostly deterministic”, nyttigt til test og reproducerbarhed. 
+
+I produktion kan I vælge enten:
+
+fast seed pr. taskId (giver stabilitet og færre flappende tests), eller
+random seed men logget (så I kan genskabe fejlen).
+Automatisk kvalitetstjek og iterativ rettelse med thought signatures
+Det, der typisk adskiller “flotte demos” fra “produktionskvalitet”, er at systemet kan opdage og rette fejl uden menneskelig hånd.
+
+Verificér billedet med en separat vision‑/tekstmodel
+Gemini kan tage billeder som input (både i Gemini API og Vertex AI docs beskrives image input som en standard modality). 
+
+Mønsteret er:
+
+Generér billede (evt. candidateCount=3).
+For hvert kandidat‑billede: send billedet + jeres JSON‑spec til en tekstmodel (fx Gemini 3.1 Pro Preview) og få et struktureret “pass/fail + mismatch‑liste” som JSON via structured outputs. 
+Vælg første kandidat der “passer”, ellers den med færrest mismatch.
+Det er vigtigt at forstå: Structured outputs garanterer syntaktisk JSON, men Google understreger, at I stadig skal validere semantikken i jeres kode. Det passer perfekt til jeres “factual constraints”. 
+
+Ret billedet i stedet for at regenerere alt
+Vertex AI‑guiden for “Edit images with Gemini” viser, at man kan sende et eksisterende billede ind sammen med en instruktion og få en redigeret version tilbage. 
+
+Og den samme guide beskriver, at både Gemini 2.5 Flash Image og Gemini 3 Pro Image understøtter multi‑turn image editing, hvor man iterativt kan give ændringer efter at have set output. 
+
+For jeres use case betyder det, at når verifikationen finder én fejl (fx “mangler label ‘6 cm’” eller “der er 4 blå bolde men der skulle være 5”), kan I forsøge at:
+
+sende det genererede billede tilbage, og
+give en helt lokal rettelsesinstruktion (“Ret kun dette, ændr intet andet”).
+Det reducerer regressioner (en ny generering kan introducere nye fejl) og giver mere stabil konvergens.
+
+Brug thought signatures til at bevare “ræsonnerings‑state” på tværs af turns
+I Vertex AI docs beskrives thought signatures som krypterede repræsentationer af modellens interne tankeproces, der bevarer reasoning state i multi‑turn flows. De forklarer også, at Gemini 3‑modeller kan kræve at man returnerer thought signatures i efterfølgende requests for at bevare fuld kontekst; og at selvom Gemini 3 Pro Image ikke håndhæver det med en 400‑fejl, anbefales det stadig at sende thought signatures tilbage for bedst performance i multi‑turn. 
+
+De samme docs viser en konkret multi‑turn image‑editing sekvens, hvor man først genererer et billede og i næste turn sender billedet tilbage og beder om en ændring. 
+
+I praksis er det her “hemmeligheden” bag at gøre jeres agent orchestration selv‑korrigerende.
+
+Konkrete prompt‑ og spec‑skabeloner til jeres seks billedtyper
+Her er en praktisk måde at omsætte researchen til jeres eksisterende BuildImagePrompt‑arkitektur, uden at ændre hele systemet på én gang.
+
+Fast system instruction til billedmodellen
+Formålet er at gøre regler stabile og flytte dem ud af den variable prompt. System instructions er dokumenteret som en anbefalet mekanisme til at styre adfærd og formatkrav. 
+
+Indholdsmæssigt bør den (kort og hårdt) indeholde:
+
+“You generate math textbook diagrams. Accuracy > creativity.”
+“Only depict objects explicitly listed in FACTS.”
+“No extra numbers, no inferred labels.”
+“White background, clean flat style, high contrast.”
+“If text is requested, render it exactly as provided in TEXT_TO_RENDER.”
+Standard user prompt‑struktur til Gemini 3 Pro Image
+Google anbefaler eksplicit at “prompt for images” (create/generate an image of) og at være specifik. 
+
+En robust struktur er:
+
+A) INTENT (1 linje)
+“Generate an image of … (math workbook illustration).”
+
+B) FACTS_TO_DEPICT (maskin‑genereret, kort)
+En punktliste eller et lille JSON‑objekt med:
+
+objekter med counts (fx {color:"red", count:5}),
+målinger (tal + enhed),
+præcise labels der må optræde.
+C) LAYOUT_RULES (diagram‑specifikke)
+
+geometri: koordinatsystem, hvilke linjer, hvilke labels hvor.
+pris‑board: tabel‑layout, rækkefølge, præcis tekst.
+D) STYLE (fast)
+“flat 2D, no perspective, sans‑serif, 3–5 colors, white background.”
+
+E) TEXT_TO_RENDER (valgfrit, låst tekstblok)
+Kun hvis I absolut skal have tekst inde i billedet.
+
+Det matcher både Googles “6 elements” anbefaling og deres fokus på format/komposition og tekstintegration. 
+
+Spec‑schema pr. type (produceret med structured outputs)
+I stedet for regex‑extractors alene: brug en tekstmodel med structured outputs til at producere en type‑spec (og behold regex som “backup”). Structured outputs er netop tiltænkt data extraction og agentic workflows. 
+
+Eksempler på hvad schemaet bør indeholde (konceptuelt):
+
+GeometryDiagram: vertices (navn + x/y), edges, dimension labels, angle markers, “do not show grid”.
+ProbabilityObjects: container type, object groups (color, count), arrangement style (grouped rows), legend requirement.
+PriceBoard: items (name, price, currency), board style (menu/price tags), ordering.
+MeasurementDiagram: objects + measurements + where arrows should be.
+DataTable: headers, rows, emphasis rules (bold header, alternating rows).
+Generic: “key objects + only quantities mentioned”.
+API‑konfiguration, der direkte øger læsbarhed og stabilitet
+Tre konkrete defaults (for undervisningsdiagrammer) følger direkte af GenerationConfig‑felterne:
+
+imageConfig.aspectRatio = "4:3" (eller "16:9" hvis I går mere “screenshot‑agtigt”) 
+imageConfig.imageSize = "2K" som default, og "4K" til tabeller med mange celler 
+imageConfig.personGeneration = "ALLOW_NONE" 
+Derudover:
+
+candidateCount = 2–4 for svære cases, fordi flere kandidater giver jer valgmuligheder. 
+seed slået til i testmiljø/regression. 
+Test, evaluering og løbende prompt‑optimering i produktion
+Når I først har en verifikationsrapport pr. billede (pass/fail + mismatch‑typer), har I pludselig en evalueringsdatastrøm, som kan bruges til systematisk forbedring.
+
+Mål “næsten perfekt” med konkrete metrikker
+En praktisk metrik‑pakke (maskinel) er:
+
+Hard correctness: alle tal/enheder matcher spec (0 tolerance).
+Object count correctness: counts pr. farve/objekt matcher.
+Layout validity: labels ikke overlapper; margins over minimum; table cell count korrekt.
+Text correctness: hvis tekst i billedet bruges, må OCR/vision‑udtræk ikke afvige fra TEXT_TO_RENDER.
+At Google selv anbefaler iteration og refinements, og at tekst‑i‑billede kræver særbehandling, understøtter netop, at man bør måle og styre kvalitet frem for at “håbe”. 
+
+Automatisk prompt‑optimering med Vertex AI Prompt Optimizer
+Når I har en lille samling “svære opgaver” + jeres ønskede evalueringsscore, kan I bruge Vertex AI Prompt Optimizer til at optimere system instructions/prompt‑templates uden manuel trial‑and‑error. Dokumentationen beskriver, at den kan optimere system instructions på tværs af prompts, og at der findes både zero‑shot og data‑drevet batch‑optimering. 
+
+Den vigtigste pointe for jer: Prompt Optimizer bliver først rigtig værdifuld, når I har en automatisk evaluator (som foreslået ovenfor), for så kan I køre “closed loop” forbedringer.
+
+Realistisk forventningsstyring
+Google dokumenterer, at Gemini image generation har begrænsninger (bl.a. sprog, tekst‑flow og at modellen ikke always rammer præcis det antal billeder, man beder om). 
+
+Derfor er “næsten perfekt” typisk ikke én magisk prompt— det er en kontrolleret pipeline:
+
+spec → 2) generér (flere kandidater) → 3) verificér → 4) edit‑loop (multi‑turn) → 5) endelig render (evt. tekst overlay).
+Det er netop den type iterative refinement, som Google beskriver som best practice. 

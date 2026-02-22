@@ -2,8 +2,6 @@
    LIGNINGER VIEW - Interactive Equation Solver
    ═══════════════════════════════════════════════════════════════════ */
 
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
-
 .ligninger {
   --eq-bg: #0a0a0f;
   --eq-bg-elevated: #12121a;
@@ -28,9 +26,9 @@
   --eq-success: #10ffaa;
   --eq-success-glow: rgba(16, 255, 170, 0.3);
   
-  /* Math fonts */
-  --eq-font-display: 'Playfair Display', Georgia, serif;
-  --eq-font-mono: 'Fira Code', 'SF Mono', monospace;
+  /* Math fonts - use global font variables */
+  --eq-font-display: var(--font-display);
+  --eq-font-mono: var(--font-mono);
   
   /* Break out of page container for full-bleed dark theme */
   position: relative;

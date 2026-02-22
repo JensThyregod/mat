@@ -1,0 +1,148 @@
+# FP9 Matematik Pensum — Folkeskolens Prøver 9. klasse
+# Used by CurriculumSampler to pick random topic pairs for creative task generation.
+
+categories:
+  - id: tal_og_algebra
+    name: Tal og algebra
+    subcategories:
+      - id: talforståelse
+        name: Talforståelse
+        topics:
+          - id: hele_tal_decimal_broeker
+            name: Hele tal, decimaltal og brøker
+            keywords: [hele tal, decimaltal, brøker, talsystem, tallinjen]
+          - id: procentregning
+            name: Procentregning
+            keywords: [procent, procentdel, procentberegning, rabat, moms]
+          - id: forhold_procentaendringer
+            name: Forhold og procentændringer
+            keywords: [forhold, procentændring, stigning, fald, ændring]
+          - id: renter
+            name: Renter (simpel og sammensat)
+            keywords: [rente, simpel rente, renters rente, sammensat rente, opsparing, lån]
+          - id: negative_tal
+            name: Negative tal
+            keywords: [negative tal, minus, temperatur, gæld, tallinje]
+          - id: reelle_tal
+            name: Reelle tal
+            keywords: [reelle tal, irrationale tal, kvadratrod, pi]
+
+      - id: algebra
+        name: Algebra
+        topics:
+          - id: regneregler_parenteser
+            name: Regneregler og parenteser
+            keywords: [regneregler, parenteser, regningsarternes hierarki, rækkefølge]
+          - id: ligninger_uligheder
+            name: Ligninger og uligheder
+            keywords: [ligning, ulighed, x, ubekendt, løsning, isolere]
+          - id: formler_omskrivning
+            name: Formler og omskrivning
+            keywords: [formel, omskrivning, indsætte, udlede, variabel]
+          - id: eksponentiel_vaekst
+            name: Eksponentiel vækst
+            keywords: [eksponentiel, vækst, fordobling, halvering, fremskrivningsfaktor]
+          - id: ikke_lineaere_sammenhaenge
+            name: Ikke-lineære sammenhænge
+            keywords: [parabel, andengradspolynomium, potens, ikke-lineær, kurve]
+          - id: figurfølger_moenstre
+            name: Figurfølger og mønstre
+            keywords: [figurfølge, mønster, talmønster, generalisering, n-te led]
+
+      - id: funktioner
+        name: Funktioner
+        topics:
+          - id: lineaere_funktioner
+            name: Lineære funktioner
+            keywords: [lineær, y = ax + b, ret linje, proportional]
+          - id: grafer_koordinatsystem
+            name: Grafer og koordinatsystem
+            keywords: [graf, koordinatsystem, x-akse, y-akse, punkt, aflæsning]
+          - id: haeldning_skaering
+            name: Hældning og skæring
+            keywords: [hældning, hældningskoefficient, skæring, y-aksen, a-værdi, b-værdi]
+          - id: aflaesning_tolkning_grafer
+            name: Aflæsning og tolkning af grafer
+            keywords: [aflæse, tolke, graf, sammenhæng, vækst, fald, konstant]
+
+  - id: geometri_og_maaling
+    name: Geometri og måling
+    subcategories:
+      - id: figurer_og_legemer
+        name: Figurer og legemer
+        topics:
+          - id: vinkler_trekanter
+            name: Vinkler og trekanter
+            keywords: [vinkel, trekant, vinkelsum, ligebenet, ligesidet, retvinklet, spidsvinklet, stumpvinklet]
+          - id: cirkler
+            name: Cirkler
+            keywords: [cirkel, radius, diameter, omkreds, pi, areal af cirkel]
+          - id: areal_rumfang
+            name: Areal og rumfang
+            keywords: [areal, rumfang, overflade, rektangel, trekant, cylinder, prisme, kasse]
+          - id: maalestoksforhold
+            name: Målestoksforhold
+            keywords: [målestok, kort, model, forstørrelse, formindskelse, skala]
+
+      - id: geometriske_begreber
+        name: Geometriske begreber
+        topics:
+          - id: pythagoras
+            name: Pythagoras' sætning
+            keywords: [Pythagoras, hypotenuse, katete, retvinklet trekant, afstand]
+          - id: spejling_rotation_parallelforskydning
+            name: Spejling, rotation og parallelforskydning
+            keywords: [spejling, rotation, parallelforskydning, symmetri, transformation]
+          - id: perspektivtegning_konstruktioner
+            name: Perspektivtegning og konstruktioner
+            keywords: [perspektiv, konstruktion, passer, lineal, tegning, geometrisk konstruktion]
+
+      - id: praktisk_geometri
+        name: Praktisk geometri
+        topics:
+          - id: geometri_i_virkeligheden
+            name: Geometri i virkelige situationer
+            keywords: [byggeri, design, indretning, haveplan, gulvbelægning, maling, fliser]
+
+  - id: statistik_og_sandsynlighed
+    name: Statistik og sandsynlighed
+    subcategories:
+      - id: statistik
+        name: Statistik
+        topics:
+          - id: indsamle_analysere_data
+            name: Indsamle og analysere data
+            keywords: [data, indsamling, undersøgelse, observation, registrering]
+          - id: gennemsnit_median_typetal
+            name: Gennemsnit, median og typetal
+            keywords: [gennemsnit, median, typetal, middelværdi, deskriptorer]
+          - id: diagrammer_grafer
+            name: Diagrammer og grafer
+            keywords: [søjlediagram, cirkeldiagram, linjediagram, histogram, boksplot, prikplot]
+          - id: kritisk_vurdering_statistik
+            name: Kritisk vurdering af statistik
+            keywords: [kritisk, vurdering, misvisende, repræsentativ, stikprøve, bias]
+
+      - id: sandsynlighed
+        name: Sandsynlighed
+        topics:
+          - id: tilfaeldighed_chance
+            name: Tilfældighed og chance
+            keywords: [tilfældig, chance, udfald, hændelse, terning, mønt, lotteri]
+          - id: sandsynlighedsmodeller
+            name: Sandsynlighedsmodeller
+            keywords: [sandsynlighedsmodel, trædiagram, systematisk optælling, udfaldsrum]
+          - id: simple_sandsynlighedsberegninger
+            name: Simple sandsynlighedsberegninger
+            keywords: [sandsynlighed, gunstige, mulige, brøk, procent, P(A)]
+          - id: risiko_vurdering
+            name: Risiko og vurdering
+            keywords: [risiko, vurdering, odds, forventet værdi, beslutning]
+
+# Compatibility hints for the brainstorm agent.
+# Pairs that are naturally hard to combine — the agent can re-sample if it draws these.
+difficult_combinations:
+  - [perspektivtegning_konstruktioner, risiko_vurdering]
+  - [spejling_rotation_parallelforskydning, renter]
+  - [perspektivtegning_konstruktioner, eksponentiel_vaekst]
+  - [reelle_tal, kritisk_vurdering_statistik]

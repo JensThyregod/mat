@@ -3138,6 +3138,42 @@ textarea:focus-visible {
     0 0 0 4px var(--color-accent);
 }
 
+/* Skip to content (accessibility) */
+.skip-to-content {
+  position: absolute;
+  top: -100%;
+  left: var(--space-4);
+  z-index: 9999;
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-accent);
+  color: var(--color-text-inverse);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  text-decoration: none;
+  transition: top var(--duration-fast) var(--ease-out-quart);
+}
+
+.skip-to-content:focus {
+  top: var(--space-4);
+}
+
+/* Error boundary fallback */
+.error-boundary-fallback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  padding: var(--space-12);
+  text-align: center;
+  min-height: 200px;
+}
+
+.error-boundary-fallback h2 {
+  font-size: var(--text-xl);
+  color: var(--color-text);
+}
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,

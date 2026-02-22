@@ -1,0 +1,840 @@
+{
+  "Id": "5285af97-6ce3-4db3-90db-fd6cf4202a9e",
+  "Request": {
+    "Level": "fp9",
+    "ExamPart": "med_hjaelpemidler",
+    "TaskCount": 5,
+    "FocusCategories": [],
+    "Difficulty": {
+      "Easy": 0.3,
+      "Medium": 0.5,
+      "Hard": 0.2
+    },
+    "StudentId": null,
+    "CustomInstructions": null
+  },
+  "Tasks": [
+    {
+      "Id": "2d7aa118-3f37-4a9a-b38d-fd04ff60f1c0",
+      "TaskTypeId": "stat_soejlediagram",
+      "Category": "statistik_og_sandsynlighed",
+      "ContextText": "En 9. klasse laver en ugentlig planke-challenge. I de f\u00F8rste 6 uger m\u00E5ler de hver fredag, hvor mange sekunder hver elev kan holde planken, og de beregner klassens gennemsnitstid for hver uge: 30, 35, 40, 45, 50 og 55 sekunder.",
+      "SubQuestions": [
+        {
+          "Label": "a",
+          "QuestionText": "Hvad er forskellen i sekunder mellem gennemsnittet i uge 1 og uge 6?",
+          "Answer": {
+            "Value": "25",
+            "Unit": "sekunder",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "55 \u2212 30 = 25",
+              "MathExpression": "55 - 30",
+              "Result": "25 sekunder"
+            }
+          ],
+          "Difficulty": "let",
+          "Points": 1
+        },
+        {
+          "Label": "b",
+          "QuestionText": "Hvad er medianen af de 6 ugers gennemsnitstider?",
+          "Answer": {
+            "Value": "42,5",
+            "Unit": "sekunder",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Sorteret: 30, 35, 40, 45, 50, 55",
+              "MathExpression": "",
+              "Result": ""
+            },
+            {
+              "StepNumber": 2,
+              "Description": "Median = gennemsnit af de to midterste: (40 \u002B 45) \u00F7 2 = 42,5",
+              "MathExpression": "(40 \u002B 45) / 2",
+              "Result": "42,5 sekunder"
+            }
+          ],
+          "Difficulty": "let",
+          "Points": 1
+        },
+        {
+          "Label": "c",
+          "QuestionText": "Antag, at gennemsnittet forts\u00E6tter med at stige p\u00E5 samme m\u00E5de. Hvad forventes gennemsnittet at v\u00E6re i uge 10?",
+          "Answer": {
+            "Value": "75",
+            "Unit": "sekunder",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Stigning pr. uge: 35 \u2212 30 = 5 sekunder",
+              "MathExpression": "35 - 30",
+              "Result": "5 sekunder pr. uge"
+            },
+            {
+              "StepNumber": 2,
+              "Description": "Fra uge 1 til uge 10 er der 9 intervaller: 9 \u00B7 5 = 45",
+              "MathExpression": "9 * 5",
+              "Result": "45 sekunder"
+            },
+            {
+              "StepNumber": 3,
+              "Description": "Forventet gennemsnit i uge 10: 30 \u002B 45 = 75",
+              "MathExpression": "30 \u002B 45",
+              "Result": "75 sekunder"
+            }
+          ],
+          "Difficulty": "middel",
+          "Points": 2
+        }
+      ],
+      "QuestionText": "",
+      "QuestionLatex": "",
+      "Answers": [],
+      "Difficulty": "let",
+      "Variables": {},
+      "SolutionSteps": [],
+      "Visualization": {
+        "Type": "chart",
+        "SvgContent": "",
+        "TikzCode": "",
+        "ChartData": {
+          "ChartType": "bar",
+          "Labels": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "Series": [
+            {
+              "Name": "Antal",
+              "Values": [
+                4,
+                7,
+                3,
+                6
+              ],
+              "Color": "#4C72B0"
+            }
+          ]
+        },
+        "AltText": "S\u00F8jlediagram med fire s\u00F8jler m\u00E6rket A, B, C og D p\u00E5 x-aksen. H\u00F8jderne er henholdsvis 4 for A, 7 for B, 3 for C og 6 for D. Y-aksen viser antal."
+      },
+      "ImageUrl": null,
+      "Validation": {
+        "IsValid": true,
+        "IsSolvable": true,
+        "HasCorrectAnswer": true,
+        "DifficultyAppropriate": true,
+        "Issues": [],
+        "ValidatorNotes": "Auto-validated during single-task generation"
+      },
+      "EstimatedTimeSeconds": 240,
+      "Points": 4
+    },
+    {
+      "Id": "df2fa4b2-f011-47a3-a922-891f7b070aa6",
+      "TaskTypeId": "tal_pris_rabat_procent",
+      "Category": "statistik_og_sandsynlighed",
+      "ContextText": "Et t\u00F8jfirma s\u00E6lger en hoodie til normalpris 400 kr. I en reklame st\u00E5r der: \u002280 % af kunderne elsker vores nye hoodie \u2013 nu med 30 % rabat\u0022. Under reklamen st\u00E5r med sm\u00E5t, at unders\u00F8gelsen bygger p\u00E5 svar fra 25 kunder.",
+      "SubQuestions": [
+        {
+          "Label": "a",
+          "QuestionText": "Hvad er rabatten i kroner?",
+          "Answer": {
+            "Value": "120",
+            "Unit": "kr",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "30 % af 400 kr findes ved 0,30 \u00B7 400",
+              "MathExpression": "0,30 \u00B7 400",
+              "Result": "120 kr"
+            }
+          ],
+          "Difficulty": "let",
+          "Points": 1
+        },
+        {
+          "Label": "b",
+          "QuestionText": "Hvad er tilbudsprisen p\u00E5 hoodien?",
+          "Answer": {
+            "Value": "280",
+            "Unit": "kr",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Tilbudspris = normalpris \u2212 rabat",
+              "MathExpression": "400 \u2212 120",
+              "Result": "280 kr"
+            }
+          ],
+          "Difficulty": "let",
+          "Points": 1
+        },
+        {
+          "Label": "c",
+          "QuestionText": "Hvor mange kunder svarer 80 % til, n\u00E5r 25 kunder har svaret?",
+          "Answer": {
+            "Value": "20",
+            "Unit": "kunder",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "80 % af 25 findes ved 0,80 \u00B7 25",
+              "MathExpression": "0,80 \u00B7 25",
+              "Result": "20 kunder"
+            }
+          ],
+          "Difficulty": "middel",
+          "Points": 2
+        },
+        {
+          "Label": "d",
+          "QuestionText": "Forklar kort \u00E9n grund til, at tallet \u002280 % af kunderne\u0022 kan v\u00E6re misvisende.",
+          "Answer": {
+            "Value": "Fx at kun 25 kunder har svaret, s\u00E5 stikpr\u00F8ven er lille, eller at det m\u00E5ske kun er meget tilfredse kunder, der har valgt at svare, s\u00E5 resultatet ikke viser alle kunders mening.",
+            "Unit": "",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "En lille stikpr\u00F8ve eller sk\u00E6v udv\u00E6lgelse kan g\u00F8re, at procenttallet ikke repr\u00E6senterer alle kunder.",
+              "MathExpression": "",
+              "Result": ""
+            }
+          ],
+          "Difficulty": "middel",
+          "Points": 2
+        }
+      ],
+      "QuestionText": "",
+      "QuestionLatex": "",
+      "Answers": [],
+      "Difficulty": "let",
+      "Variables": {},
+      "SolutionSteps": [],
+      "Visualization": {
+        "Type": "chart",
+        "SvgContent": "",
+        "TikzCode": "",
+        "ChartData": {
+          "ChartType": "bar",
+          "Labels": [
+            "Normalpris",
+            "Rabat",
+            "Tilbudspris"
+          ],
+          "Series": [
+            {
+              "Name": "Bel\u00F8b i kr.",
+              "Values": [
+                100,
+                20,
+                80
+              ],
+              "Color": "#4e79a7"
+            }
+          ]
+        },
+        "AltText": "S\u00F8jlediagram med tre s\u00F8jler, der viser en normalpris p\u00E5 100 kr., en rabat p\u00E5 20 kr. og en tilbudspris p\u00E5 80 kr. p\u00E5 y-aksen, m\u00E6rket \u0027Bel\u00F8b i kr.\u0027."
+      },
+      "ImageUrl": "/api/terminsprover/2026-02-22_11-44-24_5285af97-6ce3-4db3-90db-fd6cf4202a9e/images/df2fa4b2-f011-47a3-a922-891f7b070aa6.png",
+      "Validation": {
+        "IsValid": true,
+        "IsSolvable": true,
+        "HasCorrectAnswer": true,
+        "DifficultyAppropriate": true,
+        "Issues": [],
+        "ValidatorNotes": "Auto-validated during single-task generation"
+      },
+      "EstimatedTimeSeconds": 300,
+      "Points": 6
+    },
+    {
+      "Id": "cdff99d3-8155-4e53-b6f9-b7d42ed7615f",
+      "TaskTypeId": "stat_soejlediagram",
+      "Category": "statistik_og_sandsynlighed",
+      "ContextText": "En elev har fundet gennemsnitstemperaturen for januar for 6 \u00E5r: 2018: \u22122 \u00B0C, 2019: 0 \u00B0C, 2020: 1 \u00B0C, 2021: \u22121 \u00B0C, 2022: 2 \u00B0C, 2023: \u22123 \u00B0C. Hun vil unders\u00F8ge frost og udviklingen i vintervejret.",
+      "SubQuestions": [
+        {
+          "Label": "a",
+          "QuestionText": "Hvor mange af \u00E5rene har en gennemsnitstemperatur under 0 \u00B0C?",
+          "Answer": {
+            "Value": "3",
+            "Unit": "\u00E5r",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "\u00C5r med temperatur under 0 \u00B0C er 2018 (\u22122), 2021 (\u22121) og 2023 (\u22123).",
+              "MathExpression": "",
+              "Result": "3 \u00E5r"
+            }
+          ],
+          "Difficulty": "let",
+          "Points": 1
+        },
+        {
+          "Label": "b",
+          "QuestionText": "Beregn gennemsnittet af de 6 gennemsnitstemperaturer for januar.",
+          "Answer": {
+            "Value": "-0,5",
+            "Unit": "\u00B0C",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "L\u00E6g temperaturerne sammen: \u22122 \u002B 0 \u002B 1 \u002B (\u22121) \u002B 2 \u002B (\u22123) = \u22123.",
+              "MathExpression": "-2 \u002B 0 \u002B 1 - 1 \u002B 2 - 3",
+              "Result": "-3"
+            },
+            {
+              "StepNumber": 2,
+              "Description": "Divider med 6: \u22123 \u00F7 6 = \u22120,5.",
+              "MathExpression": "-3 \u00F7 6",
+              "Result": "-0,5 \u00B0C"
+            }
+          ],
+          "Difficulty": "middel",
+          "Points": 2
+        },
+        {
+          "Label": "c",
+          "QuestionText": "Eleven tegner et s\u00F8jlediagram med \u00E5r p\u00E5 vandret akse og temperaturer p\u00E5 lodret akse. Hvor stor er forskellen i grader mellem det koldeste og det varmeste \u00E5r?",
+          "Answer": {
+            "Value": "5",
+            "Unit": "\u00B0C",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Det koldeste \u00E5r er \u22123 \u00B0C og det varmeste \u00E5r er 2 \u00B0C.",
+              "MathExpression": "",
+              "Result": "koldest: \u22123 \u00B0C, varmest: 2 \u00B0C"
+            },
+            {
+              "StepNumber": 2,
+              "Description": "Forskellen er 2 \u2212 (\u22123) = 2 \u002B 3 = 5.",
+              "MathExpression": "2 - (-3)",
+              "Result": "5 \u00B0C"
+            }
+          ],
+          "Difficulty": "sv\u00E6r",
+          "Points": 2
+        }
+      ],
+      "QuestionText": "",
+      "QuestionLatex": "",
+      "Answers": [],
+      "Difficulty": "middel",
+      "Variables": {},
+      "SolutionSteps": [],
+      "Visualization": {
+        "Type": "chart",
+        "SvgContent": "",
+        "TikzCode": "",
+        "ChartData": {
+          "ChartType": "bar",
+          "Labels": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "Series": [
+            {
+              "Name": "Antal",
+              "Values": [
+                4,
+                7,
+                3,
+                6
+              ],
+              "Color": "#4C72B0"
+            }
+          ]
+        },
+        "AltText": "S\u00F8jlediagram med fire s\u00F8jler m\u00E6rket A, B, C og D p\u00E5 x-aksen. H\u00F8jden af s\u00F8jlerne er henholdsvis 4 for A, 7 for B, 3 for C og 6 for D. Y-aksen angiver antal."
+      },
+      "ImageUrl": null,
+      "Validation": {
+        "IsValid": true,
+        "IsSolvable": true,
+        "HasCorrectAnswer": true,
+        "DifficultyAppropriate": true,
+        "Issues": [],
+        "ValidatorNotes": "Auto-validated during single-task generation"
+      },
+      "EstimatedTimeSeconds": 300,
+      "Points": 5
+    },
+    {
+      "Id": "b253e3b6-c4cb-4050-a5de-b6f1b0675132",
+      "TaskTypeId": "stat_soejlediagram",
+      "Category": "statistik_og_sandsynlighed",
+      "ContextText": "En 9.-klasse har lavet 4 logoer til deres klasse-T-shirt. Logo A har kun spejling, logo B har kun rotation, logo C har b\u00E5de spejling og rotation, og logo D har ingen symmetri. Klassen stemmer, og resultaterne ses i tabellen: A: 6 stemmer, B: 9 stemmer, C: 15 stemmer, D: 0 stemmer.",
+      "SubQuestions": [
+        {
+          "Label": "a",
+          "QuestionText": "Hvor mange elever har i alt stemt?",
+          "Answer": {
+            "Value": "30",
+            "Unit": "elever",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "6 \u002B 9 \u002B 15 \u002B 0 = 30",
+              "MathExpression": "6 \u002B 9 \u002B 15 \u002B 0",
+              "Result": "30 elever"
+            }
+          ],
+          "Difficulty": "let",
+          "Points": 1
+        },
+        {
+          "Label": "b",
+          "QuestionText": "Hvor stor en andel af stemmerne fik logo C?",
+          "Answer": {
+            "Value": "1/2",
+            "Unit": "af stemmerne",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Andel = 15 / 30",
+              "MathExpression": "15/30",
+              "Result": "1/2"
+            }
+          ],
+          "Difficulty": "middel",
+          "Points": 2
+        },
+        {
+          "Label": "c",
+          "QuestionText": "Hvad er sandsynligheden for at en tilf\u00E6ldigt valgt stemme er givet til et logo med mindst \u00E9n type symmetri?",
+          "Answer": {
+            "Value": "1",
+            "Unit": "",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Logoer med mindst \u00E9n type symmetri: A, B, C.",
+              "MathExpression": "6 \u002B 9 \u002B 15",
+              "Result": "30 stemmer"
+            },
+            {
+              "StepNumber": 2,
+              "Description": "Sandsynlighed = 30 / 30",
+              "MathExpression": "30/30",
+              "Result": "1"
+            }
+          ],
+          "Difficulty": "sv\u00E6r",
+          "Points": 2
+        }
+      ],
+      "QuestionText": "",
+      "QuestionLatex": "",
+      "Answers": [],
+      "Difficulty": "middel",
+      "Variables": {},
+      "SolutionSteps": [],
+      "Visualization": {
+        "Type": "chart",
+        "SvgContent": "",
+        "TikzCode": "",
+        "ChartData": {
+          "ChartType": "bar",
+          "Labels": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "Series": [
+            {
+              "Name": "Hyppighed",
+              "Values": [
+                4,
+                7,
+                3,
+                6
+              ],
+              "Color": "#4C72B0"
+            }
+          ]
+        },
+        "AltText": "S\u00F8jlediagram med fire s\u00F8jler m\u00E6rket A, B, C og D p\u00E5 x-aksen. S\u00F8jlen for A har h\u00F8jde 4, for B h\u00F8jde 7, for C h\u00F8jde 3 og for D h\u00F8jde 6. Alle s\u00F8jler tilh\u00F8rer serien \u0027Hyppighed\u0027."
+      },
+      "ImageUrl": "/api/terminsprover/2026-02-22_11-44-24_5285af97-6ce3-4db3-90db-fd6cf4202a9e/images/b253e3b6-c4cb-4050-a5de-b6f1b0675132.png",
+      "Validation": {
+        "IsValid": true,
+        "IsSolvable": true,
+        "HasCorrectAnswer": true,
+        "DifficultyAppropriate": true,
+        "Issues": [],
+        "ValidatorNotes": "Auto-validated during single-task generation"
+      },
+      "EstimatedTimeSeconds": 300,
+      "Points": 5
+    },
+    {
+      "Id": "1cc9498c-a227-4fc5-bc8d-8652d4104202",
+      "TaskTypeId": "stat_sandsynlighed",
+      "Category": "statistik_og_sandsynlighed",
+      "ContextText": "I en kiosk kan man k\u00F8be skrabelod A til 20 kr og skrabelod B til 40 kr. P\u00E5 lod A er der 1 ud af 10 med gevinst p\u00E5 50 kr. P\u00E5 lod B er der 1 ud af 20 med gevinst p\u00E5 200 kr. Ved k\u00F8b af 5 lodder af samme type gives 10 % rabat p\u00E5 den samlede pris.",
+      "SubQuestions": [
+        {
+          "Label": "a",
+          "QuestionText": "Hvad er den forventede gevinst pr. lod for type A?",
+          "Answer": {
+            "Value": "5",
+            "Unit": "kr pr. lod",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Sandsynlighed for gevinst: 1/10. Forventet gevinst = 1/10 \u00B7 50 kr.",
+              "MathExpression": "50 \u00B7 1/10",
+              "Result": "5 kr pr. lod"
+            }
+          ],
+          "Difficulty": "let",
+          "Points": 2
+        },
+        {
+          "Label": "b",
+          "QuestionText": "Hvad er den forventede gevinst pr. krone for lod A?",
+          "Answer": {
+            "Value": "0,25",
+            "Unit": "kr pr. krone",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Pris pr. lod A er 20 kr, forventet gevinst pr. lod er 5 kr.",
+              "MathExpression": "5 \u00F7 20",
+              "Result": "0,25 kr pr. krone"
+            }
+          ],
+          "Difficulty": "middel",
+          "Points": 2
+        },
+        {
+          "Label": "c",
+          "QuestionText": "Hvad er den forventede gevinst pr. krone for lod B?",
+          "Answer": {
+            "Value": "0,25",
+            "Unit": "kr pr. krone",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Sandsynlighed for gevinst p\u00E5 B er 1/20, gevinst er 200 kr.",
+              "MathExpression": "200 \u00B7 1/20",
+              "Result": "10 kr pr. lod"
+            },
+            {
+              "StepNumber": 2,
+              "Description": "Pris pr. lod B er 40 kr.",
+              "MathExpression": "10 \u00F7 40",
+              "Result": "0,25 kr pr. krone"
+            }
+          ],
+          "Difficulty": "middel",
+          "Points": 2
+        },
+        {
+          "Label": "d",
+          "QuestionText": "Ved k\u00F8b af 5 lodder af samme type: Hvad er den nye forventede gevinst pr. krone for lod A med rabat?",
+          "Answer": {
+            "Value": "ca. 0,28",
+            "Unit": "kr pr. krone",
+            "IsExact": true,
+            "Tolerance": null
+          },
+          "SolutionSteps": [
+            {
+              "StepNumber": 1,
+              "Description": "Normal pris for 5 lodder A: 5 \u00B7 20 kr.",
+              "MathExpression": "5 \u00B7 20",
+              "Result": "100 kr"
+            },
+            {
+              "StepNumber": 2,
+              "Description": "10 % rabat p\u00E5 100 kr er 10 kr, s\u00E5 pris med rabat er 90 kr.",
+              "MathExpression": "100 \u2212 0,10 \u00B7 100",
+              "Result": "90 kr"
+            },
+            {
+              "StepNumber": 3,
+              "Description": "Forventet gevinst for 5 lodder: 5 \u00B7 5 kr.",
+              "MathExpression": "5 \u00B7 5",
+              "Result": "25 kr"
+            },
+            {
+              "StepNumber": 4,
+              "Description": "Forventet gevinst pr. krone med rabat: 25 \u00F7 90.",
+              "MathExpression": "25 \u00F7 90",
+              "Result": "\u2248 0,28 kr pr. krone"
+            }
+          ],
+          "Difficulty": "sv\u00E6r",
+          "Points": 3
+        }
+      ],
+      "QuestionText": "",
+      "QuestionLatex": "",
+      "Answers": [],
+      "Difficulty": "sv\u00E6r",
+      "Variables": {},
+      "SolutionSteps": [],
+      "Visualization": {
+        "Type": "chart",
+        "SvgContent": "",
+        "TikzCode": "",
+        "ChartData": {
+          "ChartType": "bar",
+          "Labels": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "Series": [
+            {
+              "Name": "Antal observationer",
+              "Values": [
+                5,
+                8,
+                3,
+                4
+              ],
+              "Color": "#4C72B0"
+            }
+          ]
+        },
+        "AltText": "S\u00F8jlediagram med fire s\u00F8jler m\u00E6rket A, B, C og D p\u00E5 x-aksen. H\u00F8jden af s\u00F8jlerne er henholdsvis 5 for A, 8 for B, 3 for C og 4 for D. Serien hedder \u0027Antal observationer\u0027."
+      },
+      "ImageUrl": "/api/terminsprover/2026-02-22_11-44-24_5285af97-6ce3-4db3-90db-fd6cf4202a9e/images/1cc9498c-a227-4fc5-bc8d-8652d4104202.png",
+      "Validation": {
+        "IsValid": true,
+        "IsSolvable": true,
+        "HasCorrectAnswer": true,
+        "DifficultyAppropriate": true,
+        "Issues": [],
+        "ValidatorNotes": "Auto-validated during single-task generation"
+      },
+      "EstimatedTimeSeconds": 420,
+      "Points": 9
+    }
+  ],
+  "Metadata": {
+    "StartedAt": "2026-02-22T11:44:24.9342553Z",
+    "CompletedAt": "2026-02-22T11:44:56.0709156Z",
+    "Duration": "00:00:31.1366603",
+    "TotalTokensUsed": 0,
+    "TotalIterations": 5,
+    "RegeneratedTaskCount": 0,
+    "CategoryDistribution": {
+      "statistik_og_sandsynlighed": 5
+    },
+    "DifficultyDistribution": {
+      "let": 2,
+      "middel": 2,
+      "sv\u00E6r": 1
+    }
+  },
+  "AgentLog": [
+    {
+      "Timestamp": "2026-02-22T11:44:56.0719026Z",
+      "AgentName": "FastAgentOrchestrator",
+      "Action": "GenerateTerminsprove (summary)",
+      "Input": "Request: 5 tasks, level=fp9, examPart=med_hjaelpemidler, difficulty=(30 %/50 %/20 %), categories=[]",
+      "Output": "Generated 5 tasks in 31133ms (5 parallel LLM calls, 11 agent calls)",
+      "TokensUsed": null,
+      "Duration": "00:00:31.1336589",
+      "ParsedTaskCount": 5,
+      "ParseSuccess": true,
+      "ErrorMessage": null
+    },
+    {
+      "Timestamp": "2026-02-22T11:44:29.189839Z",
+      "AgentName": "TopicBrainstormAgent",
+      "Action": "BrainstormConcepts (count=5)",
+      "Input": "Gennemsnit, median og typetal (Statistik og sandsynlighed) \u002B Figurf\u00F8lger og m\u00F8nstre (Tal og algebra)\nKritisk vurdering af statistik (Statistik og sandsynlighed) \u002B Procentregning (Tal og algebra)\nDiagrammer og grafer (Statistik og sandsynlighed) \u002B Negative tal (Tal og algebra)\nSpejling, rotation og parallelforskydning (Geometri og m\u00E5ling) \u002B Indsamle og analysere data (Statistik og sandsynlighed)\nForhold og procent\u00E6ndringer (Tal og algebra) \u002B Tilf\u00E6ldighed og chance (Statistik og sandsynlighed)",
+      "Output": "[stat_soejlediagram] En 9. klasse laver en ugentlig planke-challenge, hvor de hver fredag m\u00E5ler, hvor mange sekunder hver elev kan holde planken, og de h\u00E6nger resultaterne op p\u00E5 en tavle som en voksende talr\u00E6kke uge for uge. Klassen vil b\u00E5de beskrive udviklingen i deres tider med gennemsnit, median og typetal og unders\u00F8ge, om der kan ses et m\u00F8nster i, hvordan klassens gennemsnitstid vokser fra uge til uge.\n[tal_pris_rabat_procent] En elev ser en reklame fra et t\u00F8jfirma p\u00E5 nettet, hvor der st\u00E5r: \u002280 % af kunderne elsker vores nye hoodie \u2013 nu med 30 % rabat\u0022, og overvejer b\u00E5de om tilbuddet er godt, og om reklamen virker trov\u00E6rdig. Eleven unders\u00F8ger prisen p\u00E5 hoodien f\u00F8r og efter rabatten og kigger n\u00E6rmere p\u00E5, hvordan firmaet kan have brugt tallene i reklamen.\n[stat_soejlediagram] En elev vil sammenligne vintervejret de sidste 10 \u00E5r og henter daglige temperaturer for januar fra DMI, hvor nogle dage har frostgrader. Hun vil b\u00E5de unders\u00F8ge, hvor ofte temperaturen er under 0 \u00B0C, og hvordan gennemsnitstemperaturen har udviklet sig over \u00E5rene.\n[stat_soejlediagram] En 9.-klasse skal designe et simpelt logo til deres klasse-T-shirt, hvor m\u00F8nsteret bygges op ved hj\u00E6lp af spejling og rotation af en grundfigur. De laver flere forskellige logo-forslag og lader klassen stemme, mens de registrerer, hvilke typer symmetri (fx kun spejling, kun rotation eller begge dele) der f\u00E5r flest stemmer.\n[stat_sandsynlighed] En elev overvejer at k\u00F8be skrabelodder i en kiosk, hvor der lige nu er kampagne: hvis man k\u00F8ber et bestemt antal lodder, f\u00E5r man en procentvis rabat p\u00E5 den samlede pris, mens gevinsterne og vinderchancerne for de forskellige lodtyper er forskellige. Eleven vil sammenligne, hvordan rabatten p\u00E5virker den forventede gevinst pr. krone for de forskellige lodtyper og lodpakker.",
+      "TokensUsed": null,
+      "Duration": "00:00:04.2496304",
+      "ParsedTaskCount": 5,
+      "ParseSuccess": true,
+      "ErrorMessage": null
+    },
+    {
+      "Timestamp": "2026-02-22T11:44:35.4250469Z",
+      "AgentName": "BatchTaskGenerator",
+      "Action": "GenerateSingleTask (index=2, difficulty=let)",
+      "Input": "[SystemPrompt]\nDu er en erfaren matematikl\u00E6rer der skriver FP9 pr\u00F8veopgaver.\r\n\r\nSKRIVESTIL \u2014 KORT OG PR\u00C6CIS SOM EN RIGTIG PR\u00D8VE:\r\n- contextText skal v\u00E6re KORT: 1-3 s\u00E6tninger der giver scenariet og de n\u00F8dvendige oplysninger.\r\n  IKKE en novelle. T\u00E6nk p\u00E5 en rigtig FP9-pr\u00F8ve: \u0022Lea vil h\u00E6kle grydelapper og s\u00E6lge dem.\r\n  Hun skal bruge 120 g garn til et par. Et n\u00F8gle garn er 50 g og koster 12,95 kr.\u0022\r\n- Giv information \u00C9N GANG. Gentag ALDRIG oplysninger i delopgaverne som allerede st\u00E5r i contextText.\r\n  Eleven skal selv navigere tilbage og finde de tal de har brug for.\r\n- Delopgavernes questionText skal v\u00E6re KORTE og DIREKTE: stil sp\u00F8rgsm\u00E5let, giv evt. nye tal,\r\n  f\u00E6rdig. Ingen genfort\u00E6lling af scenariet.\r\n- UNDG\u00C5 at forklare hvad eleven skal g\u00F8re (\u0022Skriv dine beregninger\u0022, \u0022Vis med udregninger\u0022,\r\n  \u0022Begrund med beregninger\u0022). Stil bare sp\u00F8rgsm\u00E5let.\r\n- Scenariet skal v\u00E6re REALISTISK og TROV\u00C6RDIGT \u2014 ikke kunstigt eller overdrevet kreativt.\r\n  Gode scenarier er hverdagsagtige: h\u00E5ndv\u00E6rk, madlavning, sport, \u00F8konomi, indretning.\r\n\r\nDESIGNPROCES \u2014 BAGL\u00C6NS DESIGN (SCAFFOLDING):\r\n1. Formuler F\u00D8RST den sv\u00E6reste delopgave \u2014 det er M\u00C5LET for hele opgaven.\r\n2. Design derefter de tidligere delopgaver som KONKRETE trin der leder eleven derhen.\r\n3. Scaffoldingen skal v\u00E6re IMPLICIT \u2014 opgaveteksten m\u00E5 ALDRIG bede eleven om at\r\n   \u0022bruge svaret fra a)\u0022 eller lignende. Eleven opdager selv sammenh\u00E6ngen.\r\n\r\nOPGAVEFORMAT:\r\n- Sv\u00E6re opgaver: 1-2 delopgaver\r\n- Middel: 2-3 delopgaver\r\n- Lette: 3-5 delopgaver\r\n- Den SIDSTE delopgave skal ALTID v\u00E6re den sv\u00E6reste.\r\n\r\nMATEMATISKE REGLER:\r\n- Beregn svaret F\u00D8RST, skriv opgaven EFTER. Dobbelttjek alle beregninger.\r\n- Brug p\u00E6ne tal der giver hele eller simple svar.\r\n\r\nOutput KUN valid JSON. Ingen markdown, ingen forklaring.\n\n[UserPrompt]\nGenerer \u00C9N FP9 pr\u00F8veopgave.\r\n\r\nSCENARIE (fra pensum-sampling):\r\nEmner: Kritisk vurdering af statistik \u002B Procentregning\r\nId\u00E9: En elev ser en reklame fra et t\u00F8jfirma p\u00E5 nettet, hvor der st\u00E5r: \u002280 % af kunderne elsker vores nye hoodie \u2013 nu med 30 % rabat\u0022, og overvejer b\u00E5de om tilbuddet er godt, og om reklamen virker trov\u00E6rdig. Eleven unders\u00F8ger prisen p\u00E5 hoodien f\u00F8r og efter rabatten og kigger n\u00E6rmere p\u00E5, hvordan firmaet kan have brugt tallene i reklamen.\r\nKobling: Eleven bruger procentregning til at beregne den nye pris og eventuel besparelse, og vurderer derefter kritisk om statistikken (fx de 80 % tilfredse kunder) kan v\u00E6re misvisende pga. stikpr\u00F8vest\u00F8rrelse, udv\u00E6lgelse eller bias.\r\nOpgavetype: tal_pris_rabat_procent\r\nKategori: statistik_og_sandsynlighed\r\n\r\nByg opgaven ud fra dette scenarie. Tilf\u00F8j konkrete tal s\u00E5 det bliver l\u00F8sbart.\r\n\r\nKrav: med_hjaelpemidler, sv\u00E6rhedsgrad: let, fokus: varieret\r\n\r\nOpgavetyper: tal_ligninger, tal_broeker_og_antal, tal_regnearter, tal_pris_rabat_procent, tal_forholdstalsregning, geo_sammensat_figur, geo_vinkelsum, geo_enhedsomregning, stat_boksplot, stat_sandsynlighed\r\n\r\nVIGTIGSTE REGLER FOR TEKST:\r\n1. contextText: KORT \u2014 maks 1-3 s\u00E6tninger med scenarie og n\u00F8dvendige oplysninger.\r\n   IKKE en historie. Bare fakta. Se eksemplet nedenfor.\r\n2. questionText i delopgaver: KORT og DIREKTE. Stil sp\u00F8rgsm\u00E5let, giv evt. nye tal, f\u00E6rdig.\r\n   Gentag ALDRIG information fra contextText \u2014 eleven finder selv tallene.\r\n3. ALDRIG skriv \u0022Skriv dine beregninger\u0022, \u0022Vis med udregninger\u0022, \u0022Begrund dit svar\u0022 \r\n   eller lignende instruktioner. Stil bare sp\u00F8rgsm\u00E5let.\r\n4. Scaffolding er IMPLICIT \u2014 sig aldrig \u0022brug svaret fra a)\u0022.\r\n\r\nSV\u00C6RHEDSGRAD P\u00C5 DELOPGAVER:\r\nDen SIDSTE delopgave er altid sv\u00E6rest. Rampe: let \u2192 middel \u2192 sv\u00E6r.\r\n\r\nEksempel (kort og pr\u00E6cist som en rigtig FP9-pr\u00F8ve):\r\n{\r\n  \u0022taskTypeId\u0022:\u0022tal_forholdstalsregning\u0022,\r\n  \u0022category\u0022:\u0022tal_og_algebra\u0022,\r\n  \u0022difficulty\u0022:\u0022middel\u0022,\r\n  \u0022contextText\u0022:\u0022Lea vil h\u00E6kle grydelapper og s\u00E6lge dem. Hun bruger 120 g garn til et par. Et n\u00F8gle garn er 50 g og koster 12,95 kr. 10 n\u00F8gler koster 89 kr.\u0022,\r\n  \u0022subQuestions\u0022:[\r\n    {\u0022label\u0022:\u0022a\u0022,\u0022questionText\u0022:\u0022Hvor mange n\u00F8gler garn skal Lea mindst k\u00F8be for at h\u00E6kle \u00E9t par grydelapper?\u0022,\u0022answer\u0022:{\u0022value\u0022:\u00223\u0022,\u0022unit\u0022:\u0022n\u00F8gler\u0022},\u0022difficulty\u0022:\u0022let\u0022,\u0022points\u0022:1,\u0022solutionSteps\u0022:[{\u0022stepNumber\u0022:1,\u0022description\u0022:\u0022120 \u00F7 50 = 2,4 \u2192 oprund til 3\u0022,\u0022mathExpression\u0022:\u0022120 \u00F7 50\u0022,\u0022result\u0022:\u00223 n\u00F8gler\u0022}]},\r\n    {\u0022label\u0022:\u0022b\u0022,\u0022questionText\u0022:\u0022Lea vil h\u00E6kle 5 par. Hvor mange n\u00F8gler skal hun k\u00F8be?\u0022,\u0022answer\u0022:{\u0022value\u0022:\u002212\u0022,\u0022unit\u0022:\u0022n\u00F8gler\u0022},\u0022difficulty\u0022:\u0022let\u0022,\u0022points\u0022:1,\u0022solutionSteps\u0022:[{\u0022stepNumber\u0022:1,\u0022description\u0022:\u00225 \u00B7 120 = 600 g\u0022,\u0022mathExpression\u0022:\u00225 \u00B7 120\u0022,\u0022result\u0022:\u0022600 g\u0022},{\u0022stepNumber\u0022:2,\u0022description\u0022:\u0022600 \u00F7 50 = 12\u0022,\u0022mathExpression\u0022:\u0022600 \u00F7 50\u0022,\u0022result\u0022:\u002212 n\u00F8gler\u0022}]},\r\n    {\u0022label\u0022:\u0022c\u0022,\u0022questionText\u0022:\u0022Hvad er billigst: 12 n\u00F8gler enkeltvis eller en pakke med 10 plus 2 enkelt-n\u00F8gler?\u0022,\u0022answer\u0022:{\u0022value\u0022:\u0022Pakke\u002B2: 114,90 kr (billigst). Enkeltvis: 155,40 kr.\u0022,\u0022unit\u0022:\u0022kr\u0022},\u0022difficulty\u0022:\u0022middel\u0022,\u0022points\u0022:2,\u0022solutionSteps\u0022:[{\u0022stepNumber\u0022:1,\u0022description\u0022:\u0022Enkeltvis: 12 \u00B7 12,95 = 155,40 kr\u0022,\u0022mathExpression\u0022:\u002212 \u00B7 12,95\u0022,\u0022result\u0022:\u0022155,40 kr\u0022},{\u0022stepNumber\u0022:2,\u0022description\u0022:\u0022Pakke\u002B2: 89 \u002B 2 \u00B7 12,95 = 114,90 kr\u0022,\u0022mathExpression\u0022:\u002289 \u002B 25,90\u0022,\u0022result\u0022:\u0022114,90 kr\u0022}]},\r\n    {\u0022label\u0022:\u0022d\u0022,\u0022questionText\u0022:\u0022Lea s\u00E6lger grydelapperne for 60 kr pr. par. Hvor mange par skal hun s\u00E6lge for et overskud p\u00E5 ca. 500 kr?\u0022,\u0022answer\u0022:{\u0022value\u0022:\u0022Ca. 14 par\u0022,\u0022unit\u0022:\u0022\u0022},\u0022difficulty\u0022:\u0022sv\u00E6r\u0022,\u0022points\u0022:3,\u0022solutionSteps\u0022:[{\u0022stepNumber\u0022:1,\u0022description\u0022:\u0022Garnpris pr. par (billigst): 114,90 \u00F7 5 \u2248 22,98 kr\u0022,\u0022mathExpression\u0022:\u0022114,90 \u00F7 5\u0022,\u0022result\u0022:\u002222,98 kr\u0022},{\u0022stepNumber\u0022:2,\u0022description\u0022:\u0022Overskud pr. par: 60 \u2212 22,98 \u2248 37 kr\u0022,\u0022mathExpression\u0022:\u002260 \u2212 22,98\u0022,\u0022result\u0022:\u002237,02 kr\u0022},{\u0022stepNumber\u0022:3,\u0022description\u0022:\u0022500 \u00F7 37 \u2248 13,5 \u2192 ca. 14 par\u0022,\u0022mathExpression\u0022:\u0022500 \u00F7 37\u0022,\u0022result\u0022:\u0022\u2248 14 par\u0022}]}\r\n  ],\r\n  \u0022points\u0022:7,\r\n  \u0022estimatedTimeSeconds\u0022:300\r\n}\r\n\r\nOutput: \u00C9T JSON objekt. KUN JSON, ingen markdown.",
+      "Output": "{\n  \u0022taskTypeId\u0022: \u0022tal_pris_rabat_procent\u0022,\n  \u0022category\u0022: \u0022statistik_og_sandsynlighed\u0022,\n  \u0022difficulty\u0022: \u0022let\u0022,\n  \u0022contextText\u0022: \u0022Et t\u00F8jfirma s\u00E6lger en hoodie til normalpris 400 kr. I en reklame st\u00E5r der: \\\u002280 % af kunderne elsker vores nye hoodie \u2013 nu med 30 % rabat\\\u0022. Under reklamen st\u00E5r med sm\u00E5t, at unders\u00F8gelsen bygger p\u00E5 svar fra 25 kunder.\u0022,\n  \u0022subQuestions\u0022: [\n    {\n      \u0022label\u0022: \u0022a\u0022,\n      \u0022questionText\u0022: \u0022Hvad er rabatten i kroner?\u0022,\n      \u0022answer\u0022: {\n        \u0022value\u0022: \u0022120\u0022,\n        \u0022unit\u0022: \u0022kr\u0022\n      },\n      \u0022difficulty\u0022: \u0022let\u0022,\n      \u0022points\u0022: 1,\n      \u0022solutionSteps\u0022: [\n        {\n          \u0022stepNumber\u0022: 1,\n          \u0022description\u0022: \u002230 % af 400 kr findes ved 0,30 \u00B7 400\u0022,\n          \u0022mathExpression\u0022: \u00220,30 \u00B7 400\u0022,\n          \u0022result\u0022: \u0022120 kr\u0022\n        }\n      ]\n    },\n    {\n      \u0022label\u0022: \u0022b\u0022,\n      \u0022questionText\u0022: \u0022Hvad er tilbudsprisen p\u00E5 hoodien?\u0022,\n      \u0022answer\u0022: {\n        \u0022value\u0022: \u0022280\u0022,\n        \u0022unit\u0022: \u0022kr\u0022\n      },\n      \u0022difficulty\u0022: \u0022let\u0022,\n      \u0022points\u0022: 1,\n      \u0022solutionSteps\u0022: [\n        {\n          \u0022stepNumber\u0022: 1,\n          \u0022description\u0022: \u0022Tilbudspris = normalpris \u2212 rabat\u0022,\n          \u0022mathExpression\u0022: \u0022400 \u2212 120\u0022,\n          \u0022result\u0022: \u0022280 kr\u0022\n        }\n      ]\n    },\n    {\n      \u0022label\u0022: \u0022c\u0022,\n      \u0022questionText\u0022: \u0022Hvor mange kunder svarer 80 % til, n\u00E5r 25 kunder har svaret?\u0022,\n      \u0022answer\u0022: {\n        \u0022value\u0022: \u002220\u0022,\n        \u0022unit\u0022: \u0022kunder\u0022\n      },\n      \u0022difficulty\u0022: \u0022middel\u0022,\n      \u0022points\u0022: 2,\n      \u0022solutionSteps\u0022: [\n        {\n          \u0022stepNumber\u0022: 1,\n          \u0022description\u0022: \u002280 % af 25 findes ved 0,80 \u00B7 25\u0022,\n          \u0022mathExpression\u0022: \u00220,80 \u00B7 25\u0022,\n          \u0022result\u0022: \u002220 kunder\u0022\n        }\n      ]\n    },\n    {\n      \u0022label\u0022: \u0022d\u0022,\n      \u0022questionText\u0022: \u0022Forklar kort \u00E9n grund til, at tallet \\\u002280 % af kunderne\\\u0022 kan v\u00E6re misvisende.\u0022,\n      \u0022answer\u0022: {\n        \u0022value\u0022: \u0022Fx at kun 25 kunder har svaret, s\u00E5 stikpr\u00F8ven er lille, eller at det m\u00E5ske kun er meget tilfredse kunder, der har valgt at svare, s\u00E5 resultatet ikke viser alle kunders mening.\u0022,\n        \u0022unit\u0022: \u0022\u0022\n      },\n      \u0022difficulty\u0022: \u0022middel\u0022,\n      \u0022points\u0022: 2,\n      \u0022solutionSteps\u0022: [\n        {\n          \u0022stepNumber\u0022: 1,\n          \u0022description\u0022: \u0022En lille stikpr\u00F8ve eller sk\u00E6v udv\u00E6lgelse kan g\u00F8re, at procenttallet ikke repr\u00E6senterer alle kunder.\u0022,\n          \u0022mathExpression\u0022: \u0022\u0022,\n          \u0022result\u0022: \u0022\u0022\n        }\n      ]\n    }\n  ],\n  \u0022points\u0022: 6,\n  \u0022estimatedTimeSeconds\u0022: 300\n}",
+      "TokensUsed": null,
+      "Duration": "00:00:05.9131624",
+      "ParsedTaskCount": 1,
+      "ParseSuccess": true,
+      "ErrorMessage": null
+    },
+    {
+      "Timestamp": "2026-02-22T11:44:36.8544073Z",
+      "AgentName": "BatchTaskGenerator",
+      "Action": "GenerateSingleTask (index=4, difficulty=middel)",
+      "Input": "[SystemPrompt]\nDu er en erfaren matematikl\u00E6rer der skriver FP9 pr\u00F8veopgaver.\r\n\r\nSKRIVESTIL \u2014 KORT OG PR\u00C6CIS SOM EN RIGTIG PR\u00D8VE:\r\n- contextText skal v\u00E6re KORT: 1-3 s\u00E6tninger der giver scenariet og de n\u00F8dvendige oplysninger.\r\n  IKKE en novelle. T\u00E6nk p\u00E5 en rigtig FP9-pr\u00F8ve: \u0022Lea vil h\u00E6kle grydelapper og s\u00E6lge dem.\r\n  Hun skal bruge 120 g garn til et par. Et n\u00F8gle garn er 50 g og koster 12,95 kr.\u0022\r\n- Giv information \u00C9N GANG. Gentag ALDRIG oplysninger i delopgaverne som allerede st\u00E5r i contextText.\r\n  Eleven skal selv navigere tilbage og finde de tal de har brug for.\r\n- Delopgavernes questionText skal v\u00E6re KORTE og DIREKTE: stil sp\u00F8rgsm\u00E5let, giv evt. nye tal,\r\n  f\u00E6rdig. Ingen genfort\u00E6lling af scenariet.\r\n- UNDG\u00C5 at forklare hvad eleven skal g\u00F8re (\u0022Skriv dine beregninger\u0022, \u0022Vis med udregninger\u0022,\r\n  \u0022Begrund med beregninger\u0022). Stil bare sp\u00F8rgsm\u00E5let.\r\n- Scenariet skal v\u00E6re REALISTISK og TROV\u00C6RDIGT \u2014 ikke kunstigt eller overdrevet kreativt.\r\n  Gode scenarier er hverdagsagtige: h\u00E5ndv\u00E6rk, madlavning, sport, \u00F8konomi, indretning.\r\n\r\nDESIGNPROCES \u2014 BAGL\u00C6NS DESIGN (SCAFFOLDING):\r\n1. Formuler F\u00D8RST den sv\u00E6reste delopgave \u2014 det er M\u00C5LET for hele opgaven.\r\n2. Design derefter de tidligere delopgaver som KONKRETE trin der leder eleven derhen.\r\n3. Scaffoldingen skal v\u00E6re IMPLICIT \u2014 opgaveteksten m\u00E5 ALDRIG bede eleven om at\r\n   \u0022bruge svaret fra a)\u0022 eller lignende. Eleven opdager selv sammenh\u00E6ngen.\r\n\r\nOPGAVEFORMAT:\r\n- Sv\u00E6re opgaver: 1-2 delopgaver\r\n- Middel: 2-3 delopgaver\r\n- Lette: 3-5 delopgaver\r\n- Den SIDSTE delopgave skal ALTID v\u00E6re den sv\u00E6reste.\r\n\r\nMATEMATISKE REGLER:\r\n- Beregn svaret F\u00D8RST, skriv opgaven EFTER. Dobbelttjek alle beregninger.\r\n- Brug p\u00E6ne tal der giver hele eller simple svar.\r\n\r\nOutput KUN valid JSON. Ingen markdown, ingen forklaring.\n\n[UserPrompt]\nGenerer \u00C9N FP9 pr\u00F8veopgave.\r\n\r\nSCENARIE (fra pensum-sampling):\r\nEmner: Spejling, rotation og parallelforskydning \u002B Indsamle og analysere data\r\nId\u00E9: En 9.-klasse skal designe et simpelt logo til deres klasse-T-shirt, hvor m\u00F8nsteret bygges op ved hj\u00E6lp af spejling og rotation af en grundfigur. De laver flere forskellige logo-forslag og lader klassen stemme, mens de registrerer, hvilke typer symmetri (fx kun spejling, kun rotation eller begge dele) der f\u00E5r flest stemmer.\r\nKobling: Eleverne bruger geometriske transformationer til at klassificere logo-forslagene efter type af symmetri og samler derefter stemmedata i tabeller/diagrammer for at analysere, om bestemte symmetrier er mere popul\u00E6re end andre.\r\nOpgavetype: stat_soejlediagram\r\nKategori: statistik_og_sandsynlighed\r\n\r\nByg opgaven ud fra dette scenarie. Tilf\u00F8j konkrete tal s\u00E5 det bliver l\u00F8sbart.\r\n\r\nKrav: med_hjaelpemidler, sv\u00E6rhedsgrad: middel, fokus: varieret\r\n\r\nOpgavetyper: tal_ligninger, tal_broeker_og_antal, tal_regnearter, tal_pris_rabat_procent, tal_forholdstalsregning, geo_sammensat_figur, geo_vinkelsum, geo_enhedsomregning, stat_boksplot, stat_sandsynlighed\r\n\r\nVIGTIGSTE REGLER FOR TEKST:\r\n1. contextText: KORT \u2014 maks 1-3 s\u00E6tninger med scenarie og n\u00F8dvendige oplysninger.\r\n   IKKE en historie. Bare fakta. Se eksemplet nedenfor.\r\n2. questionText i delopgaver: KORT og DIREKTE. Stil sp\u00F8rgsm\u00E5let, giv evt. nye tal, f\u00E6rdig.\r\n   Gentag ALDRIG information fra contextText \u2014 eleven finder selv tallene.\r\n3. ALDRIG skriv \u0022Skriv dine beregninger\u0022, \u0022Vis med udregninger\u0022, \u0022Begrund dit svar\u0022 \r\n   eller lignende instruktioner. Stil bare sp\u00F8rgsm\u00E5let.\r\n4. Scaffolding er IMPLICIT \u2014 sig aldrig \u0022brug svaret fra a)\u0022.\r\n\r\nSV\u00C6RHEDSGRAD P\u00C5 DELOPGAVER:\r\nDen SIDSTE delopgave er altid sv\u00E6rest. Rampe: let \u2192 middel \u2192 sv\u00E6r.\r\n\r\nEksempel (kort og pr\u00E6cist som en rigtig FP9-pr\u00F8ve):\r\n{\r\n  \u0022taskTypeId\u0022:\u0022tal_forholdstalsregning\u0022,\r\n  \u0022category\u0022:\u0022tal_og_algebra\u0022,\r\n  \u0022difficulty\u0022:\u0022middel\u0022,\r\n  \u0022contextText\u0022:\u0022Lea vil h\u00E6kle grydelapper og s\u00E6lge dem. Hun bruger 120 g garn til et par. Et n\u00F8gle garn er 50 g og koster 12,95 kr. 10 n\u00F8gler koster 89 kr.\u0022,\r\n  \u0022subQuestions\u0022:[\r\n    {\u0022label\u0022:\u0022a\u0022,\u0022questionText\u0022:\u0022Hvor mange n\u00F8gler garn skal Lea mindst k\u00F8be for at h\u00E6kle \u00E9t par grydelapper?\u0022,\u0022answer\u0022:{\u0022value\u0022:\u00223\u0022,\u0022unit\u0022:\u0022n\u00F8gler\u0022},\u0022difficulty\u0022:\u0022let\u0022,\u0022points\u0022:1,\u0022solutionSteps\u0022:[{\u0022stepNumber\u0022:1,\u0022description\u0022:\u0022120 \u00F7 50 = 2,4 \u2192 oprund til 3\u0022,\u0022mathExpression\u0022:\u0022120 \u00F7 50\u0022,\u0022result\u0022:\u00223 n\u00F8gler\u0022}]},\r\n    {\u0022label\u0022:\u0022b\u0022,\u0022questionText\u0022:\u0022Lea vil h\u00E6kle 5 par. Hvor mange n\u00F8gler skal hun k\u00F8be?\u0022,\u0022answer\u0022:{\u0022value\u0022:\u002212\u0022,\u0022unit\u0022:\u0022n\u00F8gler\u0022},\u0022difficulty\u0022:\u0022let\u0022,\u0022points\u0022:1,\u0022solutionSteps\u0022:[{\u0022stepNumber\u0022:1,\u0022description\u0022:\u00225 \u00B7 120 = 600 g\u0022,\u0022mathExpression\u0022:\u00225 \u00B7 120\u0022,\u0022result\u0022:\u0022600 g\u0022},{\u0022stepNumber\u0022:2,\u0022description\u0022:\u0022600 \u00F7 50 = 12\u0022,\u0022mathExpression\u0022:\u0022600 \u00F7 50\u0022,\u0022result\u0022:\u002212 n\u00F8gler\u0022}]},\r\n    {\u0022label\u0022:\u0022c\u0022,\u0022questionText\u0022:\u0022Hvad er billigst: 12 n\u00F8gler enkeltvis eller en pakke med 10 plus 2 enkelt-n\u00F8gler?\u0022,\u0022answer\u0022:{\u0022value\u0022:\u0022Pakke\u002B2: 114,90 kr (billigst). Enkeltvis: 155,40 kr.\u0022,\u0022unit\u0022:\u0022kr\u0022},\u0022difficulty\u0022:\u0022middel\u0022,\u0022points\u0022:2,\u0022solutionSteps\u0022:[{\u0022stepNumber\u0022:1,\u0022description\u0022:\u0022Enkeltvis: 12 \u00B7 12,95 = 155,40 kr\u0022,\u0022mathExpression\u0022:\u002212 \u00B7 12,95\u0022,\u0022result\u0022:\u0022155,40 kr\u0022},{\u0022stepNumber\u0022:2,\u0022description\u0022:\u0022Pakke\u002B2: 89 \u002B 2 \u00B7 12,95 = 114,90 kr\u0022,\u0022mathExpression\u0022:\u002289 \u002B 25,90\u0022,\u0022result\u0022:\u0022114,90 kr\u0022}]},\r\n    {\u0022label\u0022:\u0022d\u0022,\u0022questionText\u0022:\u0022Lea s\u00E6lger grydelapperne for 60 kr pr. par. Hvor mange par skal hun s\u00E6lge for et overskud p\u00E5 ca. 500 kr?\u0022,\u0022answer\u0022:{\u0022value\u0022:\u0022Ca. 14 par\u0022,\u0022unit\u0022:\u0022\u0022},\u0022difficulty\u0022:\u0022sv\u00E6r\u0022,\u0022points\u0022:3,\u0022solutionSteps\u0022:[{\u0022stepNumber\u0022:1,\u0022description\u0022:\u0022Garnpris pr. par (billigst): 114,90 \u00F7 5 \u2248 22,98 kr\u0022,\u0022mathExpression\u0022:\u0022114,90 \u00F7 5\u0022,\u0022result\u0022:\u002222,98 kr\u0022},{\u0022stepNumber\u0022:2,\u0022description\u0022:\u0022Overskud pr. par: 60 \u2212 22,98 \u2248 37 kr\u0022,\u0022mathExpression\u0022:\u002260 \u2212 22,98\u0022,\u0022result\u0022:\u002237,02 kr\u0022},{\u0022stepNumber\u0022:3,\u0022description\u0022:\u0022500 \u00F7 37 \u2248 13,5 \u2192 ca. 14 par\u0022,\u0022mathExpression\u0022:\u0022500 \u00F7 37\u0022,\u0022result\u0022:\u0022\u2248 14 par\u0022}]}\r\n  ],\r\n  \u0022points\u0022:7,\r\n  \u0022estimatedTimeSeconds\u0022:300\r\n}\r\n\r\nOutput: \u00C9T JSON objekt. KUN JSON, ingen markdown.",
+      "Output": "{\n  \u0022taskTypeId\u0022: \u0022stat_soejlediagram\u0022,\n  \u0022category\u0022: \u0022statistik_og_sandsynlighed\u0022,\n  \u0022difficulty\u0022: \u0022middel\u0022,\n  \u0022contextText\u0022: \u0022En 9.-klasse har lavet 4 logoer til deres klasse-T-shirt. Logo A har kun spejling, logo B har kun rotation, logo C har b\u00E5de spejling og rotation, og logo D har ingen symmetri. Klassen stemmer, og resultaterne ses i tabellen: A: 6 stemmer, B: 9 stemmer, C: 15 stemmer, D: 0 stemmer.\u0022,\n  \u0022subQuestions\u0022: [\n    {\n      \u0022label\u0022: \u0022a\u0022,\n      \u0022questionText\u0022: \u0022Hvor mange elever har i alt stemt?\u0022,\n      \u0022answer\u0022: {\n        \u0022value\u0022: \u002230\u0022,\n        \u0022unit\u0022: \u0022elever\u0022\n      },\n      \u0022difficulty\u0022: \u0022let\u0022,\n      \u0022points\u0022: 1,\n      \u0022solutionSteps\u0022: [\n        {\n          \u0022stepNumber\u0022: 1,\n          \u0022description\u0022: \u00226 \u002B 9 \u002B 15 \u002B 0 = 30\u0022,\n          \u0022mathExpression\u0022: \u00226 \u002B 9 \u002B 15 \u002B 0\u0022,\n          \u0022result\u0022: \u002230 elever\u0022\n        }\n      ]\n    },\n    {\n      \u0022label\u0022: \u0022b\u0022,\n      \u0022questionText\u0022: \u0022Hvor stor en andel af stemmerne fik logo C?\u0022,\n      \u0022answer\u0022: {\n        \u0022value\u0022: \u00221/2\u0022,\n        \u0022unit\u0022: \u0022af stemmerne\u0022\n      },\n      \u0022difficulty\u0022: \u0022middel\u0022,\n      \u0022points\u0022: 2,\n      \u0022solutionSteps\u0022: [\n        {\n          \u0022stepNumber\u0022: 1,\n          \u0022description\u0022: \u0022Andel = 15 / 30\u0022,\n          \u0022mathExpression\u0022: \u002215/30\u0022,\n          \u0022result\u0022: \u00221/2\u0022\n        }\n      ]\n    },\n    {\n      \u0022label\u0022: \u0022c\u0022,\n      \u0022questionText\u0022: \u0022Hvad er sandsynligheden for at en tilf\u00E6ldigt valgt stemme er givet til et logo med mindst \u00E9n type symmetri?\u0022,\n      \u0022answer\u0022: {\n        \u0022value\u0022: \u00221\u0022,\n        \u0022unit\u0022: \u0022\u0022\n      },\n      \u0022difficulty\u0022: \u0022sv\u00E6r\u0022,\n      \u0022points\u0022: 2,\n      \u0022solutionSteps\u0022: [\n        {\n          \u0022stepNumber\u0022: 1,\n          \u0022description\u0022: \u0022Logoer med mindst \u00E9n type symmetri: A, B, C.\u0022,\n          \u0022mathExpression\u0022: \u00226 \u002B 9 \u002B 15\u0022,\n          \u0022result\u0022: \u002230 stemmer\u0022\n        },\n        {\n          \u0022stepNumber\u0022: 2,\n          \u0022description\u0022: \u0022Sandsynlighed = 30 / 30\u0022,\n          \u0022mathExpression\u0022: \u002230/30\u0022,\n          \u0022result\u0022: \u00221\u0022\n        }\n      ]\n    }\n  ],\n  \u0022points\u0022: 5,\n  \u0022estimatedTimeSeconds\u0022: 300\n}",
+      "TokensUsed": null,
+      "Duration": "00:00:07.3457999",
+      "ParsedTaskCount": 1,
+      "ParseSuccess": true,
+      "ErrorMessage": null
+    },
+    {
+      "Timestamp": "2026-02-22T11:44:37.6763204Z",
+      "AgentName": "BatchTaskGenerator",
+      "Action": "GenerateSingleTask (index=1, difficulty=let)",
+      "Input": "[SystemPrompt]\nDu er en erfaren matematikl\u00E6rer der skriver FP9 pr\u00F8veopgaver.\r\n\r\nSKRIVESTIL \u2014 KORT OG PR\u00C6CIS SOM EN RIGTIG PR\u00D8VE:\r\n- contextText skal v\u00E6re KORT: 1-3 s\u00E6tninger der giver scenariet og de n\u00F8dvendige oplysninger.\r\n  IKKE en novelle. T\u00E6nk p\u00E5 en rigtig FP9-pr\u00F8ve: \u0022Lea vil h\u00E6kle grydelapper og s\u00E6lge dem.\r\n  Hun skal bruge 120 g garn til et par. Et n\u00F8gle garn er 50 g og koster 12,95 kr.\u0022\r\n- Giv information \u00C9N GANG. Gentag ALDRIG oplysninger i delopgaverne som allerede st\u00E5r i contextText.\r\n  Eleven skal selv navigere tilbage og finde de tal de har brug for.\r\n- Delopgavernes questionText skal v\u00E6re KORTE og DIREKTE: stil sp\u00F8rgsm\u00E5let, giv evt. nye tal,\r\n  f\u00E6rdig. Ingen genfort\u00E6lling af scenariet.\r\n- UNDG\u00C5 at forklare hvad eleven skal g\u00F8re (\u0022Skriv dine beregninger\u0022, \u0022Vis med udregninger\u0022,\r\n  \u0022Begrund med beregninger\u0022). Stil bare sp\u00F8rgsm\u00E5let.\r\n- Scenariet skal v\u00E6re REALISTISK og TROV\u00C6RDIGT \u2014 ikke kunstigt eller overdrevet kreativt.\r\n  Gode scenarier er hverdagsagtige: h\u00E5ndv\u00E6rk, madlavning, sport, \u00F8konomi, indretning.\r\n\r\nDESIGNPROCES \u2014 BAGL\u00C6NS DESIGN (SCAFFOLDING):\r\n1. Formuler F\u00D8RST den sv\u00E6reste delopgave \u2014 det er M\u00C5LET for hele opgaven.\r\n2. Design derefter de tidligere delopgaver som KONKRETE trin der leder eleven derhen.\r\n3. Scaffoldingen skal v\u00E6re IMPLICIT \u2014 opgaveteksten m\u00E5 ALDRIG bede eleven om at\r\n   \u0022bruge svaret fra a)\u0022 eller lignende. Eleven opdager selv sammenh\u00E6ngen.\r\n\r\nOPGAVEFORMAT:\r\n- Sv\u00E6re opgaver: 1-2 delopgaver\r\n- Middel: 2-3 delopgaver\r\n- Lette: 3-5 delopgaver\r\n- Den SIDSTE delopgave skal ALTID v\u00E6re den sv\u00E6reste.\r\n\r\nMATEMATISKE REGLER:\r\n- Beregn svaret F\u00D8RST, skriv opgaven EFTER. Dobbelttjek alle beregninger.\r\n- Brug p\u00E6ne tal der giver hele eller simple svar.\r\n\r\nOutput KUN valid JSON. Ingen markdown, ingen forklaring.\n\n[UserPrompt]\nGenerer \u00C9N FP9 pr\u00F8veopgave.\r\n\r\nSCENARIE (fra pensum-sampling):\r\nEmner: Gennemsnit, median og typetal \u002B Figurf\u00F8lger og m\u00F8nstre\r\nId\u00E9: En 9. klasse laver en ugentlig planke-challenge, hvor de hver fredag m\u00E5ler, hvor mange sekunder hver elev kan holde planken, og de h\u00E6nger resultaterne op p\u00E5 en tavle som en voksende talr\u00E6kke uge for uge. Klassen vil b\u00E5de beskrive udviklingen i deres tider med gennemsnit, median og typetal og unders\u00F8ge, om der kan ses et m\u00F8nster i, hvordan klassens gennemsnitstid vokser fra uge til uge.\r\nKobling: Eleverne beregner gennemsnit, median og typetal for planke-tiderne hver uge og bruger derefter r\u00E6kken af ugentlige gennemsnit som et talm\u00F8nster, der kan beskrives og generaliseres (fx finde en formel for n-te uges gennemsnit).\r\nOpgavetype: stat_soejlediagram\r\nKategori: statistik_og_sandsynlighed\r\n\r\nByg opgaven ud fra dette scenarie. Tilf\u00F8j konkrete tal s\u00E5 det bliver l\u00F8sbart.\r\n\r\nKrav: med_hjaelpemidler, sv\u00E6rhedsgrad: let, fokus: varieret\r\n\r\nOpgavetyper: tal_ligninger, tal_broeker_og_antal, tal_regnearter, tal_pris_rabat_procent, tal_forholdstalsregning, geo_sammensat_figur, geo_vinkelsum, geo_enhedsomregning, stat_boksplot, stat_sandsynlighed\r\n\r\nVIGTIGSTE REGLER FOR TEKST:\r\n1. contextText: KORT \u2014 maks 1-3 s\u00E6tninger med scenarie og n\u00F8dvendige oplysninger.\r\n   IKKE en historie. Bare fakta. Se eksemplet nedenfor.\r\n2. questionText i delopgaver: KORT og DIREKTE. Stil sp\u00F8rgsm\u00E5let, giv evt. nye tal, f\u00E6rdig.\r\n   Gentag ALDRIG information fra contextText \u2014 eleven finder selv tallene.\r\n3. ALDRIG skriv \u0022Skriv dine beregninger\u0022, \u0022Vis med udregninger\u0022, \u0022Begrund dit svar\u0022 \r\n   eller lignende instruktioner. Stil bare sp\u00F8rgsm\u00E5let.\r\n4. Scaffolding er IMPLICIT \u2014 sig aldrig \u0022brug svaret fra a)\u0022.\r\n\r\nSV\u00C6RHEDSGRAD P\u00C5 DELOPGAVER:\r\nDen SIDSTE delopgave er altid sv\u00E6rest. Rampe: let \u2192 middel \u2192 sv\u00E6r.\r\n\r\nEksempel (kort og pr\u00E6cist som en rigtig FP9-pr\u00F8ve):\r\n{\r\n  \u0022taskTypeId\u0022:\u0022tal_forholdstalsregning\u0022,\r\n  \u0022category\u0022:\u0022tal_og_algebra\u0022,\r\n  \u0022difficulty\u0022:\u0022middel\u0022,\r\n  \u0022contextText\u0022:\u0022Lea vil h\u00E6kle grydelapper og s\u00E6lge dem. Hun bruger 120 g garn til et par. Et n\u00F8gle garn er 50 g og koster 12,95 kr. 10 n\u00F8gler koster 89 kr.\u0022,\r\n  \u0022subQuestions\u0022:[\r\n    {\u0022label\u0022:\u0022a\u0022,\u0022questionText\u0022:\u0022Hvor mange n\u00F8gler garn skal Lea mindst k\u00F8be for at h\u00E6kle \u00E9t par grydelapper?\u0022,\u0022answer\u0022:{\u0022value\u0022:\u00223\u0022,\u0022unit\u0022:\u0022n\u00F8gler\u0022},\u0022difficulty\u0022:\u0022let\u0022,\u0022points\u0022:1,\u0022solutionSteps\u0022:[{\u0022stepNumber\u0022:1,\u0022description\u0022:\u0022120 \u00F7 50 = 2,4 \u2192 oprund til 3\u0022,\u0022mathExpression\u0022:\u0022120 \u00F7 50\u0022,\u0022result\u0022:\u00223 n\u00F8gler\u0022}]},\r\n    {\u0022label\u0022:\u0022b\u0022,\u0022questionText\u0022:\u0022Lea vil h\u00E6kle 5 par. Hvor mange n\u00F8gler skal hun k\u00F8be?\u0022,\u0022answer\u0022:{\u0022value\u0022:\u002212\u0022,\u0022unit\u0022:\u0022n\u00F8gler\u0022},\u0022difficulty\u0022:\u0022let\u0022,\u0022points\u0022:1,\u0022solutionSteps\u0022:[{\u0022stepNumber\u0022:1,\u0022description\u0022:\u00225 \u00B7 120 = 600 g\u0022,\u0022mathExpression\u0022:\u00225 \u00B7 120\u0022,\u0022result\u0022:\u0022600 g\u0022},{\u0022stepNumber\u0022:2,\u0022description\u0022:\u0022600 \u00F7 50 = 12\u0022,\u0022mathExpression\u0022:\u0022600 \u00F7 50\u0022,\u0022result\u0022:\u002212 n\u00F8gler\u0022}]},\r\n    {\u0022label\u0022:\u0022c\u0022,\u0022questionText\u0022:\u0022Hvad er billigst: 12 n\u00F8gler enkeltvis eller en pakke med 10 plus 2 enkelt-n\u00F8gler?\u0022,\u0022answer\u0022:{\u0022value\u0022:\u0022Pakke\u002B2: 114,90 kr (billigst). Enkeltvis: 155,40 kr.\u0022,\u0022unit\u0022:\u0022kr\u0022},\u0022difficulty\u0022:\u0022middel\u0022,\u0022points\u0022:2,\u0022solutionSteps\u0022:[{\u0022stepNumber\u0022:1,\u0022description\u0022:\u0022Enkeltvis: 12 \u00B7 12,95 = 155,40 kr\u0022,\u0022mathExpression\u0022:\u002212 \u00B7 12,95\u0022,\u0022result\u0022:\u0022155,40 kr\u0022},{\u0022stepNumber\u0022:2,\u0022description\u0022:\u0022Pakke\u002B2: 89 \u002B 2 \u00B7 12,95 = 114,90 kr\u0022,\u0022mathExpression\u0022:\u002289 \u002B 25,90\u0022,\u0022result\u0022:\u0022114,90 kr\u0022}]},\r\n    {\u0022label\u0022:\u0022d\u0022,\u0022questionText\u0022:\u0022Lea s\u00E6lger grydelapperne for 60 kr pr. par. Hvor mange par skal hun s\u00E6lge for et overskud p\u00E5 ca. 500 kr?\u0022,\u0022answer\u0022:{\u0022value\u0022:\u0022Ca. 14 par\u0022,\u0022unit\u0022:\u0022\u0022},\u0022difficulty\u0022:\u0022sv\u00E6r\u0022,\u0022points\u0022:3,\u0022solutionSteps\u0022:[{\u0022stepNumber\u0022:1,\u0022description\u0022:\u0022Garnpris pr. par (billigst): 114,90 \u00F7 5 \u2248 22,98 kr\u0022,\u0022mathExpression\u0022:\u0022114,90 \u00F7 5\u0022,\u0022result\u0022:\u002222,98 kr\u0022},{\u0022stepNumber\u0022:2,\u0022description\u0022:\u0022Overskud pr. par: 60 \u2212 22,98 \u2248 37 kr\u0022,\u0022mathExpression\u0022:\u002260 \u2212 22,98\u0022,\u0022result\u0022:\u002237,02 kr\u0022},{\u0022stepNumber\u0022:3,\u0022description\u0022:\u0022500 \u00F7 37 \u2248 13,5 \u2192 ca. 14 par\u0022,\u0022mathExpression\u0022:\u0022500 \u00F7 37\u0022,\u0022result\u0022:\u0022\u2248 14 par\u0022}]}\r\n  ],\r\n  \u0022points\u0022:7,\r\n  \u0022estimatedTimeSeconds\u0022:300\r\n}\r\n\r\nOutput: \u00C9T JSON objekt. KUN JSON, ingen markdown.",
+      "Output": "{\n  \u0022taskTypeId\u0022: \u0022stat_soejlediagram\u0022,\n  \u0022category\u0022: \u0022statistik_og_sandsynlighed\u0022,\n  \u0022difficulty\u0022: \u0022let\u0022,\n  \u0022contextText\u0022: \u0022En 9. klasse laver en ugentlig planke-challenge. I de f\u00F8rste 6 uger m\u00E5ler de hver fredag, hvor mange sekunder hver elev kan holde planken, og de beregner klassens gennemsnitstid for hver uge: 30, 35, 40, 45, 50 og 55 sekunder.\u0022,\n  \u0022subQuestions\u0022: [\n    {\n      \u0022label\u0022: \u0022a\u0022,\n      \u0022questionText\u0022: \u0022Hvad er forskellen i sekunder mellem gennemsnittet i uge 1 og uge 6?\u0022,\n      \u0022answer\u0022: {\n        \u0022value\u0022: \u002225\u0022,\n        \u0022unit\u0022: \u0022sekunder\u0022\n      },\n      \u0022difficulty\u0022: \u0022let\u0022,\n      \u0022points\u0022: 1,\n      \u0022solutionSteps\u0022: [\n        {\n          \u0022stepNumber\u0022: 1,\n          \u0022description\u0022: \u002255 \u2212 30 = 25\u0022,\n          \u0022mathExpression\u0022: \u002255 - 30\u0022,\n          \u0022result\u0022: \u002225 sekunder\u0022\n        }\n      ]\n    },\n    {\n      \u0022label\u0022: \u0022b\u0022,\n      \u0022questionText\u0022: \u0022Hvad er medianen af de 6 ugers gennemsnitstider?\u0022,\n      \u0022answer\u0022: {\n        \u0022value\u0022: \u002242,5\u0022,\n        \u0022unit\u0022: \u0022sekunder\u0022\n      },\n      \u0022difficulty\u0022: \u0022let\u0022,\n      \u0022points\u0022: 1,\n      \u0022solutionSteps\u0022: [\n        {\n          \u0022stepNumber\u0022: 1,\n          \u0022description\u0022: \u0022Sorteret: 30, 35, 40, 45, 50, 55\u0022,\n          \u0022mathExpression\u0022: \u0022\u0022,\n          \u0022result\u0022: \u0022\u0022\n        },\n        {\n          \u0022stepNumber\u0022: 2,\n          \u0022description\u0022: \u0022Median = gennemsnit af de to midterste: (40 \u002B 45) \u00F7 2 = 42,5\u0022,\n          \u0022mathExpression\u0022: \u0022(40 \u002B 45) / 2\u0022,\n          \u0022result\u0022: \u002242,5 sekunder\u0022\n        }\n      ]\n    },\n    {\n      \u0022label\u0022: \u0022c\u0022,\n      \u0022questionText\u0022: \u0022Antag, at gennemsnittet forts\u00E6tter med at stige p\u00E5 samme m\u00E5de. Hvad forventes gennemsnittet at v\u00E6re i uge 10?\u0022,\n      \u0022answer\u0022: {\n        \u0022value\u0022: \u002275\u0022,\n        \u0022unit\u0022: \u0022sekunder\u0022\n      },\n      \u0022difficulty\u0022: \u0022middel\u0022,\n      \u0022points\u0022: 2,\n      \u0022solutionSteps\u0022: [\n        {\n          \u0022stepNumber\u0022: 1,\n          \u0022description\u0022: \u0022Stigning pr. uge: 35 \u2212 30 = 5 sekunder\u0022,\n          \u0022mathExpression\u0022: \u002235 - 30\u0022,\n          \u0022result\u0022: \u00225 sekunder pr. uge\u0022\n        },\n        {\n          \u0022stepNumber\u0022: 2,\n          \u0022description\u0022: \u0022Fra uge 1 til uge 10 er der 9 intervaller: 9 \u00B7 5 = 45\u0022,\n          \u0022mathExpression\u0022: \u00229 * 5\u0022,\n          \u0022result\u0022: \u002245 sekunder\u0022\n        },\n        {\n          \u0022stepNumber\u0022: 3,\n          \u0022description\u0022: \u0022Forventet gennemsnit i uge 10: 30 \u002B 45 = 75\u0022,\n          \u0022mathExpression\u0022: \u002230 \u002B 45\u0022,\n          \u0022result\u0022: \u002275 sekunder\u0022\n        }\n      ]\n    }\n  ],\n  \u0022points\u0022: 4,\n  \u0022estimatedTimeSeconds\u0022: 240\n}",
+      "TokensUsed": null,
+      "Duration": "00:00:08.1697988",
+      "ParsedTaskCount": 1,
+      "ParseSuccess": true,
+      "ErrorMessage": null
+    },
+    {
+      "Timestamp": "2026-02-22T11:44:37.9004587Z",
+      "AgentName": "BatchTaskGenerator",
+      "Action": "GenerateSingleTask (index=3, difficulty=middel)",
+      "Input": "[SystemPrompt]\nDu er en erfaren matematikl\u00E6rer der skriver FP9 pr\u00F8veopgaver.\r\n\r\nSKRIVESTIL \u2014 KORT OG PR\u00C6CIS SOM EN RIGTIG PR\u00D8VE:\r\n- contextText skal v\u00E6re KORT: 1-3 s\u00E6tninger der giver scenariet og de n\u00F8dvendige oplysninger.\r\n  IKKE en novelle. T\u00E6nk p\u00E5 en rigtig FP9-pr\u00F8ve: \u0022Lea vil h\u00E6kle grydelapper og s\u00E6lge dem.\r\n  Hun skal bruge 120 g garn til et par. Et n\u00F8gle garn er 50 g og koster 12,95 kr.\u0022\r\n- Giv information \u00C9N GANG. Gentag ALDRIG oplysninger i delopgaverne som allerede st\u00E5r i contextText.\r\n  Eleven skal selv navigere tilbage og finde de tal de har brug for.\r\n- Delopgavernes questionText skal v\u00E6re KORTE og DIREKTE: stil sp\u00F8rgsm\u00E5let, giv evt. nye tal,\r\n  f\u00E6rdig. Ingen genfort\u00E6lling af scenariet.\r\n- UNDG\u00C5 at forklare hvad eleven skal g\u00F8re (\u0022Skriv dine beregninger\u0022, \u0022Vis med udregninger\u0022,\r\n  \u0022Begrund med beregninger\u0022). Stil bare sp\u00F8rgsm\u00E5let.\r\n- Scenariet skal v\u00E6re REALISTISK og TROV\u00C6RDIGT \u2014 ikke kunstigt eller overdrevet kreativt.\r\n  Gode scenarier er hverdagsagtige: h\u00E5ndv\u00E6rk, madlavning, sport, \u00F8konomi, indretning.\r\n\r\nDESIGNPROCES \u2014 BAGL\u00C6NS DESIGN (SCAFFOLDING):\r\n1. Formuler F\u00D8RST den sv\u00E6reste delopgave \u2014 det er M\u00C5LET for hele opgaven.\r\n2. Design derefter de tidligere delopgaver som KONKRETE trin der leder eleven derhen.\r\n3. Scaffoldingen skal v\u00E6re IMPLICIT \u2014 opgaveteksten m\u00E5 ALDRIG bede eleven om at\r\n   \u0022bruge svaret fra a)\u0022 eller lignende. Eleven opdager selv sammenh\u00E6ngen.\r\n\r\nOPGAVEFORMAT:\r\n- Sv\u00E6re opgaver: 1-2 delopgaver\r\n- Middel: 2-3 delopgaver\r\n- Lette: 3-5 delopgaver\r\n- Den SIDSTE delopgave skal ALTID v\u00E6re den sv\u00E6reste.\r\n\r\nMATEMATISKE REGLER:\r\n- Beregn svaret F\u00D8RST, skriv opgaven EFTER. Dobbelttjek alle beregninger.\r\n- Brug p\u00E6ne tal der giver hele eller simple svar.\r\n\r\nOutput KUN valid JSON. Ingen markdown, ingen forklaring.\n\n[UserPrompt]\nGenerer \u00C9N FP9 pr\u00F8veopgave.\r\n\r\nSCENARIE (fra pensum-sampling):\r\nEmner: Diagrammer og grafer \u002B Negative tal\r\nId\u00E9: En elev vil sammenligne vintervejret de sidste 10 \u00E5r og henter daglige temperaturer for januar fra DMI, hvor nogle dage har frostgrader. Hun vil b\u00E5de unders\u00F8ge, hvor ofte temperaturen er under 0 \u00B0C, og hvordan gennemsnitstemperaturen har udviklet sig over \u00E5rene.\r\nKobling: De negative temperaturer bruges i beregninger af fx daglige og m\u00E5nedlige gennemsnit samt forskelle mellem \u00E5r, og resultaterne organiseres og fortolkes i et linjediagram eller s\u00F8jlediagram, s\u00E5 sammenh\u00E6ngen mellem frostgrader og udviklingen i vintervejret kan analyseres trin for trin.\r\nOpgavetype: stat_soejlediagram\r\nKategori: statistik_og_sandsynlighed\r\n\r\nByg opgaven ud fra dette scenarie. Tilf\u00F8j konkrete tal s\u00E5 det bliver l\u00F8sbart.\r\n\r\nKrav: med_hjaelpemidler, sv\u00E6rhedsgrad: middel, fokus: varieret\r\n\r\nOpgavetyper: tal_ligninger, tal_broeker_og_antal, tal_regnearter, tal_pris_rabat_procent, tal_forholdstalsregning, geo_sammensat_figur, geo_vinkelsum, geo_enhedsomregning, stat_boksplot, stat_sandsynlighed\r\n\r\nVIGTIGSTE REGLER FOR TEKST:\r\n1. contextText: KORT \u2014 maks 1-3 s\u00E6tninger med scenarie og n\u00F8dvendige oplysninger.\r\n   IKKE en historie. Bare fakta. Se eksemplet nedenfor.\r\n2. questionText i delopgaver: KORT og DIREKTE. Stil sp\u00F8rgsm\u00E5let, giv evt. nye tal, f\u00E6rdig.\r\n   Gentag ALDRIG information fra contextText \u2014 eleven finder selv tallene.\r\n3. ALDRIG skriv \u0022Skriv dine beregninger\u0022, \u0022Vis med udregninger\u0022, \u0022Begrund dit svar\u0022 \r\n   eller lignende instruktioner. Stil bare sp\u00F8rgsm\u00E5let.\r\n4. Scaffolding er IMPLICIT \u2014 sig aldrig \u0022brug svaret fra a)\u0022.\r\n\r\nSV\u00C6RHEDSGRAD P\u00C5 DELOPGAVER:\r\nDen SIDSTE delopgave er altid sv\u00E6rest. Rampe: let \u2192 middel \u2192 sv\u00E6r.\r\n\r\nEksempel (kort og pr\u00E6cist som en rigtig FP9-pr\u00F8ve):\r\n{\r\n  \u0022taskTypeId\u0022:\u0022tal_forholdstalsregning\u0022,\r\n  \u0022category\u0022:\u0022tal_og_algebra\u0022,\r\n  \u0022difficulty\u0022:\u0022middel\u0022,\r\n  \u0022contextText\u0022:\u0022Lea vil h\u00E6kle grydelapper og s\u00E6lge dem. Hun bruger 120 g garn til et par. Et n\u00F8gle garn er 50 g og koster 12,95 kr. 10 n\u00F8gler koster 89 kr.\u0022,\r\n  \u0022subQuestions\u0022:[\r\n    {\u0022label\u0022:\u0022a\u0022,\u0022questionText\u0022:\u0022Hvor mange n\u00F8gler garn skal Lea mindst k\u00F8be for at h\u00E6kle \u00E9t par grydelapper?\u0022,\u0022answer\u0022:{\u0022value\u0022:\u00223\u0022,\u0022unit\u0022:\u0022n\u00F8gler\u0022},\u0022difficulty\u0022:\u0022let\u0022,\u0022points\u0022:1,\u0022solutionSteps\u0022:[{\u0022stepNumber\u0022:1,\u0022description\u0022:\u0022120 \u00F7 50 = 2,4 \u2192 oprund til 3\u0022,\u0022mathExpression\u0022:\u0022120 \u00F7 50\u0022,\u0022result\u0022:\u00223 n\u00F8gler\u0022}]},\r\n    {\u0022label\u0022:\u0022b\u0022,\u0022questionText\u0022:\u0022Lea vil h\u00E6kle 5 par. Hvor mange n\u00F8gler skal hun k\u00F8be?\u0022,\u0022answer\u0022:{\u0022value\u0022:\u002212\u0022,\u0022unit\u0022:\u0022n\u00F8gler\u0022},\u0022difficulty\u0022:\u0022let\u0022,\u0022points\u0022:1,\u0022solutionSteps\u0022:[{\u0022stepNumber\u0022:1,\u0022description\u0022:\u00225 \u00B7 120 = 600 g\u0022,\u0022mathExpression\u0022:\u00225 \u00B7 120\u0022,\u0022result\u0022:\u0022600 g\u0022},{\u0022stepNumber\u0022:2,\u0022description\u0022:\u0022600 \u00F7 50 = 12\u0022,\u0022mathExpression\u0022:\u0022600 \u00F7 50\u0022,\u0022result\u0022:\u002212 n\u00F8gler\u0022}]},\r\n    {\u0022label\u0022:\u0022c\u0022,\u0022questionText\u0022:\u0022Hvad er billigst: 12 n\u00F8gler enkeltvis eller en pakke med 10 plus 2 enkelt-n\u00F8gler?\u0022,\u0022answer\u0022:{\u0022value\u0022:\u0022Pakke\u002B2: 114,90 kr (billigst). Enkeltvis: 155,40 kr.\u0022,\u0022unit\u0022:\u0022kr\u0022},\u0022difficulty\u0022:\u0022middel\u0022,\u0022points\u0022:2,\u0022solutionSteps\u0022:[{\u0022stepNumber\u0022:1,\u0022description\u0022:\u0022Enkeltvis: 12 \u00B7 12,95 = 155,40 kr\u0022,\u0022mathExpression\u0022:\u002212 \u00B7 12,95\u0022,\u0022result\u0022:\u0022155,40 kr\u0022},{\u0022stepNumber\u0022:2,\u0022description\u0022:\u0022Pakke\u002B2: 89 \u002B 2 \u00B7 12,95 = 114,90 kr\u0022,\u0022mathExpression\u0022:\u002289 \u002B 25,90\u0022,\u0022result\u0022:\u0022114,90 kr\u0022}]},\r\n    {\u0022label\u0022:\u0022d\u0022,\u0022questionText\u0022:\u0022Lea s\u00E6lger grydelapperne for 60 kr pr. par. Hvor mange par skal hun s\u00E6lge for et overskud p\u00E5 ca. 500 kr?\u0022,\u0022answer\u0022:{\u0022value\u0022:\u0022Ca. 14 par\u0022,\u0022unit\u0022:\u0022\u0022},\u0022difficulty\u0022:\u0022sv\u00E6r\u0022,\u0022points\u0022:3,\u0022solutionSteps\u0022:[{\u0022stepNumber\u0022:1,\u0022description\u0022:\u0022Garnpris pr. par (billigst): 114,90 \u00F7 5 \u2248 22,98 kr\u0022,\u0022mathExpression\u0022:\u0022114,90 \u00F7 5\u0022,\u0022result\u0022:\u002222,98 kr\u0022},{\u0022stepNumber\u0022:2,\u0022description\u0022:\u0022Overskud pr. par: 60 \u2212 22,98 \u2248 37 kr\u0022,\u0022mathExpression\u0022:\u002260 \u2212 22,98\u0022,\u0022result\u0022:\u002237,02 kr\u0022},{\u0022stepNumber\u0022:3,\u0022description\u0022:\u0022500 \u00F7 37 \u2248 13,5 \u2192 ca. 14 par\u0022,\u0022mathExpression\u0022:\u0022500 \u00F7 37\u0022,\u0022result\u0022:\u0022\u2248 14 par\u0022}]}\r\n  ],\r\n  \u0022points\u0022:7,\r\n  \u0022estimatedTimeSeconds\u0022:300\r\n}\r\n\r\nOutput: \u00C9T JSON objekt. KUN JSON, ingen markdown.",
+      "Output": "{\n  \u0022taskTypeId\u0022: \u0022stat_soejlediagram\u0022,\n  \u0022category\u0022: \u0022statistik_og_sandsynlighed\u0022,\n  \u0022difficulty\u0022: \u0022middel\u0022,\n  \u0022contextText\u0022: \u0022En elev har fundet gennemsnitstemperaturen for januar for 6 \u00E5r: 2018: \u22122 \u00B0C, 2019: 0 \u00B0C, 2020: 1 \u00B0C, 2021: \u22121 \u00B0C, 2022: 2 \u00B0C, 2023: \u22123 \u00B0C. Hun vil unders\u00F8ge frost og udviklingen i vintervejret.\u0022,\n  \u0022subQuestions\u0022: [\n    {\n      \u0022label\u0022: \u0022a\u0022,\n      \u0022questionText\u0022: \u0022Hvor mange af \u00E5rene har en gennemsnitstemperatur under 0 \u00B0C?\u0022,\n      \u0022answer\u0022: {\n        \u0022value\u0022: \u00223\u0022,\n        \u0022unit\u0022: \u0022\u00E5r\u0022\n      },\n      \u0022difficulty\u0022: \u0022let\u0022,\n      \u0022points\u0022: 1,\n      \u0022solutionSteps\u0022: [\n        {\n          \u0022stepNumber\u0022: 1,\n          \u0022description\u0022: \u0022\u00C5r med temperatur under 0 \u00B0C er 2018 (\u22122), 2021 (\u22121) og 2023 (\u22123).\u0022,\n          \u0022mathExpression\u0022: \u0022\u0022,\n          \u0022result\u0022: \u00223 \u00E5r\u0022\n        }\n      ]\n    },\n    {\n      \u0022label\u0022: \u0022b\u0022,\n      \u0022questionText\u0022: \u0022Beregn gennemsnittet af de 6 gennemsnitstemperaturer for januar.\u0022,\n      \u0022answer\u0022: {\n        \u0022value\u0022: \u0022-0,5\u0022,\n        \u0022unit\u0022: \u0022\u00B0C\u0022\n      },\n      \u0022difficulty\u0022: \u0022middel\u0022,\n      \u0022points\u0022: 2,\n      \u0022solutionSteps\u0022: [\n        {\n          \u0022stepNumber\u0022: 1,\n          \u0022description\u0022: \u0022L\u00E6g temperaturerne sammen: \u22122 \u002B 0 \u002B 1 \u002B (\u22121) \u002B 2 \u002B (\u22123) = \u22123.\u0022,\n          \u0022mathExpression\u0022: \u0022-2 \u002B 0 \u002B 1 - 1 \u002B 2 - 3\u0022,\n          \u0022result\u0022: \u0022-3\u0022\n        },\n        {\n          \u0022stepNumber\u0022: 2,\n          \u0022description\u0022: \u0022Divider med 6: \u22123 \u00F7 6 = \u22120,5.\u0022,\n          \u0022mathExpression\u0022: \u0022-3 \u00F7 6\u0022,\n          \u0022result\u0022: \u0022-0,5 \u00B0C\u0022\n        }\n      ]\n    },\n    {\n      \u0022label\u0022: \u0022c\u0022,\n      \u0022questionText\u0022: \u0022Eleven tegner et s\u00F8jlediagram med \u00E5r p\u00E5 vandret akse og temperaturer p\u00E5 lodret akse. Hvor stor er forskellen i grader mellem det koldeste og det varmeste \u00E5r?\u0022,\n      \u0022answer\u0022: {\n        \u0022value\u0022: \u00225\u0022,\n        \u0022unit\u0022: \u0022\u00B0C\u0022\n      },\n      \u0022difficulty\u0022: \u0022sv\u00E6r\u0022,\n      \u0022points\u0022: 2,\n      \u0022solutionSteps\u0022: [\n        {\n          \u0022stepNumber\u0022: 1,\n          \u0022description\u0022: \u0022Det koldeste \u00E5r er \u22123 \u00B0C og det varmeste \u00E5r er 2 \u00B0C.\u0022,\n          \u0022mathExpression\u0022: \u0022\u0022,\n          \u0022result\u0022: \u0022koldest: \u22123 \u00B0C, varmest: 2 \u00B0C\u0022\n        },\n        {\n          \u0022stepNumber\u0022: 2,\n          \u0022description\u0022: \u0022Forskellen er 2 \u2212 (\u22123) = 2 \u002B 3 = 5.\u0022,\n          \u0022mathExpression\u0022: \u00222 - (-3)\u0022,\n          \u0022result\u0022: \u00225 \u00B0C\u0022\n        }\n      ]\n    }\n  ],\n  \u0022points\u0022: 5,\n  \u0022estimatedTimeSeconds\u0022: 300\n}",
+      "TokensUsed": null,
+      "Duration": "00:00:08.3921677",
+      "ParsedTaskCount": 1,
+      "ParseSuccess": true,
+      "ErrorMessage": null
+    },
+    {
+      "Timestamp": "2026-02-22T11:44:38.1867879Z",
+      "AgentName": "BatchTaskGenerator",
+      "Action": "GenerateSingleTask (index=5, difficulty=sv\u00E6r)",
+      "Input": "[SystemPrompt]\nDu er en erfaren matematikl\u00E6rer der skriver FP9 pr\u00F8veopgaver.\r\n\r\nSKRIVESTIL \u2014 KORT OG PR\u00C6CIS SOM EN RIGTIG PR\u00D8VE:\r\n- contextText skal v\u00E6re KORT: 1-3 s\u00E6tninger der giver scenariet og de n\u00F8dvendige oplysninger.\r\n  IKKE en novelle. T\u00E6nk p\u00E5 en rigtig FP9-pr\u00F8ve: \u0022Lea vil h\u00E6kle grydelapper og s\u00E6lge dem.\r\n  Hun skal bruge 120 g garn til et par. Et n\u00F8gle garn er 50 g og koster 12,95 kr.\u0022\r\n- Giv information \u00C9N GANG. Gentag ALDRIG oplysninger i delopgaverne som allerede st\u00E5r i contextText.\r\n  Eleven skal selv navigere tilbage og finde de tal de har brug for.\r\n- Delopgavernes questionText skal v\u00E6re KORTE og DIREKTE: stil sp\u00F8rgsm\u00E5let, giv evt. nye tal,\r\n  f\u00E6rdig. Ingen genfort\u00E6lling af scenariet.\r\n- UNDG\u00C5 at forklare hvad eleven skal g\u00F8re (\u0022Skriv dine beregninger\u0022, \u0022Vis med udregninger\u0022,\r\n  \u0022Begrund med beregninger\u0022). Stil bare sp\u00F8rgsm\u00E5let.\r\n- Scenariet skal v\u00E6re REALISTISK og TROV\u00C6RDIGT \u2014 ikke kunstigt eller overdrevet kreativt.\r\n  Gode scenarier er hverdagsagtige: h\u00E5ndv\u00E6rk, madlavning, sport, \u00F8konomi, indretning.\r\n\r\nDESIGNPROCES \u2014 BAGL\u00C6NS DESIGN (SCAFFOLDING):\r\n1. Formuler F\u00D8RST den sv\u00E6reste delopgave \u2014 det er M\u00C5LET for hele opgaven.\r\n2. Design derefter de tidligere delopgaver som KONKRETE trin der leder eleven derhen.\r\n3. Scaffoldingen skal v\u00E6re IMPLICIT \u2014 opgaveteksten m\u00E5 ALDRIG bede eleven om at\r\n   \u0022bruge svaret fra a)\u0022 eller lignende. Eleven opdager selv sammenh\u00E6ngen.\r\n\r\nOPGAVEFORMAT:\r\n- Sv\u00E6re opgaver: 1-2 delopgaver\r\n- Middel: 2-3 delopgaver\r\n- Lette: 3-5 delopgaver\r\n- Den SIDSTE delopgave skal ALTID v\u00E6re den sv\u00E6reste.\r\n\r\nMATEMATISKE REGLER:\r\n- Beregn svaret F\u00D8RST, skriv opgaven EFTER. Dobbelttjek alle beregninger.\r\n- Brug p\u00E6ne tal der giver hele eller simple svar.\r\n\r\nOutput KUN valid JSON. Ingen markdown, ingen forklaring.\n\n[UserPrompt]\nGenerer \u00C9N FP9 pr\u00F8veopgave.\r\n\r\nSCENARIE (fra pensum-sampling):\r\nEmner: Forhold og procent\u00E6ndringer \u002B Tilf\u00E6ldighed og chance\r\nId\u00E9: En elev overvejer at k\u00F8be skrabelodder i en kiosk, hvor der lige nu er kampagne: hvis man k\u00F8ber et bestemt antal lodder, f\u00E5r man en procentvis rabat p\u00E5 den samlede pris, mens gevinsterne og vinderchancerne for de forskellige lodtyper er forskellige. Eleven vil sammenligne, hvordan rabatten p\u00E5virker den forventede gevinst pr. krone for de forskellige lodtyper og lodpakker.\r\nKobling: Eleven skal b\u00E5de bruge forhold og procent\u00E6ndringer til at beregne og sammenligne pris pr. lod og procentvis rabat, og samtidig anvende sandsynlighed til at beregne og sammenligne den forventede gevinst (chance for forskellige udfald) pr. betalt krone, s\u00E5 resultaterne fra procent- og forholdsberegningerne direkte indg\u00E5r i sandsynlighedsmodellen.\r\nOpgavetype: stat_sandsynlighed\r\nKategori: statistik_og_sandsynlighed\r\n\r\nByg opgaven ud fra dette scenarie. Tilf\u00F8j konkrete tal s\u00E5 det bliver l\u00F8sbart.\r\n\r\nKrav: med_hjaelpemidler, sv\u00E6rhedsgrad: sv\u00E6r, fokus: varieret\r\n\r\nOpgavetyper: tal_ligninger, tal_broeker_og_antal, tal_regnearter, tal_pris_rabat_procent, tal_forholdstalsregning, geo_sammensat_figur, geo_vinkelsum, geo_enhedsomregning, stat_boksplot, stat_sandsynlighed\r\n\r\nVIGTIGSTE REGLER FOR TEKST:\r\n1. contextText: KORT \u2014 maks 1-3 s\u00E6tninger med scenarie og n\u00F8dvendige oplysninger.\r\n   IKKE en historie. Bare fakta. Se eksemplet nedenfor.\r\n2. questionText i delopgaver: KORT og DIREKTE. Stil sp\u00F8rgsm\u00E5let, giv evt. nye tal, f\u00E6rdig.\r\n   Gentag ALDRIG information fra contextText \u2014 eleven finder selv tallene.\r\n3. ALDRIG skriv \u0022Skriv dine beregninger\u0022, \u0022Vis med udregninger\u0022, \u0022Begrund dit svar\u0022 \r\n   eller lignende instruktioner. Stil bare sp\u00F8rgsm\u00E5let.\r\n4. Scaffolding er IMPLICIT \u2014 sig aldrig \u0022brug svaret fra a)\u0022.\r\n\r\nSV\u00C6RHEDSGRAD P\u00C5 DELOPGAVER:\r\nDen SIDSTE delopgave er altid sv\u00E6rest. Rampe: let \u2192 middel \u2192 sv\u00E6r.\r\n\r\nEksempel (kort og pr\u00E6cist som en rigtig FP9-pr\u00F8ve):\r\n{\r\n  \u0022taskTypeId\u0022:\u0022tal_forholdstalsregning\u0022,\r\n  \u0022category\u0022:\u0022tal_og_algebra\u0022,\r\n  \u0022difficulty\u0022:\u0022middel\u0022,\r\n  \u0022contextText\u0022:\u0022Lea vil h\u00E6kle grydelapper og s\u00E6lge dem. Hun bruger 120 g garn til et par. Et n\u00F8gle garn er 50 g og koster 12,95 kr. 10 n\u00F8gler koster 89 kr.\u0022,\r\n  \u0022subQuestions\u0022:[\r\n    {\u0022label\u0022:\u0022a\u0022,\u0022questionText\u0022:\u0022Hvor mange n\u00F8gler garn skal Lea mindst k\u00F8be for at h\u00E6kle \u00E9t par grydelapper?\u0022,\u0022answer\u0022:{\u0022value\u0022:\u00223\u0022,\u0022unit\u0022:\u0022n\u00F8gler\u0022},\u0022difficulty\u0022:\u0022let\u0022,\u0022points\u0022:1,\u0022solutionSteps\u0022:[{\u0022stepNumber\u0022:1,\u0022description\u0022:\u0022120 \u00F7 50 = 2,4 \u2192 oprund til 3\u0022,\u0022mathExpression\u0022:\u0022120 \u00F7 50\u0022,\u0022result\u0022:\u00223 n\u00F8gler\u0022}]},\r\n    {\u0022label\u0022:\u0022b\u0022,\u0022questionText\u0022:\u0022Lea vil h\u00E6kle 5 par. Hvor mange n\u00F8gler skal hun k\u00F8be?\u0022,\u0022answer\u0022:{\u0022value\u0022:\u002212\u0022,\u0022unit\u0022:\u0022n\u00F8gler\u0022},\u0022difficulty\u0022:\u0022let\u0022,\u0022points\u0022:1,\u0022solutionSteps\u0022:[{\u0022stepNumber\u0022:1,\u0022description\u0022:\u00225 \u00B7 120 = 600 g\u0022,\u0022mathExpression\u0022:\u00225 \u00B7 120\u0022,\u0022result\u0022:\u0022600 g\u0022},{\u0022stepNumber\u0022:2,\u0022description\u0022:\u0022600 \u00F7 50 = 12\u0022,\u0022mathExpression\u0022:\u0022600 \u00F7 50\u0022,\u0022result\u0022:\u002212 n\u00F8gler\u0022}]},\r\n    {\u0022label\u0022:\u0022c\u0022,\u0022questionText\u0022:\u0022Hvad er billigst: 12 n\u00F8gler enkeltvis eller en pakke med 10 plus 2 enkelt-n\u00F8gler?\u0022,\u0022answer\u0022:{\u0022value\u0022:\u0022Pakke\u002B2: 114,90 kr (billigst). Enkeltvis: 155,40 kr.\u0022,\u0022unit\u0022:\u0022kr\u0022},\u0022difficulty\u0022:\u0022middel\u0022,\u0022points\u0022:2,\u0022solutionSteps\u0022:[{\u0022stepNumber\u0022:1,\u0022description\u0022:\u0022Enkeltvis: 12 \u00B7 12,95 = 155,40 kr\u0022,\u0022mathExpression\u0022:\u002212 \u00B7 12,95\u0022,\u0022result\u0022:\u0022155,40 kr\u0022},{\u0022stepNumber\u0022:2,\u0022description\u0022:\u0022Pakke\u002B2: 89 \u002B 2 \u00B7 12,95 = 114,90 kr\u0022,\u0022mathExpression\u0022:\u002289 \u002B 25,90\u0022,\u0022result\u0022:\u0022114,90 kr\u0022}]},\r\n    {\u0022label\u0022:\u0022d\u0022,\u0022questionText\u0022:\u0022Lea s\u00E6lger grydelapperne for 60 kr pr. par. Hvor mange par skal hun s\u00E6lge for et overskud p\u00E5 ca. 500 kr?\u0022,\u0022answer\u0022:{\u0022value\u0022:\u0022Ca. 14 par\u0022,\u0022unit\u0022:\u0022\u0022},\u0022difficulty\u0022:\u0022sv\u00E6r\u0022,\u0022points\u0022:3,\u0022solutionSteps\u0022:[{\u0022stepNumber\u0022:1,\u0022description\u0022:\u0022Garnpris pr. par (billigst): 114,90 \u00F7 5 \u2248 22,98 kr\u0022,\u0022mathExpression\u0022:\u0022114,90 \u00F7 5\u0022,\u0022result\u0022:\u002222,98 kr\u0022},{\u0022stepNumber\u0022:2,\u0022description\u0022:\u0022Overskud pr. par: 60 \u2212 22,98 \u2248 37 kr\u0022,\u0022mathExpression\u0022:\u002260 \u2212 22,98\u0022,\u0022result\u0022:\u002237,02 kr\u0022},{\u0022stepNumber\u0022:3,\u0022description\u0022:\u0022500 \u00F7 37 \u2248 13,5 \u2192 ca. 14 par\u0022,\u0022mathExpression\u0022:\u0022500 \u00F7 37\u0022,\u0022result\u0022:\u0022\u2248 14 par\u0022}]}\r\n  ],\r\n  \u0022points\u0022:7,\r\n  \u0022estimatedTimeSeconds\u0022:300\r\n}\r\n\r\nOutput: \u00C9T JSON objekt. KUN JSON, ingen markdown.",
+      "Output": "{\n  \u0022taskTypeId\u0022: \u0022stat_sandsynlighed\u0022,\n  \u0022category\u0022: \u0022statistik_og_sandsynlighed\u0022,\n  \u0022difficulty\u0022: \u0022sv\u00E6r\u0022,\n  \u0022contextText\u0022: \u0022I en kiosk kan man k\u00F8be skrabelod A til 20 kr og skrabelod B til 40 kr. P\u00E5 lod A er der 1 ud af 10 med gevinst p\u00E5 50 kr. P\u00E5 lod B er der 1 ud af 20 med gevinst p\u00E5 200 kr. Ved k\u00F8b af 5 lodder af samme type gives 10 % rabat p\u00E5 den samlede pris.\u0022,\n  \u0022subQuestions\u0022: [\n    {\n      \u0022label\u0022: \u0022a\u0022,\n      \u0022questionText\u0022: \u0022Hvad er den forventede gevinst pr. lod for type A?\u0022,\n      \u0022answer\u0022: {\n        \u0022value\u0022: \u00225\u0022,\n        \u0022unit\u0022: \u0022kr pr. lod\u0022\n      },\n      \u0022difficulty\u0022: \u0022let\u0022,\n      \u0022points\u0022: 2,\n      \u0022solutionSteps\u0022: [\n        {\n          \u0022stepNumber\u0022: 1,\n          \u0022description\u0022: \u0022Sandsynlighed for gevinst: 1/10. Forventet gevinst = 1/10 \u00B7 50 kr.\u0022,\n          \u0022mathExpression\u0022: \u002250 \u00B7 1/10\u0022,\n          \u0022result\u0022: \u00225 kr pr. lod\u0022\n        }\n      ]\n    },\n    {\n      \u0022label\u0022: \u0022b\u0022,\n      \u0022questionText\u0022: \u0022Hvad er den forventede gevinst pr. krone for lod A?\u0022,\n      \u0022answer\u0022: {\n        \u0022value\u0022: \u00220,25\u0022,\n        \u0022unit\u0022: \u0022kr pr. krone\u0022\n      },\n      \u0022difficulty\u0022: \u0022middel\u0022,\n      \u0022points\u0022: 2,\n      \u0022solutionSteps\u0022: [\n        {\n          \u0022stepNumber\u0022: 1,\n          \u0022description\u0022: \u0022Pris pr. lod A er 20 kr, forventet gevinst pr. lod er 5 kr.\u0022,\n          \u0022mathExpression\u0022: \u00225 \u00F7 20\u0022,\n          \u0022result\u0022: \u00220,25 kr pr. krone\u0022\n        }\n      ]\n    },\n    {\n      \u0022label\u0022: \u0022c\u0022,\n      \u0022questionText\u0022: \u0022Hvad er den forventede gevinst pr. krone for lod B?\u0022,\n      \u0022answer\u0022: {\n        \u0022value\u0022: \u00220,25\u0022,\n        \u0022unit\u0022: \u0022kr pr. krone\u0022\n      },\n      \u0022difficulty\u0022: \u0022middel\u0022,\n      \u0022points\u0022: 2,\n      \u0022solutionSteps\u0022: [\n        {\n          \u0022stepNumber\u0022: 1,\n          \u0022description\u0022: \u0022Sandsynlighed for gevinst p\u00E5 B er 1/20, gevinst er 200 kr.\u0022,\n          \u0022mathExpression\u0022: \u0022200 \u00B7 1/20\u0022,\n          \u0022result\u0022: \u002210 kr pr. lod\u0022\n        },\n        {\n          \u0022stepNumber\u0022: 2,\n          \u0022description\u0022: \u0022Pris pr. lod B er 40 kr.\u0022,\n          \u0022mathExpression\u0022: \u002210 \u00F7 40\u0022,\n          \u0022result\u0022: \u00220,25 kr pr. krone\u0022\n        }\n      ]\n    },\n    {\n      \u0022label\u0022: \u0022d\u0022,\n      \u0022questionText\u0022: \u0022Ved k\u00F8b af 5 lodder af samme type: Hvad er den nye forventede gevinst pr. krone for lod A med rabat?\u0022,\n      \u0022answer\u0022: {\n        \u0022value\u0022: \u0022ca. 0,28\u0022,\n        \u0022unit\u0022: \u0022kr pr. krone\u0022\n      },\n      \u0022difficulty\u0022: \u0022sv\u00E6r\u0022,\n      \u0022points\u0022: 3,\n      \u0022solutionSteps\u0022: [\n        {\n          \u0022stepNumber\u0022: 1,\n          \u0022description\u0022: \u0022Normal pris for 5 lodder A: 5 \u00B7 20 kr.\u0022,\n          \u0022mathExpression\u0022: \u00225 \u00B7 20\u0022,\n          \u0022result\u0022: \u0022100 kr\u0022\n        },\n        {\n          \u0022stepNumber\u0022: 2,\n          \u0022description\u0022: \u002210 % rabat p\u00E5 100 kr er 10 kr, s\u00E5 pris med rabat er 90 kr.\u0022,\n          \u0022mathExpression\u0022: \u0022100 \u2212 0,10 \u00B7 100\u0022,\n          \u0022result\u0022: \u002290 kr\u0022\n        },\n        {\n          \u0022stepNumber\u0022: 3,\n          \u0022description\u0022: \u0022Forventet gevinst for 5 lodder: 5 \u00B7 5 kr.\u0022,\n          \u0022mathExpression\u0022: \u00225 \u00B7 5\u0022,\n          \u0022result\u0022: \u002225 kr\u0022\n        },\n        {\n          \u0022stepNumber\u0022: 4,\n          \u0022description\u0022: \u0022Forventet gevinst pr. krone med rabat: 25 \u00F7 90.\u0022,\n          \u0022mathExpression\u0022: \u002225 \u00F7 90\u0022,\n          \u0022result\u0022: \u0022\u2248 0,28 kr pr. krone\u0022\n        }\n      ]\n    }\n  ],\n  \u0022points\u0022: 9,\n  \u0022estimatedTimeSeconds\u0022: 420\n}",
+      "TokensUsed": null,
+      "Duration": "00:00:08.6780071",
+      "ParsedTaskCount": 1,
+      "ParseSuccess": true,
+      "ErrorMessage": null
+    },
+    {
+      "Timestamp": "2026-02-22T11:44:41.0219517Z",
+      "AgentName": "VisualizationAgent",
+      "Action": "CreateVisualizations (count=5)",
+      "Input": "Tasks requiring visualization: stat_soejlediagram, tal_pris_rabat_procent, stat_soejlediagram, stat_soejlediagram, stat_sandsynlighed",
+      "Output": "Completed 5 visualizations",
+      "TokensUsed": null,
+      "Duration": "00:00:02.8347115",
+      "ParsedTaskCount": null,
+      "ParseSuccess": null,
+      "ErrorMessage": null
+    },
+    {
+      "Timestamp": "2026-02-22T11:44:54.4702866Z",
+      "AgentName": "GeminiImageGenerationAgent",
+      "Action": "GenerateImage (task 4: b253e3b6-c4cb-4050-a5de-b6f1b0675132)",
+      "Input": "You are generating an illustration for a Danish math exam task (FP9 level, age 15-16).\r\nThe image must help the student understand the problem by showing the key information visually.\r\n\r\nABSOLUTE RULES \u2014 FOLLOW EXACTLY:\r\n\r\n1. ACCURACY IS EVERYTHING:\r\n   - Include ONLY information that appears in the task text below.\r\n   - Every number, label, name, and unit must match the task text EXACTLY.\r\n   - Do NOT invent, add, or change ANY values. Do NOT add extra items, extra prices,\r\n     extra labels, or any information not explicitly written in the task.\r\n   - If the task says \u00226 m bredt og 4 m dybt\u0022 then the image must show exactly 6 m and 4 m.\r\n   - This is a math exam \u2014 wrong numbers will cause students to get wrong answers.\r\n\r\n2. VISUAL STYLE:\r\n   - Clean, professional illustration style \u2014 like a high-quality math textbook figure.\r\n   - White or very light background. No busy patterns or textures.\r\n   - Bold, clean lines. High contrast. Easy to read at a glance.\r\n   - All text in Danish. Use \u00E6, \u00F8, \u00E5 correctly.\r\n   - Numbers and labels must be LARGE and PERFECTLY READABLE (minimum 16pt equivalent).\r\n   - Use a clean sans-serif font style for all text.\r\n   - Use 3-5 flat, distinct colors maximum. No gradients, no shadows, no 3D effects.\r\n\r\n3. COMPOSITION:\r\n   - Landscape orientation (roughly 4:3 aspect ratio).\r\n   - The subject should fill 70-80% of the frame. No wasted space.\r\n   - No decorative borders, watermarks, or unnecessary ornaments.\r\n   - No people or characters unless the task specifically requires showing them.\r\n\r\n\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\r\nTASK TEXT (this is ALL the information that exists \u2014 depict ONLY this):\r\n\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\r\n\r\nContext: En 9.-klasse har lavet 4 logoer til deres klasse-T-shirt. Logo A har kun spejling, logo B har kun rotation, logo C har b\u00E5de spejling og rotation, og logo D har ingen symmetri. Klassen stemmer, og resultaterne ses i tabellen: A: 6 stemmer, B: 9 stemmer, C: 15 stemmer, D: 0 stemmer.\r\n\r\n  a) Hvor mange elever har i alt stemt?\r\n  b) Hvor stor en andel af stemmerne fik logo C?\r\n  c) Hvad er sandsynligheden for at en tilf\u00E6ldigt valgt stemme er givet til et logo med mindst \u00E9n type symmetri?\r\n\r\n\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\r\nIMAGE DESCRIPTION \u2014 what to draw:\r\n\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\r\n\r\nDraw a clean DATA TABLE or SCOREBOARD showing the information from this task.\r\n\r\nSTYLE:\r\n  - Clean table with bold headers and clear cell borders.\r\n  - Alternating light row colors (white and very light gray) for readability.\r\n  - Bold, large text in all cells. Numbers especially must be very clear.\r\n  - Include units in the header row where applicable.\r\n  - If it\u0027s a scoreboard, use a sporty but clean design.\r\n\r\nEXACT TEXT TO BASE THE TABLE ON:\r\n\u0022En 9.-klasse har lavet 4 logoer til deres klasse-T-shirt. Logo A har kun spejling, logo B har kun rotation, logo C har b\u00E5de spejling og rotation, og logo D har ingen symmetri. Klassen stemmer, og resultaterne ses i tabellen: A: 6 stemmer, B: 9 stemmer, C: 15 stemmer, D: 0 stemmer.\r\nHvor mange elever har i alt stemt?\r\nHvor stor en andel af stemmerne fik logo C?\r\nHvad er sandsynligheden for at en tilf\u00E6ldigt valgt stemme er givet til et logo med mindst \u00E9n type symmetri?\r\n\u0022\r\n\r\nExtract ALL data points from the text above and display them in the table.\r\nInclude ONLY data that appears in the text. Do NOT add extra rows or columns.\r\n\r\n\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\r\nFINAL CHECKLIST \u2014 verify before generating:\r\n\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\r\n\r\n\u2713 Every number in the image matches the task text exactly\r\n\u2713 No extra items, labels, or data that aren\u0027t in the task\r\n\u2713 All text is in Danish with correct \u00E6, \u00F8, \u00E5\r\n\u2713 Labels and numbers are large, bold, and easy to read\r\n\u2713 Clean white/light background, no clutter\r\n\u2713 No people or characters (unless specifically needed)\r\n\u2713 Landscape orientation, subject fills the frame\r\n\r\nGenerate ONLY the image. No text response needed.\r\n",
+      "Output": "Generated b253e3b6-c4cb-4050-a5de-b6f1b0675132.png",
+      "TokensUsed": null,
+      "Duration": "00:00:17.6147887",
+      "ParsedTaskCount": null,
+      "ParseSuccess": null,
+      "ErrorMessage": null
+    },
+    {
+      "Timestamp": "2026-02-22T11:44:54.5140055Z",
+      "AgentName": "GeminiImageGenerationAgent",
+      "Action": "GenerateImage (task 2: df2fa4b2-f011-47a3-a922-891f7b070aa6)",
+      "Input": "You are generating an illustration for a Danish math exam task (FP9 level, age 15-16).\r\nThe image must help the student understand the problem by showing the key information visually.\r\n\r\nABSOLUTE RULES \u2014 FOLLOW EXACTLY:\r\n\r\n1. ACCURACY IS EVERYTHING:\r\n   - Include ONLY information that appears in the task text below.\r\n   - Every number, label, name, and unit must match the task text EXACTLY.\r\n   - Do NOT invent, add, or change ANY values. Do NOT add extra items, extra prices,\r\n     extra labels, or any information not explicitly written in the task.\r\n   - If the task says \u00226 m bredt og 4 m dybt\u0022 then the image must show exactly 6 m and 4 m.\r\n   - This is a math exam \u2014 wrong numbers will cause students to get wrong answers.\r\n\r\n2. VISUAL STYLE:\r\n   - Clean, professional illustration style \u2014 like a high-quality math textbook figure.\r\n   - White or very light background. No busy patterns or textures.\r\n   - Bold, clean lines. High contrast. Easy to read at a glance.\r\n   - All text in Danish. Use \u00E6, \u00F8, \u00E5 correctly.\r\n   - Numbers and labels must be LARGE and PERFECTLY READABLE (minimum 16pt equivalent).\r\n   - Use a clean sans-serif font style for all text.\r\n   - Use 3-5 flat, distinct colors maximum. No gradients, no shadows, no 3D effects.\r\n\r\n3. COMPOSITION:\r\n   - Landscape orientation (roughly 4:3 aspect ratio).\r\n   - The subject should fill 70-80% of the frame. No wasted space.\r\n   - No decorative borders, watermarks, or unnecessary ornaments.\r\n   - No people or characters unless the task specifically requires showing them.\r\n\r\n\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\r\nTASK TEXT (this is ALL the information that exists \u2014 depict ONLY this):\r\n\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\r\n\r\nContext: Et t\u00F8jfirma s\u00E6lger en hoodie til normalpris 400 kr. I en reklame st\u00E5r der: \u002280 % af kunderne elsker vores nye hoodie \u2013 nu med 30 % rabat\u0022. Under reklamen st\u00E5r med sm\u00E5t, at unders\u00F8gelsen bygger p\u00E5 svar fra 25 kunder.\r\n\r\n  a) Hvad er rabatten i kroner?\r\n  b) Hvad er tilbudsprisen p\u00E5 hoodien?\r\n  c) Hvor mange kunder svarer 80 % til, n\u00E5r 25 kunder har svaret?\r\n  d) Forklar kort \u00E9n grund til, at tallet \u002280 % af kunderne\u0022 kan v\u00E6re misvisende.\r\n\r\n\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\r\nIMAGE DESCRIPTION \u2014 what to draw:\r\n\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\r\n\r\nDraw the PHYSICAL OBJECTS described in this probability task.\r\nShow them clearly so the student can see exactly what they\u0027re working with.\r\n\r\nLAYOUT:\r\n  - Show a container (bag, bowl, box \u2014 whatever the task describes) in the center.\r\n  - Arrange ALL the objects visibly \u2014 either spread out next to the container,\r\n    or visible inside a transparent/open container.\r\n  - Each object must be clearly the correct COLOR as described.\r\n  - Objects should be clearly countable \u2014 the student should be able to count them.\r\n  - Add a small label or legend showing: \u00225 r\u00F8de, 3 bl\u00E5, 2 gr\u00F8nne\u0022 (matching the task).\r\n  - Objects should be simple, uniform shapes (circles/spheres for balls, etc.).\r\n  - Group objects by color for easy counting.\r\n\r\nEXACT TEXT TO BASE THE IMAGE ON:\r\n\u0022Et t\u00F8jfirma s\u00E6lger en hoodie til normalpris 400 kr. I en reklame st\u00E5r der: \u002280 % af kunderne elsker vores nye hoodie \u2013 nu med 30 % rabat\u0022. Under reklamen st\u00E5r med sm\u00E5t, at unders\u00F8gelsen bygger p\u00E5 svar fra 25 kunder.\r\nHvad er rabatten i kroner?\r\nHvad er tilbudsprisen p\u00E5 hoodien?\r\nHvor mange kunder svarer 80 % til, n\u00E5r 25 kunder har svaret?\r\nForklar kort \u00E9n grund til, at tallet \u002280 % af kunderne\u0022 kan v\u00E6re misvisende.\r\n\u0022\r\n\r\n\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\r\nFINAL CHECKLIST \u2014 verify before generating:\r\n\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\r\n\r\n\u2713 Every number in the image matches the task text exactly\r\n\u2713 No extra items, labels, or data that aren\u0027t in the task\r\n\u2713 All text is in Danish with correct \u00E6, \u00F8, \u00E5\r\n\u2713 Labels and numbers are large, bold, and easy to read\r\n\u2713 Clean white/light background, no clutter\r\n\u2713 No people or characters (unless specifically needed)\r\n\u2713 Landscape orientation, subject fills the frame\r\n\r\nGenerate ONLY the image. No text response needed.\r\n",
+      "Output": "Generated df2fa4b2-f011-47a3-a922-891f7b070aa6.png",
+      "TokensUsed": null,
+      "Duration": "00:00:19.0874786",
+      "ParsedTaskCount": null,
+      "ParseSuccess": null,
+      "ErrorMessage": null
+    },
+    {
+      "Timestamp": "2026-02-22T11:44:56.0706422Z",
+      "AgentName": "GeminiImageGenerationAgent",
+      "Action": "GenerateImage (task 5: 1cc9498c-a227-4fc5-bc8d-8652d4104202)",
+      "Input": "You are generating an illustration for a Danish math exam task (FP9 level, age 15-16).\r\nThe image must help the student understand the problem by showing the key information visually.\r\n\r\nABSOLUTE RULES \u2014 FOLLOW EXACTLY:\r\n\r\n1. ACCURACY IS EVERYTHING:\r\n   - Include ONLY information that appears in the task text below.\r\n   - Every number, label, name, and unit must match the task text EXACTLY.\r\n   - Do NOT invent, add, or change ANY values. Do NOT add extra items, extra prices,\r\n     extra labels, or any information not explicitly written in the task.\r\n   - If the task says \u00226 m bredt og 4 m dybt\u0022 then the image must show exactly 6 m and 4 m.\r\n   - This is a math exam \u2014 wrong numbers will cause students to get wrong answers.\r\n\r\n2. VISUAL STYLE:\r\n   - Clean, professional illustration style \u2014 like a high-quality math textbook figure.\r\n   - White or very light background. No busy patterns or textures.\r\n   - Bold, clean lines. High contrast. Easy to read at a glance.\r\n   - All text in Danish. Use \u00E6, \u00F8, \u00E5 correctly.\r\n   - Numbers and labels must be LARGE and PERFECTLY READABLE (minimum 16pt equivalent).\r\n   - Use a clean sans-serif font style for all text.\r\n   - Use 3-5 flat, distinct colors maximum. No gradients, no shadows, no 3D effects.\r\n\r\n3. COMPOSITION:\r\n   - Landscape orientation (roughly 4:3 aspect ratio).\r\n   - The subject should fill 70-80% of the frame. No wasted space.\r\n   - No decorative borders, watermarks, or unnecessary ornaments.\r\n   - No people or characters unless the task specifically requires showing them.\r\n\r\n\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\r\nTASK TEXT (this is ALL the information that exists \u2014 depict ONLY this):\r\n\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\r\n\r\nContext: I en kiosk kan man k\u00F8be skrabelod A til 20 kr og skrabelod B til 40 kr. P\u00E5 lod A er der 1 ud af 10 med gevinst p\u00E5 50 kr. P\u00E5 lod B er der 1 ud af 20 med gevinst p\u00E5 200 kr. Ved k\u00F8b af 5 lodder af samme type gives 10 % rabat p\u00E5 den samlede pris.\r\n\r\n  a) Hvad er den forventede gevinst pr. lod for type A?\r\n  b) Hvad er den forventede gevinst pr. krone for lod A?\r\n  c) Hvad er den forventede gevinst pr. krone for lod B?\r\n  d) Ved k\u00F8b af 5 lodder af samme type: Hvad er den nye forventede gevinst pr. krone for lod A med rabat?\r\n\r\n\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\r\nIMAGE DESCRIPTION \u2014 what to draw:\r\n\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\r\n\r\nDraw a PRICE DISPLAY showing the items and prices from this task.\r\n\r\nItems and prices to display:\r\n  \u2022 Kiosk kan man k\u00F8be skrabelod A: 20 kr\r\n  \u2022 Skrabelod B: 40 kr.\r\n\r\nFORMAT: A clean PRICE LIST or INFO SIGN showing the items and their prices.\r\n  - Simple, organized layout. Each item clearly labeled with its price.\r\n\r\nDISCOUNT/OFFER: The task mentions a discount or offer.\r\nIf a specific percentage is mentioned, show it as a small banner or sticker\r\non the sign (e.g. \u002225% RABAT\u0022 or \u0022TILBUD\u0022). Only show discounts explicitly\r\nmentioned in the task text.\r\n\r\nEXACT TEXT TO BASE THE IMAGE ON:\r\n\u0022I en kiosk kan man k\u00F8be skrabelod A til 20 kr og skrabelod B til 40 kr. P\u00E5 lod A er der 1 ud af 10 med gevinst p\u00E5 50 kr. P\u00E5 lod B er der 1 ud af 20 med gevinst p\u00E5 200 kr. Ved k\u00F8b af 5 lodder af samme type gives 10 % rabat p\u00E5 den samlede pris.\r\nHvad er den forventede gevinst pr. lod for type A?\r\nHvad er den forventede gevinst pr. krone for lod A?\r\nHvad er den forventede gevinst pr. krone for lod B?\r\nVed k\u00F8b af 5 lodder af samme type: Hvad er den nye forventede gevinst pr. krone for lod A med raba...\u0022\r\n\r\n\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\r\nFINAL CHECKLIST \u2014 verify before generating:\r\n\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\r\n\r\n\u2713 Every number in the image matches the task text exactly\r\n\u2713 No extra items, labels, or data that aren\u0027t in the task\r\n\u2713 All text is in Danish with correct \u00E6, \u00F8, \u00E5\r\n\u2713 Labels and numbers are large, bold, and easy to read\r\n\u2713 Clean white/light background, no clutter\r\n\u2713 No people or characters (unless specifically needed)\r\n\u2713 Landscape orientation, subject fills the frame\r\n\r\nGenerate ONLY the image. No text response needed.\r\n",
+      "Output": "Generated 1cc9498c-a227-4fc5-bc8d-8652d4104202.png",
+      "TokensUsed": null,
+      "Duration": "00:00:17.8835011",
+      "ParsedTaskCount": null,
+      "ParseSuccess": null,
+      "ErrorMessage": null
+    },
+    {
+      "Timestamp": "2026-02-22T11:44:56.0708637Z",
+      "AgentName": "GeminiImageGenerationAgent",
+      "Action": "GenerateImages (count=3)",
+      "Input": "Images generated in parallel with tasks",
+      "Output": "Completed 3/3 images",
+      "TokensUsed": null,
+      "Duration": "00:00:26.5674593",
+      "ParsedTaskCount": null,
+      "ParseSuccess": null,
+      "ErrorMessage": null
+    }
+  ],
+  "Status": "Completed",
+  "ErrorMessage": null
+}

@@ -1,4 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useKeyboardShortcut } from '../hooks/useKeyboardShortcut'
+import { useBodyScrollLock } from '../hooks/useBodyScrollLock'
 import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { observer } from 'mobx-react-lite'
@@ -7,7 +9,6 @@ import { TaskContent } from './TaskContent'
 import { Spinner } from './Spinner'
 import { Tag } from './Tag'
 import { parseLatexToStructure, type ParsedQuestion } from '../utils/latexParser'
-import { loadTaskSetState, saveQuestionAnswer } from '../services/mockApi'
 import { getCategoryByPartIndex, CATEGORIES } from '../utils/taskCategory'
 import { checkAnswer } from '../utils/answerChecker'
 import type { Task, TaskSetState } from '../types'
@@ -33,7 +34,8 @@ interface TaskDetailOverlayProps {
 }
 
 export const TaskDetailOverlay = observer(({ task, onClose }: TaskDetailOverlayProps) => {
-  const { authStore, taskStore } = useStore()
+  const store = useStore()
+  const { authStore, taskStore, api } = store
   const [partIndex, setPartIndex] = useState(0)
   const [taskState, setTaskState] = useState<TaskSetState | null>(null)
 
@@ -41,39 +43,21 @@ export const TaskDetailOverlay = observer(({ task, onClose }: TaskDetailOverlayP
   const totalParts = parts.length
   const currentPartLatex = parts[partIndex] ?? ''
 
-  // Parse the current part to get questions with correct answers
   const parsedPart = useMemo(
     () => parseLatexToStructure(currentPartLatex),
     [currentPartLatex]
   )
 
-  // Load task set state from "backend"
   useEffect(() => {
     if (!task.id || !authStore.student) return
     
-    loadTaskSetState(authStore.student.id, task.id).then((state) => {
+    api.loadTaskSetState(authStore.student.id, task.id).then((state) => {
       setTaskState(state)
     })
-  }, [task.id, authStore.student])
+  }, [task.id, authStore.student, api])
 
-  // Handle escape key
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        onClose()
-      }
-    }
-    window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [onClose])
-
-  // Prevent body scroll when overlay is open
-  useEffect(() => {
-    document.body.style.overflow = 'hidden'
-    return () => {
-      document.body.style.overflow = ''
-    }
-  }, [])
+  useKeyboardShortcut('Escape', onClose)
+  useBodyScrollLock()
 
   // Get current answer for a question from state
   const getQuestionState = useCallback(
@@ -83,12 +67,11 @@ export const TaskDetailOverlay = observer(({ task, onClose }: TaskDetailOverlayP
     [taskState, partIndex]
   )
 
-  // Handle answer change - save immediately to backend
   const handleAnswerChange = useCallback(
     (questionIndex: number, value: string) => {
       if (!task.id || !authStore.student) return
 
-      saveQuestionAnswer(
+      api.saveQuestionAnswer(
         authStore.student.id,
         task.id,
         partIndex,
@@ -100,10 +83,9 @@ export const TaskDetailOverlay = observer(({ task, onClose }: TaskDetailOverlayP
         setTaskState(newState)
       })
     },
-    [task.id, authStore.student, partIndex]
+    [task.id, authStore.student, partIndex, api]
   )
 
-  // Handle blur - validate the answer
   const handleAnswerBlur = useCallback(
     (questionIndex: number) => {
       if (!task.id || !authStore.student) return
@@ -114,7 +96,7 @@ export const TaskDetailOverlay = observer(({ task, onClose }: TaskDetailOverlayP
       const question = parsedPart.questions[questionIndex]
       const status = checkAnswerCorrectness(answer, question)
 
-      saveQuestionAnswer(
+      api.saveQuestionAnswer(
         authStore.student.id,
         task.id,
         partIndex,
@@ -126,7 +108,7 @@ export const TaskDetailOverlay = observer(({ task, onClose }: TaskDetailOverlayP
         setTaskState(newState)
       })
     },
-    [task.id, authStore.student, partIndex, taskState, parsedPart.questions]
+    [task.id, authStore.student, partIndex, taskState, parsedPart.questions, api]
   )
 
   const goTo = (i: number) => setPartIndex(i)
@@ -149,6 +131,9 @@ export const TaskDetailOverlay = observer(({ task, onClose }: TaskDetailOverlayP
   const overlayContent = (
     <motion.div
       className="task-overlay-backdrop"
+      role="dialog"
+      aria-modal="true"
+      aria-label={task.title}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}

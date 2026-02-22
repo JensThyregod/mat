@@ -15,9 +15,9 @@
   left: var(--x);
   bottom: -50px;
   font-size: var(--size);
-  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-family: var(--font-mono);
   font-weight: 600;
-  color: #c2725a;
+  color: var(--color-accent);
   opacity: var(--opacity);
   animation: float-up var(--duration) linear var(--delay) infinite;
   user-select: none;

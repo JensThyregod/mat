@@ -31,7 +31,6 @@ public class GeminiImageGenerationAgent : IImageGenerationAgent
     private readonly HttpClient _httpClient;
     private readonly AgentConfiguration _configuration;
     private readonly ILogger<GeminiImageGenerationAgent> _logger;
-    private readonly string _imageOutputPath;
     
     public string Name => "GeminiImageGenerationAgent";
     public string Description => "Generates illustrative images for math tasks using Google Gemini";
@@ -39,16 +38,11 @@ public class GeminiImageGenerationAgent : IImageGenerationAgent
     public GeminiImageGenerationAgent(
         HttpClient httpClient,
         AgentConfiguration configuration,
-        string imageOutputPath,
         ILogger<GeminiImageGenerationAgent> logger)
     {
         _httpClient = httpClient;
         _configuration = configuration;
-        _imageOutputPath = imageOutputPath;
         _logger = logger;
-        
-        // Ensure output directory exists
-        Directory.CreateDirectory(_imageOutputPath);
     }
     
     /// <summary>
@@ -127,8 +121,9 @@ public class GeminiImageGenerationAgent : IImageGenerationAgent
         return Task.FromResult(false);
     }
     
-    public async Task<string?> GenerateImageAsync(
+    public async Task<ImageGenerationResult?> GenerateImageAsync(
         GeneratedTask task,
+        string imageOutputPath,
         CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrEmpty(_configuration.GeminiApiKey))
@@ -137,6 +132,7 @@ public class GeminiImageGenerationAgent : IImageGenerationAgent
             return null;
         }
         
+        Directory.CreateDirectory(imageOutputPath);
         var sw = Stopwatch.StartNew();
         
         try
@@ -153,17 +149,15 @@ public class GeminiImageGenerationAgent : IImageGenerationAgent
                 return null;
             }
             
-            // Save image to disk
             var fileName = $"{task.Id}.png";
-            var filePath = Path.Combine(_imageOutputPath, fileName);
+            var filePath = Path.Combine(imageOutputPath, fileName);
             await File.WriteAllBytesAsync(filePath, imageBytes, cancellationToken);
             
             sw.Stop();
             _logger.LogInformation("[{AgentName}] Image generated for task {TaskId} ({Size} bytes) in {Duration}ms",
                 Name, task.Id, imageBytes.Length, sw.ElapsedMilliseconds);
             
-            // Return the URL path that the frontend can use
-            return $"/api/images/{fileName}";
+            return new ImageGenerationResult { FileName = fileName, Prompt = prompt };
         }
         catch (Exception ex)
         {

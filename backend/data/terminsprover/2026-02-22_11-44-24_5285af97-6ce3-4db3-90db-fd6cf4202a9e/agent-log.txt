@@ -1,0 +1,1308 @@
+╔══════════════════════════════════════════════════════════════════╗
+║              TERMINSPRØVE AGENT CHAT LOG                        ║
+╚══════════════════════════════════════════════════════════════════╝
+
+  ID:         5285af97-6ce3-4db3-90db-fd6cf4202a9e
+  Status:     Completed
+  Started:    2026-02-22 11.44.24 UTC
+  Completed:  2026-02-22 11.44.56 UTC
+  Duration:   31,1s
+  Tasks:      5 generated
+  Iterations: 5
+
+──────────────────────────────────────────────────────────────────
+  REQUEST
+──────────────────────────────────────────────────────────────────
+  Level:        fp9
+  ExamPart:     med_hjaelpemidler
+  TaskCount:    5
+  Difficulty:   30 % easy / 50 % medium / 20 % hard
+  Categories:   []
+
+══════════════════════════════════════════════════════════════════
+  AGENT CHAT HISTORY
+══════════════════════════════════════════════════════════════════
+
+┌─ [1/12] FastAgentOrchestrator ─ GenerateTerminsprove (summary)
+│  Timestamp: 2026-02-22 11.44.56.071 UTC
+│  Duration:  31134ms
+│  Parsed:    5 tasks (success=True)
+│
+│  ┌── INPUT (prompt sent to LLM) ──────────────────────────────
+│  │ Request: 5 tasks, level=fp9, examPart=med_hjaelpemidler, difficulty=(30 %/50 %/20 %), categories=[]
+│  └───────────────────────────────────────────────────────────
+│
+│  ┌── OUTPUT (raw LLM response) ───────────────────────────────
+│  │ Generated 5 tasks in 31133ms (5 parallel LLM calls, 11 agent calls)
+│  └───────────────────────────────────────────────────────────
+└──────────────────────────────────────────────────────────────
+
+┌─ [2/12] TopicBrainstormAgent ─ BrainstormConcepts (count=5)
+│  Timestamp: 2026-02-22 11.44.29.189 UTC
+│  Duration:  4250ms
+│  Parsed:    5 tasks (success=True)
+│
+│  ┌── INPUT (prompt sent to LLM) ──────────────────────────────
+│  │ Gennemsnit, median og typetal (Statistik og sandsynlighed) + Figurfølger og mønstre (Tal og algebra)
+│  │ Kritisk vurdering af statistik (Statistik og sandsynlighed) + Procentregning (Tal og algebra)
+│  │ Diagrammer og grafer (Statistik og sandsynlighed) + Negative tal (Tal og algebra)
+│  │ Spejling, rotation og parallelforskydning (Geometri og måling) + Indsamle og analysere data (Statistik og sandsynlighed)
+│  │ Forhold og procentændringer (Tal og algebra) + Tilfældighed og chance (Statistik og sandsynlighed)
+│  └───────────────────────────────────────────────────────────
+│
+│  ┌── OUTPUT (raw LLM response) ───────────────────────────────
+│  │ [stat_soejlediagram] En 9. klasse laver en ugentlig planke-challenge, hvor de hver fredag måler, hvor mange sekunder hver elev kan holde planken, og de hænger resultaterne op på en tavle som en voksende talrække uge for uge. Klassen vil både beskrive udviklingen i deres tider med gennemsnit, median og typetal og undersøge, om der kan ses et mønster i, hvordan klassens gennemsnitstid vokser fra uge til uge.
+│  │ [tal_pris_rabat_procent] En elev ser en reklame fra et tøjfirma på nettet, hvor der står: "80 % af kunderne elsker vores nye hoodie – nu med 30 % rabat", og overvejer både om tilbuddet er godt, og om reklamen virker troværdig. Eleven undersøger prisen på hoodien før og efter rabatten og kigger nærmere på, hvordan firmaet kan have brugt tallene i reklamen.
+│  │ [stat_soejlediagram] En elev vil sammenligne vintervejret de sidste 10 år og henter daglige temperaturer for januar fra DMI, hvor nogle dage har frostgrader. Hun vil både undersøge, hvor ofte temperaturen er under 0 °C, og hvordan gennemsnitstemperaturen har udviklet sig over årene.
+│  │ [stat_soejlediagram] En 9.-klasse skal designe et simpelt logo til deres klasse-T-shirt, hvor mønsteret bygges op ved hjælp af spejling og rotation af en grundfigur. De laver flere forskellige logo-forslag og lader klassen stemme, mens de registrerer, hvilke typer symmetri (fx kun spejling, kun rotation eller begge dele) der får flest stemmer.
+│  │ [stat_sandsynlighed] En elev overvejer at købe skrabelodder i en kiosk, hvor der lige nu er kampagne: hvis man køber et bestemt antal lodder, får man en procentvis rabat på den samlede pris, mens gevinsterne og vinderchancerne for de forskellige lodtyper er forskellige. Eleven vil sammenligne, hvordan rabatten påvirker den forventede gevinst pr. krone for de forskellige lodtyper og lodpakker.
+│  └───────────────────────────────────────────────────────────
+└──────────────────────────────────────────────────────────────
+
+┌─ [3/12] BatchTaskGenerator ─ GenerateSingleTask (index=2, difficulty=let)
+│  Timestamp: 2026-02-22 11.44.35.425 UTC
+│  Duration:  5913ms
+│  Parsed:    1 tasks (success=True)
+│
+│  ┌── INPUT (prompt sent to LLM) ──────────────────────────────
+│  │ [SystemPrompt]
+│  │ Du er en erfaren matematiklærer der skriver FP9 prøveopgaver.
+│  │ 
+│  │ SKRIVESTIL — KORT OG PRÆCIS SOM EN RIGTIG PRØVE:
+│  │ - contextText skal være KORT: 1-3 sætninger der giver scenariet og de nødvendige oplysninger.
+│  │   IKKE en novelle. Tænk på en rigtig FP9-prøve: "Lea vil hækle grydelapper og sælge dem.
+│  │   Hun skal bruge 120 g garn til et par. Et nøgle garn er 50 g og koster 12,95 kr."
+│  │ - Giv information ÉN GANG. Gentag ALDRIG oplysninger i delopgaverne som allerede står i contextText.
+│  │   Eleven skal selv navigere tilbage og finde de tal de har brug for.
+│  │ - Delopgavernes questionText skal være KORTE og DIREKTE: stil spørgsmålet, giv evt. nye tal,
+│  │   færdig. Ingen genfortælling af scenariet.
+│  │ - UNDGÅ at forklare hvad eleven skal gøre ("Skriv dine beregninger", "Vis med udregninger",
+│  │   "Begrund med beregninger"). Stil bare spørgsmålet.
+│  │ - Scenariet skal være REALISTISK og TROVÆRDIGT — ikke kunstigt eller overdrevet kreativt.
+│  │   Gode scenarier er hverdagsagtige: håndværk, madlavning, sport, økonomi, indretning.
+│  │ 
+│  │ DESIGNPROCES — BAGLÆNS DESIGN (SCAFFOLDING):
+│  │ 1. Formuler FØRST den sværeste delopgave — det er MÅLET for hele opgaven.
+│  │ 2. Design derefter de tidligere delopgaver som KONKRETE trin der leder eleven derhen.
+│  │ 3. Scaffoldingen skal være IMPLICIT — opgaveteksten må ALDRIG bede eleven om at
+│  │    "bruge svaret fra a)" eller lignende. Eleven opdager selv sammenhængen.
+│  │ 
+│  │ OPGAVEFORMAT:
+│  │ - Svære opgaver: 1-2 delopgaver
+│  │ - Middel: 2-3 delopgaver
+│  │ - Lette: 3-5 delopgaver
+│  │ - Den SIDSTE delopgave skal ALTID være den sværeste.
+│  │ 
+│  │ MATEMATISKE REGLER:
+│  │ - Beregn svaret FØRST, skriv opgaven EFTER. Dobbelttjek alle beregninger.
+│  │ - Brug pæne tal der giver hele eller simple svar.
+│  │ 
+│  │ Output KUN valid JSON. Ingen markdown, ingen forklaring.
+│  │ 
+│  │ [UserPrompt]
+│  │ Generer ÉN FP9 prøveopgave.
+│  │ 
+│  │ SCENARIE (fra pensum-sampling):
+│  │ Emner: Kritisk vurdering af statistik + Procentregning
+│  │ Idé: En elev ser en reklame fra et tøjfirma på nettet, hvor der står: "80 % af kunderne elsker vores nye hoodie – nu med 30 % rabat", og overvejer både om tilbuddet er godt, og om reklamen virker troværdig. Eleven undersøger prisen på hoodien før og efter rabatten og kigger nærmere på, hvordan firmaet kan have brugt tallene i reklamen.
+│  │ Kobling: Eleven bruger procentregning til at beregne den nye pris og eventuel besparelse, og vurderer derefter kritisk om statistikken (fx de 80 % tilfredse kunder) kan være misvisende pga. stikprøvestørrelse, udvælgelse eller bias.
+│  │ Opgavetype: tal_pris_rabat_procent
+│  │ Kategori: statistik_og_sandsynlighed
+│  │ 
+│  │ Byg opgaven ud fra dette scenarie. Tilføj konkrete tal så det bliver løsbart.
+│  │ 
+│  │ Krav: med_hjaelpemidler, sværhedsgrad: let, fokus: varieret
+│  │ 
+│  │ Opgavetyper: tal_ligninger, tal_broeker_og_antal, tal_regnearter, tal_pris_rabat_procent, tal_forholdstalsregning, geo_sammensat_figur, geo_vinkelsum, geo_enhedsomregning, stat_boksplot, stat_sandsynlighed
+│  │ 
+│  │ VIGTIGSTE REGLER FOR TEKST:
+│  │ 1. contextText: KORT — maks 1-3 sætninger med scenarie og nødvendige oplysninger.
+│  │    IKKE en historie. Bare fakta. Se eksemplet nedenfor.
+│  │ 2. questionText i delopgaver: KORT og DIREKTE. Stil spørgsmålet, giv evt. nye tal, færdig.
+│  │    Gentag ALDRIG information fra contextText — eleven finder selv tallene.
+│  │ 3. ALDRIG skriv "Skriv dine beregninger", "Vis med udregninger", "Begrund dit svar" 
+│  │    eller lignende instruktioner. Stil bare spørgsmålet.
+│  │ 4. Scaffolding er IMPLICIT — sig aldrig "brug svaret fra a)".
+│  │ 
+│  │ SVÆRHEDSGRAD PÅ DELOPGAVER:
+│  │ Den SIDSTE delopgave er altid sværest. Rampe: let → middel → svær.
+│  │ 
+│  │ Eksempel (kort og præcist som en rigtig FP9-prøve):
+│  │ {
+│  │   "taskTypeId":"tal_forholdstalsregning",
+│  │   "category":"tal_og_algebra",
+│  │   "difficulty":"middel",
+│  │   "contextText":"Lea vil hækle grydelapper og sælge dem. Hun bruger 120 g garn til et par. Et nøgle garn er 50 g og koster 12,95 kr. 10 nøgler koster 89 kr.",
+│  │   "subQuestions":[
+│  │     {"label":"a","questionText":"Hvor mange nøgler garn skal Lea mindst købe for at hækle ét par grydelapper?","answer":{"value":"3","unit":"nøgler"},"difficulty":"let","points":1,"solutionSteps":[{"stepNumber":1,"description":"120 ÷ 50 = 2,4 → oprund til 3","mathExpression":"120 ÷ 50","result":"3 nøgler"}]},
+│  │     {"label":"b","questionText":"Lea vil hækle 5 par. Hvor mange nøgler skal hun købe?","answer":{"value":"12","unit":"nøgler"},"difficulty":"let","points":1,"solutionSteps":[{"stepNumber":1,"description":"5 · 120 = 600 g","mathExpression":"5 · 120","result":"600 g"},{"stepNumber":2,"description":"600 ÷ 50 = 12","mathExpression":"600 ÷ 50","result":"12 nøgler"}]},
+│  │     {"label":"c","questionText":"Hvad er billigst: 12 nøgler enkeltvis eller en pakke med 10 plus 2 enkelt-nøgler?","answer":{"value":"Pakke+2: 114,90 kr (billigst). Enkeltvis: 155,40 kr.","unit":"kr"},"difficulty":"middel","points":2,"solutionSteps":[{"stepNumber":1,"description":"Enkeltvis: 12 · 12,95 = 155,40 kr","mathExpression":"12 · 12,95","result":"155,40 kr"},{"stepNumber":2,"description":"Pakke+2: 89 + 2 · 12,95 = 114,90 kr","mathExpression":"89 + 25,90","result":"114,90 kr"}]},
+│  │     {"label":"d","questionText":"Lea sælger grydelapperne for 60 kr pr. par. Hvor mange par skal hun sælge for et overskud på ca. 500 kr?","answer":{"value":"Ca. 14 par","unit":""},"difficulty":"svær","points":3,"solutionSteps":[{"stepNumber":1,"description":"Garnpris pr. par (billigst): 114,90 ÷ 5 ≈ 22,98 kr","mathExpression":"114,90 ÷ 5","result":"22,98 kr"},{"stepNumber":2,"description":"Overskud pr. par: 60 − 22,98 ≈ 37 kr","mathExpression":"60 − 22,98","result":"37,02 kr"},{"stepNumber":3,"description":"500 ÷ 37 ≈ 13,5 → ca. 14 par","mathExpression":"500 ÷ 37","result":"≈ 14 par"}]}
+│  │   ],
+│  │   "points":7,
+│  │   "estimatedTimeSeconds":300
+│  │ }
+│  │ 
+│  │ Output: ÉT JSON objekt. KUN JSON, ingen markdown.
+│  └───────────────────────────────────────────────────────────
+│
+│  ┌── OUTPUT (raw LLM response) ───────────────────────────────
+│  │ {
+│  │   "taskTypeId": "tal_pris_rabat_procent",
+│  │   "category": "statistik_og_sandsynlighed",
+│  │   "difficulty": "let",
+│  │   "contextText": "Et tøjfirma sælger en hoodie til normalpris 400 kr. I en reklame står der: \"80 % af kunderne elsker vores nye hoodie – nu med 30 % rabat\". Under reklamen står med småt, at undersøgelsen bygger på svar fra 25 kunder.",
+│  │   "subQuestions": [
+│  │     {
+│  │       "label": "a",
+│  │       "questionText": "Hvad er rabatten i kroner?",
+│  │       "answer": {
+│  │         "value": "120",
+│  │         "unit": "kr"
+│  │       },
+│  │       "difficulty": "let",
+│  │       "points": 1,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "30 % af 400 kr findes ved 0,30 · 400",
+│  │           "mathExpression": "0,30 · 400",
+│  │           "result": "120 kr"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "b",
+│  │       "questionText": "Hvad er tilbudsprisen på hoodien?",
+│  │       "answer": {
+│  │         "value": "280",
+│  │         "unit": "kr"
+│  │       },
+│  │       "difficulty": "let",
+│  │       "points": 1,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Tilbudspris = normalpris − rabat",
+│  │           "mathExpression": "400 − 120",
+│  │           "result": "280 kr"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "c",
+│  │       "questionText": "Hvor mange kunder svarer 80 % til, når 25 kunder har svaret?",
+│  │       "answer": {
+│  │         "value": "20",
+│  │         "unit": "kunder"
+│  │       },
+│  │       "difficulty": "middel",
+│  │       "points": 2,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "80 % af 25 findes ved 0,80 · 25",
+│  │           "mathExpression": "0,80 · 25",
+│  │           "result": "20 kunder"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "d",
+│  │       "questionText": "Forklar kort én grund til, at tallet \"80 % af kunderne\" kan være misvisende.",
+│  │       "answer": {
+│  │         "value": "Fx at kun 25 kunder har svaret, så stikprøven er lille, eller at det måske kun er meget tilfredse kunder, der har valgt at svare, så resultatet ikke viser alle kunders mening.",
+│  │         "unit": ""
+│  │       },
+│  │       "difficulty": "middel",
+│  │       "points": 2,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "En lille stikprøve eller skæv udvælgelse kan gøre, at procenttallet ikke repræsenterer alle kunder.",
+│  │           "mathExpression": "",
+│  │           "result": ""
+│  │         }
+│  │       ]
+│  │     }
+│  │   ],
+│  │   "points": 6,
+│  │   "estimatedTimeSeconds": 300
+│  │ }
+│  └───────────────────────────────────────────────────────────
+└──────────────────────────────────────────────────────────────
+
+┌─ [4/12] BatchTaskGenerator ─ GenerateSingleTask (index=4, difficulty=middel)
+│  Timestamp: 2026-02-22 11.44.36.854 UTC
+│  Duration:  7346ms
+│  Parsed:    1 tasks (success=True)
+│
+│  ┌── INPUT (prompt sent to LLM) ──────────────────────────────
+│  │ [SystemPrompt]
+│  │ Du er en erfaren matematiklærer der skriver FP9 prøveopgaver.
+│  │ 
+│  │ SKRIVESTIL — KORT OG PRÆCIS SOM EN RIGTIG PRØVE:
+│  │ - contextText skal være KORT: 1-3 sætninger der giver scenariet og de nødvendige oplysninger.
+│  │   IKKE en novelle. Tænk på en rigtig FP9-prøve: "Lea vil hækle grydelapper og sælge dem.
+│  │   Hun skal bruge 120 g garn til et par. Et nøgle garn er 50 g og koster 12,95 kr."
+│  │ - Giv information ÉN GANG. Gentag ALDRIG oplysninger i delopgaverne som allerede står i contextText.
+│  │   Eleven skal selv navigere tilbage og finde de tal de har brug for.
+│  │ - Delopgavernes questionText skal være KORTE og DIREKTE: stil spørgsmålet, giv evt. nye tal,
+│  │   færdig. Ingen genfortælling af scenariet.
+│  │ - UNDGÅ at forklare hvad eleven skal gøre ("Skriv dine beregninger", "Vis med udregninger",
+│  │   "Begrund med beregninger"). Stil bare spørgsmålet.
+│  │ - Scenariet skal være REALISTISK og TROVÆRDIGT — ikke kunstigt eller overdrevet kreativt.
+│  │   Gode scenarier er hverdagsagtige: håndværk, madlavning, sport, økonomi, indretning.
+│  │ 
+│  │ DESIGNPROCES — BAGLÆNS DESIGN (SCAFFOLDING):
+│  │ 1. Formuler FØRST den sværeste delopgave — det er MÅLET for hele opgaven.
+│  │ 2. Design derefter de tidligere delopgaver som KONKRETE trin der leder eleven derhen.
+│  │ 3. Scaffoldingen skal være IMPLICIT — opgaveteksten må ALDRIG bede eleven om at
+│  │    "bruge svaret fra a)" eller lignende. Eleven opdager selv sammenhængen.
+│  │ 
+│  │ OPGAVEFORMAT:
+│  │ - Svære opgaver: 1-2 delopgaver
+│  │ - Middel: 2-3 delopgaver
+│  │ - Lette: 3-5 delopgaver
+│  │ - Den SIDSTE delopgave skal ALTID være den sværeste.
+│  │ 
+│  │ MATEMATISKE REGLER:
+│  │ - Beregn svaret FØRST, skriv opgaven EFTER. Dobbelttjek alle beregninger.
+│  │ - Brug pæne tal der giver hele eller simple svar.
+│  │ 
+│  │ Output KUN valid JSON. Ingen markdown, ingen forklaring.
+│  │ 
+│  │ [UserPrompt]
+│  │ Generer ÉN FP9 prøveopgave.
+│  │ 
+│  │ SCENARIE (fra pensum-sampling):
+│  │ Emner: Spejling, rotation og parallelforskydning + Indsamle og analysere data
+│  │ Idé: En 9.-klasse skal designe et simpelt logo til deres klasse-T-shirt, hvor mønsteret bygges op ved hjælp af spejling og rotation af en grundfigur. De laver flere forskellige logo-forslag og lader klassen stemme, mens de registrerer, hvilke typer symmetri (fx kun spejling, kun rotation eller begge dele) der får flest stemmer.
+│  │ Kobling: Eleverne bruger geometriske transformationer til at klassificere logo-forslagene efter type af symmetri og samler derefter stemmedata i tabeller/diagrammer for at analysere, om bestemte symmetrier er mere populære end andre.
+│  │ Opgavetype: stat_soejlediagram
+│  │ Kategori: statistik_og_sandsynlighed
+│  │ 
+│  │ Byg opgaven ud fra dette scenarie. Tilføj konkrete tal så det bliver løsbart.
+│  │ 
+│  │ Krav: med_hjaelpemidler, sværhedsgrad: middel, fokus: varieret
+│  │ 
+│  │ Opgavetyper: tal_ligninger, tal_broeker_og_antal, tal_regnearter, tal_pris_rabat_procent, tal_forholdstalsregning, geo_sammensat_figur, geo_vinkelsum, geo_enhedsomregning, stat_boksplot, stat_sandsynlighed
+│  │ 
+│  │ VIGTIGSTE REGLER FOR TEKST:
+│  │ 1. contextText: KORT — maks 1-3 sætninger med scenarie og nødvendige oplysninger.
+│  │    IKKE en historie. Bare fakta. Se eksemplet nedenfor.
+│  │ 2. questionText i delopgaver: KORT og DIREKTE. Stil spørgsmålet, giv evt. nye tal, færdig.
+│  │    Gentag ALDRIG information fra contextText — eleven finder selv tallene.
+│  │ 3. ALDRIG skriv "Skriv dine beregninger", "Vis med udregninger", "Begrund dit svar" 
+│  │    eller lignende instruktioner. Stil bare spørgsmålet.
+│  │ 4. Scaffolding er IMPLICIT — sig aldrig "brug svaret fra a)".
+│  │ 
+│  │ SVÆRHEDSGRAD PÅ DELOPGAVER:
+│  │ Den SIDSTE delopgave er altid sværest. Rampe: let → middel → svær.
+│  │ 
+│  │ Eksempel (kort og præcist som en rigtig FP9-prøve):
+│  │ {
+│  │   "taskTypeId":"tal_forholdstalsregning",
+│  │   "category":"tal_og_algebra",
+│  │   "difficulty":"middel",
+│  │   "contextText":"Lea vil hækle grydelapper og sælge dem. Hun bruger 120 g garn til et par. Et nøgle garn er 50 g og koster 12,95 kr. 10 nøgler koster 89 kr.",
+│  │   "subQuestions":[
+│  │     {"label":"a","questionText":"Hvor mange nøgler garn skal Lea mindst købe for at hækle ét par grydelapper?","answer":{"value":"3","unit":"nøgler"},"difficulty":"let","points":1,"solutionSteps":[{"stepNumber":1,"description":"120 ÷ 50 = 2,4 → oprund til 3","mathExpression":"120 ÷ 50","result":"3 nøgler"}]},
+│  │     {"label":"b","questionText":"Lea vil hækle 5 par. Hvor mange nøgler skal hun købe?","answer":{"value":"12","unit":"nøgler"},"difficulty":"let","points":1,"solutionSteps":[{"stepNumber":1,"description":"5 · 120 = 600 g","mathExpression":"5 · 120","result":"600 g"},{"stepNumber":2,"description":"600 ÷ 50 = 12","mathExpression":"600 ÷ 50","result":"12 nøgler"}]},
+│  │     {"label":"c","questionText":"Hvad er billigst: 12 nøgler enkeltvis eller en pakke med 10 plus 2 enkelt-nøgler?","answer":{"value":"Pakke+2: 114,90 kr (billigst). Enkeltvis: 155,40 kr.","unit":"kr"},"difficulty":"middel","points":2,"solutionSteps":[{"stepNumber":1,"description":"Enkeltvis: 12 · 12,95 = 155,40 kr","mathExpression":"12 · 12,95","result":"155,40 kr"},{"stepNumber":2,"description":"Pakke+2: 89 + 2 · 12,95 = 114,90 kr","mathExpression":"89 + 25,90","result":"114,90 kr"}]},
+│  │     {"label":"d","questionText":"Lea sælger grydelapperne for 60 kr pr. par. Hvor mange par skal hun sælge for et overskud på ca. 500 kr?","answer":{"value":"Ca. 14 par","unit":""},"difficulty":"svær","points":3,"solutionSteps":[{"stepNumber":1,"description":"Garnpris pr. par (billigst): 114,90 ÷ 5 ≈ 22,98 kr","mathExpression":"114,90 ÷ 5","result":"22,98 kr"},{"stepNumber":2,"description":"Overskud pr. par: 60 − 22,98 ≈ 37 kr","mathExpression":"60 − 22,98","result":"37,02 kr"},{"stepNumber":3,"description":"500 ÷ 37 ≈ 13,5 → ca. 14 par","mathExpression":"500 ÷ 37","result":"≈ 14 par"}]}
+│  │   ],
+│  │   "points":7,
+│  │   "estimatedTimeSeconds":300
+│  │ }
+│  │ 
+│  │ Output: ÉT JSON objekt. KUN JSON, ingen markdown.
+│  └───────────────────────────────────────────────────────────
+│
+│  ┌── OUTPUT (raw LLM response) ───────────────────────────────
+│  │ {
+│  │   "taskTypeId": "stat_soejlediagram",
+│  │   "category": "statistik_og_sandsynlighed",
+│  │   "difficulty": "middel",
+│  │   "contextText": "En 9.-klasse har lavet 4 logoer til deres klasse-T-shirt. Logo A har kun spejling, logo B har kun rotation, logo C har både spejling og rotation, og logo D har ingen symmetri. Klassen stemmer, og resultaterne ses i tabellen: A: 6 stemmer, B: 9 stemmer, C: 15 stemmer, D: 0 stemmer.",
+│  │   "subQuestions": [
+│  │     {
+│  │       "label": "a",
+│  │       "questionText": "Hvor mange elever har i alt stemt?",
+│  │       "answer": {
+│  │         "value": "30",
+│  │         "unit": "elever"
+│  │       },
+│  │       "difficulty": "let",
+│  │       "points": 1,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "6 + 9 + 15 + 0 = 30",
+│  │           "mathExpression": "6 + 9 + 15 + 0",
+│  │           "result": "30 elever"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "b",
+│  │       "questionText": "Hvor stor en andel af stemmerne fik logo C?",
+│  │       "answer": {
+│  │         "value": "1/2",
+│  │         "unit": "af stemmerne"
+│  │       },
+│  │       "difficulty": "middel",
+│  │       "points": 2,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Andel = 15 / 30",
+│  │           "mathExpression": "15/30",
+│  │           "result": "1/2"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "c",
+│  │       "questionText": "Hvad er sandsynligheden for at en tilfældigt valgt stemme er givet til et logo med mindst én type symmetri?",
+│  │       "answer": {
+│  │         "value": "1",
+│  │         "unit": ""
+│  │       },
+│  │       "difficulty": "svær",
+│  │       "points": 2,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Logoer med mindst én type symmetri: A, B, C.",
+│  │           "mathExpression": "6 + 9 + 15",
+│  │           "result": "30 stemmer"
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "Sandsynlighed = 30 / 30",
+│  │           "mathExpression": "30/30",
+│  │           "result": "1"
+│  │         }
+│  │       ]
+│  │     }
+│  │   ],
+│  │   "points": 5,
+│  │   "estimatedTimeSeconds": 300
+│  │ }
+│  └───────────────────────────────────────────────────────────
+└──────────────────────────────────────────────────────────────
+
+┌─ [5/12] BatchTaskGenerator ─ GenerateSingleTask (index=1, difficulty=let)
+│  Timestamp: 2026-02-22 11.44.37.676 UTC
+│  Duration:  8170ms
+│  Parsed:    1 tasks (success=True)
+│
+│  ┌── INPUT (prompt sent to LLM) ──────────────────────────────
+│  │ [SystemPrompt]
+│  │ Du er en erfaren matematiklærer der skriver FP9 prøveopgaver.
+│  │ 
+│  │ SKRIVESTIL — KORT OG PRÆCIS SOM EN RIGTIG PRØVE:
+│  │ - contextText skal være KORT: 1-3 sætninger der giver scenariet og de nødvendige oplysninger.
+│  │   IKKE en novelle. Tænk på en rigtig FP9-prøve: "Lea vil hækle grydelapper og sælge dem.
+│  │   Hun skal bruge 120 g garn til et par. Et nøgle garn er 50 g og koster 12,95 kr."
+│  │ - Giv information ÉN GANG. Gentag ALDRIG oplysninger i delopgaverne som allerede står i contextText.
+│  │   Eleven skal selv navigere tilbage og finde de tal de har brug for.
+│  │ - Delopgavernes questionText skal være KORTE og DIREKTE: stil spørgsmålet, giv evt. nye tal,
+│  │   færdig. Ingen genfortælling af scenariet.
+│  │ - UNDGÅ at forklare hvad eleven skal gøre ("Skriv dine beregninger", "Vis med udregninger",
+│  │   "Begrund med beregninger"). Stil bare spørgsmålet.
+│  │ - Scenariet skal være REALISTISK og TROVÆRDIGT — ikke kunstigt eller overdrevet kreativt.
+│  │   Gode scenarier er hverdagsagtige: håndværk, madlavning, sport, økonomi, indretning.
+│  │ 
+│  │ DESIGNPROCES — BAGLÆNS DESIGN (SCAFFOLDING):
+│  │ 1. Formuler FØRST den sværeste delopgave — det er MÅLET for hele opgaven.
+│  │ 2. Design derefter de tidligere delopgaver som KONKRETE trin der leder eleven derhen.
+│  │ 3. Scaffoldingen skal være IMPLICIT — opgaveteksten må ALDRIG bede eleven om at
+│  │    "bruge svaret fra a)" eller lignende. Eleven opdager selv sammenhængen.
+│  │ 
+│  │ OPGAVEFORMAT:
+│  │ - Svære opgaver: 1-2 delopgaver
+│  │ - Middel: 2-3 delopgaver
+│  │ - Lette: 3-5 delopgaver
+│  │ - Den SIDSTE delopgave skal ALTID være den sværeste.
+│  │ 
+│  │ MATEMATISKE REGLER:
+│  │ - Beregn svaret FØRST, skriv opgaven EFTER. Dobbelttjek alle beregninger.
+│  │ - Brug pæne tal der giver hele eller simple svar.
+│  │ 
+│  │ Output KUN valid JSON. Ingen markdown, ingen forklaring.
+│  │ 
+│  │ [UserPrompt]
+│  │ Generer ÉN FP9 prøveopgave.
+│  │ 
+│  │ SCENARIE (fra pensum-sampling):
+│  │ Emner: Gennemsnit, median og typetal + Figurfølger og mønstre
+│  │ Idé: En 9. klasse laver en ugentlig planke-challenge, hvor de hver fredag måler, hvor mange sekunder hver elev kan holde planken, og de hænger resultaterne op på en tavle som en voksende talrække uge for uge. Klassen vil både beskrive udviklingen i deres tider med gennemsnit, median og typetal og undersøge, om der kan ses et mønster i, hvordan klassens gennemsnitstid vokser fra uge til uge.
+│  │ Kobling: Eleverne beregner gennemsnit, median og typetal for planke-tiderne hver uge og bruger derefter rækken af ugentlige gennemsnit som et talmønster, der kan beskrives og generaliseres (fx finde en formel for n-te uges gennemsnit).
+│  │ Opgavetype: stat_soejlediagram
+│  │ Kategori: statistik_og_sandsynlighed
+│  │ 
+│  │ Byg opgaven ud fra dette scenarie. Tilføj konkrete tal så det bliver løsbart.
+│  │ 
+│  │ Krav: med_hjaelpemidler, sværhedsgrad: let, fokus: varieret
+│  │ 
+│  │ Opgavetyper: tal_ligninger, tal_broeker_og_antal, tal_regnearter, tal_pris_rabat_procent, tal_forholdstalsregning, geo_sammensat_figur, geo_vinkelsum, geo_enhedsomregning, stat_boksplot, stat_sandsynlighed
+│  │ 
+│  │ VIGTIGSTE REGLER FOR TEKST:
+│  │ 1. contextText: KORT — maks 1-3 sætninger med scenarie og nødvendige oplysninger.
+│  │    IKKE en historie. Bare fakta. Se eksemplet nedenfor.
+│  │ 2. questionText i delopgaver: KORT og DIREKTE. Stil spørgsmålet, giv evt. nye tal, færdig.
+│  │    Gentag ALDRIG information fra contextText — eleven finder selv tallene.
+│  │ 3. ALDRIG skriv "Skriv dine beregninger", "Vis med udregninger", "Begrund dit svar" 
+│  │    eller lignende instruktioner. Stil bare spørgsmålet.
+│  │ 4. Scaffolding er IMPLICIT — sig aldrig "brug svaret fra a)".
+│  │ 
+│  │ SVÆRHEDSGRAD PÅ DELOPGAVER:
+│  │ Den SIDSTE delopgave er altid sværest. Rampe: let → middel → svær.
+│  │ 
+│  │ Eksempel (kort og præcist som en rigtig FP9-prøve):
+│  │ {
+│  │   "taskTypeId":"tal_forholdstalsregning",
+│  │   "category":"tal_og_algebra",
+│  │   "difficulty":"middel",
+│  │   "contextText":"Lea vil hækle grydelapper og sælge dem. Hun bruger 120 g garn til et par. Et nøgle garn er 50 g og koster 12,95 kr. 10 nøgler koster 89 kr.",
+│  │   "subQuestions":[
+│  │     {"label":"a","questionText":"Hvor mange nøgler garn skal Lea mindst købe for at hækle ét par grydelapper?","answer":{"value":"3","unit":"nøgler"},"difficulty":"let","points":1,"solutionSteps":[{"stepNumber":1,"description":"120 ÷ 50 = 2,4 → oprund til 3","mathExpression":"120 ÷ 50","result":"3 nøgler"}]},
+│  │     {"label":"b","questionText":"Lea vil hækle 5 par. Hvor mange nøgler skal hun købe?","answer":{"value":"12","unit":"nøgler"},"difficulty":"let","points":1,"solutionSteps":[{"stepNumber":1,"description":"5 · 120 = 600 g","mathExpression":"5 · 120","result":"600 g"},{"stepNumber":2,"description":"600 ÷ 50 = 12","mathExpression":"600 ÷ 50","result":"12 nøgler"}]},
+│  │     {"label":"c","questionText":"Hvad er billigst: 12 nøgler enkeltvis eller en pakke med 10 plus 2 enkelt-nøgler?","answer":{"value":"Pakke+2: 114,90 kr (billigst). Enkeltvis: 155,40 kr.","unit":"kr"},"difficulty":"middel","points":2,"solutionSteps":[{"stepNumber":1,"description":"Enkeltvis: 12 · 12,95 = 155,40 kr","mathExpression":"12 · 12,95","result":"155,40 kr"},{"stepNumber":2,"description":"Pakke+2: 89 + 2 · 12,95 = 114,90 kr","mathExpression":"89 + 25,90","result":"114,90 kr"}]},
+│  │     {"label":"d","questionText":"Lea sælger grydelapperne for 60 kr pr. par. Hvor mange par skal hun sælge for et overskud på ca. 500 kr?","answer":{"value":"Ca. 14 par","unit":""},"difficulty":"svær","points":3,"solutionSteps":[{"stepNumber":1,"description":"Garnpris pr. par (billigst): 114,90 ÷ 5 ≈ 22,98 kr","mathExpression":"114,90 ÷ 5","result":"22,98 kr"},{"stepNumber":2,"description":"Overskud pr. par: 60 − 22,98 ≈ 37 kr","mathExpression":"60 − 22,98","result":"37,02 kr"},{"stepNumber":3,"description":"500 ÷ 37 ≈ 13,5 → ca. 14 par","mathExpression":"500 ÷ 37","result":"≈ 14 par"}]}
+│  │   ],
+│  │   "points":7,
+│  │   "estimatedTimeSeconds":300
+│  │ }
+│  │ 
+│  │ Output: ÉT JSON objekt. KUN JSON, ingen markdown.
+│  └───────────────────────────────────────────────────────────
+│
+│  ┌── OUTPUT (raw LLM response) ───────────────────────────────
+│  │ {
+│  │   "taskTypeId": "stat_soejlediagram",
+│  │   "category": "statistik_og_sandsynlighed",
+│  │   "difficulty": "let",
+│  │   "contextText": "En 9. klasse laver en ugentlig planke-challenge. I de første 6 uger måler de hver fredag, hvor mange sekunder hver elev kan holde planken, og de beregner klassens gennemsnitstid for hver uge: 30, 35, 40, 45, 50 og 55 sekunder.",
+│  │   "subQuestions": [
+│  │     {
+│  │       "label": "a",
+│  │       "questionText": "Hvad er forskellen i sekunder mellem gennemsnittet i uge 1 og uge 6?",
+│  │       "answer": {
+│  │         "value": "25",
+│  │         "unit": "sekunder"
+│  │       },
+│  │       "difficulty": "let",
+│  │       "points": 1,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "55 − 30 = 25",
+│  │           "mathExpression": "55 - 30",
+│  │           "result": "25 sekunder"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "b",
+│  │       "questionText": "Hvad er medianen af de 6 ugers gennemsnitstider?",
+│  │       "answer": {
+│  │         "value": "42,5",
+│  │         "unit": "sekunder"
+│  │       },
+│  │       "difficulty": "let",
+│  │       "points": 1,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Sorteret: 30, 35, 40, 45, 50, 55",
+│  │           "mathExpression": "",
+│  │           "result": ""
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "Median = gennemsnit af de to midterste: (40 + 45) ÷ 2 = 42,5",
+│  │           "mathExpression": "(40 + 45) / 2",
+│  │           "result": "42,5 sekunder"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "c",
+│  │       "questionText": "Antag, at gennemsnittet fortsætter med at stige på samme måde. Hvad forventes gennemsnittet at være i uge 10?",
+│  │       "answer": {
+│  │         "value": "75",
+│  │         "unit": "sekunder"
+│  │       },
+│  │       "difficulty": "middel",
+│  │       "points": 2,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Stigning pr. uge: 35 − 30 = 5 sekunder",
+│  │           "mathExpression": "35 - 30",
+│  │           "result": "5 sekunder pr. uge"
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "Fra uge 1 til uge 10 er der 9 intervaller: 9 · 5 = 45",
+│  │           "mathExpression": "9 * 5",
+│  │           "result": "45 sekunder"
+│  │         },
+│  │         {
+│  │           "stepNumber": 3,
+│  │           "description": "Forventet gennemsnit i uge 10: 30 + 45 = 75",
+│  │           "mathExpression": "30 + 45",
+│  │           "result": "75 sekunder"
+│  │         }
+│  │       ]
+│  │     }
+│  │   ],
+│  │   "points": 4,
+│  │   "estimatedTimeSeconds": 240
+│  │ }
+│  └───────────────────────────────────────────────────────────
+└──────────────────────────────────────────────────────────────
+
+┌─ [6/12] BatchTaskGenerator ─ GenerateSingleTask (index=3, difficulty=middel)
+│  Timestamp: 2026-02-22 11.44.37.900 UTC
+│  Duration:  8392ms
+│  Parsed:    1 tasks (success=True)
+│
+│  ┌── INPUT (prompt sent to LLM) ──────────────────────────────
+│  │ [SystemPrompt]
+│  │ Du er en erfaren matematiklærer der skriver FP9 prøveopgaver.
+│  │ 
+│  │ SKRIVESTIL — KORT OG PRÆCIS SOM EN RIGTIG PRØVE:
+│  │ - contextText skal være KORT: 1-3 sætninger der giver scenariet og de nødvendige oplysninger.
+│  │   IKKE en novelle. Tænk på en rigtig FP9-prøve: "Lea vil hækle grydelapper og sælge dem.
+│  │   Hun skal bruge 120 g garn til et par. Et nøgle garn er 50 g og koster 12,95 kr."
+│  │ - Giv information ÉN GANG. Gentag ALDRIG oplysninger i delopgaverne som allerede står i contextText.
+│  │   Eleven skal selv navigere tilbage og finde de tal de har brug for.
+│  │ - Delopgavernes questionText skal være KORTE og DIREKTE: stil spørgsmålet, giv evt. nye tal,
+│  │   færdig. Ingen genfortælling af scenariet.
+│  │ - UNDGÅ at forklare hvad eleven skal gøre ("Skriv dine beregninger", "Vis med udregninger",
+│  │   "Begrund med beregninger"). Stil bare spørgsmålet.
+│  │ - Scenariet skal være REALISTISK og TROVÆRDIGT — ikke kunstigt eller overdrevet kreativt.
+│  │   Gode scenarier er hverdagsagtige: håndværk, madlavning, sport, økonomi, indretning.
+│  │ 
+│  │ DESIGNPROCES — BAGLÆNS DESIGN (SCAFFOLDING):
+│  │ 1. Formuler FØRST den sværeste delopgave — det er MÅLET for hele opgaven.
+│  │ 2. Design derefter de tidligere delopgaver som KONKRETE trin der leder eleven derhen.
+│  │ 3. Scaffoldingen skal være IMPLICIT — opgaveteksten må ALDRIG bede eleven om at
+│  │    "bruge svaret fra a)" eller lignende. Eleven opdager selv sammenhængen.
+│  │ 
+│  │ OPGAVEFORMAT:
+│  │ - Svære opgaver: 1-2 delopgaver
+│  │ - Middel: 2-3 delopgaver
+│  │ - Lette: 3-5 delopgaver
+│  │ - Den SIDSTE delopgave skal ALTID være den sværeste.
+│  │ 
+│  │ MATEMATISKE REGLER:
+│  │ - Beregn svaret FØRST, skriv opgaven EFTER. Dobbelttjek alle beregninger.
+│  │ - Brug pæne tal der giver hele eller simple svar.
+│  │ 
+│  │ Output KUN valid JSON. Ingen markdown, ingen forklaring.
+│  │ 
+│  │ [UserPrompt]
+│  │ Generer ÉN FP9 prøveopgave.
+│  │ 
+│  │ SCENARIE (fra pensum-sampling):
+│  │ Emner: Diagrammer og grafer + Negative tal
+│  │ Idé: En elev vil sammenligne vintervejret de sidste 10 år og henter daglige temperaturer for januar fra DMI, hvor nogle dage har frostgrader. Hun vil både undersøge, hvor ofte temperaturen er under 0 °C, og hvordan gennemsnitstemperaturen har udviklet sig over årene.
+│  │ Kobling: De negative temperaturer bruges i beregninger af fx daglige og månedlige gennemsnit samt forskelle mellem år, og resultaterne organiseres og fortolkes i et linjediagram eller søjlediagram, så sammenhængen mellem frostgrader og udviklingen i vintervejret kan analyseres trin for trin.
+│  │ Opgavetype: stat_soejlediagram
+│  │ Kategori: statistik_og_sandsynlighed
+│  │ 
+│  │ Byg opgaven ud fra dette scenarie. Tilføj konkrete tal så det bliver løsbart.
+│  │ 
+│  │ Krav: med_hjaelpemidler, sværhedsgrad: middel, fokus: varieret
+│  │ 
+│  │ Opgavetyper: tal_ligninger, tal_broeker_og_antal, tal_regnearter, tal_pris_rabat_procent, tal_forholdstalsregning, geo_sammensat_figur, geo_vinkelsum, geo_enhedsomregning, stat_boksplot, stat_sandsynlighed
+│  │ 
+│  │ VIGTIGSTE REGLER FOR TEKST:
+│  │ 1. contextText: KORT — maks 1-3 sætninger med scenarie og nødvendige oplysninger.
+│  │    IKKE en historie. Bare fakta. Se eksemplet nedenfor.
+│  │ 2. questionText i delopgaver: KORT og DIREKTE. Stil spørgsmålet, giv evt. nye tal, færdig.
+│  │    Gentag ALDRIG information fra contextText — eleven finder selv tallene.
+│  │ 3. ALDRIG skriv "Skriv dine beregninger", "Vis med udregninger", "Begrund dit svar" 
+│  │    eller lignende instruktioner. Stil bare spørgsmålet.
+│  │ 4. Scaffolding er IMPLICIT — sig aldrig "brug svaret fra a)".
+│  │ 
+│  │ SVÆRHEDSGRAD PÅ DELOPGAVER:
+│  │ Den SIDSTE delopgave er altid sværest. Rampe: let → middel → svær.
+│  │ 
+│  │ Eksempel (kort og præcist som en rigtig FP9-prøve):
+│  │ {
+│  │   "taskTypeId":"tal_forholdstalsregning",
+│  │   "category":"tal_og_algebra",
+│  │   "difficulty":"middel",
+│  │   "contextText":"Lea vil hækle grydelapper og sælge dem. Hun bruger 120 g garn til et par. Et nøgle garn er 50 g og koster 12,95 kr. 10 nøgler koster 89 kr.",
+│  │   "subQuestions":[
+│  │     {"label":"a","questionText":"Hvor mange nøgler garn skal Lea mindst købe for at hækle ét par grydelapper?","answer":{"value":"3","unit":"nøgler"},"difficulty":"let","points":1,"solutionSteps":[{"stepNumber":1,"description":"120 ÷ 50 = 2,4 → oprund til 3","mathExpression":"120 ÷ 50","result":"3 nøgler"}]},
+│  │     {"label":"b","questionText":"Lea vil hækle 5 par. Hvor mange nøgler skal hun købe?","answer":{"value":"12","unit":"nøgler"},"difficulty":"let","points":1,"solutionSteps":[{"stepNumber":1,"description":"5 · 120 = 600 g","mathExpression":"5 · 120","result":"600 g"},{"stepNumber":2,"description":"600 ÷ 50 = 12","mathExpression":"600 ÷ 50","result":"12 nøgler"}]},
+│  │     {"label":"c","questionText":"Hvad er billigst: 12 nøgler enkeltvis eller en pakke med 10 plus 2 enkelt-nøgler?","answer":{"value":"Pakke+2: 114,90 kr (billigst). Enkeltvis: 155,40 kr.","unit":"kr"},"difficulty":"middel","points":2,"solutionSteps":[{"stepNumber":1,"description":"Enkeltvis: 12 · 12,95 = 155,40 kr","mathExpression":"12 · 12,95","result":"155,40 kr"},{"stepNumber":2,"description":"Pakke+2: 89 + 2 · 12,95 = 114,90 kr","mathExpression":"89 + 25,90","result":"114,90 kr"}]},
+│  │     {"label":"d","questionText":"Lea sælger grydelapperne for 60 kr pr. par. Hvor mange par skal hun sælge for et overskud på ca. 500 kr?","answer":{"value":"Ca. 14 par","unit":""},"difficulty":"svær","points":3,"solutionSteps":[{"stepNumber":1,"description":"Garnpris pr. par (billigst): 114,90 ÷ 5 ≈ 22,98 kr","mathExpression":"114,90 ÷ 5","result":"22,98 kr"},{"stepNumber":2,"description":"Overskud pr. par: 60 − 22,98 ≈ 37 kr","mathExpression":"60 − 22,98","result":"37,02 kr"},{"stepNumber":3,"description":"500 ÷ 37 ≈ 13,5 → ca. 14 par","mathExpression":"500 ÷ 37","result":"≈ 14 par"}]}
+│  │   ],
+│  │   "points":7,
+│  │   "estimatedTimeSeconds":300
+│  │ }
+│  │ 
+│  │ Output: ÉT JSON objekt. KUN JSON, ingen markdown.
+│  └───────────────────────────────────────────────────────────
+│
+│  ┌── OUTPUT (raw LLM response) ───────────────────────────────
+│  │ {
+│  │   "taskTypeId": "stat_soejlediagram",
+│  │   "category": "statistik_og_sandsynlighed",
+│  │   "difficulty": "middel",
+│  │   "contextText": "En elev har fundet gennemsnitstemperaturen for januar for 6 år: 2018: −2 °C, 2019: 0 °C, 2020: 1 °C, 2021: −1 °C, 2022: 2 °C, 2023: −3 °C. Hun vil undersøge frost og udviklingen i vintervejret.",
+│  │   "subQuestions": [
+│  │     {
+│  │       "label": "a",
+│  │       "questionText": "Hvor mange af årene har en gennemsnitstemperatur under 0 °C?",
+│  │       "answer": {
+│  │         "value": "3",
+│  │         "unit": "år"
+│  │       },
+│  │       "difficulty": "let",
+│  │       "points": 1,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "År med temperatur under 0 °C er 2018 (−2), 2021 (−1) og 2023 (−3).",
+│  │           "mathExpression": "",
+│  │           "result": "3 år"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "b",
+│  │       "questionText": "Beregn gennemsnittet af de 6 gennemsnitstemperaturer for januar.",
+│  │       "answer": {
+│  │         "value": "-0,5",
+│  │         "unit": "°C"
+│  │       },
+│  │       "difficulty": "middel",
+│  │       "points": 2,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Læg temperaturerne sammen: −2 + 0 + 1 + (−1) + 2 + (−3) = −3.",
+│  │           "mathExpression": "-2 + 0 + 1 - 1 + 2 - 3",
+│  │           "result": "-3"
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "Divider med 6: −3 ÷ 6 = −0,5.",
+│  │           "mathExpression": "-3 ÷ 6",
+│  │           "result": "-0,5 °C"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "c",
+│  │       "questionText": "Eleven tegner et søjlediagram med år på vandret akse og temperaturer på lodret akse. Hvor stor er forskellen i grader mellem det koldeste og det varmeste år?",
+│  │       "answer": {
+│  │         "value": "5",
+│  │         "unit": "°C"
+│  │       },
+│  │       "difficulty": "svær",
+│  │       "points": 2,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Det koldeste år er −3 °C og det varmeste år er 2 °C.",
+│  │           "mathExpression": "",
+│  │           "result": "koldest: −3 °C, varmest: 2 °C"
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "Forskellen er 2 − (−3) = 2 + 3 = 5.",
+│  │           "mathExpression": "2 - (-3)",
+│  │           "result": "5 °C"
+│  │         }
+│  │       ]
+│  │     }
+│  │   ],
+│  │   "points": 5,
+│  │   "estimatedTimeSeconds": 300
+│  │ }
+│  └───────────────────────────────────────────────────────────
+└──────────────────────────────────────────────────────────────
+
+┌─ [7/12] BatchTaskGenerator ─ GenerateSingleTask (index=5, difficulty=svær)
+│  Timestamp: 2026-02-22 11.44.38.186 UTC
+│  Duration:  8678ms
+│  Parsed:    1 tasks (success=True)
+│
+│  ┌── INPUT (prompt sent to LLM) ──────────────────────────────
+│  │ [SystemPrompt]
+│  │ Du er en erfaren matematiklærer der skriver FP9 prøveopgaver.
+│  │ 
+│  │ SKRIVESTIL — KORT OG PRÆCIS SOM EN RIGTIG PRØVE:
+│  │ - contextText skal være KORT: 1-3 sætninger der giver scenariet og de nødvendige oplysninger.
+│  │   IKKE en novelle. Tænk på en rigtig FP9-prøve: "Lea vil hækle grydelapper og sælge dem.
+│  │   Hun skal bruge 120 g garn til et par. Et nøgle garn er 50 g og koster 12,95 kr."
+│  │ - Giv information ÉN GANG. Gentag ALDRIG oplysninger i delopgaverne som allerede står i contextText.
+│  │   Eleven skal selv navigere tilbage og finde de tal de har brug for.
+│  │ - Delopgavernes questionText skal være KORTE og DIREKTE: stil spørgsmålet, giv evt. nye tal,
+│  │   færdig. Ingen genfortælling af scenariet.
+│  │ - UNDGÅ at forklare hvad eleven skal gøre ("Skriv dine beregninger", "Vis med udregninger",
+│  │   "Begrund med beregninger"). Stil bare spørgsmålet.
+│  │ - Scenariet skal være REALISTISK og TROVÆRDIGT — ikke kunstigt eller overdrevet kreativt.
+│  │   Gode scenarier er hverdagsagtige: håndværk, madlavning, sport, økonomi, indretning.
+│  │ 
+│  │ DESIGNPROCES — BAGLÆNS DESIGN (SCAFFOLDING):
+│  │ 1. Formuler FØRST den sværeste delopgave — det er MÅLET for hele opgaven.
+│  │ 2. Design derefter de tidligere delopgaver som KONKRETE trin der leder eleven derhen.
+│  │ 3. Scaffoldingen skal være IMPLICIT — opgaveteksten må ALDRIG bede eleven om at
+│  │    "bruge svaret fra a)" eller lignende. Eleven opdager selv sammenhængen.
+│  │ 
+│  │ OPGAVEFORMAT:
+│  │ - Svære opgaver: 1-2 delopgaver
+│  │ - Middel: 2-3 delopgaver
+│  │ - Lette: 3-5 delopgaver
+│  │ - Den SIDSTE delopgave skal ALTID være den sværeste.
+│  │ 
+│  │ MATEMATISKE REGLER:
+│  │ - Beregn svaret FØRST, skriv opgaven EFTER. Dobbelttjek alle beregninger.
+│  │ - Brug pæne tal der giver hele eller simple svar.
+│  │ 
+│  │ Output KUN valid JSON. Ingen markdown, ingen forklaring.
+│  │ 
+│  │ [UserPrompt]
+│  │ Generer ÉN FP9 prøveopgave.
+│  │ 
+│  │ SCENARIE (fra pensum-sampling):
+│  │ Emner: Forhold og procentændringer + Tilfældighed og chance
+│  │ Idé: En elev overvejer at købe skrabelodder i en kiosk, hvor der lige nu er kampagne: hvis man køber et bestemt antal lodder, får man en procentvis rabat på den samlede pris, mens gevinsterne og vinderchancerne for de forskellige lodtyper er forskellige. Eleven vil sammenligne, hvordan rabatten påvirker den forventede gevinst pr. krone for de forskellige lodtyper og lodpakker.
+│  │ Kobling: Eleven skal både bruge forhold og procentændringer til at beregne og sammenligne pris pr. lod og procentvis rabat, og samtidig anvende sandsynlighed til at beregne og sammenligne den forventede gevinst (chance for forskellige udfald) pr. betalt krone, så resultaterne fra procent- og forholdsberegningerne direkte indgår i sandsynlighedsmodellen.
+│  │ Opgavetype: stat_sandsynlighed
+│  │ Kategori: statistik_og_sandsynlighed
+│  │ 
+│  │ Byg opgaven ud fra dette scenarie. Tilføj konkrete tal så det bliver løsbart.
+│  │ 
+│  │ Krav: med_hjaelpemidler, sværhedsgrad: svær, fokus: varieret
+│  │ 
+│  │ Opgavetyper: tal_ligninger, tal_broeker_og_antal, tal_regnearter, tal_pris_rabat_procent, tal_forholdstalsregning, geo_sammensat_figur, geo_vinkelsum, geo_enhedsomregning, stat_boksplot, stat_sandsynlighed
+│  │ 
+│  │ VIGTIGSTE REGLER FOR TEKST:
+│  │ 1. contextText: KORT — maks 1-3 sætninger med scenarie og nødvendige oplysninger.
+│  │    IKKE en historie. Bare fakta. Se eksemplet nedenfor.
+│  │ 2. questionText i delopgaver: KORT og DIREKTE. Stil spørgsmålet, giv evt. nye tal, færdig.
+│  │    Gentag ALDRIG information fra contextText — eleven finder selv tallene.
+│  │ 3. ALDRIG skriv "Skriv dine beregninger", "Vis med udregninger", "Begrund dit svar" 
+│  │    eller lignende instruktioner. Stil bare spørgsmålet.
+│  │ 4. Scaffolding er IMPLICIT — sig aldrig "brug svaret fra a)".
+│  │ 
+│  │ SVÆRHEDSGRAD PÅ DELOPGAVER:
+│  │ Den SIDSTE delopgave er altid sværest. Rampe: let → middel → svær.
+│  │ 
+│  │ Eksempel (kort og præcist som en rigtig FP9-prøve):
+│  │ {
+│  │   "taskTypeId":"tal_forholdstalsregning",
+│  │   "category":"tal_og_algebra",
+│  │   "difficulty":"middel",
+│  │   "contextText":"Lea vil hækle grydelapper og sælge dem. Hun bruger 120 g garn til et par. Et nøgle garn er 50 g og koster 12,95 kr. 10 nøgler koster 89 kr.",
+│  │   "subQuestions":[
+│  │     {"label":"a","questionText":"Hvor mange nøgler garn skal Lea mindst købe for at hækle ét par grydelapper?","answer":{"value":"3","unit":"nøgler"},"difficulty":"let","points":1,"solutionSteps":[{"stepNumber":1,"description":"120 ÷ 50 = 2,4 → oprund til 3","mathExpression":"120 ÷ 50","result":"3 nøgler"}]},
+│  │     {"label":"b","questionText":"Lea vil hækle 5 par. Hvor mange nøgler skal hun købe?","answer":{"value":"12","unit":"nøgler"},"difficulty":"let","points":1,"solutionSteps":[{"stepNumber":1,"description":"5 · 120 = 600 g","mathExpression":"5 · 120","result":"600 g"},{"stepNumber":2,"description":"600 ÷ 50 = 12","mathExpression":"600 ÷ 50","result":"12 nøgler"}]},
+│  │     {"label":"c","questionText":"Hvad er billigst: 12 nøgler enkeltvis eller en pakke med 10 plus 2 enkelt-nøgler?","answer":{"value":"Pakke+2: 114,90 kr (billigst). Enkeltvis: 155,40 kr.","unit":"kr"},"difficulty":"middel","points":2,"solutionSteps":[{"stepNumber":1,"description":"Enkeltvis: 12 · 12,95 = 155,40 kr","mathExpression":"12 · 12,95","result":"155,40 kr"},{"stepNumber":2,"description":"Pakke+2: 89 + 2 · 12,95 = 114,90 kr","mathExpression":"89 + 25,90","result":"114,90 kr"}]},
+│  │     {"label":"d","questionText":"Lea sælger grydelapperne for 60 kr pr. par. Hvor mange par skal hun sælge for et overskud på ca. 500 kr?","answer":{"value":"Ca. 14 par","unit":""},"difficulty":"svær","points":3,"solutionSteps":[{"stepNumber":1,"description":"Garnpris pr. par (billigst): 114,90 ÷ 5 ≈ 22,98 kr","mathExpression":"114,90 ÷ 5","result":"22,98 kr"},{"stepNumber":2,"description":"Overskud pr. par: 60 − 22,98 ≈ 37 kr","mathExpression":"60 − 22,98","result":"37,02 kr"},{"stepNumber":3,"description":"500 ÷ 37 ≈ 13,5 → ca. 14 par","mathExpression":"500 ÷ 37","result":"≈ 14 par"}]}
+│  │   ],
+│  │   "points":7,
+│  │   "estimatedTimeSeconds":300
+│  │ }
+│  │ 
+│  │ Output: ÉT JSON objekt. KUN JSON, ingen markdown.
+│  └───────────────────────────────────────────────────────────
+│
+│  ┌── OUTPUT (raw LLM response) ───────────────────────────────
+│  │ {
+│  │   "taskTypeId": "stat_sandsynlighed",
+│  │   "category": "statistik_og_sandsynlighed",
+│  │   "difficulty": "svær",
+│  │   "contextText": "I en kiosk kan man købe skrabelod A til 20 kr og skrabelod B til 40 kr. På lod A er der 1 ud af 10 med gevinst på 50 kr. På lod B er der 1 ud af 20 med gevinst på 200 kr. Ved køb af 5 lodder af samme type gives 10 % rabat på den samlede pris.",
+│  │   "subQuestions": [
+│  │     {
+│  │       "label": "a",
+│  │       "questionText": "Hvad er den forventede gevinst pr. lod for type A?",
+│  │       "answer": {
+│  │         "value": "5",
+│  │         "unit": "kr pr. lod"
+│  │       },
+│  │       "difficulty": "let",
+│  │       "points": 2,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Sandsynlighed for gevinst: 1/10. Forventet gevinst = 1/10 · 50 kr.",
+│  │           "mathExpression": "50 · 1/10",
+│  │           "result": "5 kr pr. lod"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "b",
+│  │       "questionText": "Hvad er den forventede gevinst pr. krone for lod A?",
+│  │       "answer": {
+│  │         "value": "0,25",
+│  │         "unit": "kr pr. krone"
+│  │       },
+│  │       "difficulty": "middel",
+│  │       "points": 2,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Pris pr. lod A er 20 kr, forventet gevinst pr. lod er 5 kr.",
+│  │           "mathExpression": "5 ÷ 20",
+│  │           "result": "0,25 kr pr. krone"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "c",
+│  │       "questionText": "Hvad er den forventede gevinst pr. krone for lod B?",
+│  │       "answer": {
+│  │         "value": "0,25",
+│  │         "unit": "kr pr. krone"
+│  │       },
+│  │       "difficulty": "middel",
+│  │       "points": 2,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Sandsynlighed for gevinst på B er 1/20, gevinst er 200 kr.",
+│  │           "mathExpression": "200 · 1/20",
+│  │           "result": "10 kr pr. lod"
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "Pris pr. lod B er 40 kr.",
+│  │           "mathExpression": "10 ÷ 40",
+│  │           "result": "0,25 kr pr. krone"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "d",
+│  │       "questionText": "Ved køb af 5 lodder af samme type: Hvad er den nye forventede gevinst pr. krone for lod A med rabat?",
+│  │       "answer": {
+│  │         "value": "ca. 0,28",
+│  │         "unit": "kr pr. krone"
+│  │       },
+│  │       "difficulty": "svær",
+│  │       "points": 3,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Normal pris for 5 lodder A: 5 · 20 kr.",
+│  │           "mathExpression": "5 · 20",
+│  │           "result": "100 kr"
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "10 % rabat på 100 kr er 10 kr, så pris med rabat er 90 kr.",
+│  │           "mathExpression": "100 − 0,10 · 100",
+│  │           "result": "90 kr"
+│  │         },
+│  │         {
+│  │           "stepNumber": 3,
+│  │           "description": "Forventet gevinst for 5 lodder: 5 · 5 kr.",
+│  │           "mathExpression": "5 · 5",
+│  │           "result": "25 kr"
+│  │         },
+│  │         {
+│  │           "stepNumber": 4,
+│  │           "description": "Forventet gevinst pr. krone med rabat: 25 ÷ 90.",
+│  │           "mathExpression": "25 ÷ 90",
+│  │           "result": "≈ 0,28 kr pr. krone"
+│  │         }
+│  │       ]
+│  │     }
+│  │   ],
+│  │   "points": 9,
+│  │   "estimatedTimeSeconds": 420
+│  │ }
+│  └───────────────────────────────────────────────────────────
+└──────────────────────────────────────────────────────────────
+
+┌─ [8/12] VisualizationAgent ─ CreateVisualizations (count=5)
+│  Timestamp: 2026-02-22 11.44.41.021 UTC
+│  Duration:  2835ms
+│
+│  ┌── INPUT (prompt sent to LLM) ──────────────────────────────
+│  │ Tasks requiring visualization: stat_soejlediagram, tal_pris_rabat_procent, stat_soejlediagram, stat_soejlediagram, stat_sandsynlighed
+│  └───────────────────────────────────────────────────────────
+│
+│  ┌── OUTPUT (raw LLM response) ───────────────────────────────
+│  │ Completed 5 visualizations
+│  └───────────────────────────────────────────────────────────
+└──────────────────────────────────────────────────────────────
+
+┌─ [9/12] GeminiImageGenerationAgent ─ GenerateImage (task 4: b253e3b6-c4cb-4050-a5de-b6f1b0675132)
+│  Timestamp: 2026-02-22 11.44.54.470 UTC
+│  Duration:  17615ms
+│
+│  ┌── INPUT (prompt sent to LLM) ──────────────────────────────
+│  │ You are generating an illustration for a Danish math exam task (FP9 level, age 15-16).
+│  │ The image must help the student understand the problem by showing the key information visually.
+│  │ 
+│  │ ABSOLUTE RULES — FOLLOW EXACTLY:
+│  │ 
+│  │ 1. ACCURACY IS EVERYTHING:
+│  │    - Include ONLY information that appears in the task text below.
+│  │    - Every number, label, name, and unit must match the task text EXACTLY.
+│  │    - Do NOT invent, add, or change ANY values. Do NOT add extra items, extra prices,
+│  │      extra labels, or any information not explicitly written in the task.
+│  │    - If the task says "6 m bredt og 4 m dybt" then the image must show exactly 6 m and 4 m.
+│  │    - This is a math exam — wrong numbers will cause students to get wrong answers.
+│  │ 
+│  │ 2. VISUAL STYLE:
+│  │    - Clean, professional illustration style — like a high-quality math textbook figure.
+│  │    - White or very light background. No busy patterns or textures.
+│  │    - Bold, clean lines. High contrast. Easy to read at a glance.
+│  │    - All text in Danish. Use æ, ø, å correctly.
+│  │    - Numbers and labels must be LARGE and PERFECTLY READABLE (minimum 16pt equivalent).
+│  │    - Use a clean sans-serif font style for all text.
+│  │    - Use 3-5 flat, distinct colors maximum. No gradients, no shadows, no 3D effects.
+│  │ 
+│  │ 3. COMPOSITION:
+│  │    - Landscape orientation (roughly 4:3 aspect ratio).
+│  │    - The subject should fill 70-80% of the frame. No wasted space.
+│  │    - No decorative borders, watermarks, or unnecessary ornaments.
+│  │    - No people or characters unless the task specifically requires showing them.
+│  │ 
+│  │ ═══════════════════════════════════════
+│  │ TASK TEXT (this is ALL the information that exists — depict ONLY this):
+│  │ ═══════════════════════════════════════
+│  │ 
+│  │ Context: En 9.-klasse har lavet 4 logoer til deres klasse-T-shirt. Logo A har kun spejling, logo B har kun rotation, logo C har både spejling og rotation, og logo D har ingen symmetri. Klassen stemmer, og resultaterne ses i tabellen: A: 6 stemmer, B: 9 stemmer, C: 15 stemmer, D: 0 stemmer.
+│  │ 
+│  │   a) Hvor mange elever har i alt stemt?
+│  │   b) Hvor stor en andel af stemmerne fik logo C?
+│  │   c) Hvad er sandsynligheden for at en tilfældigt valgt stemme er givet til et logo med mindst én type symmetri?
+│  │ 
+│  │ ═══════════════════════════════════════
+│  │ IMAGE DESCRIPTION — what to draw:
+│  │ ═══════════════════════════════════════
+│  │ 
+│  │ Draw a clean DATA TABLE or SCOREBOARD showing the information from this task.
+│  │ 
+│  │ STYLE:
+│  │   - Clean table with bold headers and clear cell borders.
+│  │   - Alternating light row colors (white and very light gray) for readability.
+│  │   - Bold, large text in all cells. Numbers especially must be very clear.
+│  │   - Include units in the header row where applicable.
+│  │   - If it's a scoreboard, use a sporty but clean design.
+│  │ 
+│  │ EXACT TEXT TO BASE THE TABLE ON:
+│  │ "En 9.-klasse har lavet 4 logoer til deres klasse-T-shirt. Logo A har kun spejling, logo B har kun rotation, logo C har både spejling og rotation, og logo D har ingen symmetri. Klassen stemmer, og resultaterne ses i tabellen: A: 6 stemmer, B: 9 stemmer, C: 15 stemmer, D: 0 stemmer.
+│  │ Hvor mange elever har i alt stemt?
+│  │ Hvor stor en andel af stemmerne fik logo C?
+│  │ Hvad er sandsynligheden for at en tilfældigt valgt stemme er givet til et logo med mindst én type symmetri?
+│  │ "
+│  │ 
+│  │ Extract ALL data points from the text above and display them in the table.
+│  │ Include ONLY data that appears in the text. Do NOT add extra rows or columns.
+│  │ 
+│  │ ═══════════════════════════════════════
+│  │ FINAL CHECKLIST — verify before generating:
+│  │ ═══════════════════════════════════════
+│  │ 
+│  │ ✓ Every number in the image matches the task text exactly
+│  │ ✓ No extra items, labels, or data that aren't in the task
+│  │ ✓ All text is in Danish with correct æ, ø, å
+│  │ ✓ Labels and numbers are large, bold, and easy to read
+│  │ ✓ Clean white/light background, no clutter
+│  │ ✓ No people or characters (unless specifically needed)
+│  │ ✓ Landscape orientation, subject fills the frame
+│  │ 
+│  │ Generate ONLY the image. No text response needed.
+│  │ 
+│  └───────────────────────────────────────────────────────────
+│
+│  ┌── OUTPUT (raw LLM response) ───────────────────────────────
+│  │ Generated b253e3b6-c4cb-4050-a5de-b6f1b0675132.png
+│  └───────────────────────────────────────────────────────────
+└──────────────────────────────────────────────────────────────
+
+┌─ [10/12] GeminiImageGenerationAgent ─ GenerateImage (task 2: df2fa4b2-f011-47a3-a922-891f7b070aa6)
+│  Timestamp: 2026-02-22 11.44.54.514 UTC
+│  Duration:  19087ms
+│
+│  ┌── INPUT (prompt sent to LLM) ──────────────────────────────
+│  │ You are generating an illustration for a Danish math exam task (FP9 level, age 15-16).
+│  │ The image must help the student understand the problem by showing the key information visually.
+│  │ 
+│  │ ABSOLUTE RULES — FOLLOW EXACTLY:
+│  │ 
+│  │ 1. ACCURACY IS EVERYTHING:
+│  │    - Include ONLY information that appears in the task text below.
+│  │    - Every number, label, name, and unit must match the task text EXACTLY.
+│  │    - Do NOT invent, add, or change ANY values. Do NOT add extra items, extra prices,
+│  │      extra labels, or any information not explicitly written in the task.
+│  │    - If the task says "6 m bredt og 4 m dybt" then the image must show exactly 6 m and 4 m.
+│  │    - This is a math exam — wrong numbers will cause students to get wrong answers.
+│  │ 
+│  │ 2. VISUAL STYLE:
+│  │    - Clean, professional illustration style — like a high-quality math textbook figure.
+│  │    - White or very light background. No busy patterns or textures.
+│  │    - Bold, clean lines. High contrast. Easy to read at a glance.
+│  │    - All text in Danish. Use æ, ø, å correctly.
+│  │    - Numbers and labels must be LARGE and PERFECTLY READABLE (minimum 16pt equivalent).
+│  │    - Use a clean sans-serif font style for all text.
+│  │    - Use 3-5 flat, distinct colors maximum. No gradients, no shadows, no 3D effects.
+│  │ 
+│  │ 3. COMPOSITION:
+│  │    - Landscape orientation (roughly 4:3 aspect ratio).
+│  │    - The subject should fill 70-80% of the frame. No wasted space.
+│  │    - No decorative borders, watermarks, or unnecessary ornaments.
+│  │    - No people or characters unless the task specifically requires showing them.
+│  │ 
+│  │ ═══════════════════════════════════════
+│  │ TASK TEXT (this is ALL the information that exists — depict ONLY this):
+│  │ ═══════════════════════════════════════
+│  │ 
+│  │ Context: Et tøjfirma sælger en hoodie til normalpris 400 kr. I en reklame står der: "80 % af kunderne elsker vores nye hoodie – nu med 30 % rabat". Under reklamen står med småt, at undersøgelsen bygger på svar fra 25 kunder.
+│  │ 
+│  │   a) Hvad er rabatten i kroner?
+│  │   b) Hvad er tilbudsprisen på hoodien?
+│  │   c) Hvor mange kunder svarer 80 % til, når 25 kunder har svaret?
+│  │   d) Forklar kort én grund til, at tallet "80 % af kunderne" kan være misvisende.
+│  │ 
+│  │ ═══════════════════════════════════════
+│  │ IMAGE DESCRIPTION — what to draw:
+│  │ ═══════════════════════════════════════
+│  │ 
+│  │ Draw the PHYSICAL OBJECTS described in this probability task.
+│  │ Show them clearly so the student can see exactly what they're working with.
+│  │ 
+│  │ LAYOUT:
+│  │   - Show a container (bag, bowl, box — whatever the task describes) in the center.
+│  │   - Arrange ALL the objects visibly — either spread out next to the container,
+│  │     or visible inside a transparent/open container.
+│  │   - Each object must be clearly the correct COLOR as described.
+│  │   - Objects should be clearly countable — the student should be able to count them.
+│  │   - Add a small label or legend showing: "5 røde, 3 blå, 2 grønne" (matching the task).
+│  │   - Objects should be simple, uniform shapes (circles/spheres for balls, etc.).
+│  │   - Group objects by color for easy counting.
+│  │ 
+│  │ EXACT TEXT TO BASE THE IMAGE ON:
+│  │ "Et tøjfirma sælger en hoodie til normalpris 400 kr. I en reklame står der: "80 % af kunderne elsker vores nye hoodie – nu med 30 % rabat". Under reklamen står med småt, at undersøgelsen bygger på svar fra 25 kunder.
+│  │ Hvad er rabatten i kroner?
+│  │ Hvad er tilbudsprisen på hoodien?
+│  │ Hvor mange kunder svarer 80 % til, når 25 kunder har svaret?
+│  │ Forklar kort én grund til, at tallet "80 % af kunderne" kan være misvisende.
+│  │ "
+│  │ 
+│  │ ═══════════════════════════════════════
+│  │ FINAL CHECKLIST — verify before generating:
+│  │ ═══════════════════════════════════════
+│  │ 
+│  │ ✓ Every number in the image matches the task text exactly
+│  │ ✓ No extra items, labels, or data that aren't in the task
+│  │ ✓ All text is in Danish with correct æ, ø, å
+│  │ ✓ Labels and numbers are large, bold, and easy to read
+│  │ ✓ Clean white/light background, no clutter
+│  │ ✓ No people or characters (unless specifically needed)
+│  │ ✓ Landscape orientation, subject fills the frame
+│  │ 
+│  │ Generate ONLY the image. No text response needed.
+│  │ 
+│  └───────────────────────────────────────────────────────────
+│
+│  ┌── OUTPUT (raw LLM response) ───────────────────────────────
+│  │ Generated df2fa4b2-f011-47a3-a922-891f7b070aa6.png
+│  └───────────────────────────────────────────────────────────
+└──────────────────────────────────────────────────────────────
+
+┌─ [11/12] GeminiImageGenerationAgent ─ GenerateImage (task 5: 1cc9498c-a227-4fc5-bc8d-8652d4104202)
+│  Timestamp: 2026-02-22 11.44.56.070 UTC
+│  Duration:  17884ms
+│
+│  ┌── INPUT (prompt sent to LLM) ──────────────────────────────
+│  │ You are generating an illustration for a Danish math exam task (FP9 level, age 15-16).
+│  │ The image must help the student understand the problem by showing the key information visually.
+│  │ 
+│  │ ABSOLUTE RULES — FOLLOW EXACTLY:
+│  │ 
+│  │ 1. ACCURACY IS EVERYTHING:
+│  │    - Include ONLY information that appears in the task text below.
+│  │    - Every number, label, name, and unit must match the task text EXACTLY.
+│  │    - Do NOT invent, add, or change ANY values. Do NOT add extra items, extra prices,
+│  │      extra labels, or any information not explicitly written in the task.
+│  │    - If the task says "6 m bredt og 4 m dybt" then the image must show exactly 6 m and 4 m.
+│  │    - This is a math exam — wrong numbers will cause students to get wrong answers.
+│  │ 
+│  │ 2. VISUAL STYLE:
+│  │    - Clean, professional illustration style — like a high-quality math textbook figure.
+│  │    - White or very light background. No busy patterns or textures.
+│  │    - Bold, clean lines. High contrast. Easy to read at a glance.
+│  │    - All text in Danish. Use æ, ø, å correctly.
+│  │    - Numbers and labels must be LARGE and PERFECTLY READABLE (minimum 16pt equivalent).
+│  │    - Use a clean sans-serif font style for all text.
+│  │    - Use 3-5 flat, distinct colors maximum. No gradients, no shadows, no 3D effects.
+│  │ 
+│  │ 3. COMPOSITION:
+│  │    - Landscape orientation (roughly 4:3 aspect ratio).
+│  │    - The subject should fill 70-80% of the frame. No wasted space.
+│  │    - No decorative borders, watermarks, or unnecessary ornaments.
+│  │    - No people or characters unless the task specifically requires showing them.
+│  │ 
+│  │ ═══════════════════════════════════════
+│  │ TASK TEXT (this is ALL the information that exists — depict ONLY this):
+│  │ ═══════════════════════════════════════
+│  │ 
+│  │ Context: I en kiosk kan man købe skrabelod A til 20 kr og skrabelod B til 40 kr. På lod A er der 1 ud af 10 med gevinst på 50 kr. På lod B er der 1 ud af 20 med gevinst på 200 kr. Ved køb af 5 lodder af samme type gives 10 % rabat på den samlede pris.
+│  │ 
+│  │   a) Hvad er den forventede gevinst pr. lod for type A?
+│  │   b) Hvad er den forventede gevinst pr. krone for lod A?
+│  │   c) Hvad er den forventede gevinst pr. krone for lod B?
+│  │   d) Ved køb af 5 lodder af samme type: Hvad er den nye forventede gevinst pr. krone for lod A med rabat?
+│  │ 
+│  │ ═══════════════════════════════════════
+│  │ IMAGE DESCRIPTION — what to draw:
+│  │ ═══════════════════════════════════════
+│  │ 
+│  │ Draw a PRICE DISPLAY showing the items and prices from this task.
+│  │ 
+│  │ Items and prices to display:
+│  │   • Kiosk kan man købe skrabelod A: 20 kr
+│  │   • Skrabelod B: 40 kr.
+│  │ 
+│  │ FORMAT: A clean PRICE LIST or INFO SIGN showing the items and their prices.
+│  │   - Simple, organized layout. Each item clearly labeled with its price.
+│  │ 
+│  │ DISCOUNT/OFFER: The task mentions a discount or offer.
+│  │ If a specific percentage is mentioned, show it as a small banner or sticker
+│  │ on the sign (e.g. "25% RABAT" or "TILBUD"). Only show discounts explicitly
+│  │ mentioned in the task text.
+│  │ 
+│  │ EXACT TEXT TO BASE THE IMAGE ON:
+│  │ "I en kiosk kan man købe skrabelod A til 20 kr og skrabelod B til 40 kr. På lod A er der 1 ud af 10 med gevinst på 50 kr. På lod B er der 1 ud af 20 med gevinst på 200 kr. Ved køb af 5 lodder af samme type gives 10 % rabat på den samlede pris.
+│  │ Hvad er den forventede gevinst pr. lod for type A?
+│  │ Hvad er den forventede gevinst pr. krone for lod A?
+│  │ Hvad er den forventede gevinst pr. krone for lod B?
+│  │ Ved køb af 5 lodder af samme type: Hvad er den nye forventede gevinst pr. krone for lod A med raba..."
+│  │ 
+│  │ ═══════════════════════════════════════
+│  │ FINAL CHECKLIST — verify before generating:
+│  │ ═══════════════════════════════════════
+│  │ 
+│  │ ✓ Every number in the image matches the task text exactly
+│  │ ✓ No extra items, labels, or data that aren't in the task
+│  │ ✓ All text is in Danish with correct æ, ø, å
+│  │ ✓ Labels and numbers are large, bold, and easy to read
+│  │ ✓ Clean white/light background, no clutter
+│  │ ✓ No people or characters (unless specifically needed)
+│  │ ✓ Landscape orientation, subject fills the frame
+│  │ 
+│  │ Generate ONLY the image. No text response needed.
+│  │ 
+│  └───────────────────────────────────────────────────────────
+│
+│  ┌── OUTPUT (raw LLM response) ───────────────────────────────
+│  │ Generated 1cc9498c-a227-4fc5-bc8d-8652d4104202.png
+│  └───────────────────────────────────────────────────────────
+└──────────────────────────────────────────────────────────────
+
+┌─ [12/12] GeminiImageGenerationAgent ─ GenerateImages (count=3)
+│  Timestamp: 2026-02-22 11.44.56.070 UTC
+│  Duration:  26567ms
+│
+│  ┌── INPUT (prompt sent to LLM) ──────────────────────────────
+│  │ Images generated in parallel with tasks
+│  └───────────────────────────────────────────────────────────
+│
+│  ┌── OUTPUT (raw LLM response) ───────────────────────────────
+│  │ Completed 3/3 images
+│  └───────────────────────────────────────────────────────────
+└──────────────────────────────────────────────────────────────
+
+══════════════════════════════════════════════════════════════════
+  GENERATED TASKS SUMMARY
+══════════════════════════════════════════════════════════════════
+
+  Task 1: [stat_soejlediagram] (let)
+    Category: statistik_og_sandsynlighed
+    Context:  En 9. klasse laver en ugentlig planke-challenge. I de første 6 uger måler de hver fredag, hvor mange sekunder hver elev kan holde planken, og de beregner klassens gennemsnitstid for hver uge: 30, 35, 40, 45, 50 og 55 sekunder.
+    Points:   4
+    Viz:      chart
+    a) Hvad er forskellen i sekunder mellem gennemsnittet i uge 1 og uge 6?
+       Answer: 25 sekunder
+    b) Hvad er medianen af de 6 ugers gennemsnitstider?
+       Answer: 42,5 sekunder
+    c) Antag, at gennemsnittet fortsætter med at stige på samme måde. Hvad forventes gennemsnittet at være i uge 10?
+       Answer: 75 sekunder
+
+  Task 2: [tal_pris_rabat_procent] (let)
+    Category: statistik_og_sandsynlighed
+    Context:  Et tøjfirma sælger en hoodie til normalpris 400 kr. I en reklame står der: "80 % af kunderne elsker vores nye hoodie – nu med 30 % rabat". Under reklamen står med småt, at undersøgelsen bygger på svar fra 25 kunder.
+    Points:   6
+    Image:    /api/terminsprover/2026-02-22_11-44-24_5285af97-6ce3-4db3-90db-fd6cf4202a9e/images/df2fa4b2-f011-47a3-a922-891f7b070aa6.png
+    Viz:      chart
+    a) Hvad er rabatten i kroner?
+       Answer: 120 kr
+    b) Hvad er tilbudsprisen på hoodien?
+       Answer: 280 kr
+    c) Hvor mange kunder svarer 80 % til, når 25 kunder har svaret?
+       Answer: 20 kunder
+    d) Forklar kort én grund til, at tallet "80 % af kunderne" kan være misvisende.
+       Answer: Fx at kun 25 kunder har svaret, så stikprøven er lille, eller at det måske kun er meget tilfredse kunder, der har valgt at svare, så resultatet ikke viser alle kunders mening. 
+
+  Task 3: [stat_soejlediagram] (middel)
+    Category: statistik_og_sandsynlighed
+    Context:  En elev har fundet gennemsnitstemperaturen for januar for 6 år: 2018: −2 °C, 2019: 0 °C, 2020: 1 °C, 2021: −1 °C, 2022: 2 °C, 2023: −3 °C. Hun vil undersøge frost og udviklingen i vintervejret.
+    Points:   5
+    Viz:      chart
+    a) Hvor mange af årene har en gennemsnitstemperatur under 0 °C?
+       Answer: 3 år
+    b) Beregn gennemsnittet af de 6 gennemsnitstemperaturer for januar.
+       Answer: -0,5 °C
+    c) Eleven tegner et søjlediagram med år på vandret akse og temperaturer på lodret akse. Hvor stor er forskellen i grader mellem det koldeste og det varmeste år?
+       Answer: 5 °C
+
+  Task 4: [stat_soejlediagram] (middel)
+    Category: statistik_og_sandsynlighed
+    Context:  En 9.-klasse har lavet 4 logoer til deres klasse-T-shirt. Logo A har kun spejling, logo B har kun rotation, logo C har både spejling og rotation, og logo D har ingen symmetri. Klassen stemmer, og resultaterne ses i tabellen: A: 6 stemmer, B: 9 stemmer, C: 15 stemmer, D: 0 stemmer.
+    Points:   5
+    Image:    /api/terminsprover/2026-02-22_11-44-24_5285af97-6ce3-4db3-90db-fd6cf4202a9e/images/b253e3b6-c4cb-4050-a5de-b6f1b0675132.png
+    Viz:      chart
+    a) Hvor mange elever har i alt stemt?
+       Answer: 30 elever
+    b) Hvor stor en andel af stemmerne fik logo C?
+       Answer: 1/2 af stemmerne
+    c) Hvad er sandsynligheden for at en tilfældigt valgt stemme er givet til et logo med mindst én type symmetri?
+       Answer: 1 
+
+  Task 5: [stat_sandsynlighed] (svær)
+    Category: statistik_og_sandsynlighed
+    Context:  I en kiosk kan man købe skrabelod A til 20 kr og skrabelod B til 40 kr. På lod A er der 1 ud af 10 med gevinst på 50 kr. På lod B er der 1 ud af 20 med gevinst på 200 kr. Ved køb af 5 lodder af samme type gives 10 % rabat på den samlede pris.
+    Points:   9
+    Image:    /api/terminsprover/2026-02-22_11-44-24_5285af97-6ce3-4db3-90db-fd6cf4202a9e/images/1cc9498c-a227-4fc5-bc8d-8652d4104202.png
+    Viz:      chart
+    a) Hvad er den forventede gevinst pr. lod for type A?
+       Answer: 5 kr pr. lod
+    b) Hvad er den forventede gevinst pr. krone for lod A?
+       Answer: 0,25 kr pr. krone
+    c) Hvad er den forventede gevinst pr. krone for lod B?
+       Answer: 0,25 kr pr. krone
+    d) Ved køb af 5 lodder af samme type: Hvad er den nye forventede gevinst pr. krone for lod A med rabat?
+       Answer: ca. 0,28 kr pr. krone
+
+──────────────────────────────────────────────────────────────────
+  STATISTICS
+──────────────────────────────────────────────────────────────────
+  Categories:
+    statistik_og_sandsynlighed: 5
+  Difficulty:
+    let: 2
+    middel: 2
+    svær: 1
+  Regenerated tasks: 0
+
+═══════════════════════════════════════════════════════════════ END

@@ -19,7 +19,11 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost")
+        policy.SetIsOriginAllowed(origin =>
+            {
+                var host = new Uri(origin).Host;
+                return host == "localhost" || host.EndsWith(".scw.cloud");
+            })
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials();
@@ -88,14 +92,20 @@ builder.Services.AddSingleton<Kernel>(provider =>
     return kernelBuilder.Build();
 });
 
+// Curriculum sampler — loads FP9 pensum and samples random topic pairs for diverse task generation
+var curriculumYamlPath = Path.Combine(builder.Environment.ContentRootPath, 
+    builder.Configuration["DataSettings:CurriculumPath"] ?? "../../curriculum/fp9-curriculum.yaml");
+builder.Services.AddSingleton<ICurriculumSampler>(new CurriculumSampler(curriculumYamlPath));
+Console.WriteLine($"📚 Curriculum loaded from: {curriculumYamlPath}");
+
 // Register Agents - both legacy and optimized
 builder.Services.AddScoped<IBrainstormAgent, BrainstormAgent>();
 builder.Services.AddScoped<IFormatterAgent, FormatterAgent>();
 builder.Services.AddScoped<IValidatorAgent, ValidatorAgent>();
 builder.Services.AddScoped<IVisualizationAgent, VisualizationAgent>();
+builder.Services.AddScoped<ITopicBrainstormAgent, TopicBrainstormAgent>();
 
 // Image generation agent (Gemini)
-var imageOutputPath = Path.Combine(dataRoot, "generated-images");
 builder.Services.AddHttpClient("GeminiImageGeneration", client =>
 {
     client.Timeout = TimeSpan.FromSeconds(120);
@@ -105,13 +115,12 @@ builder.Services.AddScoped<IImageGenerationAgent>(provider =>
     var httpClientFactory = provider.GetRequiredService<IHttpClientFactory>();
     var httpClient = httpClientFactory.CreateClient("GeminiImageGeneration");
     var logger = provider.GetRequiredService<ILogger<GeminiImageGenerationAgent>>();
-    return new GeminiImageGenerationAgent(httpClient, agentConfig, imageOutputPath, logger);
+    return new GeminiImageGenerationAgent(httpClient, agentConfig, logger);
 });
 
 if (agentConfig.ImageGenerationEnabled)
 {
     Console.WriteLine($"🎨 Image generation ENABLED (Gemini {agentConfig.GeminiModelId})");
-    Console.WriteLine($"   Images saved to: {imageOutputPath}");
 }
 
 // Fast mode (default) - uses batch generation for 3-5x speed improvement
@@ -141,12 +150,13 @@ app.UseHttpsRedirection();
 app.UseCors("AllowFrontend");
 app.UseAuthorization();
 
-// Serve generated images as static files at /api/images/{filename}
-Directory.CreateDirectory(imageOutputPath);
+// Serve terminsprøve content (images, etc.) as static files at /api/terminsprover/{folderName}/images/{file}
+var terminsproverPath = Path.Combine(dataRoot, "terminsprover");
+Directory.CreateDirectory(terminsproverPath);
 app.UseStaticFiles(new StaticFileOptions
 {
-    FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(imageOutputPath),
-    RequestPath = "/api/images"
+    FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(terminsproverPath),
+    RequestPath = "/api/terminsprover"
 });
 
 app.MapControllers();

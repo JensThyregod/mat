@@ -6,6 +6,7 @@ import { useStore } from '../stores/storeProvider'
 import { GlassCard, InteractiveCard } from '../components/GlassCard'
 import { ProgressRing } from '../components/ProgressRing'
 import { PageTransition } from '../components/animation'
+import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import './DashboardView.css'
 
 // Animation variants
@@ -68,6 +69,7 @@ const CATEGORY_PROGRESS = [
 ]
 
 export const DashboardView = observer(() => {
+  useDocumentTitle('Hjem')
   const { authStore, taskStore } = useStore()
   const studentName = authStore.student?.name ?? 'Elev'
   

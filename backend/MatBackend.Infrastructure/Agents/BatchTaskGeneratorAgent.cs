@@ -22,28 +22,38 @@ public class BatchTaskGeneratorAgent : BaseSemanticKernelAgent, IBatchTaskGenera
     public const int DefaultBatchSize = 5;
     
     protected override string SystemPrompt => """
-        Du er en kreativ og erfaren matematiklærer der skriver engagerende FP9 prøveopgaver.
-        Du er kendt for at lave opgaver der føles som små historier — eleverne skal leve sig ind i scenariet.
+        Du er en erfaren matematiklærer der skriver FP9 prøveopgaver.
         
-        STIL OG KREATIVITET:
-        - Hver opgave er en MINI-HISTORIE med en levende kontekst. Brug navne, steder, situationer.
-        - contextText sætter scenen med detaljer: "Amalie og hendes klasse er på tur til Tivoli. De har 500 kr til forlystelser og mad."
-        - Hver delopgave BYGGER VIDERE på historien og tilføjer NY INFORMATION eller et nyt twist.
-          Eksempel: a) handler om billetpriser, b) tilføjer "De køber også 3 hotdogs til 35 kr stykket", 
-          c) tilføjer "Amalie finder en kupon der giver 15% rabat på mad", d) spørger om de har råd til en ekstra tur.
-        - Delopgaverne skal IKKE bare være "beregn det samme på en sværere måde" — de skal UDVIDE historien.
-        - Brug konkrete danske navne (Sofie, Magnus, Freja, Oliver), steder (Roskilde, Aarhus, Legoland), 
-          og situationer (klassefest, skoletur, sportsdag, bageprojekt, loppemarked, cykeltur).
+        SKRIVESTIL — KORT OG PRÆCIS SOM EN RIGTIG PRØVE:
+        - contextText skal være KORT: 1-3 sætninger der giver scenariet og de nødvendige oplysninger.
+          IKKE en novelle. Tænk på en rigtig FP9-prøve: "Lea vil hækle grydelapper og sælge dem.
+          Hun skal bruge 120 g garn til et par. Et nøgle garn er 50 g og koster 12,95 kr."
+        - Giv information ÉN GANG. Gentag ALDRIG oplysninger i delopgaverne som allerede står i contextText.
+          Eleven skal selv navigere tilbage og finde de tal de har brug for.
+        - Delopgavernes questionText skal være KORTE og DIREKTE: stil spørgsmålet, giv evt. nye tal,
+          færdig. Ingen genfortælling af scenariet.
+        - UNDGÅ at forklare hvad eleven skal gøre ("Skriv dine beregninger", "Vis med udregninger",
+          "Begrund med beregninger"). Stil bare spørgsmålet.
+        - Scenariet skal være REALISTISK og TROVÆRDIGT — ikke kunstigt eller overdrevet kreativt.
+          Gode scenarier er hverdagsagtige: håndværk, madlavning, sport, økonomi, indretning.
+        
+        DESIGNPROCES — BAGLÆNS DESIGN (SCAFFOLDING):
+        1. Formuler FØRST den sværeste delopgave — det er MÅLET for hele opgaven.
+        2. Design derefter de tidligere delopgaver som KONKRETE trin der leder eleven derhen.
+        3. Scaffoldingen skal være IMPLICIT — opgaveteksten må ALDRIG bede eleven om at
+           "bruge svaret fra a)" eller lignende. Eleven opdager selv sammenhængen.
         
         OPGAVEFORMAT:
-        - Svære opgaver: 1 delopgave (opgaven er kompleks nok i sig selv)
-        - Middel opgaver: 2-3 delopgaver  
-        - Lette opgaver: 3-4 delopgaver
-        - Delopgaverne bliver PROGRESSIVT sværere (a=let → d=svær)
+        - Svære opgaver: 1-2 delopgaver
+        - Middel: 2-3 delopgaver
+        - Lette: 3-5 delopgaver
+        - Den SIDSTE delopgave skal ALTID være den sværeste.
         
-        VIGTIGT: Beregn svaret FØRST, skriv opgaven EFTER. Dobbelttjek alle beregninger.
+        MATEMATISKE REGLER:
+        - Beregn svaret FØRST, skriv opgaven EFTER. Dobbelttjek alle beregninger.
+        - Brug pæne tal der giver hele eller simple svar.
         
-        Output KUN valid JSON array. Ingen markdown, ingen forklaring.
+        Output KUN valid JSON. Ingen markdown, ingen forklaring.
         """;
     
     public BatchTaskGeneratorAgent(
@@ -101,6 +111,170 @@ public class BatchTaskGeneratorAgent : BaseSemanticKernelAgent, IBatchTaskGenera
         return result.Tasks;
     }
     
+    /// <summary>
+    /// Generate a single complete task in one dedicated LLM call.
+    /// Gives the model full token budget for one high-quality scaffolded task.
+    /// </summary>
+    public async Task<SingleTaskGenerationResult> GenerateSingleTaskWithLogAsync(
+        SingleTaskGenerationRequest request,
+        CancellationToken cancellationToken = default)
+    {
+        Logger.LogInformation("Generating single task #{Index} (difficulty={Difficulty})", 
+            request.TaskIndex, request.Difficulty);
+        
+        var prompt = BuildSingleTaskPrompt(request);
+        var sw = Stopwatch.StartNew();
+        var rawResponse = await ExecuteChatAsync(prompt, cancellationToken);
+        sw.Stop();
+        
+        GeneratedTask? task = null;
+        var parseSuccess = false;
+        
+        try
+        {
+            var jsonStart = rawResponse.IndexOf('{');
+            var jsonEnd = rawResponse.LastIndexOf('}');
+            
+            if (jsonStart >= 0 && jsonEnd > jsonStart)
+            {
+                var json = rawResponse.Substring(jsonStart, jsonEnd - jsonStart + 1);
+                json = CleanLlmJson(json);
+                task = System.Text.Json.JsonSerializer.Deserialize<GeneratedTask>(json, _lenientJsonOptions);
+            }
+            
+            // Also try array format — LLM might wrap single task in []
+            if (task == null)
+            {
+                var tasks = ParseBatchResponse(rawResponse, 1);
+                if (tasks.Count > 0 && !IsFallbackTask(tasks[0]))
+                    task = tasks[0];
+            }
+            
+            if (task != null)
+            {
+                if (string.IsNullOrEmpty(task.Id) || task.Id == "uuid")
+                    task.Id = Guid.NewGuid().ToString();
+                
+                task.Validation = new ValidationResult
+                {
+                    IsValid = true,
+                    IsSolvable = true,
+                    HasCorrectAnswer = true,
+                    DifficultyAppropriate = true,
+                    Issues = new List<string>(),
+                    ValidatorNotes = "Auto-validated during single-task generation"
+                };
+                parseSuccess = true;
+                Logger.LogInformation("Successfully parsed single task #{Index}: {Type}", request.TaskIndex, task.TaskTypeId);
+            }
+            else
+            {
+                Logger.LogWarning("Could not parse single task response for #{Index}, generating fallback", request.TaskIndex);
+                task = GenerateFallbackTasks(1)[0];
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Parse error for single task #{Index}", request.TaskIndex);
+            task = GenerateFallbackTasks(1)[0];
+        }
+        
+        var logEntry = new AgentLogEntry
+        {
+            Timestamp = DateTime.UtcNow,
+            AgentName = Name,
+            Action = $"GenerateSingleTask (index={request.TaskIndex}, difficulty={request.Difficulty})",
+            Input = $"[SystemPrompt]\n{SystemPrompt}\n\n[UserPrompt]\n{prompt}",
+            Output = rawResponse,
+            Duration = sw.Elapsed,
+            ParsedTaskCount = parseSuccess ? 1 : 0,
+            ParseSuccess = parseSuccess
+        };
+        
+        return new SingleTaskGenerationResult
+        {
+            Task = task,
+            LogEntry = logEntry
+        };
+    }
+    
+    private static bool IsFallbackTask(GeneratedTask task)
+    {
+        return task.ContextText?.StartsWith("Betragt tallene") == true;
+    }
+    
+    private string BuildSingleTaskPrompt(SingleTaskGenerationRequest request)
+    {
+        var categories = request.FocusCategories.Any() 
+            ? string.Join(", ", request.FocusCategories) 
+            : "varieret";
+        
+        var customInstr = !string.IsNullOrEmpty(request.CustomInstructions) 
+            ? $"\nSærlige krav: {request.CustomInstructions}" 
+            : "";
+        
+        // Build the concept-specific section if a brainstormed concept is available
+        var conceptSection = "";
+        if (request.Concept != null)
+        {
+            var c = request.Concept;
+            conceptSection = $"""
+                
+                SCENARIE (fra pensum-sampling):
+                Emner: {c.TopicPair.Topic1.Name} + {c.TopicPair.Topic2.Name}
+                Idé: {c.ScenarioDescription}
+                Kobling: {c.MathematicalConnection}
+                Opgavetype: {c.SuggestedTaskTypeId}
+                Kategori: {c.PrimaryCategory}
+                
+                Byg opgaven ud fra dette scenarie. Tilføj konkrete tal så det bliver løsbart.
+                
+                """;
+        }
+        
+        var example = """
+            {
+              "taskTypeId":"tal_forholdstalsregning",
+              "category":"tal_og_algebra",
+              "difficulty":"middel",
+              "contextText":"Lea vil hækle grydelapper og sælge dem. Hun bruger 120 g garn til et par. Et nøgle garn er 50 g og koster 12,95 kr. 10 nøgler koster 89 kr.",
+              "subQuestions":[
+                {"label":"a","questionText":"Hvor mange nøgler garn skal Lea mindst købe for at hækle ét par grydelapper?","answer":{"value":"3","unit":"nøgler"},"difficulty":"let","points":1,"solutionSteps":[{"stepNumber":1,"description":"120 ÷ 50 = 2,4 → oprund til 3","mathExpression":"120 ÷ 50","result":"3 nøgler"}]},
+                {"label":"b","questionText":"Lea vil hækle 5 par. Hvor mange nøgler skal hun købe?","answer":{"value":"12","unit":"nøgler"},"difficulty":"let","points":1,"solutionSteps":[{"stepNumber":1,"description":"5 · 120 = 600 g","mathExpression":"5 · 120","result":"600 g"},{"stepNumber":2,"description":"600 ÷ 50 = 12","mathExpression":"600 ÷ 50","result":"12 nøgler"}]},
+                {"label":"c","questionText":"Hvad er billigst: 12 nøgler enkeltvis eller en pakke med 10 plus 2 enkelt-nøgler?","answer":{"value":"Pakke+2: 114,90 kr (billigst). Enkeltvis: 155,40 kr.","unit":"kr"},"difficulty":"middel","points":2,"solutionSteps":[{"stepNumber":1,"description":"Enkeltvis: 12 · 12,95 = 155,40 kr","mathExpression":"12 · 12,95","result":"155,40 kr"},{"stepNumber":2,"description":"Pakke+2: 89 + 2 · 12,95 = 114,90 kr","mathExpression":"89 + 25,90","result":"114,90 kr"}]},
+                {"label":"d","questionText":"Lea sælger grydelapperne for 60 kr pr. par. Hvor mange par skal hun sælge for et overskud på ca. 500 kr?","answer":{"value":"Ca. 14 par","unit":""},"difficulty":"svær","points":3,"solutionSteps":[{"stepNumber":1,"description":"Garnpris pr. par (billigst): 114,90 ÷ 5 ≈ 22,98 kr","mathExpression":"114,90 ÷ 5","result":"22,98 kr"},{"stepNumber":2,"description":"Overskud pr. par: 60 − 22,98 ≈ 37 kr","mathExpression":"60 − 22,98","result":"37,02 kr"},{"stepNumber":3,"description":"500 ÷ 37 ≈ 13,5 → ca. 14 par","mathExpression":"500 ÷ 37","result":"≈ 14 par"}]}
+              ],
+              "points":7,
+              "estimatedTimeSeconds":300
+            }
+            """;
+        
+        return $"""
+            Generer ÉN FP9 prøveopgave.
+            {conceptSection}
+            Krav: {request.ExamPart}, sværhedsgrad: {request.Difficulty}, fokus: {categories}{customInstr}
+            
+            Opgavetyper: tal_ligninger, tal_broeker_og_antal, tal_regnearter, tal_pris_rabat_procent, tal_forholdstalsregning, geo_sammensat_figur, geo_vinkelsum, geo_enhedsomregning, stat_boksplot, stat_sandsynlighed
+            
+            VIGTIGSTE REGLER FOR TEKST:
+            1. contextText: KORT — maks 1-3 sætninger med scenarie og nødvendige oplysninger.
+               IKKE en historie. Bare fakta. Se eksemplet nedenfor.
+            2. questionText i delopgaver: KORT og DIREKTE. Stil spørgsmålet, giv evt. nye tal, færdig.
+               Gentag ALDRIG information fra contextText — eleven finder selv tallene.
+            3. ALDRIG skriv "Skriv dine beregninger", "Vis med udregninger", "Begrund dit svar" 
+               eller lignende instruktioner. Stil bare spørgsmålet.
+            4. Scaffolding er IMPLICIT — sig aldrig "brug svaret fra a)".
+            
+            SVÆRHEDSGRAD PÅ DELOPGAVER:
+            Den SIDSTE delopgave er altid sværest. Rampe: let → middel → svær.
+            
+            Eksempel (kort og præcist som en rigtig FP9-prøve):
+            {example}
+            
+            Output: ÉT JSON objekt. KUN JSON, ingen markdown.
+            """;
+    }
+    
     private string BuildBatchPrompt(BatchGenerationRequest request)
     {
         var diffDist = $"{request.Difficulty.Easy*100:F0}% let, {request.Difficulty.Medium*100:F0}% middel, {request.Difficulty.Hard*100:F0}% svær";
@@ -112,7 +286,7 @@ public class BatchTaskGeneratorAgent : BaseSemanticKernelAgent, IBatchTaskGenera
             ? $"\nSærlige krav: {request.CustomInstructions}" 
             : "";
         
-        // Rich example showing the narrative style we want
+        // Example demonstrating scaffolded backwards design: concrete → abstract
         var example = """
             {
               "taskTypeId":"tal_forholdstalsregning",
@@ -121,11 +295,12 @@ public class BatchTaskGeneratorAgent : BaseSemanticKernelAgent, IBatchTaskGenera
               "contextText":"Freja og Oliver skal bage pandekager til deres klasses sommerfest. Opskriften er til 4 personer og kræver 200 g mel, 3 dL mælk og 2 æg.",
               "subQuestions":[
                 {"label":"a","questionText":"De skal bage til 12 personer. Hvor meget mel skal de bruge?","answer":{"value":"600","unit":"g"},"difficulty":"let","points":1,"solutionSteps":[{"stepNumber":1,"description":"Find faktor: 12/4 = 3","mathExpression":"12 ÷ 4","result":"3"},{"stepNumber":2,"description":"Gang mel med faktor","mathExpression":"200 · 3","result":"600 g"}]},
-                {"label":"b","questionText":"Oliver finder ud af at de kun har 5 dL mælk derhjemme. Hvor mange personer kan de lave pandekager til med den mælk?","answer":{"value":"6","unit":"personer"},"difficulty":"middel","points":1,"solutionSteps":[{"stepNumber":1,"description":"Mælk pr person: 3/4 = 0,75 dL","mathExpression":"3 ÷ 4","result":"0,75 dL"},{"stepNumber":2,"description":"Antal personer: 5/0,75","mathExpression":"5 ÷ 0,75","result":"6 personer"}]},
-                {"label":"c","questionText":"Freja køber en ekstra liter mælk (10 dL). Nu har de 15 dL mælk i alt. De beslutter at lave pandekager til alle 12 personer. Hvor mange dL mælk har de tilovers?","answer":{"value":"6","unit":"dL"},"difficulty":"middel","points":1,"solutionSteps":[{"stepNumber":1,"description":"Mælk til 12 personer: 3 · 3 = 9 dL","mathExpression":"3 · 3","result":"9 dL"},{"stepNumber":2,"description":"Tilovers: 15 - 9","mathExpression":"15 - 9","result":"6 dL"}]}
+                {"label":"b","questionText":"Hvor meget mælk og hvor mange æg skal de bruge til 12 personer?","answer":{"value":"9 dL mælk og 6 æg","unit":""},"difficulty":"let","points":1,"solutionSteps":[{"stepNumber":1,"description":"Mælk: 3 · 3 = 9 dL","mathExpression":"3 · 3","result":"9 dL"},{"stepNumber":2,"description":"Æg: 2 · 3 = 6","mathExpression":"2 · 3","result":"6 æg"}]},
+                {"label":"c","questionText":"Læreren siger de muligvis bliver 20 eller 24 til festen. Beregn hvor meget mel, mælk og æg de skal bruge i begge tilfælde.","answer":{"value":"20 pers: 1000g mel, 15 dL mælk, 10 æg. 24 pers: 1200g mel, 18 dL mælk, 12 æg","unit":""},"difficulty":"middel","points":2,"solutionSteps":[{"stepNumber":1,"description":"Faktor for 20: 20/4 = 5","mathExpression":"20 ÷ 4","result":"5"},{"stepNumber":2,"description":"20 pers: 200·5=1000g, 3·5=15dL, 2·5=10 æg","mathExpression":"200·5, 3·5, 2·5","result":"1000g, 15dL, 10 æg"},{"stepNumber":3,"description":"Faktor for 24: 24/4 = 6","mathExpression":"24 ÷ 4","result":"6"},{"stepNumber":4,"description":"24 pers: 200·6=1200g, 3·6=18dL, 2·6=12 æg","mathExpression":"200·6, 3·6, 2·6","result":"1200g, 18dL, 12 æg"}]},
+                {"label":"d","questionText":"Skriv en formel der beskriver hvor meget mel (M), mælk (L) og æg (A) de skal bruge, hvis de er p personer.","answer":{"value":"M = 50·p, L = 0,75·p, A = 0,5·p","unit":""},"difficulty":"svær","points":2,"solutionSteps":[{"stepNumber":1,"description":"Mel pr person: 200/4 = 50 g","mathExpression":"200 ÷ 4","result":"50 g"},{"stepNumber":2,"description":"Mælk pr person: 3/4 = 0,75 dL","mathExpression":"3 ÷ 4","result":"0,75 dL"},{"stepNumber":3,"description":"Æg pr person: 2/4 = 0,5","mathExpression":"2 ÷ 4","result":"0,5"},{"stepNumber":4,"description":"Formlerne","mathExpression":"M = 50·p, L = 0,75·p, A = 0,5·p","result":"M = 50p, L = 0,75p, A = 0,5p"}]}
               ],
-              "points":3,
-              "estimatedTimeSeconds":180
+              "points":6,
+              "estimatedTimeSeconds":300
             }
             """;
         
@@ -136,10 +311,21 @@ public class BatchTaskGeneratorAgent : BaseSemanticKernelAgent, IBatchTaskGenera
             
             Opgavetyper: tal_ligninger, tal_broeker_og_antal, tal_regnearter, tal_pris_rabat_procent, tal_forholdstalsregning, geo_sammensat_figur, geo_vinkelsum, geo_enhedsomregning, stat_boksplot, stat_sandsynlighed
             
+            SCAFFOLDING — BAGLÆNS DESIGN:
+            Når du designer en opgave med flere delopgaver, tænk BAGLÆNS:
+            1. Beslut FØRST hvad den dybeste forståelse/konklusion er som eleven skal nå frem til (den sidste delopgave).
+            2. Design derefter de tidligere delopgaver som TRIN der leder eleven derhen:
+               - a) starter med et KONKRET, tilgængeligt eksempel med specifikke tal
+               - Mellemtrin gentager mønstret med nye tal eller udvider scenariet, så eleven begynder at se strukturen
+               - Den sidste delopgave kræver at eleven GENERALISERER, FORKLARER eller ANVENDER indsigten på et nyt niveau
+            3. Scaffoldingen skal være IMPLICIT: delopgaverne bygger naturligt videre på samme scenarie og tal,
+               men opgaveteksten må ALDRIG eksplicit bede eleven om at "bruge svaret fra a)" eller
+               "med udgangspunkt i dit resultat fra b)". Eleven skal selv opdage sammenhængen.
+            
             KREATIVITETSREGLER:
             1. contextText skal sætte en LEVENDE scene med navne og detaljer — som en lille historie
             2. Hver delopgave TILFØJER ny information eller et twist til historien (nye tal, nye betingelser, overraskelser)
-            3. Delopgaverne skal IKKE bare gentage samme beregning med sværere tal — de skal UDVIDE scenariet
+            3. Delopgaverne skal IKKE bare gentage samme beregning med sværere tal — de skal LEDE eleven mod en dybere forståelse
             4. Brug danske navne (Sofie, Magnus, Freja, Oliver, Ida, Noah, Emma, Victor)
             5. Brug virkelige steder og situationer (skoletur til Experimentarium, loppemarked i Aarhus, 
                svømmestævne, bageprojekt, cykeltur langs Limfjorden, klassens budget til lejrskole)
@@ -147,18 +333,25 @@ public class BatchTaskGeneratorAgent : BaseSemanticKernelAgent, IBatchTaskGenera
                byggeri/indretning, natur/dyreliv, musik/festival
             
             MATEMATISKE REGLER:
-            1. Beregn svaret FØRST, skriv opgaven EFTER — dobbelttjek!
-            2. Brug pæne tal der giver hele eller simple svar
-            3. Variér kategori og opgavetype mellem opgaverne
-            4. Skriv på naturligt, korrekt dansk
+            1. Design den sværeste delopgave FØRST internt, byg derefter de lettere trin der leder hen til den
+            2. Beregn svaret FØRST, skriv opgaven EFTER — dobbelttjek!
+            3. Brug pæne tal der giver hele eller simple svar
+            4. Variér kategori og opgavetype mellem opgaverne
+            5. Skriv på naturligt, korrekt dansk
             
-            FORMAT:
-            - Svære opgaver: 1 delopgave (kompleks nok i sig selv)
+            FORMAT OG SVÆRHEDSGRAD PÅ DELOPGAVER:
+            - Svære opgaver: 1-2 delopgaver (kompleks nok i sig selv)
             - Middel: 2-3 delopgaver
-            - Lette: 3-4 delopgaver
-            - Delopgaverne bliver progressivt sværere (a=let → d=svær)
+            - Lette: 3-5 delopgaver
+            - Den SIDSTE delopgave skal ALTID være svær — det er hele pointen med scaffolding.
+            - Sværhedsrampen for delopgaver skal ALTID slutte på svær:
+              2 delopgaver: let → svær
+              3 delopgaver: let → middel → svær
+              4 delopgaver: let → let → middel → svær
+              5 delopgaver: let → let → middel → middel/svær → svær
+            - Det er ALDRIG acceptabelt at alle delopgaver er lette eller at kun den sidste er middel.
             
-            Eksempel på god opgave:
+            Eksempel på god scaffolded opgave (bemærk: a+b er konkrete beregninger, c gentager med nye tal, d kræver generalisering):
             {example}
             
             Output: JSON array med {request.Count} opgaver. KUN JSON, ingen markdown.

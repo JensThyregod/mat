@@ -28,7 +28,7 @@ public class AgentConfiguration
     /// <summary>
     /// Maximum tokens for responses
     /// </summary>
-    public int MaxTokens { get; set; } = 4096;
+    public int MaxTokens { get; set; } = 8192;
     
     /// <summary>
     /// Temperature for response generation (0-2)

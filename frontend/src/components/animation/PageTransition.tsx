@@ -34,19 +34,12 @@ function getDirection(from: string, to: string): { x: number; y: number; z: numb
   }
 }
 
-// Store previous path
-let previousPath = '/tasks'
-
-/**
- * PageTransition - Cinematic page transitions with 3D-like spatial movement
- */
 export const PageTransition = ({ children, className }: PageTransitionProps) => {
   const location = useLocation()
   const currentPath = getBasePath(location.pathname)
-  const prevPathRef = useRef(previousPath)
+  const prevPathRef = useRef('/tasks')
   
   useEffect(() => {
-    previousPath = currentPath
     prevPathRef.current = currentPath
   }, [currentPath])
   

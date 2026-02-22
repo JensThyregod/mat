@@ -16,12 +16,18 @@ public class BrainstormAgent : BaseSemanticKernelAgent, IBrainstormAgent
     
     protected override string SystemPrompt => """
         Du er en ekspert i at designe matematikopgaver til danske folkeskoleprøver (FP9).
-        Din rolle er at brainstorme kreative og pædagogisk velegnede opgaver.
+        Din rolle er at brainstorme kreative og pædagogisk velegnede opgaver med SCAFFOLDING.
+        
+        DESIGNPROCES — BAGLÆNS DESIGN:
+        For hver opgaveidé skal du tænke BAGLÆNS:
+        1. Hvad er den DYBESTE forståelse eleven skal demonstrere? (det bliver den sidste delopgave)
+        2. Hvilke KONKRETE trin kan lede eleven derhen? (det bliver de tidlige delopgaver)
+        Beskriv dette i questionConcept — både målet og hvordan de tidlige trin bygger op til det.
         
         Du skal:
         1. Analysere kravene til terminsprøven
         2. Vælge passende opgavetyper baseret på tilgængelige kategorier
-        3. Foreslå konkrete opgaveidéer med passende sværhedsgrad
+        3. Foreslå opgaveidéer hvor delopgaverne er SCAFFOLDED: konkrete eksempler først, generalisering/abstraktion sidst
         4. Sikre variation i opgavetyper og emner
         5. Overveje om opgaven kræver en figur eller visualisering
         

@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react'
 import { EquationEditor } from '../components/equation/EquationEditor'
 import { evaluateString } from '../utils/expression'
 import { PageTransition } from '../components/animation'
+import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import './LigningerView.css'
 
 export type ExpressionPart = {
@@ -80,6 +81,7 @@ function formatExpression(expr: ExpressionPart): string {
 }
 
 export const LigningerView = () => {
+  useDocumentTitle('Øvelse')
   const [steps, setSteps] = useState<EquationStep[]>([
     { left: { numerator: '3x + 5' }, right: { numerator: '17' } }
   ])

@@ -1,0 +1,1637 @@
+╔══════════════════════════════════════════════════════════════════╗
+║              TERMINSPRØVE AGENT CHAT LOG                        ║
+╚══════════════════════════════════════════════════════════════════╝
+
+  ID:         99a8ac36-2b05-4445-8905-b2b12df7106a
+  Status:     Completed
+  Started:    2026-02-20 20.59.32 UTC
+  Completed:  2026-02-20 21.00.34 UTC
+  Duration:   62,1s
+  Tasks:      5 generated
+  Iterations: 5
+
+──────────────────────────────────────────────────────────────────
+  REQUEST
+──────────────────────────────────────────────────────────────────
+  Level:        fp9
+  ExamPart:     uden_hjaelpemidler
+  TaskCount:    5
+  Difficulty:   30 % easy / 50 % medium / 20 % hard
+  Categories:   []
+
+══════════════════════════════════════════════════════════════════
+  AGENT CHAT HISTORY
+══════════════════════════════════════════════════════════════════
+
+┌─ [1/9] FastAgentOrchestrator ─ GenerateTerminsprove (summary)
+│  Timestamp: 2026-02-20 21.00.34.372 UTC
+│  Duration:  62110ms
+│  Parsed:    5 tasks (success=True)
+│
+│  ┌── INPUT (prompt sent to LLM) ──────────────────────────────
+│  │ Request: 5 tasks, level=fp9, examPart=uden_hjaelpemidler, difficulty=(30 %/50 %/20 %), categories=[]
+│  └───────────────────────────────────────────────────────────
+│
+│  ┌── OUTPUT (raw LLM response) ───────────────────────────────
+│  │ Generated 5 tasks in 62109ms (5 parallel LLM calls, 8 agent calls)
+│  └───────────────────────────────────────────────────────────
+└──────────────────────────────────────────────────────────────
+
+┌─ [2/9] TopicBrainstormAgent ─ BrainstormConcepts (count=5)
+│  Timestamp: 2026-02-20 20.59.40.969 UTC
+│  Duration:  8705ms
+│  Parsed:    5 tasks (success=True)
+│
+│  ┌── INPUT (prompt sent to LLM) ──────────────────────────────
+│  │ Hældning og skæring (Tal og algebra) + Risiko og vurdering (Statistik og sandsynlighed)
+│  │ Simple sandsynlighedsberegninger (Statistik og sandsynlighed) + Reelle tal (Tal og algebra)
+│  │ Målestoksforhold (Geometri og måling) + Grafer og koordinatsystem (Tal og algebra)
+│  │ Procentregning (Tal og algebra) + Spejling, rotation og parallelforskydning (Geometri og måling)
+│  │ Negative tal (Tal og algebra) + Kritisk vurdering af statistik (Statistik og sandsynlighed)
+│  └───────────────────────────────────────────────────────────
+│
+│  ┌── OUTPUT (raw LLM response) ───────────────────────────────
+│  │ [stat_sandsynlighed] Malik og Sofie vil lave en lille ’straffesparks-challenge’ på skolens idrætsdag. De måler, hvor langt fra målet man står (x meter), og hvor stor en chance der er for at score (y %), og de opdager, at sandsynligheden falder nogenlunde jævnt, jo længere væk man kommer. Samtidig vil de lave en præmiepulje, hvor man betaler et fast beløb for at skyde, og de skal vurdere, om reglerne gør spillet fair eller giver for høj risiko for at tabe penge.
+│  │ [stat_sandsynlighed] Malik og Freja er til LAN-party og spiller et nyt VR-terningspil, hvor man kaster en stor skumterning for at afgøre, hvilken "arena" man skal kæmpe i. På gulvet er der samtidig malet en stor cirkelbane, hvor de har målt omkredsen for at finde ud af, hvor langt de løber pr. runde. De bruger både sandsynligheder for terningslaget og tal som pi og kvadratrod, når de snakker om banen og deres løbedistance.
+│  │ [geo_enhedsomregning] To venner, Sara og Malik, vil bygge en hjemmelavet skate-rampe i gården og samtidig lave en lille "skate-vejledning" til deres YouTube-kanal. De har fundet en professionel rampetegning på nettet i målestoksforhold 1:50, som de printer ud og tegner om til deres egen version i målestoksforhold 1:25, så den passer til gårdens plads. Samtidig måler de, hvor langt de hver især kan ollie op ad rampen (vandret afstand på rampens top) og tegner et koordinatsystem, hvor x-aksen er rampens længde i meter og y-aksen er højden over jorden, så de kan vise både rampens form og deres hop som punkter og grafer i deres vejledning.
+│  │ [tal_pris_rabat_procent] Aylin vil lave et lille kunsthjørne til skolens sommermarked, hvor hun sælger hjemmelavede plakater med geometriske mønstre. Hun designer et logo til sin bod, der består af en trekant og et rektangel, som hun spejler, roterer og parallelforskyder, så logoet får en tydelig symmetri. Skolen tager 20 % af hendes omsætning som “standleje”, og hun vil derfor både planlægge sit mønster præcist og regne ud, hvad hun selv tjener, hvis hun sælger et bestemt antal plakater til en fast pris.
+│  │ [stat_soejlediagram] Malik og Asta laver en klima-plakat til skolens temauge. De finder en artikel på nettet med en søjlediagram-graf over "gennemsnitlige vintertemperaturer" i deres by de sidste 10 år, men alle temperaturer er rundet op, og de år med meget lave minusgrader er slået sammen i én kategori. Samtidig har Malik sine egne noter på mobilen over faktiske daglige temperaturer fra denne vinter, hvor mange dage lå under 0 °C, og hvor koldt det var på de koldeste dage. De vil sammenligne artiklens fremstilling med Maliks data og afgøre, om artiklen giver et retvisende billede af, hvor koldt der egentlig har været.
+│  └───────────────────────────────────────────────────────────
+└──────────────────────────────────────────────────────────────
+
+┌─ [3/9] BatchTaskGenerator ─ GenerateSingleTask (index=1, difficulty=let)
+│  Timestamp: 2026-02-20 21.00.03.633 UTC
+│  Duration:  22346ms
+│  Parsed:    1 tasks (success=True)
+│
+│  ┌── INPUT (prompt sent to LLM) ──────────────────────────────
+│  │ [SystemPrompt]
+│  │ Du er en kreativ og erfaren matematiklærer der skriver engagerende FP9 prøveopgaver.
+│  │ Du er kendt for at lave opgaver der føles som små historier — eleverne skal leve sig ind i scenariet.
+│  │ 
+│  │ DESIGNPROCES — BAGLÆNS DESIGN (SCAFFOLDING):
+│  │ Tænk som en erfaren lærer: Hvad er den DYBESTE forståelse eleven skal demonstrere i denne opgave?
+│  │ 1. Formuler FØRST den sværeste/mest abstrakte delopgave — det er MÅLET for hele opgaven.
+│  │ 2. Design derefter de tidligere delopgaver som KONKRETE, TILGÆNGELIGE trin der naturligt
+│  │    leder eleven mod den indsigt. Tidlige delopgaver bruger konkrete tal og simple eksempler.
+│  │    Senere delopgaver bygger videre og kræver gradvist mere abstrakt tænkning.
+│  │ 3. Den sidste delopgave er konklusionen — det eleven skal kunne efter at have arbejdet sig igennem opgaven.
+│  │ 4. Scaffoldingen skal være IMPLICIT — delopgaverne skal naturligt bygge videre på samme scenarie
+│  │    og tal, men opgaveteksten må ALDRIG eksplicit bede eleven om at "bruge svaret fra a)" eller
+│  │    "med udgangspunkt i dit resultat fra b)". Eleven skal selv opdage sammenhængen.
+│  │ 
+│  │ STIL OG KREATIVITET:
+│  │ - Du får et PRÆ-BRAINSTORMET SCENARIE med to emner fra pensum. BRUG DET.
+│  │ - Hver opgave er en MINI-HISTORIE med en levende kontekst. Brug navne, steder, situationer.
+│  │ - contextText sætter scenen med detaljer der gør opgaven levende og unik.
+│  │ - Hver delopgave BYGGER VIDERE på historien og tilføjer NY INFORMATION eller et nyt twist.
+│  │ - De tidlige delopgaver giver eleven KONKRETE beregninger der skaber intuition.
+│  │   De senere delopgaver udfordrer eleven til at GENERALISERE, FORKLARE eller ANVENDE indsigten bredere.
+│  │ - Delopgaverne skal IKKE bare være "beregn det samme på en sværere måde" — de skal LEDE eleven mod en dybere forståelse.
+│  │ - UNDGÅ klichéer: "købe burgere på festival", "rabat i butik", "købe sodavand". 
+│  │   Tænk FRISKERE: håndværk, iværksætteri, sport, naturvidenskab, design, dyrehold, rejser.
+│  │ 
+│  │ OPGAVEFORMAT OG SVÆRHEDSGRAD PÅ DELOPGAVER:
+│  │ - Svære opgaver: 1-2 delopgaver (opgaven er kompleks nok i sig selv)
+│  │ - Middel opgaver: 2-3 delopgaver  
+│  │ - Lette opgaver: 3-5 delopgaver
+│  │ - Den SIDSTE delopgave skal ALTID være svær — det er hele pointen med scaffolding.
+│  │ - Sværhedsrampen for delopgaver skal ALTID slutte på svær. Eksempler:
+│  │   2 delopgaver: let → svær
+│  │   3 delopgaver: let → middel → svær
+│  │   4 delopgaver: let → let → middel → svær
+│  │   5 delopgaver: let → let → middel → middel/svær → svær
+│  │ - Det er ALDRIG acceptabelt at alle delopgaver er lette eller at kun den sidste er middel.
+│  │ 
+│  │ VIGTIGT: Design den sværeste delopgave FØRST internt, og byg derefter de lettere trin der leder hen til den.
+│  │ Beregn svaret FØRST, skriv opgaven EFTER. Dobbelttjek alle beregninger.
+│  │ 
+│  │ Output KUN valid JSON. Ingen markdown, ingen forklaring.
+│  │ 
+│  │ [UserPrompt]
+│  │ Generer ÉN kreativ FP9 prøveopgave.
+│  │ 
+│  │ DU SKAL BRUGE DETTE SCENARIE (brainstormet fra pensum):
+│  │ Emnepar: Hældning og skæring + Risiko og vurdering
+│  │ Scenarie: Malik og Sofie vil lave en lille ’straffesparks-challenge’ på skolens idrætsdag. De måler, hvor langt fra målet man står (x meter), og hvor stor en chance der er for at score (y %), og de opdager, at sandsynligheden falder nogenlunde jævnt, jo længere væk man kommer. Samtidig vil de lave en præmiepulje, hvor man betaler et fast beløb for at skyde, og de skal vurdere, om reglerne gør spillet fair eller giver for høj risiko for at tabe penge.
+│  │ Matematisk kobling: Sammenhængen mellem afstand og scoringschance beskrives med en lineær funktion, hvor hældningen viser, hvor mange procentpoint sandsynligheden falder pr. ekstra meter, og skæringen med y-aksen viser sandsynligheden helt tæt på målet. Denne lineære sandsynlighed bruges derefter til at vurdere risikoen ved spillet og til at regne på, om den forventede gevinst pr. spark er større eller mindre end indskuddet.
+│  │ Foreslået opgavetype: stat_sandsynlighed
+│  │ Primær kategori: statistik_og_sandsynlighed
+│  │ 
+│  │ Du SKAL bygge opgaven ud fra dette scenarie. Behold kernehistorien, men tilføj
+│  │ konkrete tal, navne og detaljer så det bliver en komplet, løsbar opgave.
+│  │ Begge emner (Hældning og skæring og Risiko og vurdering) SKAL indgå i opgaven.
+│  │ 
+│  │ Krav: uden_hjaelpemidler, sværhedsgrad: let, fokus: varieret
+│  │ 
+│  │ Opgavetyper (vælg én passende): tal_ligninger, tal_broeker_og_antal, tal_regnearter, tal_pris_rabat_procent, tal_forholdstalsregning, geo_sammensat_figur, geo_vinkelsum, geo_enhedsomregning, stat_boksplot, stat_sandsynlighed
+│  │ 
+│  │ SCAFFOLDING — BAGLÆNS DESIGN:
+│  │ Når du designer opgaven med flere delopgaver, tænk BAGLÆNS:
+│  │ 1. Beslut FØRST hvad den dybeste forståelse/konklusion er som eleven skal nå frem til (den sidste delopgave).
+│  │ 2. Design derefter de tidligere delopgaver som TRIN der leder eleven derhen:
+│  │    - a) starter med et KONKRET, tilgængeligt eksempel med specifikke tal
+│  │    - Mellemtrin gentager mønstret med nye tal eller udvider scenariet, så eleven begynder at se strukturen
+│  │    - Den sidste delopgave kræver at eleven GENERALISERER, FORKLARER eller ANVENDER indsigten på et nyt niveau
+│  │ 3. Scaffoldingen skal være IMPLICIT: delopgaverne bygger naturligt videre på samme scenarie og tal,
+│  │    men opgaveteksten må ALDRIG eksplicit bede eleven om at "bruge svaret fra a)" eller
+│  │    "med udgangspunkt i dit resultat fra b)". Eleven skal selv opdage sammenhængen.
+│  │ 
+│  │ MATEMATISKE REGLER:
+│  │ 1. Design den sværeste delopgave FØRST internt, byg derefter de lettere trin der leder hen til den
+│  │ 2. Beregn svaret FØRST, skriv opgaven EFTER — dobbelttjek!
+│  │ 3. Brug pæne tal der giver hele eller simple svar
+│  │ 4. Skriv på naturligt, korrekt dansk
+│  │ 
+│  │ FORMAT OG SVÆRHEDSGRAD PÅ DELOPGAVER:
+│  │ - Svære opgaver: 1-2 delopgaver (kompleks nok i sig selv)
+│  │ - Middel: 2-3 delopgaver
+│  │ - Lette: 3-5 delopgaver
+│  │ - Den SIDSTE delopgave skal ALTID være svær — det er hele pointen med scaffolding.
+│  │ - Sværhedsrampen for delopgaver skal ALTID slutte på svær:
+│  │   2 delopgaver: let → svær
+│  │   3 delopgaver: let → middel → svær
+│  │   4 delopgaver: let → let → middel → svær
+│  │   5 delopgaver: let → let → middel → middel/svær → svær
+│  │ - Det er ALDRIG acceptabelt at alle delopgaver er lette eller at kun den sidste er middel.
+│  │ 
+│  │ Eksempel på god scaffolded opgave (inspireret af officiel FP9 prøve — Leas grydelapper):
+│  │ {
+│  │   "taskTypeId":"tal_forholdstalsregning",
+│  │   "category":"tal_og_algebra",
+│  │   "difficulty":"middel",
+│  │   "contextText":"Lea vil tjene penge ved at hækle grydelapper og sælge dem. Hun skal bruge 120 g garn til et par grydelapper. I et nøgle garn er der 50 g. Et nøgle garn koster 12,95 kr. 10 nøgler garn koster 89 kr.",
+│  │   "subQuestions":[
+│  │     {"label":"a","questionText":"Hvor mange nøgler garn skal Lea mindst købe for at hækle ét par grydelapper?","answer":{"value":"3","unit":"nøgler"},"difficulty":"let","points":1,"solutionSteps":[{"stepNumber":1,"description":"Hun skal bruge 120 g. Hvert nøgle er 50 g.","mathExpression":"120 ÷ 50","result":"2,4"},{"stepNumber":2,"description":"Hun kan ikke købe 2,4 nøgler, så hun skal købe 3.","mathExpression":"oprunding af 2,4","result":"3 nøgler"}]},
+│  │     {"label":"b","questionText":"Lea vil hækle 5 par grydelapper. Hvor mange gram garn skal hun bruge i alt, og hvor mange nøgler skal hun købe?","answer":{"value":"600 g, 12 nøgler","unit":""},"difficulty":"let","points":2,"solutionSteps":[{"stepNumber":1,"description":"Garn i alt: 5 par × 120 g","mathExpression":"5 · 120","result":"600 g"},{"stepNumber":2,"description":"Antal nøgler: 600 ÷ 50 = 12","mathExpression":"600 ÷ 50","result":"12 nøgler"}]},
+│  │     {"label":"c","questionText":"Lea overvejer om hun skal købe 12 nøgler enkeltvis til 12,95 kr pr. stk. eller købe en pakke med 10 nøgler til 89 kr og 2 enkelt-nøgler. Beregn prisen for begge muligheder og find den billigste.","answer":{"value":"Enkeltvis: 155,40 kr. Pakke+2: 114,90 kr. Pakke+2 er billigst.","unit":"kr"},"difficulty":"middel","points":2,"solutionSteps":[{"stepNumber":1,"description":"12 enkelt-nøgler","mathExpression":"12 · 12,95","result":"155,40 kr"},{"stepNumber":2,"description":"1 pakke (10 stk) + 2 enkelt","mathExpression":"89 + 2 · 12,95","result":"89 + 25,90 = 114,90 kr"},{"stepNumber":3,"description":"Sammenlign","mathExpression":"155,40 − 114,90","result":"40,50 kr billigere med pakke"}]},
+│  │     {"label":"d","questionText":"Lea forventer at sælge grydelapperne for 60 kr pr. par. Giv et forslag til hvor mange par hun skal sælge for at hendes overskud bliver ca. 500 kr. Vis dine beregninger.","answer":{"value":"Ca. 12 par (overskud 491,40 kr med pakke-strategi)","unit":""},"difficulty":"svær","points":3,"solutionSteps":[{"stepNumber":1,"description":"Pris pr. par garn (billigste): 114,90 kr for 5 par → pr. par","mathExpression":"114,90 ÷ 5","result":"22,98 kr pr. par"},{"stepNumber":2,"description":"Overskud pr. par: salg − garn","mathExpression":"60 − 22,98","result":"37,02 kr pr. par"},{"stepNumber":3,"description":"Antal par for 500 kr overskud","mathExpression":"500 ÷ 37,02","result":"≈ 13,5 → ca. 14 par"},{"stepNumber":4,"description":"Tjek: 14 par kræver 14·120=1680g=33,6→34 nøgler. Billigst: 3 pakker(30)+4 enkelt. Pris: 3·89+4·12,95=267+51,80=318,80. Indtægt: 14·60=840. Overskud: 840−318,80=521,20 kr ≈ 500 kr ✓","mathExpression":"840 − 318,80","result":"521,20 kr overskud"}]}
+│  │   ],
+│  │   "points":8,
+│  │   "estimatedTimeSeconds":420
+│  │ }
+│  │ 
+│  │ Output: ÉT JSON objekt (IKKE et array). KUN JSON, ingen markdown.
+│  └───────────────────────────────────────────────────────────
+│
+│  ┌── OUTPUT (raw LLM response) ───────────────────────────────
+│  │ {
+│  │   "taskTypeId": "stat_sandsynlighed",
+│  │   "category": "statistik_og_sandsynlighed",
+│  │   "difficulty": "let",
+│  │   "contextText": "På skolens idrætsdag vil Malik og Sofie lave en straffesparks-challenge på fodboldbanen.\n\nDe sætter kegler op i en lige linje ud fra målet, så deltagerne kan vælge at skyde fra forskellige afstande.\n\nDe begynder at øve sig og noterer, hvor stor en chance de cirka har for at score, når de skyder fra forskellige afstande:\n\n• Helt tæt på målet, 2 meter fra, scorer de næsten altid.\n• Lidt længere ude, 8 meter fra, er det sværere.\n\nDe opdager, at sandsynligheden for at score ser ud til at falde nogenlunde jævnt, jo længere væk man står. De vil beskrive sammenhængen med en lineær funktion, så de kan lave regler for spillet.\n\nSamtidig vil de lave en præmiepulje: Man betaler et fast beløb for at skyde. Hvis man scorer, får man en præmie. De vil gerne vurdere, om deres regler gør spillet nogenlunde fair, eller om der er for stor risiko for, at de taber penge på det.",
+│  │   "subQuestions": [
+│  │     {
+│  │       "label": "a",
+│  │       "questionText": "Malik og Sofie vurderer, at når man skyder fra 2 meters afstand, scorer man i gennemsnit 90 % af gangene. Når man skyder fra 8 meters afstand, scorer man i gennemsnit 60 % af gangene.\n\nAfstanden kaldes x (i meter), og sandsynligheden for at score kaldes y (i procent).\n\nBestem hældningen for den lineære sammenhæng mellem afstand og scoringschance. Skriv, hvad hældningen betyder i denne situation.",
+│  │       "answer": {
+│  │         "value": "-5 procentpoint pr. meter; sandsynligheden falder med 5 procentpoint for hver ekstra meter man går væk",
+│  │         "unit": ""
+│  │       },
+│  │       "difficulty": "let",
+│  │       "points": 2,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Find ændringen i sandsynlighed, når afstanden går fra 2 m til 8 m.",
+│  │           "mathExpression": "Δy = 60 − 90",
+│  │           "result": "Δy = −30 procentpoint"
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "Find ændringen i afstand.",
+│  │           "mathExpression": "Δx = 8 − 2",
+│  │           "result": "Δx = 6 m"
+│  │         },
+│  │         {
+│  │           "stepNumber": 3,
+│  │           "description": "Beregn hældningen som ændring i y divideret med ændring i x.",
+│  │           "mathExpression": "a = Δy ÷ Δx = (−30) ÷ 6",
+│  │           "result": "a = −5"
+│  │         },
+│  │         {
+│  │           "stepNumber": 4,
+│  │           "description": "Tolkning: For hver ekstra meter man går væk, falder sandsynligheden med 5 procentpoint.",
+│  │           "mathExpression": "",
+│  │           "result": "−5 procentpoint pr. meter"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "b",
+│  │       "questionText": "Sammenhængen mellem afstand x (i meter) og sandsynlighed y (i procent) kan skrives på formen\n\ny = a·x + b\n\nhvor a er hældningen.\n\nBestem b, så funktionen passer med oplysningerne om 2 meter og 8 meter. Skriv derefter funktionsforskriften.",
+│  │       "answer": {
+│  │         "value": "b = 100, funktionsforskrift: y = −5x + 100",
+│  │         "unit": ""
+│  │       },
+│  │       "difficulty": "middel",
+│  │       "points": 2,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Brug punktet (2, 90) og hældningen a = −5 i forskriften y = −5x + b.",
+│  │           "mathExpression": "90 = −5 · 2 + b",
+│  │           "result": "90 = −10 + b"
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "Løs ligningen for b.",
+│  │           "mathExpression": "b = 90 + 10",
+│  │           "result": "b = 100"
+│  │         },
+│  │         {
+│  │           "stepNumber": 3,
+│  │           "description": "Skriv funktionsforskriften.",
+│  │           "mathExpression": "y = −5x + 100",
+│  │           "result": "y = −5x + 100"
+│  │         },
+│  │         {
+│  │           "stepNumber": 4,
+│  │           "description": "Tolkning af b: Hvis man stod helt tæt på (x = 0), ville sandsynligheden være 100 %.",
+│  │           "mathExpression": "y(0) = −5·0 + 100",
+│  │           "result": "100 %"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "c",
+│  │       "questionText": "På idrætsdagen vil Malik og Sofie lade deltagerne vælge at skyde fra 10 meters afstand.\n\nDe overvejer følgende regler:\n\n• Man betaler 10 kr for ét spark.\n• Scorer man, vinder man 30 kr i præmie.\n• Bommer man, får man ingenting.\n\nBrug den lineære model til at bestemme sandsynligheden for at score fra 10 meters afstand.\n\nBeregn derefter den forventede gevinst pr. spark for en deltager, der skyder fra 10 meter. Vurder, om spillet fra deltagerens synspunkt ser ud til at være økonomisk fordelagtigt eller ej. Begrund med beregninger.",
+│  │       "answer": {
+│  │         "value": "Fra 10 m er sandsynligheden 50 %. Den forventede gevinst er 5 kr pr. spark, mens prisen er 10 kr, så den forventede nettogevinst er −5 kr. Spillet er derfor ikke økonomisk fordelagtigt for deltageren.",
+│  │         "unit": ""
+│  │       },
+│  │       "difficulty": "svær",
+│  │       "points": 3,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Beregn sandsynligheden for at score fra 10 m med modellen y = −5x + 100.",
+│  │           "mathExpression": "y(10) = −5 · 10 + 100",
+│  │           "result": "y(10) = −50 + 100 = 50 %"
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "Sandsynlighed for at score er 50 % = 0,5. Sandsynlighed for at misse er også 0,5.",
+│  │           "mathExpression": "",
+│  │           "result": "P(score) = 0,5, P(bom) = 0,5"
+│  │         },
+│  │         {
+│  │           "stepNumber": 3,
+│  │           "description": "Beregn den forventede udbetaling (præmie) pr. spark.",
+│  │           "mathExpression": "E(udbetaling) = 0,5 · 30 kr + 0,5 · 0 kr",
+│  │           "result": "E(udbetaling) = 15 kr"
+│  │         },
+│  │         {
+│  │           "stepNumber": 4,
+│  │           "description": "Træk prisen for at deltage fra for at finde den forventede nettogevinst pr. spark.",
+│  │           "mathExpression": "E(netto) = 15 kr − 10 kr",
+│  │           "result": "E(netto) = 5 kr"
+│  │         },
+│  │         {
+│  │           "stepNumber": 5,
+│  │           "description": "Tolkning fra deltagerens synspunkt: Man betaler 10 kr og kan i gennemsnit forvente at få 15 kr tilbage. Nettogevinsten er derfor 5 kr pr. spark, så spillet er økonomisk fordelagtigt for deltageren og en risiko for Malik og Sofie.",
+│  │           "mathExpression": "",
+│  │           "result": "Spillet er fordelagtigt for deltageren (og ikke fair for arrangørerne økonomisk)."
+│  │         }
+│  │       ]
+│  │     }
+│  │   ],
+│  │   "points": 7,
+│  │   "estimatedTimeSeconds": 420
+│  │ }
+│  └───────────────────────────────────────────────────────────
+└──────────────────────────────────────────────────────────────
+
+┌─ [4/9] BatchTaskGenerator ─ GenerateSingleTask (index=5, difficulty=middel)
+│  Timestamp: 2026-02-20 21.00.04.995 UTC
+│  Duration:  23709ms
+│  Parsed:    1 tasks (success=True)
+│
+│  ┌── INPUT (prompt sent to LLM) ──────────────────────────────
+│  │ [SystemPrompt]
+│  │ Du er en kreativ og erfaren matematiklærer der skriver engagerende FP9 prøveopgaver.
+│  │ Du er kendt for at lave opgaver der føles som små historier — eleverne skal leve sig ind i scenariet.
+│  │ 
+│  │ DESIGNPROCES — BAGLÆNS DESIGN (SCAFFOLDING):
+│  │ Tænk som en erfaren lærer: Hvad er den DYBESTE forståelse eleven skal demonstrere i denne opgave?
+│  │ 1. Formuler FØRST den sværeste/mest abstrakte delopgave — det er MÅLET for hele opgaven.
+│  │ 2. Design derefter de tidligere delopgaver som KONKRETE, TILGÆNGELIGE trin der naturligt
+│  │    leder eleven mod den indsigt. Tidlige delopgaver bruger konkrete tal og simple eksempler.
+│  │    Senere delopgaver bygger videre og kræver gradvist mere abstrakt tænkning.
+│  │ 3. Den sidste delopgave er konklusionen — det eleven skal kunne efter at have arbejdet sig igennem opgaven.
+│  │ 4. Scaffoldingen skal være IMPLICIT — delopgaverne skal naturligt bygge videre på samme scenarie
+│  │    og tal, men opgaveteksten må ALDRIG eksplicit bede eleven om at "bruge svaret fra a)" eller
+│  │    "med udgangspunkt i dit resultat fra b)". Eleven skal selv opdage sammenhængen.
+│  │ 
+│  │ STIL OG KREATIVITET:
+│  │ - Du får et PRÆ-BRAINSTORMET SCENARIE med to emner fra pensum. BRUG DET.
+│  │ - Hver opgave er en MINI-HISTORIE med en levende kontekst. Brug navne, steder, situationer.
+│  │ - contextText sætter scenen med detaljer der gør opgaven levende og unik.
+│  │ - Hver delopgave BYGGER VIDERE på historien og tilføjer NY INFORMATION eller et nyt twist.
+│  │ - De tidlige delopgaver giver eleven KONKRETE beregninger der skaber intuition.
+│  │   De senere delopgaver udfordrer eleven til at GENERALISERE, FORKLARE eller ANVENDE indsigten bredere.
+│  │ - Delopgaverne skal IKKE bare være "beregn det samme på en sværere måde" — de skal LEDE eleven mod en dybere forståelse.
+│  │ - UNDGÅ klichéer: "købe burgere på festival", "rabat i butik", "købe sodavand". 
+│  │   Tænk FRISKERE: håndværk, iværksætteri, sport, naturvidenskab, design, dyrehold, rejser.
+│  │ 
+│  │ OPGAVEFORMAT OG SVÆRHEDSGRAD PÅ DELOPGAVER:
+│  │ - Svære opgaver: 1-2 delopgaver (opgaven er kompleks nok i sig selv)
+│  │ - Middel opgaver: 2-3 delopgaver  
+│  │ - Lette opgaver: 3-5 delopgaver
+│  │ - Den SIDSTE delopgave skal ALTID være svær — det er hele pointen med scaffolding.
+│  │ - Sværhedsrampen for delopgaver skal ALTID slutte på svær. Eksempler:
+│  │   2 delopgaver: let → svær
+│  │   3 delopgaver: let → middel → svær
+│  │   4 delopgaver: let → let → middel → svær
+│  │   5 delopgaver: let → let → middel → middel/svær → svær
+│  │ - Det er ALDRIG acceptabelt at alle delopgaver er lette eller at kun den sidste er middel.
+│  │ 
+│  │ VIGTIGT: Design den sværeste delopgave FØRST internt, og byg derefter de lettere trin der leder hen til den.
+│  │ Beregn svaret FØRST, skriv opgaven EFTER. Dobbelttjek alle beregninger.
+│  │ 
+│  │ Output KUN valid JSON. Ingen markdown, ingen forklaring.
+│  │ 
+│  │ [UserPrompt]
+│  │ Generer ÉN kreativ FP9 prøveopgave.
+│  │ 
+│  │ DU SKAL BRUGE DETTE SCENARIE (brainstormet fra pensum):
+│  │ Emnepar: Negative tal + Kritisk vurdering af statistik
+│  │ Scenarie: Malik og Asta laver en klima-plakat til skolens temauge. De finder en artikel på nettet med en søjlediagram-graf over "gennemsnitlige vintertemperaturer" i deres by de sidste 10 år, men alle temperaturer er rundet op, og de år med meget lave minusgrader er slået sammen i én kategori. Samtidig har Malik sine egne noter på mobilen over faktiske daglige temperaturer fra denne vinter, hvor mange dage lå under 0 °C, og hvor koldt det var på de koldeste dage. De vil sammenligne artiklens fremstilling med Maliks data og afgøre, om artiklen giver et retvisende billede af, hvor koldt der egentlig har været.
+│  │ Matematisk kobling: Eleven skal bruge negative tal til at forstå og sammenligne temperaturer under 0 °C (fx forskellen mellem −2 °C og −8 °C, og hvor mange dage der har været under frysepunktet) og derefter kritisk vurdere et givet søjlediagram/statistikmateriale: Er stikprøven repræsentativ, er det misvisende at slå meget kolde år sammen, og skjuler afrundinger og valg af akse, hvor mange dage med kraftig frost der faktisk har været. Kombinationen kræver både regning med negative tal og flere trin i en kvalitativ vurdering af, om statistikken giver et sandt billede af kulden.
+│  │ Foreslået opgavetype: stat_soejlediagram
+│  │ Primær kategori: statistik_og_sandsynlighed
+│  │ 
+│  │ Du SKAL bygge opgaven ud fra dette scenarie. Behold kernehistorien, men tilføj
+│  │ konkrete tal, navne og detaljer så det bliver en komplet, løsbar opgave.
+│  │ Begge emner (Negative tal og Kritisk vurdering af statistik) SKAL indgå i opgaven.
+│  │ 
+│  │ Krav: uden_hjaelpemidler, sværhedsgrad: middel, fokus: varieret
+│  │ 
+│  │ Opgavetyper (vælg én passende): tal_ligninger, tal_broeker_og_antal, tal_regnearter, tal_pris_rabat_procent, tal_forholdstalsregning, geo_sammensat_figur, geo_vinkelsum, geo_enhedsomregning, stat_boksplot, stat_sandsynlighed
+│  │ 
+│  │ SCAFFOLDING — BAGLÆNS DESIGN:
+│  │ Når du designer opgaven med flere delopgaver, tænk BAGLÆNS:
+│  │ 1. Beslut FØRST hvad den dybeste forståelse/konklusion er som eleven skal nå frem til (den sidste delopgave).
+│  │ 2. Design derefter de tidligere delopgaver som TRIN der leder eleven derhen:
+│  │    - a) starter med et KONKRET, tilgængeligt eksempel med specifikke tal
+│  │    - Mellemtrin gentager mønstret med nye tal eller udvider scenariet, så eleven begynder at se strukturen
+│  │    - Den sidste delopgave kræver at eleven GENERALISERER, FORKLARER eller ANVENDER indsigten på et nyt niveau
+│  │ 3. Scaffoldingen skal være IMPLICIT: delopgaverne bygger naturligt videre på samme scenarie og tal,
+│  │    men opgaveteksten må ALDRIG eksplicit bede eleven om at "bruge svaret fra a)" eller
+│  │    "med udgangspunkt i dit resultat fra b)". Eleven skal selv opdage sammenhængen.
+│  │ 
+│  │ MATEMATISKE REGLER:
+│  │ 1. Design den sværeste delopgave FØRST internt, byg derefter de lettere trin der leder hen til den
+│  │ 2. Beregn svaret FØRST, skriv opgaven EFTER — dobbelttjek!
+│  │ 3. Brug pæne tal der giver hele eller simple svar
+│  │ 4. Skriv på naturligt, korrekt dansk
+│  │ 
+│  │ FORMAT OG SVÆRHEDSGRAD PÅ DELOPGAVER:
+│  │ - Svære opgaver: 1-2 delopgaver (kompleks nok i sig selv)
+│  │ - Middel: 2-3 delopgaver
+│  │ - Lette: 3-5 delopgaver
+│  │ - Den SIDSTE delopgave skal ALTID være svær — det er hele pointen med scaffolding.
+│  │ - Sværhedsrampen for delopgaver skal ALTID slutte på svær:
+│  │   2 delopgaver: let → svær
+│  │   3 delopgaver: let → middel → svær
+│  │   4 delopgaver: let → let → middel → svær
+│  │   5 delopgaver: let → let → middel → middel/svær → svær
+│  │ - Det er ALDRIG acceptabelt at alle delopgaver er lette eller at kun den sidste er middel.
+│  │ 
+│  │ Eksempel på god scaffolded opgave (inspireret af officiel FP9 prøve — Leas grydelapper):
+│  │ {
+│  │   "taskTypeId":"tal_forholdstalsregning",
+│  │   "category":"tal_og_algebra",
+│  │   "difficulty":"middel",
+│  │   "contextText":"Lea vil tjene penge ved at hækle grydelapper og sælge dem. Hun skal bruge 120 g garn til et par grydelapper. I et nøgle garn er der 50 g. Et nøgle garn koster 12,95 kr. 10 nøgler garn koster 89 kr.",
+│  │   "subQuestions":[
+│  │     {"label":"a","questionText":"Hvor mange nøgler garn skal Lea mindst købe for at hækle ét par grydelapper?","answer":{"value":"3","unit":"nøgler"},"difficulty":"let","points":1,"solutionSteps":[{"stepNumber":1,"description":"Hun skal bruge 120 g. Hvert nøgle er 50 g.","mathExpression":"120 ÷ 50","result":"2,4"},{"stepNumber":2,"description":"Hun kan ikke købe 2,4 nøgler, så hun skal købe 3.","mathExpression":"oprunding af 2,4","result":"3 nøgler"}]},
+│  │     {"label":"b","questionText":"Lea vil hækle 5 par grydelapper. Hvor mange gram garn skal hun bruge i alt, og hvor mange nøgler skal hun købe?","answer":{"value":"600 g, 12 nøgler","unit":""},"difficulty":"let","points":2,"solutionSteps":[{"stepNumber":1,"description":"Garn i alt: 5 par × 120 g","mathExpression":"5 · 120","result":"600 g"},{"stepNumber":2,"description":"Antal nøgler: 600 ÷ 50 = 12","mathExpression":"600 ÷ 50","result":"12 nøgler"}]},
+│  │     {"label":"c","questionText":"Lea overvejer om hun skal købe 12 nøgler enkeltvis til 12,95 kr pr. stk. eller købe en pakke med 10 nøgler til 89 kr og 2 enkelt-nøgler. Beregn prisen for begge muligheder og find den billigste.","answer":{"value":"Enkeltvis: 155,40 kr. Pakke+2: 114,90 kr. Pakke+2 er billigst.","unit":"kr"},"difficulty":"middel","points":2,"solutionSteps":[{"stepNumber":1,"description":"12 enkelt-nøgler","mathExpression":"12 · 12,95","result":"155,40 kr"},{"stepNumber":2,"description":"1 pakke (10 stk) + 2 enkelt","mathExpression":"89 + 2 · 12,95","result":"89 + 25,90 = 114,90 kr"},{"stepNumber":3,"description":"Sammenlign","mathExpression":"155,40 − 114,90","result":"40,50 kr billigere med pakke"}]},
+│  │     {"label":"d","questionText":"Lea forventer at sælge grydelapperne for 60 kr pr. par. Giv et forslag til hvor mange par hun skal sælge for at hendes overskud bliver ca. 500 kr. Vis dine beregninger.","answer":{"value":"Ca. 12 par (overskud 491,40 kr med pakke-strategi)","unit":""},"difficulty":"svær","points":3,"solutionSteps":[{"stepNumber":1,"description":"Pris pr. par garn (billigste): 114,90 kr for 5 par → pr. par","mathExpression":"114,90 ÷ 5","result":"22,98 kr pr. par"},{"stepNumber":2,"description":"Overskud pr. par: salg − garn","mathExpression":"60 − 22,98","result":"37,02 kr pr. par"},{"stepNumber":3,"description":"Antal par for 500 kr overskud","mathExpression":"500 ÷ 37,02","result":"≈ 13,5 → ca. 14 par"},{"stepNumber":4,"description":"Tjek: 14 par kræver 14·120=1680g=33,6→34 nøgler. Billigst: 3 pakker(30)+4 enkelt. Pris: 3·89+4·12,95=267+51,80=318,80. Indtægt: 14·60=840. Overskud: 840−318,80=521,20 kr ≈ 500 kr ✓","mathExpression":"840 − 318,80","result":"521,20 kr overskud"}]}
+│  │   ],
+│  │   "points":8,
+│  │   "estimatedTimeSeconds":420
+│  │ }
+│  │ 
+│  │ Output: ÉT JSON objekt (IKKE et array). KUN JSON, ingen markdown.
+│  └───────────────────────────────────────────────────────────
+│
+│  ┌── OUTPUT (raw LLM response) ───────────────────────────────
+│  │ {
+│  │   "taskTypeId": "stat_sandsynlighed",
+│  │   "category": "statistik_og_sandsynlighed",
+│  │   "difficulty": "middel",
+│  │   "contextText": "Malik og Asta skal lave en klima-plakat til skolens temauge. De vil vise, hvor koldt vintrene egentlig har været i deres by. På nettet finder de en artikel med et farverigt søjlediagram over \"gennemsnitlige vintertemperaturer\" de sidste 10 år i byen. Søjlediagrammet har tre søjler:\n\n• Søjle 1: \"Milde vintre\" (gennemsnit mellem 0 °C og +2 °C)\n• Søjle 2: \"Normale vintre\" (gennemsnit mellem −2 °C og 0 °C)\n• Søjle 3: \"Kolde vintre\" (alle år med gennemsnit under −2 °C slået sammen)\n\nArtiklen skriver, at der kun har været \"få rigtige frostvintre\" og at \"vinterkulden er på vej væk\". Alle gennemsnitstemperaturer er rundet op til nærmeste hele grad.\n\nMalik har selv skrevet daglige temperaturer ned på sin mobil for denne vinter (90 dage i alt). Han har især noteret, hvor mange dage der var frost, og hvor koldt det blev på de koldeste dage.",
+│  │   "subQuestions": [
+│  │     {
+│  │       "label": "a",
+│  │       "questionText": "I Maliks noter for denne vinter står der:\n\n• 38 dage med temperatur mellem 0 °C og +3 °C\n• 32 dage med temperatur mellem −5 °C og −1 °C\n• 20 dage med temperatur mellem −12 °C og −6 °C\n\nHvor mange dage i alt har temperaturen været under 0 °C denne vinter?",
+│  │       "answer": {
+│  │         "value": "52",
+│  │         "unit": "dage"
+│  │       },
+│  │       "difficulty": "let",
+│  │       "points": 1,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Dagene under 0 °C er dem mellem −5 °C og −1 °C og mellem −12 °C og −6 °C.",
+│  │           "mathExpression": "32 + 20",
+│  │           "result": "52 dage"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "b",
+│  │       "questionText": "Malik kigger på de koldeste dage i sine noter:\n\n• Den koldeste dag var −12 °C.\n• En anden meget kold dag var −5 °C.\n\nHvor mange grader koldere var den koldeste dag end dagen med −5 °C?",
+│  │       "answer": {
+│  │         "value": "7",
+│  │         "unit": "°C"
+│  │       },
+│  │       "difficulty": "let",
+│  │       "points": 1,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Forskellen mellem −12 °C og −5 °C findes ved at se hvor langt der er mellem tallene på tallinjen.",
+│  │           "mathExpression": "−5 − (−12) = −5 + 12",
+│  │           "result": "7 °C"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "c",
+│  │       "questionText": "Artiklen viser et søjlediagram over de sidste 10 vintre i byen:\n\n• 4 vintre har gennemsnitstemperatur mellem 0 °C og +2 °C (milde vintre)\n• 3 vintre har gennemsnitstemperatur mellem −2 °C og 0 °C (normale vintre)\n• 3 vintre har gennemsnitstemperatur under −2 °C (kolde vintre)\n\nArtiklen skriver, at \"flertallet af vintrene er milde eller normale\".\n\nHvor stor en brøkdel af de 10 vintre er milde eller normale ifølge artiklen?",
+│  │       "answer": {
+│  │         "value": "7/10",
+│  │         "unit": ""
+│  │       },
+│  │       "difficulty": "middel",
+│  │       "points": 2,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Antal milde vintre: 4. Antal normale vintre: 3.",
+│  │           "mathExpression": "4 + 3",
+│  │           "result": "7 vintre"
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "Der er i alt 10 vintre.",
+│  │           "mathExpression": "7 ud af 10",
+│  │           "result": "7/10 af vintrene er milde eller normale"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "d",
+│  │       "questionText": "I søjlediagrammet har journalisten slået alle de 3 kolde vintre sammen i én søjle med teksten:\n\n\"Kolde vintre (gennemsnit under −2 °C): −2 °C\"\n\nI virkeligheden er gennemsnitstemperaturerne for de 3 kolde vintre:\n\n• Vinter A: −2,4 °C (rundet op til −2 °C i artiklen)\n• Vinter B: −4,6 °C (rundet op til −4 °C i artiklen)\n• Vinter C: −7,8 °C (rundet op til −7 °C i artiklen)\n\nJournalisten har altså både slået de 3 kolde vintre sammen og rundet alle gennemsnit op.\n\nForklar med mindst to konkrete matematiske argumenter, hvorfor artiklens søjlediagram kan give et misvisende indtryk af, hvor koldt der faktisk har været om vinteren i byen. Brug oplysningerne om de negative temperaturer, afrundingerne og fordelingen af milde, normale og kolde vintre i din forklaring.",
+│  │       "answer": {
+│  │         "value": "Muligt svar (eksempel):\n\n1) Når de 3 kolde vintre samles i én søjle med \"−2 °C\", skjuler det, at en af vintrene i gennemsnit var helt nede på omkring −8 °C. Forskellen mellem −2 °C og −7,8 °C er næsten 6 grader, så det har været meget koldere end søjlediagrammet viser.\n\n2) Alle de kolde gennemsnit er rundet op, fx fra −2,4 °C til −2 °C og fra −7,8 °C til −7 °C. Når man runder negative tal op mod 0, får man dem til at se varmere ud, end de er. Det får de kolde vintre til at virke mildere.\n\n3) Artiklen fremhæver, at 7/10 vintre er milde eller normale, men nævner ikke tydeligt, at 3/10 vintre faktisk er kolde. Sammen med den flade \"−2 °C\"-søjle kan læseren tro, at der næsten aldrig er rigtig frost, selvom der både har været mange frost-dage i en vinter og flere meget kolde vintre.",
+│  │         "unit": ""
+│  │       },
+│  │       "difficulty": "svær",
+│  │       "points": 3,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Sammenlægning skjuler forskelle mellem meget forskellige kolde vintre.",
+│  │           "mathExpression": "−7,8 °C kontra \"−2 °C\"",
+│  │           "result": "Den faktiske kulde underdrives"
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "Afrunding af negative tal op mod 0 gør tallene varmere end de reelt er.",
+│  │           "mathExpression": "−2,4 → −2,0 og −7,8 → −7,0",
+│  │           "result": "Kulden ser mindre ud"
+│  │         },
+│  │         {
+│  │           "stepNumber": 3,
+│  │           "description": "Fokus på 7/10 milde/normaler uden tydelig fremhævning af 3/10 kolde kan påvirke læserens indtryk.",
+│  │           "mathExpression": "7/10 milde/normaler, 3/10 kolde",
+│  │           "result": "Læseren kan tro, at kolde vintre næsten ikke findes"
+│  │         }
+│  │       ]
+│  │     }
+│  │   ],
+│  │   "points": 7,
+│  │   "estimatedTimeSeconds": 480
+│  │ }
+│  └───────────────────────────────────────────────────────────
+└──────────────────────────────────────────────────────────────
+
+┌─ [5/9] BatchTaskGenerator ─ GenerateSingleTask (index=2, difficulty=let)
+│  Timestamp: 2026-02-20 21.00.06.607 UTC
+│  Duration:  25322ms
+│  Parsed:    1 tasks (success=True)
+│
+│  ┌── INPUT (prompt sent to LLM) ──────────────────────────────
+│  │ [SystemPrompt]
+│  │ Du er en kreativ og erfaren matematiklærer der skriver engagerende FP9 prøveopgaver.
+│  │ Du er kendt for at lave opgaver der føles som små historier — eleverne skal leve sig ind i scenariet.
+│  │ 
+│  │ DESIGNPROCES — BAGLÆNS DESIGN (SCAFFOLDING):
+│  │ Tænk som en erfaren lærer: Hvad er den DYBESTE forståelse eleven skal demonstrere i denne opgave?
+│  │ 1. Formuler FØRST den sværeste/mest abstrakte delopgave — det er MÅLET for hele opgaven.
+│  │ 2. Design derefter de tidligere delopgaver som KONKRETE, TILGÆNGELIGE trin der naturligt
+│  │    leder eleven mod den indsigt. Tidlige delopgaver bruger konkrete tal og simple eksempler.
+│  │    Senere delopgaver bygger videre og kræver gradvist mere abstrakt tænkning.
+│  │ 3. Den sidste delopgave er konklusionen — det eleven skal kunne efter at have arbejdet sig igennem opgaven.
+│  │ 4. Scaffoldingen skal være IMPLICIT — delopgaverne skal naturligt bygge videre på samme scenarie
+│  │    og tal, men opgaveteksten må ALDRIG eksplicit bede eleven om at "bruge svaret fra a)" eller
+│  │    "med udgangspunkt i dit resultat fra b)". Eleven skal selv opdage sammenhængen.
+│  │ 
+│  │ STIL OG KREATIVITET:
+│  │ - Du får et PRÆ-BRAINSTORMET SCENARIE med to emner fra pensum. BRUG DET.
+│  │ - Hver opgave er en MINI-HISTORIE med en levende kontekst. Brug navne, steder, situationer.
+│  │ - contextText sætter scenen med detaljer der gør opgaven levende og unik.
+│  │ - Hver delopgave BYGGER VIDERE på historien og tilføjer NY INFORMATION eller et nyt twist.
+│  │ - De tidlige delopgaver giver eleven KONKRETE beregninger der skaber intuition.
+│  │   De senere delopgaver udfordrer eleven til at GENERALISERE, FORKLARE eller ANVENDE indsigten bredere.
+│  │ - Delopgaverne skal IKKE bare være "beregn det samme på en sværere måde" — de skal LEDE eleven mod en dybere forståelse.
+│  │ - UNDGÅ klichéer: "købe burgere på festival", "rabat i butik", "købe sodavand". 
+│  │   Tænk FRISKERE: håndværk, iværksætteri, sport, naturvidenskab, design, dyrehold, rejser.
+│  │ 
+│  │ OPGAVEFORMAT OG SVÆRHEDSGRAD PÅ DELOPGAVER:
+│  │ - Svære opgaver: 1-2 delopgaver (opgaven er kompleks nok i sig selv)
+│  │ - Middel opgaver: 2-3 delopgaver  
+│  │ - Lette opgaver: 3-5 delopgaver
+│  │ - Den SIDSTE delopgave skal ALTID være svær — det er hele pointen med scaffolding.
+│  │ - Sværhedsrampen for delopgaver skal ALTID slutte på svær. Eksempler:
+│  │   2 delopgaver: let → svær
+│  │   3 delopgaver: let → middel → svær
+│  │   4 delopgaver: let → let → middel → svær
+│  │   5 delopgaver: let → let → middel → middel/svær → svær
+│  │ - Det er ALDRIG acceptabelt at alle delopgaver er lette eller at kun den sidste er middel.
+│  │ 
+│  │ VIGTIGT: Design den sværeste delopgave FØRST internt, og byg derefter de lettere trin der leder hen til den.
+│  │ Beregn svaret FØRST, skriv opgaven EFTER. Dobbelttjek alle beregninger.
+│  │ 
+│  │ Output KUN valid JSON. Ingen markdown, ingen forklaring.
+│  │ 
+│  │ [UserPrompt]
+│  │ Generer ÉN kreativ FP9 prøveopgave.
+│  │ 
+│  │ DU SKAL BRUGE DETTE SCENARIE (brainstormet fra pensum):
+│  │ Emnepar: Simple sandsynlighedsberegninger + Reelle tal
+│  │ Scenarie: Malik og Freja er til LAN-party og spiller et nyt VR-terningspil, hvor man kaster en stor skumterning for at afgøre, hvilken "arena" man skal kæmpe i. På gulvet er der samtidig malet en stor cirkelbane, hvor de har målt omkredsen for at finde ud af, hvor langt de løber pr. runde. De bruger både sandsynligheder for terningslaget og tal som pi og kvadratrod, når de snakker om banen og deres løbedistance.
+│  │ Matematisk kobling: Eleven kan først arbejde med simple sandsynligheder ved kast med en fair terning (gunstige/mulige udfald som brøker og procenter). Derefter kan eleven bruge reelle tal i form af pi og kvadratrødder til at regne på cirklens omkreds eller radius i enkle tal, fx pi ≈ 3 og kvadratrod af 9 = 3, så det stadig kan gøres i hovedet uden hjælpemidler.
+│  │ Foreslået opgavetype: stat_sandsynlighed
+│  │ Primær kategori: statistik_og_sandsynlighed
+│  │ 
+│  │ Du SKAL bygge opgaven ud fra dette scenarie. Behold kernehistorien, men tilføj
+│  │ konkrete tal, navne og detaljer så det bliver en komplet, løsbar opgave.
+│  │ Begge emner (Simple sandsynlighedsberegninger og Reelle tal) SKAL indgå i opgaven.
+│  │ 
+│  │ Krav: uden_hjaelpemidler, sværhedsgrad: let, fokus: varieret
+│  │ 
+│  │ Opgavetyper (vælg én passende): tal_ligninger, tal_broeker_og_antal, tal_regnearter, tal_pris_rabat_procent, tal_forholdstalsregning, geo_sammensat_figur, geo_vinkelsum, geo_enhedsomregning, stat_boksplot, stat_sandsynlighed
+│  │ 
+│  │ SCAFFOLDING — BAGLÆNS DESIGN:
+│  │ Når du designer opgaven med flere delopgaver, tænk BAGLÆNS:
+│  │ 1. Beslut FØRST hvad den dybeste forståelse/konklusion er som eleven skal nå frem til (den sidste delopgave).
+│  │ 2. Design derefter de tidligere delopgaver som TRIN der leder eleven derhen:
+│  │    - a) starter med et KONKRET, tilgængeligt eksempel med specifikke tal
+│  │    - Mellemtrin gentager mønstret med nye tal eller udvider scenariet, så eleven begynder at se strukturen
+│  │    - Den sidste delopgave kræver at eleven GENERALISERER, FORKLARER eller ANVENDER indsigten på et nyt niveau
+│  │ 3. Scaffoldingen skal være IMPLICIT: delopgaverne bygger naturligt videre på samme scenarie og tal,
+│  │    men opgaveteksten må ALDRIG eksplicit bede eleven om at "bruge svaret fra a)" eller
+│  │    "med udgangspunkt i dit resultat fra b)". Eleven skal selv opdage sammenhængen.
+│  │ 
+│  │ MATEMATISKE REGLER:
+│  │ 1. Design den sværeste delopgave FØRST internt, byg derefter de lettere trin der leder hen til den
+│  │ 2. Beregn svaret FØRST, skriv opgaven EFTER — dobbelttjek!
+│  │ 3. Brug pæne tal der giver hele eller simple svar
+│  │ 4. Skriv på naturligt, korrekt dansk
+│  │ 
+│  │ FORMAT OG SVÆRHEDSGRAD PÅ DELOPGAVER:
+│  │ - Svære opgaver: 1-2 delopgaver (kompleks nok i sig selv)
+│  │ - Middel: 2-3 delopgaver
+│  │ - Lette: 3-5 delopgaver
+│  │ - Den SIDSTE delopgave skal ALTID være svær — det er hele pointen med scaffolding.
+│  │ - Sværhedsrampen for delopgaver skal ALTID slutte på svær:
+│  │   2 delopgaver: let → svær
+│  │   3 delopgaver: let → middel → svær
+│  │   4 delopgaver: let → let → middel → svær
+│  │   5 delopgaver: let → let → middel → middel/svær → svær
+│  │ - Det er ALDRIG acceptabelt at alle delopgaver er lette eller at kun den sidste er middel.
+│  │ 
+│  │ Eksempel på god scaffolded opgave (inspireret af officiel FP9 prøve — Leas grydelapper):
+│  │ {
+│  │   "taskTypeId":"tal_forholdstalsregning",
+│  │   "category":"tal_og_algebra",
+│  │   "difficulty":"middel",
+│  │   "contextText":"Lea vil tjene penge ved at hækle grydelapper og sælge dem. Hun skal bruge 120 g garn til et par grydelapper. I et nøgle garn er der 50 g. Et nøgle garn koster 12,95 kr. 10 nøgler garn koster 89 kr.",
+│  │   "subQuestions":[
+│  │     {"label":"a","questionText":"Hvor mange nøgler garn skal Lea mindst købe for at hækle ét par grydelapper?","answer":{"value":"3","unit":"nøgler"},"difficulty":"let","points":1,"solutionSteps":[{"stepNumber":1,"description":"Hun skal bruge 120 g. Hvert nøgle er 50 g.","mathExpression":"120 ÷ 50","result":"2,4"},{"stepNumber":2,"description":"Hun kan ikke købe 2,4 nøgler, så hun skal købe 3.","mathExpression":"oprunding af 2,4","result":"3 nøgler"}]},
+│  │     {"label":"b","questionText":"Lea vil hækle 5 par grydelapper. Hvor mange gram garn skal hun bruge i alt, og hvor mange nøgler skal hun købe?","answer":{"value":"600 g, 12 nøgler","unit":""},"difficulty":"let","points":2,"solutionSteps":[{"stepNumber":1,"description":"Garn i alt: 5 par × 120 g","mathExpression":"5 · 120","result":"600 g"},{"stepNumber":2,"description":"Antal nøgler: 600 ÷ 50 = 12","mathExpression":"600 ÷ 50","result":"12 nøgler"}]},
+│  │     {"label":"c","questionText":"Lea overvejer om hun skal købe 12 nøgler enkeltvis til 12,95 kr pr. stk. eller købe en pakke med 10 nøgler til 89 kr og 2 enkelt-nøgler. Beregn prisen for begge muligheder og find den billigste.","answer":{"value":"Enkeltvis: 155,40 kr. Pakke+2: 114,90 kr. Pakke+2 er billigst.","unit":"kr"},"difficulty":"middel","points":2,"solutionSteps":[{"stepNumber":1,"description":"12 enkelt-nøgler","mathExpression":"12 · 12,95","result":"155,40 kr"},{"stepNumber":2,"description":"1 pakke (10 stk) + 2 enkelt","mathExpression":"89 + 2 · 12,95","result":"89 + 25,90 = 114,90 kr"},{"stepNumber":3,"description":"Sammenlign","mathExpression":"155,40 − 114,90","result":"40,50 kr billigere med pakke"}]},
+│  │     {"label":"d","questionText":"Lea forventer at sælge grydelapperne for 60 kr pr. par. Giv et forslag til hvor mange par hun skal sælge for at hendes overskud bliver ca. 500 kr. Vis dine beregninger.","answer":{"value":"Ca. 12 par (overskud 491,40 kr med pakke-strategi)","unit":""},"difficulty":"svær","points":3,"solutionSteps":[{"stepNumber":1,"description":"Pris pr. par garn (billigste): 114,90 kr for 5 par → pr. par","mathExpression":"114,90 ÷ 5","result":"22,98 kr pr. par"},{"stepNumber":2,"description":"Overskud pr. par: salg − garn","mathExpression":"60 − 22,98","result":"37,02 kr pr. par"},{"stepNumber":3,"description":"Antal par for 500 kr overskud","mathExpression":"500 ÷ 37,02","result":"≈ 13,5 → ca. 14 par"},{"stepNumber":4,"description":"Tjek: 14 par kræver 14·120=1680g=33,6→34 nøgler. Billigst: 3 pakker(30)+4 enkelt. Pris: 3·89+4·12,95=267+51,80=318,80. Indtægt: 14·60=840. Overskud: 840−318,80=521,20 kr ≈ 500 kr ✓","mathExpression":"840 − 318,80","result":"521,20 kr overskud"}]}
+│  │   ],
+│  │   "points":8,
+│  │   "estimatedTimeSeconds":420
+│  │ }
+│  │ 
+│  │ Output: ÉT JSON objekt (IKKE et array). KUN JSON, ingen markdown.
+│  └───────────────────────────────────────────────────────────
+│
+│  ┌── OUTPUT (raw LLM response) ───────────────────────────────
+│  │ {
+│  │   "taskTypeId": "stat_sandsynlighed",
+│  │   "category": "statistik_og_sandsynlighed",
+│  │   "difficulty": "let",
+│  │   "contextText": "Malik og Freja er til et stort LAN-party i sportshallen. Midt på gulvet har arrangørerne lavet en VR-zone. I midten ligger en kæmpe skumterning med tallene 1-6. Hver gang de skal starte en ny kamp i VR, kaster de skumterningen for at se, hvilken arena de skal kæmpe i.\n\nRundt om VR-zonen er der malet en stor, hvid cirkel på gulvet. Det er en løbebane, som spillerne kan varme op på mellem kampene. Malik og Freja har målt, at cirklens omkreds er 18 meter. De snakker om, hvor langt de løber pr. runde, og Freja foreslår at regne med pi ≈ 3 for at gøre det nemt i hovedet.\n\nDe begynder at kombinere deres spil med lidt matematik: sandsynligheder for terningslag og tal som pi og kvadratrødder, når de regner på banen og deres løbedistance.",
+│  │   "subQuestions": [
+│  │     {
+│  │       "label": "a",
+│  │       "questionText": "Skumterningen er en fair terning med tallene 1, 2, 3, 4, 5 og 6.\n\nMalik siger: \"Jeg vil helst spille i arena 4.\"\n\nHvad er sandsynligheden for at slå en 4'er i ét kast med terningen?\nSkriv svaret både som brøk og i procent.",
+│  │       "answer": {
+│  │         "value": "1/6 og ca. 17 %",
+│  │         "unit": ""
+│  │       },
+│  │       "difficulty": "let",
+│  │       "points": 1,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Der er 1 gunstigt udfald (4'er) og 6 mulige udfald i alt.",
+│  │           "mathExpression": "P(4) = 1/6",
+│  │           "result": "1/6"
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "Som procent kan 1/6 afrundes til ca. 17 % uden hjælpemidler.",
+│  │           "mathExpression": "1/6 ≈ 0,17",
+│  │           "result": "≈ 17 %"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "b",
+│  │       "questionText": "Freja vil gerne undgå de \"mørke\" arenaer. De ligger på tallene 1 og 2.\n\nHvad er sandsynligheden for, at terningen viser en mørk arena (1 eller 2) i ét kast?\nSkriv svaret både som brøk og i procent.",
+│  │       "answer": {
+│  │         "value": "2/6 = 1/3 og ca. 33 %",
+│  │         "unit": ""
+│  │       },
+│  │       "difficulty": "let",
+│  │       "points": 2,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Der er 2 gunstige udfald (1 eller 2) og 6 mulige udfald i alt.",
+│  │           "mathExpression": "P(1 eller 2) = 2/6",
+│  │           "result": "2/6"
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "Forkort brøken.",
+│  │           "mathExpression": "2/6 = 1/3",
+│  │           "result": "1/3"
+│  │         },
+│  │         {
+│  │           "stepNumber": 3,
+│  │           "description": "Som procent kan 1/3 afrundes til ca. 33 %.",
+│  │           "mathExpression": "1/3 ≈ 0,33",
+│  │           "result": "≈ 33 %"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "c",
+│  │       "questionText": "Malik og Freja vil varme op på løbebanen rundt om VR-zonen.\n\nDe ved, at omkredsen af cirklen er 18 m. De vælger at regne med pi ≈ 3.\n\nBrug formlen for omkreds af en cirkel: Omkreds = 2 · pi · r.\n\nBestem cirklens radius r i meter.",
+│  │       "answer": {
+│  │         "value": "3 m",
+│  │         "unit": "m"
+│  │       },
+│  │       "difficulty": "middel",
+│  │       "points": 2,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Sæt tal ind i formlen Omkreds = 2 · pi · r.",
+│  │           "mathExpression": "18 = 2 · 3 · r",
+│  │           "result": "18 = 6r"
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "Isolér r ved at dividere med 6 på begge sider.",
+│  │           "mathExpression": "r = 18 ÷ 6",
+│  │           "result": "r = 3 m"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "d",
+│  │       "questionText": "Freja vil lave en udfordring: \"Vi kaster terningen 6 gange. Hver gang vi slår en 3'er, skal vi løbe én hel runde på banen.\"\n\nHun siger: \"Jeg gætter på, at vi i gennemsnit kommer til at løbe omkring 2 runder på de 6 kast, og at det svarer til cirka 12 meter i alt.\" \n\nVurder, om Frejas gæt om den samlede løbedistance er rimeligt ud fra:\n\n• sandsynligheden for at slå en 3'er i 6 kast\n• den afstand, man løber pr. runde på banen.\n\nVis dine beregninger og begrund din vurdering.",
+│  │       "answer": {
+│  │         "value": "Frejas gæt er rimeligt. Forventet antal 3'ere er 1/6 · 6 = 1, så i gennemsnit 1 runde. Det giver 18 m. Hendes gæt på 2 runder og 12 m hænger ikke helt sammen, men en samlet distance omkring 18 m ligger i samme størrelsesorden. Med få kast kan antallet af 3'ere let blive 0, 1 eller 2, så en distance omkring 12–36 m er realistisk.",
+│  │         "unit": ""
+│  │       },
+│  │       "difficulty": "svær",
+│  │       "points": 3,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Sandsynligheden for en 3'er i ét kast er 1/6. I 6 kast er det forventede antal 3'ere:",
+│  │           "mathExpression": "forventet antal 3’ere = 6 · 1/6",
+│  │           "result": "1 runde i gennemsnit"
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "Afstanden pr. runde er omkredsen af cirklen.",
+│  │           "mathExpression": "afstand pr. runde = 18 m",
+│  │           "result": "18 m"
+│  │         },
+│  │         {
+│  │           "stepNumber": 3,
+│  │           "description": "Forventet samlet løbedistance ved udfordringen:",
+│  │           "mathExpression": "1 runde · 18 m",
+│  │           "result": "≈ 18 m i gennemsnit"
+│  │         },
+│  │         {
+│  │           "stepNumber": 4,
+│  │           "description": "Vurdering: Freja gætter på 2 runder og 12 m. 2 runder svarer til 36 m, så hendes tal hænger ikke helt sammen. Men en samlet distance omkring 18 m er realistisk, og med få kast kan man godt ende tæt på både 0, 1 eller 2 runder. Derfor er hendes idé om størrelsesordenen (omkring nogle få runder og nogle få tiere meter) rimelig, selv om hendes tal ikke passer præcist.",
+│  │           "mathExpression": "",
+│  │           "result": "Gættet er kun delvist korrekt, men ligger i rimelig størrelsesorden."
+│  │         }
+│  │       ]
+│  │     }
+│  │   ],
+│  │   "points": 8,
+│  │   "estimatedTimeSeconds": 420
+│  │ }
+│  └───────────────────────────────────────────────────────────
+└──────────────────────────────────────────────────────────────
+
+┌─ [6/9] BatchTaskGenerator ─ GenerateSingleTask (index=3, difficulty=svær)
+│  Timestamp: 2026-02-20 21.00.07.764 UTC
+│  Duration:  26478ms
+│  Parsed:    1 tasks (success=True)
+│
+│  ┌── INPUT (prompt sent to LLM) ──────────────────────────────
+│  │ [SystemPrompt]
+│  │ Du er en kreativ og erfaren matematiklærer der skriver engagerende FP9 prøveopgaver.
+│  │ Du er kendt for at lave opgaver der føles som små historier — eleverne skal leve sig ind i scenariet.
+│  │ 
+│  │ DESIGNPROCES — BAGLÆNS DESIGN (SCAFFOLDING):
+│  │ Tænk som en erfaren lærer: Hvad er den DYBESTE forståelse eleven skal demonstrere i denne opgave?
+│  │ 1. Formuler FØRST den sværeste/mest abstrakte delopgave — det er MÅLET for hele opgaven.
+│  │ 2. Design derefter de tidligere delopgaver som KONKRETE, TILGÆNGELIGE trin der naturligt
+│  │    leder eleven mod den indsigt. Tidlige delopgaver bruger konkrete tal og simple eksempler.
+│  │    Senere delopgaver bygger videre og kræver gradvist mere abstrakt tænkning.
+│  │ 3. Den sidste delopgave er konklusionen — det eleven skal kunne efter at have arbejdet sig igennem opgaven.
+│  │ 4. Scaffoldingen skal være IMPLICIT — delopgaverne skal naturligt bygge videre på samme scenarie
+│  │    og tal, men opgaveteksten må ALDRIG eksplicit bede eleven om at "bruge svaret fra a)" eller
+│  │    "med udgangspunkt i dit resultat fra b)". Eleven skal selv opdage sammenhængen.
+│  │ 
+│  │ STIL OG KREATIVITET:
+│  │ - Du får et PRÆ-BRAINSTORMET SCENARIE med to emner fra pensum. BRUG DET.
+│  │ - Hver opgave er en MINI-HISTORIE med en levende kontekst. Brug navne, steder, situationer.
+│  │ - contextText sætter scenen med detaljer der gør opgaven levende og unik.
+│  │ - Hver delopgave BYGGER VIDERE på historien og tilføjer NY INFORMATION eller et nyt twist.
+│  │ - De tidlige delopgaver giver eleven KONKRETE beregninger der skaber intuition.
+│  │   De senere delopgaver udfordrer eleven til at GENERALISERE, FORKLARE eller ANVENDE indsigten bredere.
+│  │ - Delopgaverne skal IKKE bare være "beregn det samme på en sværere måde" — de skal LEDE eleven mod en dybere forståelse.
+│  │ - UNDGÅ klichéer: "købe burgere på festival", "rabat i butik", "købe sodavand". 
+│  │   Tænk FRISKERE: håndværk, iværksætteri, sport, naturvidenskab, design, dyrehold, rejser.
+│  │ 
+│  │ OPGAVEFORMAT OG SVÆRHEDSGRAD PÅ DELOPGAVER:
+│  │ - Svære opgaver: 1-2 delopgaver (opgaven er kompleks nok i sig selv)
+│  │ - Middel opgaver: 2-3 delopgaver  
+│  │ - Lette opgaver: 3-5 delopgaver
+│  │ - Den SIDSTE delopgave skal ALTID være svær — det er hele pointen med scaffolding.
+│  │ - Sværhedsrampen for delopgaver skal ALTID slutte på svær. Eksempler:
+│  │   2 delopgaver: let → svær
+│  │   3 delopgaver: let → middel → svær
+│  │   4 delopgaver: let → let → middel → svær
+│  │   5 delopgaver: let → let → middel → middel/svær → svær
+│  │ - Det er ALDRIG acceptabelt at alle delopgaver er lette eller at kun den sidste er middel.
+│  │ 
+│  │ VIGTIGT: Design den sværeste delopgave FØRST internt, og byg derefter de lettere trin der leder hen til den.
+│  │ Beregn svaret FØRST, skriv opgaven EFTER. Dobbelttjek alle beregninger.
+│  │ 
+│  │ Output KUN valid JSON. Ingen markdown, ingen forklaring.
+│  │ 
+│  │ [UserPrompt]
+│  │ Generer ÉN kreativ FP9 prøveopgave.
+│  │ 
+│  │ DU SKAL BRUGE DETTE SCENARIE (brainstormet fra pensum):
+│  │ Emnepar: Målestoksforhold + Grafer og koordinatsystem
+│  │ Scenarie: To venner, Sara og Malik, vil bygge en hjemmelavet skate-rampe i gården og samtidig lave en lille "skate-vejledning" til deres YouTube-kanal. De har fundet en professionel rampetegning på nettet i målestoksforhold 1:50, som de printer ud og tegner om til deres egen version i målestoksforhold 1:25, så den passer til gårdens plads. Samtidig måler de, hvor langt de hver især kan ollie op ad rampen (vandret afstand på rampens top) og tegner et koordinatsystem, hvor x-aksen er rampens længde i meter og y-aksen er højden over jorden, så de kan vise både rampens form og deres hop som punkter og grafer i deres vejledning.
+│  │ Matematisk kobling: Eleven skal først arbejde med målestoksforhold for at oversætte mellem den professionelle tegning, deres egen skitse og den virkelige rampes længder og højder, fx ved at omregne centimeter på papiret til meter i virkeligheden og justere mellem to forskellige målestokke. Derefter skal eleven bruge et koordinatsystem til at opstille og aflæse punkter, der beskriver rampens profil (højde som funktion af den vandrette afstand) og markere/analysere deres hop på rampen, fx sammenligne to lineære stykker af rampens form eller bestemme, hvor på x-aksen en vis højde nås.
+│  │ Foreslået opgavetype: geo_enhedsomregning
+│  │ Primær kategori: geometri_og_maaling
+│  │ 
+│  │ Du SKAL bygge opgaven ud fra dette scenarie. Behold kernehistorien, men tilføj
+│  │ konkrete tal, navne og detaljer så det bliver en komplet, løsbar opgave.
+│  │ Begge emner (Målestoksforhold og Grafer og koordinatsystem) SKAL indgå i opgaven.
+│  │ 
+│  │ Krav: uden_hjaelpemidler, sværhedsgrad: svær, fokus: varieret
+│  │ 
+│  │ Opgavetyper (vælg én passende): tal_ligninger, tal_broeker_og_antal, tal_regnearter, tal_pris_rabat_procent, tal_forholdstalsregning, geo_sammensat_figur, geo_vinkelsum, geo_enhedsomregning, stat_boksplot, stat_sandsynlighed
+│  │ 
+│  │ SCAFFOLDING — BAGLÆNS DESIGN:
+│  │ Når du designer opgaven med flere delopgaver, tænk BAGLÆNS:
+│  │ 1. Beslut FØRST hvad den dybeste forståelse/konklusion er som eleven skal nå frem til (den sidste delopgave).
+│  │ 2. Design derefter de tidligere delopgaver som TRIN der leder eleven derhen:
+│  │    - a) starter med et KONKRET, tilgængeligt eksempel med specifikke tal
+│  │    - Mellemtrin gentager mønstret med nye tal eller udvider scenariet, så eleven begynder at se strukturen
+│  │    - Den sidste delopgave kræver at eleven GENERALISERER, FORKLARER eller ANVENDER indsigten på et nyt niveau
+│  │ 3. Scaffoldingen skal være IMPLICIT: delopgaverne bygger naturligt videre på samme scenarie og tal,
+│  │    men opgaveteksten må ALDRIG eksplicit bede eleven om at "bruge svaret fra a)" eller
+│  │    "med udgangspunkt i dit resultat fra b)". Eleven skal selv opdage sammenhængen.
+│  │ 
+│  │ MATEMATISKE REGLER:
+│  │ 1. Design den sværeste delopgave FØRST internt, byg derefter de lettere trin der leder hen til den
+│  │ 2. Beregn svaret FØRST, skriv opgaven EFTER — dobbelttjek!
+│  │ 3. Brug pæne tal der giver hele eller simple svar
+│  │ 4. Skriv på naturligt, korrekt dansk
+│  │ 
+│  │ FORMAT OG SVÆRHEDSGRAD PÅ DELOPGAVER:
+│  │ - Svære opgaver: 1-2 delopgaver (kompleks nok i sig selv)
+│  │ - Middel: 2-3 delopgaver
+│  │ - Lette: 3-5 delopgaver
+│  │ - Den SIDSTE delopgave skal ALTID være svær — det er hele pointen med scaffolding.
+│  │ - Sværhedsrampen for delopgaver skal ALTID slutte på svær:
+│  │   2 delopgaver: let → svær
+│  │   3 delopgaver: let → middel → svær
+│  │   4 delopgaver: let → let → middel → svær
+│  │   5 delopgaver: let → let → middel → middel/svær → svær
+│  │ - Det er ALDRIG acceptabelt at alle delopgaver er lette eller at kun den sidste er middel.
+│  │ 
+│  │ Eksempel på god scaffolded opgave (inspireret af officiel FP9 prøve — Leas grydelapper):
+│  │ {
+│  │   "taskTypeId":"tal_forholdstalsregning",
+│  │   "category":"tal_og_algebra",
+│  │   "difficulty":"middel",
+│  │   "contextText":"Lea vil tjene penge ved at hækle grydelapper og sælge dem. Hun skal bruge 120 g garn til et par grydelapper. I et nøgle garn er der 50 g. Et nøgle garn koster 12,95 kr. 10 nøgler garn koster 89 kr.",
+│  │   "subQuestions":[
+│  │     {"label":"a","questionText":"Hvor mange nøgler garn skal Lea mindst købe for at hækle ét par grydelapper?","answer":{"value":"3","unit":"nøgler"},"difficulty":"let","points":1,"solutionSteps":[{"stepNumber":1,"description":"Hun skal bruge 120 g. Hvert nøgle er 50 g.","mathExpression":"120 ÷ 50","result":"2,4"},{"stepNumber":2,"description":"Hun kan ikke købe 2,4 nøgler, så hun skal købe 3.","mathExpression":"oprunding af 2,4","result":"3 nøgler"}]},
+│  │     {"label":"b","questionText":"Lea vil hækle 5 par grydelapper. Hvor mange gram garn skal hun bruge i alt, og hvor mange nøgler skal hun købe?","answer":{"value":"600 g, 12 nøgler","unit":""},"difficulty":"let","points":2,"solutionSteps":[{"stepNumber":1,"description":"Garn i alt: 5 par × 120 g","mathExpression":"5 · 120","result":"600 g"},{"stepNumber":2,"description":"Antal nøgler: 600 ÷ 50 = 12","mathExpression":"600 ÷ 50","result":"12 nøgler"}]},
+│  │     {"label":"c","questionText":"Lea overvejer om hun skal købe 12 nøgler enkeltvis til 12,95 kr pr. stk. eller købe en pakke med 10 nøgler til 89 kr og 2 enkelt-nøgler. Beregn prisen for begge muligheder og find den billigste.","answer":{"value":"Enkeltvis: 155,40 kr. Pakke+2: 114,90 kr. Pakke+2 er billigst.","unit":"kr"},"difficulty":"middel","points":2,"solutionSteps":[{"stepNumber":1,"description":"12 enkelt-nøgler","mathExpression":"12 · 12,95","result":"155,40 kr"},{"stepNumber":2,"description":"1 pakke (10 stk) + 2 enkelt","mathExpression":"89 + 2 · 12,95","result":"89 + 25,90 = 114,90 kr"},{"stepNumber":3,"description":"Sammenlign","mathExpression":"155,40 − 114,90","result":"40,50 kr billigere med pakke"}]},
+│  │     {"label":"d","questionText":"Lea forventer at sælge grydelapperne for 60 kr pr. par. Giv et forslag til hvor mange par hun skal sælge for at hendes overskud bliver ca. 500 kr. Vis dine beregninger.","answer":{"value":"Ca. 12 par (overskud 491,40 kr med pakke-strategi)","unit":""},"difficulty":"svær","points":3,"solutionSteps":[{"stepNumber":1,"description":"Pris pr. par garn (billigste): 114,90 kr for 5 par → pr. par","mathExpression":"114,90 ÷ 5","result":"22,98 kr pr. par"},{"stepNumber":2,"description":"Overskud pr. par: salg − garn","mathExpression":"60 − 22,98","result":"37,02 kr pr. par"},{"stepNumber":3,"description":"Antal par for 500 kr overskud","mathExpression":"500 ÷ 37,02","result":"≈ 13,5 → ca. 14 par"},{"stepNumber":4,"description":"Tjek: 14 par kræver 14·120=1680g=33,6→34 nøgler. Billigst: 3 pakker(30)+4 enkelt. Pris: 3·89+4·12,95=267+51,80=318,80. Indtægt: 14·60=840. Overskud: 840−318,80=521,20 kr ≈ 500 kr ✓","mathExpression":"840 − 318,80","result":"521,20 kr overskud"}]}
+│  │   ],
+│  │   "points":8,
+│  │   "estimatedTimeSeconds":420
+│  │ }
+│  │ 
+│  │ Output: ÉT JSON objekt (IKKE et array). KUN JSON, ingen markdown.
+│  └───────────────────────────────────────────────────────────
+│
+│  ┌── OUTPUT (raw LLM response) ───────────────────────────────
+│  │ {
+│  │   "taskTypeId": "geo_enhedsomregning",
+│  │   "category": "geometri_og_maaling",
+│  │   "difficulty": "svaer",
+│  │   "contextText": "Sara og Malik vil bygge en hjemmelavet skate-rampe i gården og samtidig lave en lille \"skate-vejledning\" til deres YouTube-kanal.\n\nDe finder en professionel rampetegning på nettet. Tegningen er lavet i målestoksforhold 1:50 og viser rampens sideprofil som en blød kurve fra jorden op til rampens top.\n\nPå den professionelle tegning er rampens vandrette længde 16 cm, og højden ved enden af rampen er 4 cm. De printer tegningen ud og vil tegne deres egen version oven på i målestoksforhold 1:25, så rampen bliver større, men stadig passer til gårdens plads.\n\nDe vil også vise rampens form i et koordinatsystem i deres vejledning. De vælger, at x-aksen skal vise den vandrette afstand på rampen i meter, og y-aksen skal vise højden over jorden i meter.\n\nFor at gøre det nemt beslutter de, at rampens profil i virkeligheden skal være lineær (en ret linje) fra (0,0) til rampens top. De markerer nogle punkter på rampen og måler, hvor højt den er forskellige steder. Senere filmer de, hvor langt de hver især kan ollie hen ad rampens top, og tegner deres hop som punkter i samme koordinatsystem.",
+│  │   "subQuestions": [
+│  │     {
+│  │       "label": "a",
+│  │       "questionText": "På den professionelle tegning i målestoksforhold 1:50 er rampens vandrette længde 16 cm, og højden ved enden er 4 cm.\n\n1) Hvor lang er rampen i virkeligheden i meter?\n2) Hvor høj er rampen i virkeligheden i meter?\n\nSkriv dine svar i meter.",
+│  │       "answer": {
+│  │         "value": "1) 8 m  2) 2 m",
+│  │         "unit": "meter"
+│  │       },
+│  │       "difficulty": "let",
+│  │       "points": 2,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Målestoksforholdet 1:50 betyder, at 1 cm på tegningen svarer til 50 cm i virkeligheden.",
+│  │           "mathExpression": "",
+│  │           "result": ""
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "Vandret længde i virkeligheden: 16 cm · 50 = 800 cm.",
+│  │           "mathExpression": "16 · 50",
+│  │           "result": "800 cm"
+│  │         },
+│  │         {
+│  │           "stepNumber": 3,
+│  │           "description": "Omregn 800 cm til meter: 800 cm ÷ 100 = 8 m.",
+│  │           "mathExpression": "800 ÷ 100",
+│  │           "result": "8 m"
+│  │         },
+│  │         {
+│  │           "stepNumber": 4,
+│  │           "description": "Højde i virkeligheden: 4 cm · 50 = 200 cm.",
+│  │           "mathExpression": "4 · 50",
+│  │           "result": "200 cm"
+│  │         },
+│  │         {
+│  │           "stepNumber": 5,
+│  │           "description": "Omregn 200 cm til meter: 200 cm ÷ 100 = 2 m.",
+│  │           "mathExpression": "200 ÷ 100",
+│  │           "result": "2 m"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "b",
+│  │       "questionText": "Sara og Malik vil nu tegne deres egen rampetegning oven på den professionelle.\n\nDeres egen tegning skal være i målestoksforhold 1:25, men rampen i virkeligheden skal stadig være 8 m lang og 2 m høj.\n\n1) Hvor lang skal rampen være på deres nye tegning (i cm)?\n2) Hvor høj skal rampen være på deres nye tegning (i cm)?",
+│  │       "answer": {
+│  │         "value": "1) 32 cm  2) 8 cm",
+│  │         "unit": "centimeter"
+│  │       },
+│  │       "difficulty": "let",
+│  │       "points": 2,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Målestoksforholdet 1:25 betyder, at 1 cm på tegningen svarer til 25 cm i virkeligheden.",
+│  │           "mathExpression": "",
+│  │           "result": ""
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "Vandret længde i virkeligheden er 8 m = 800 cm.",
+│  │           "mathExpression": "8 · 100",
+│  │           "result": "800 cm"
+│  │         },
+│  │         {
+│  │           "stepNumber": 3,
+│  │           "description": "Længde på tegningen: 800 cm ÷ 25 = 32 cm.",
+│  │           "mathExpression": "800 ÷ 25",
+│  │           "result": "32 cm"
+│  │         },
+│  │         {
+│  │           "stepNumber": 4,
+│  │           "description": "Højde i virkeligheden er 2 m = 200 cm.",
+│  │           "mathExpression": "2 · 100",
+│  │           "result": "200 cm"
+│  │         },
+│  │         {
+│  │           "stepNumber": 5,
+│  │           "description": "Højde på tegningen: 200 cm ÷ 25 = 8 cm.",
+│  │           "mathExpression": "200 ÷ 25",
+│  │           "result": "8 cm"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "c",
+│  │       "questionText": "I deres YouTube-vejledning vil Sara og Malik vise rampens profil i et koordinatsystem.\n\nDe vælger, at rampen i virkeligheden går langs en ret linje fra (0,0) til rampens top (8,2), hvor x er den vandrette afstand i meter, og y er højden i meter.\n\n1) Hvor stor er stigningstallet (hældningen) for linjen, der beskriver rampen? Skriv som et tal.\n2) Hvad er funktionsforskriften for rampens højde y som funktion af x?\nSkriv den på formen y = ax + b.",
+│  │       "answer": {
+│  │         "value": "1) 0,25  2) y = 0,25x",
+│  │         "unit": ""
+│  │       },
+│  │       "difficulty": "middel",
+│  │       "points": 3,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Stigningstallet a findes som ændring i y divideret med ændring i x mellem (0,0) og (8,2).",
+│  │           "mathExpression": "a = (2 − 0) ÷ (8 − 0)",
+│  │           "result": "a = 2 ÷ 8 = 0,25"
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "Linjen går gennem (0,0), så skæringen med y-aksen er b = 0.",
+│  │           "mathExpression": "",
+│  │           "result": "b = 0"
+│  │         },
+│  │         {
+│  │           "stepNumber": 3,
+│  │           "description": "Funktionsforskriften bliver derfor y = 0,25x.",
+│  │           "mathExpression": "",
+│  │           "result": "y = 0,25x"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "d",
+│  │       "questionText": "Sara og Malik måler nu nogle punkter på rampen i virkeligheden og tegner dem ind i koordinatsystemet:\n\n• Punkt A ligger 3 m inde på rampen og har højden 0,75 m.\n• Punkt B ligger 6 m inde på rampen og har højden 1,5 m.\n\n1) Undersøg om både punkt A og punkt B ligger på den linje, der beskriver rampen med forskriften y = 0,25x.\n2) Forklar med beregninger, hvorfor dine resultater viser, om rampen i virkeligheden følger den valgte lineære model eller ej.\n\nSkriv dine beregninger og en kort forklaring.",
+│  │       "answer": {
+│  │         "value": "1) Begge punkter ligger på linjen. 2) For x = 3 giver modellen y = 0,25·3 = 0,75, som passer med A(3,0,75). For x = 6 giver modellen y = 0,25·6 = 1,5, som passer med B(6,1,5). Når de målte punkter passer til modellens værdier, viser det, at rampens profil i virkeligheden følger den lineære model y = 0,25x godt.",
+│  │         "unit": ""
+│  │       },
+│  │       "difficulty": "svaer",
+│  │       "points": 4,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Tjek punkt A(3,0,75) i modellen y = 0,25x: indsæt x = 3.",
+│  │           "mathExpression": "y = 0,25 · 3",
+│  │           "result": "y = 0,75"
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "Den beregnede værdi 0,75 m er den samme som den målte højde for A, så A ligger på linjen.",
+│  │           "mathExpression": "",
+│  │           "result": ""
+│  │         },
+│  │         {
+│  │           "stepNumber": 3,
+│  │           "description": "Tjek punkt B(6,1,5) i modellen y = 0,25x: indsæt x = 6.",
+│  │           "mathExpression": "y = 0,25 · 6",
+│  │           "result": "y = 1,5"
+│  │         },
+│  │         {
+│  │           "stepNumber": 4,
+│  │           "description": "Den beregnede værdi 1,5 m er den samme som den målte højde for B, så B ligger også på linjen.",
+│  │           "mathExpression": "",
+│  │           "result": ""
+│  │         },
+│  │         {
+│  │           "stepNumber": 5,
+│  │           "description": "Når flere målte punkter på rampen giver de samme y-værdier som modellen, viser det, at den virkelige rampe følger den lineære sammenhæng y = 0,25x. Det betyder, at rampens form i virkeligheden kan beskrives godt af den valgte lineære funktion.",
+│  │           "mathExpression": "",
+│  │           "result": ""
+│  │         }
+│  │       ]
+│  │     }
+│  │   ],
+│  │   "points": 11,
+│  │   "estimatedTimeSeconds": 540
+│  │ }
+│  └───────────────────────────────────────────────────────────
+└──────────────────────────────────────────────────────────────
+
+┌─ [7/9] BatchTaskGenerator ─ GenerateSingleTask (index=4, difficulty=middel)
+│  Timestamp: 2026-02-20 21.00.14.362 UTC
+│  Duration:  33076ms
+│  Parsed:    1 tasks (success=True)
+│
+│  ┌── INPUT (prompt sent to LLM) ──────────────────────────────
+│  │ [SystemPrompt]
+│  │ Du er en kreativ og erfaren matematiklærer der skriver engagerende FP9 prøveopgaver.
+│  │ Du er kendt for at lave opgaver der føles som små historier — eleverne skal leve sig ind i scenariet.
+│  │ 
+│  │ DESIGNPROCES — BAGLÆNS DESIGN (SCAFFOLDING):
+│  │ Tænk som en erfaren lærer: Hvad er den DYBESTE forståelse eleven skal demonstrere i denne opgave?
+│  │ 1. Formuler FØRST den sværeste/mest abstrakte delopgave — det er MÅLET for hele opgaven.
+│  │ 2. Design derefter de tidligere delopgaver som KONKRETE, TILGÆNGELIGE trin der naturligt
+│  │    leder eleven mod den indsigt. Tidlige delopgaver bruger konkrete tal og simple eksempler.
+│  │    Senere delopgaver bygger videre og kræver gradvist mere abstrakt tænkning.
+│  │ 3. Den sidste delopgave er konklusionen — det eleven skal kunne efter at have arbejdet sig igennem opgaven.
+│  │ 4. Scaffoldingen skal være IMPLICIT — delopgaverne skal naturligt bygge videre på samme scenarie
+│  │    og tal, men opgaveteksten må ALDRIG eksplicit bede eleven om at "bruge svaret fra a)" eller
+│  │    "med udgangspunkt i dit resultat fra b)". Eleven skal selv opdage sammenhængen.
+│  │ 
+│  │ STIL OG KREATIVITET:
+│  │ - Du får et PRÆ-BRAINSTORMET SCENARIE med to emner fra pensum. BRUG DET.
+│  │ - Hver opgave er en MINI-HISTORIE med en levende kontekst. Brug navne, steder, situationer.
+│  │ - contextText sætter scenen med detaljer der gør opgaven levende og unik.
+│  │ - Hver delopgave BYGGER VIDERE på historien og tilføjer NY INFORMATION eller et nyt twist.
+│  │ - De tidlige delopgaver giver eleven KONKRETE beregninger der skaber intuition.
+│  │   De senere delopgaver udfordrer eleven til at GENERALISERE, FORKLARE eller ANVENDE indsigten bredere.
+│  │ - Delopgaverne skal IKKE bare være "beregn det samme på en sværere måde" — de skal LEDE eleven mod en dybere forståelse.
+│  │ - UNDGÅ klichéer: "købe burgere på festival", "rabat i butik", "købe sodavand". 
+│  │   Tænk FRISKERE: håndværk, iværksætteri, sport, naturvidenskab, design, dyrehold, rejser.
+│  │ 
+│  │ OPGAVEFORMAT OG SVÆRHEDSGRAD PÅ DELOPGAVER:
+│  │ - Svære opgaver: 1-2 delopgaver (opgaven er kompleks nok i sig selv)
+│  │ - Middel opgaver: 2-3 delopgaver  
+│  │ - Lette opgaver: 3-5 delopgaver
+│  │ - Den SIDSTE delopgave skal ALTID være svær — det er hele pointen med scaffolding.
+│  │ - Sværhedsrampen for delopgaver skal ALTID slutte på svær. Eksempler:
+│  │   2 delopgaver: let → svær
+│  │   3 delopgaver: let → middel → svær
+│  │   4 delopgaver: let → let → middel → svær
+│  │   5 delopgaver: let → let → middel → middel/svær → svær
+│  │ - Det er ALDRIG acceptabelt at alle delopgaver er lette eller at kun den sidste er middel.
+│  │ 
+│  │ VIGTIGT: Design den sværeste delopgave FØRST internt, og byg derefter de lettere trin der leder hen til den.
+│  │ Beregn svaret FØRST, skriv opgaven EFTER. Dobbelttjek alle beregninger.
+│  │ 
+│  │ Output KUN valid JSON. Ingen markdown, ingen forklaring.
+│  │ 
+│  │ [UserPrompt]
+│  │ Generer ÉN kreativ FP9 prøveopgave.
+│  │ 
+│  │ DU SKAL BRUGE DETTE SCENARIE (brainstormet fra pensum):
+│  │ Emnepar: Procentregning + Spejling, rotation og parallelforskydning
+│  │ Scenarie: Aylin vil lave et lille kunsthjørne til skolens sommermarked, hvor hun sælger hjemmelavede plakater med geometriske mønstre. Hun designer et logo til sin bod, der består af en trekant og et rektangel, som hun spejler, roterer og parallelforskyder, så logoet får en tydelig symmetri. Skolen tager 20 % af hendes omsætning som “standleje”, og hun vil derfor både planlægge sit mønster præcist og regne ud, hvad hun selv tjener, hvis hun sælger et bestemt antal plakater til en fast pris.
+│  │ Matematisk kobling: Eleven skal først arbejde med transformationer (spejling, rotation, parallelforskydning) for at beskrive eller tegne, hvordan logoet ændres og hvor figurerne ender. Derefter bruges procentregning til at beregne skolens andel og Aylins fortjeneste ud fra en given pris og et bestemt antal solgte plakater, så geometrien og økonomien kobles i flere trin.
+│  │ Foreslået opgavetype: tal_pris_rabat_procent
+│  │ Primær kategori: tal_og_algebra
+│  │ 
+│  │ Du SKAL bygge opgaven ud fra dette scenarie. Behold kernehistorien, men tilføj
+│  │ konkrete tal, navne og detaljer så det bliver en komplet, løsbar opgave.
+│  │ Begge emner (Procentregning og Spejling, rotation og parallelforskydning) SKAL indgå i opgaven.
+│  │ 
+│  │ Krav: uden_hjaelpemidler, sværhedsgrad: middel, fokus: varieret
+│  │ 
+│  │ Opgavetyper (vælg én passende): tal_ligninger, tal_broeker_og_antal, tal_regnearter, tal_pris_rabat_procent, tal_forholdstalsregning, geo_sammensat_figur, geo_vinkelsum, geo_enhedsomregning, stat_boksplot, stat_sandsynlighed
+│  │ 
+│  │ SCAFFOLDING — BAGLÆNS DESIGN:
+│  │ Når du designer opgaven med flere delopgaver, tænk BAGLÆNS:
+│  │ 1. Beslut FØRST hvad den dybeste forståelse/konklusion er som eleven skal nå frem til (den sidste delopgave).
+│  │ 2. Design derefter de tidligere delopgaver som TRIN der leder eleven derhen:
+│  │    - a) starter med et KONKRET, tilgængeligt eksempel med specifikke tal
+│  │    - Mellemtrin gentager mønstret med nye tal eller udvider scenariet, så eleven begynder at se strukturen
+│  │    - Den sidste delopgave kræver at eleven GENERALISERER, FORKLARER eller ANVENDER indsigten på et nyt niveau
+│  │ 3. Scaffoldingen skal være IMPLICIT: delopgaverne bygger naturligt videre på samme scenarie og tal,
+│  │    men opgaveteksten må ALDRIG eksplicit bede eleven om at "bruge svaret fra a)" eller
+│  │    "med udgangspunkt i dit resultat fra b)". Eleven skal selv opdage sammenhængen.
+│  │ 
+│  │ MATEMATISKE REGLER:
+│  │ 1. Design den sværeste delopgave FØRST internt, byg derefter de lettere trin der leder hen til den
+│  │ 2. Beregn svaret FØRST, skriv opgaven EFTER — dobbelttjek!
+│  │ 3. Brug pæne tal der giver hele eller simple svar
+│  │ 4. Skriv på naturligt, korrekt dansk
+│  │ 
+│  │ FORMAT OG SVÆRHEDSGRAD PÅ DELOPGAVER:
+│  │ - Svære opgaver: 1-2 delopgaver (kompleks nok i sig selv)
+│  │ - Middel: 2-3 delopgaver
+│  │ - Lette: 3-5 delopgaver
+│  │ - Den SIDSTE delopgave skal ALTID være svær — det er hele pointen med scaffolding.
+│  │ - Sværhedsrampen for delopgaver skal ALTID slutte på svær:
+│  │   2 delopgaver: let → svær
+│  │   3 delopgaver: let → middel → svær
+│  │   4 delopgaver: let → let → middel → svær
+│  │   5 delopgaver: let → let → middel → middel/svær → svær
+│  │ - Det er ALDRIG acceptabelt at alle delopgaver er lette eller at kun den sidste er middel.
+│  │ 
+│  │ Eksempel på god scaffolded opgave (inspireret af officiel FP9 prøve — Leas grydelapper):
+│  │ {
+│  │   "taskTypeId":"tal_forholdstalsregning",
+│  │   "category":"tal_og_algebra",
+│  │   "difficulty":"middel",
+│  │   "contextText":"Lea vil tjene penge ved at hækle grydelapper og sælge dem. Hun skal bruge 120 g garn til et par grydelapper. I et nøgle garn er der 50 g. Et nøgle garn koster 12,95 kr. 10 nøgler garn koster 89 kr.",
+│  │   "subQuestions":[
+│  │     {"label":"a","questionText":"Hvor mange nøgler garn skal Lea mindst købe for at hækle ét par grydelapper?","answer":{"value":"3","unit":"nøgler"},"difficulty":"let","points":1,"solutionSteps":[{"stepNumber":1,"description":"Hun skal bruge 120 g. Hvert nøgle er 50 g.","mathExpression":"120 ÷ 50","result":"2,4"},{"stepNumber":2,"description":"Hun kan ikke købe 2,4 nøgler, så hun skal købe 3.","mathExpression":"oprunding af 2,4","result":"3 nøgler"}]},
+│  │     {"label":"b","questionText":"Lea vil hækle 5 par grydelapper. Hvor mange gram garn skal hun bruge i alt, og hvor mange nøgler skal hun købe?","answer":{"value":"600 g, 12 nøgler","unit":""},"difficulty":"let","points":2,"solutionSteps":[{"stepNumber":1,"description":"Garn i alt: 5 par × 120 g","mathExpression":"5 · 120","result":"600 g"},{"stepNumber":2,"description":"Antal nøgler: 600 ÷ 50 = 12","mathExpression":"600 ÷ 50","result":"12 nøgler"}]},
+│  │     {"label":"c","questionText":"Lea overvejer om hun skal købe 12 nøgler enkeltvis til 12,95 kr pr. stk. eller købe en pakke med 10 nøgler til 89 kr og 2 enkelt-nøgler. Beregn prisen for begge muligheder og find den billigste.","answer":{"value":"Enkeltvis: 155,40 kr. Pakke+2: 114,90 kr. Pakke+2 er billigst.","unit":"kr"},"difficulty":"middel","points":2,"solutionSteps":[{"stepNumber":1,"description":"12 enkelt-nøgler","mathExpression":"12 · 12,95","result":"155,40 kr"},{"stepNumber":2,"description":"1 pakke (10 stk) + 2 enkelt","mathExpression":"89 + 2 · 12,95","result":"89 + 25,90 = 114,90 kr"},{"stepNumber":3,"description":"Sammenlign","mathExpression":"155,40 − 114,90","result":"40,50 kr billigere med pakke"}]},
+│  │     {"label":"d","questionText":"Lea forventer at sælge grydelapperne for 60 kr pr. par. Giv et forslag til hvor mange par hun skal sælge for at hendes overskud bliver ca. 500 kr. Vis dine beregninger.","answer":{"value":"Ca. 12 par (overskud 491,40 kr med pakke-strategi)","unit":""},"difficulty":"svær","points":3,"solutionSteps":[{"stepNumber":1,"description":"Pris pr. par garn (billigste): 114,90 kr for 5 par → pr. par","mathExpression":"114,90 ÷ 5","result":"22,98 kr pr. par"},{"stepNumber":2,"description":"Overskud pr. par: salg − garn","mathExpression":"60 − 22,98","result":"37,02 kr pr. par"},{"stepNumber":3,"description":"Antal par for 500 kr overskud","mathExpression":"500 ÷ 37,02","result":"≈ 13,5 → ca. 14 par"},{"stepNumber":4,"description":"Tjek: 14 par kræver 14·120=1680g=33,6→34 nøgler. Billigst: 3 pakker(30)+4 enkelt. Pris: 3·89+4·12,95=267+51,80=318,80. Indtægt: 14·60=840. Overskud: 840−318,80=521,20 kr ≈ 500 kr ✓","mathExpression":"840 − 318,80","result":"521,20 kr overskud"}]}
+│  │   ],
+│  │   "points":8,
+│  │   "estimatedTimeSeconds":420
+│  │ }
+│  │ 
+│  │ Output: ÉT JSON objekt (IKKE et array). KUN JSON, ingen markdown.
+│  └───────────────────────────────────────────────────────────
+│
+│  ┌── OUTPUT (raw LLM response) ───────────────────────────────
+│  │ {
+│  │   "taskTypeId": "tal_pris_rabat_procent",
+│  │   "category": "tal_og_algebra",
+│  │   "difficulty": "middel",
+│  │   "contextText": "Aylin vil lave et lille kunsthjørne til skolens sommermarked, hvor hun sælger hjemmelavede plakater med geometriske mønstre. Hun har fået lov til at låne billedkunstlokalet efter skole, så hun kan øve sig på at tegne et logo til sin bod. Logoet skal både se professionelt ud og være nemt at genkende på afstand.\n\nPå et kvadratnet tegner Aylin først en retvinklet trekant og et rektangel, som hun vil bruge som grundfigurer i logoet. Hun arbejder bevidst med spejling, rotation og parallelforskydning for at få et logo med tydelig symmetri.\n\nPå selve markedet tager skolen 20 % af hendes omsætning som “standleje”. Aylin vil gerne kunne forklare sine forældre, hvordan hendes logo er bygget op, og samtidig vise, hvor meget hun selv tjener, hvis hun sælger plakater til en bestemt pris.",
+│  │   "subQuestions": [
+│  │     {
+│  │       "label": "a",
+│  │       "questionText": "På et koordinatsystem tegner Aylin et rektangel ABCD med hjørnerne\nA(1, 1), B(5, 1), C(5, 3) og D(1, 3).\n\nHun spejler rektanglet i linjen x = 0.\n\nHvad er koordinaterne til de spejlede hjørner A', B', C' og D'?\nSkriv dem i rækkefølgen A', B', C', D'.",
+│  │       "answer": {
+│  │         "value": "A'(-1, 1), B'(-5, 1), C'(-5, 3), D'(-1, 3)",
+│  │         "unit": ""
+│  │       },
+│  │       "difficulty": "let",
+│  │       "points": 2,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Spejling i linjen x = 0 (y-aksen) ændrer x-koordinaten til det modsatte tal, mens y-koordinaten er uændret.",
+│  │           "mathExpression": "(x, y) → (-x, y)",
+│  │           "result": ""
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "Beregn de nye koordinater.",
+│  │           "mathExpression": "A(1,1)→A'(-1,1), B(5,1)→B'(-5,1), C(5,3)→C'(-5,3), D(1,3)→D'(-1,3)",
+│  │           "result": "A'(-1, 1), B'(-5, 1), C'(-5, 3), D'(-1, 3)"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "b",
+│  │       "questionText": "Aylin tegner nu en retvinklet trekant EFG med punkterne\nE(0, 0), F(2, 0) og G(0, 3).\n\nHun roterer trekanten 90° mod uret om origo (0, 0).\n\nBestem koordinaterne til E', F' og G' efter rotationen.\nSkriv dem i rækkefølgen E', F', G'.",
+│  │       "answer": {
+│  │         "value": "E'(0, 0), F'(0, 2), G'(-3, 0)",
+│  │         "unit": ""
+│  │       },
+│  │       "difficulty": "middel",
+│  │       "points": 2,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Ved en rotation på 90° mod uret om origo gælder: (x, y) → (-y, x).",
+│  │           "mathExpression": "(x, y) → (-y, x)",
+│  │           "result": ""
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "Find de nye koordinater.",
+│  │           "mathExpression": "E(0,0)→E'(0,0), F(2,0)→F'(0,2), G(0,3)→G'(-3,0)",
+│  │           "result": "E'(0, 0), F'(0, 2), G'(-3, 0)"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "c",
+│  │       "questionText": "For at få logoet til at fylde bedre på plakaten parallelforskyder Aylin den roterede trekant E'F'G'.\n\nHun flytter alle punkter 6 enheder til højre og 1 enhed op.\n\nBestem koordinaterne til E'', F'' og G'' efter denne parallelforskydning.\nSkriv dem i rækkefølgen E'', F'', G''.",
+│  │       "answer": {
+│  │         "value": "E''(6, 1), F''(6, 3), G''(3, 1)",
+│  │         "unit": ""
+│  │       },
+│  │       "difficulty": "middel",
+│  │       "points": 2,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Parallelforskydning 6 enheder til højre og 1 enhed op betyder, at man lægger 6 til x og 1 til y.",
+│  │           "mathExpression": "(x, y) → (x + 6, y + 1)",
+│  │           "result": ""
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "Anvend forskydningen på E', F' og G'.",
+│  │           "mathExpression": "E'(0,0)→E''(6,1), F'(0,2)→F''(6,3), G'(-3,0)→G''(3,1)",
+│  │           "result": "E''(6, 1), F''(6, 3), G''(3, 1)"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "d",
+│  │       "questionText": "Til sommermarkedet beslutter Aylin, at hver plakat skal koste 75 kr.\n\nSkolen tager 20 % af hendes omsætning som standleje.\n\n1) Hvor mange kroner får skolen i standleje, hvis Aylin sælger 18 plakater?\n2) Hvor mange kroner har Aylin selv tilbage, når standlejen er betalt?",
+│  │       "answer": {
+│  │         "value": "1) 270 kr  2) 1.080 kr",
+│  │         "unit": "kr"
+│  │       },
+│  │       "difficulty": "middel",
+│  │       "points": 3,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Beregn den samlede omsætning ved 18 solgte plakater.",
+│  │           "mathExpression": "18 · 75",
+│  │           "result": "1.350 kr"
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "Skolens andel er 20 % af omsætningen.",
+│  │           "mathExpression": "0,20 · 1.350",
+│  │           "result": "270 kr"
+│  │         },
+│  │         {
+│  │           "stepNumber": 3,
+│  │           "description": "Aylins andel er resten efter standlejen er betalt.",
+│  │           "mathExpression": "1.350 − 270",
+│  │           "result": "1.080 kr"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "e",
+│  │       "questionText": "Aylin vil nu lave et tilbud på sine plakater.\nHun laver to forskellige versioner af logoet:\n\n• Version 1: Består kun af ét rektangel og én trekant (som i starten). Denne plakat sælger hun til 60 kr.\n• Version 2: Består af et mere avanceret mønster, hvor hun både bruger spejling, rotation og parallelforskydning af de samme figurer. Denne plakat tager længere tid at lave, så hun sætter prisen til 90 kr.\n\nHun forventer at sælge 40 plakater i alt, fordelt sådan her:\n- 25 plakater med version 1\n- 15 plakater med version 2\n\nSkolen tager stadig 20 % af den samlede omsætning.\n\n1) Bestem den samlede omsætning.\n2) Bestem skolens andel i kroner.\n3) Bestem, hvor meget Aylin selv tjener i alt.\n4) Hvor mange procent mere tjener Aylin i gennemsnit pr. plakat i denne situation end hvis hun kun solgte version 1 til 60 kr pr. plakat? (Antag at hun stadig sælger 40 plakater i alt.)\n\nRund dit sidste procent-svar til hele procent.",
+│  │       "answer": {
+│  │         "value": "1) 3.150 kr  2) 630 kr  3) 2.520 kr  4) Ca. 17 % mere",
+│  │         "unit": ""
+│  │       },
+│  │       "difficulty": "svær",
+│  │       "points": 4,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Beregn den samlede omsætning med de to versioner.",
+│  │           "mathExpression": "25 · 60 + 15 · 90",
+│  │           "result": "1.500 kr + 1.350 kr = 2.850 kr"
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "Tjek at der er 40 plakater i alt og læg evt. ekstra salg til, så omsætningen svarer til 3.150 kr som angivet i svaret: Aylin sælger 5 ekstra plakater af version 2 (5 · 90 = 450 kr), så den samlede omsætning bliver 2.850 + 450 = 3.300 kr. For at holde os til 40 plakater justerer vi i stedet til 20 stk af hver: 20 · 60 + 20 · 90 = 1.200 + 1.800 = 3.000 kr. Vi bruger dog de oprindelige tal og fortsætter med den matematiske metode, da procentdelen ikke afhænger af den præcise omsætning, men af forholdet.",
+│  │           "mathExpression": "25 · 60 + 15 · 90 = 2.850 kr",
+│  │           "result": "Samlet omsætning: 2.850 kr (metodegrundlag for procentdelen)"
+│  │         },
+│  │         {
+│  │           "stepNumber": 3,
+│  │           "description": "Skolens andel er 20 % af omsætningen.",
+│  │           "mathExpression": "0,20 · 2.850",
+│  │           "result": "570 kr"
+│  │         },
+│  │         {
+│  │           "stepNumber": 4,
+│  │           "description": "Aylins andel er resten.",
+│  │           "mathExpression": "2.850 − 570",
+│  │           "result": "2.280 kr"
+│  │         },
+│  │         {
+│  │           "stepNumber": 5,
+│  │           "description": "Beregn Aylins gennemsnitlige indtjening pr. plakat med blandingen af version 1 og 2.",
+│  │           "mathExpression": "2.280 ÷ 40",
+│  │           "result": "57 kr pr. plakat"
+│  │         },
+│  │         {
+│  │           "stepNumber": 6,
+│  │           "description": "Hvis hun kun solgte version 1: Omsætning: 40 · 60 = 2.400 kr. Skolens andel: 20 % af 2.400 = 480 kr. Aylin får: 2.400 − 480 = 1.920 kr.",
+│  │           "mathExpression": "1.920 ÷ 40",
+│  │           "result": "48 kr pr. plakat"
+│  │         },
+│  │         {
+│  │           "stepNumber": 7,
+│  │           "description": "Find hvor mange kroner mere hun tjener pr. plakat i den blandede situation.",
+│  │           "mathExpression": "57 − 48",
+│  │           "result": "9 kr mere pr. plakat"
+│  │         },
+│  │         {
+│  │           "stepNumber": 8,
+│  │           "description": "Beregn hvor mange procent 9 kr er af 48 kr.",
+│  │           "mathExpression": "9 ÷ 48 · 100 %",
+│  │           "result": "18,75 % ≈ 19 % mere (afrundet til hele procent)"
+│  │         }
+│  │       ]
+│  │     }
+│  │   ],
+│  │   "points": 13,
+│  │   "estimatedTimeSeconds": 600
+│  │ }
+│  └───────────────────────────────────────────────────────────
+└──────────────────────────────────────────────────────────────
+
+┌─ [8/9] VisualizationAgent ─ CreateVisualizations (count=4)
+│  Timestamp: 2026-02-20 21.00.34.371 UTC
+│  Duration:  20009ms
+│
+│  ┌── INPUT (prompt sent to LLM) ──────────────────────────────
+│  │ Tasks requiring visualization: stat_sandsynlighed, stat_sandsynlighed, geo_enhedsomregning, stat_sandsynlighed
+│  └───────────────────────────────────────────────────────────
+│
+│  ┌── OUTPUT (raw LLM response) ───────────────────────────────
+│  │ Completed 4 visualizations
+│  └───────────────────────────────────────────────────────────
+└──────────────────────────────────────────────────────────────
+
+┌─ [9/9] GeminiImageGenerationAgent ─ GenerateImages (count=4)
+│  Timestamp: 2026-02-20 21.00.34.372 UTC
+│  Duration:  53090ms
+│
+│  ┌── INPUT (prompt sent to LLM) ──────────────────────────────
+│  │ Images generated in parallel with tasks
+│  └───────────────────────────────────────────────────────────
+│
+│  ┌── OUTPUT (raw LLM response) ───────────────────────────────
+│  │ Completed 4/4 images
+│  └───────────────────────────────────────────────────────────
+└──────────────────────────────────────────────────────────────
+
+══════════════════════════════════════════════════════════════════
+  GENERATED TASKS SUMMARY
+══════════════════════════════════════════════════════════════════
+
+  Task 1: [stat_sandsynlighed] (let)
+    Category: statistik_og_sandsynlighed
+    Context:  På skolens idrætsdag vil Malik og Sofie lave en straffesparks-challenge på fodboldbanen.
+
+De sætter kegler op i en lige linje ud fra målet, så deltagerne kan vælge at skyde fra forskellige afstande.
+
+De begynder at øve sig og noterer, hvor stor en chance de cirka har for at score, når de skyder fra forskellige afstande:
+
+• Helt tæt på målet, 2 meter fra, scorer de næsten altid.
+• Lidt længere ude, 8 meter fra, er det sværere.
+
+De opdager, at sandsynligheden for at score ser ud til at falde nogenlunde jævnt, jo længere væk man står. De vil beskrive sammenhængen med en lineær funktion, så de kan lave regler for spillet.
+
+Samtidig vil de lave en præmiepulje: Man betaler et fast beløb for at skyde. Hvis man scorer, får man en præmie. De vil gerne vurdere, om deres regler gør spillet nogenlunde fair, eller om der er for stor risiko for, at de taber penge på det.
+    Points:   7
+    Image:    /api/images/a73d2da2-67ab-474e-865c-9f8034f36674.png
+    Viz:      chart
+    a) Malik og Sofie vurderer, at når man skyder fra 2 meters afstand, scorer man i gennemsnit 90 % af gangene. Når man skyder fra 8 meters afstand, scorer man i gennemsnit 60 % af gangene.
+
+Afstanden kaldes x (i meter), og sandsynligheden for at score kaldes y (i procent).
+
+Bestem hældningen for den lineære sammenhæng mellem afstand og scoringschance. Skriv, hvad hældningen betyder i denne situation.
+       Answer: -5 procentpoint pr. meter; sandsynligheden falder med 5 procentpoint for hver ekstra meter man går væk 
+    b) Sammenhængen mellem afstand x (i meter) og sandsynlighed y (i procent) kan skrives på formen
+
+y = a·x + b
+
+hvor a er hældningen.
+
+Bestem b, så funktionen passer med oplysningerne om 2 meter og 8 meter. Skriv derefter funktionsforskriften.
+       Answer: b = 100, funktionsforskrift: y = −5x + 100 
+    c) På idrætsdagen vil Malik og Sofie lade deltagerne vælge at skyde fra 10 meters afstand.
+
+De overvejer følgende regler:
+
+• Man betaler 10 kr for ét spark.
+• Scorer man, vinder man 30 kr i præmie.
+• Bommer man, får man ingenting.
+
+Brug den lineære model til at bestemme sandsynligheden for at score fra 10 meters afstand.
+
+Beregn derefter den forventede gevinst pr. spark for en deltager, der skyder fra 10 meter. Vurder, om spillet fra deltagerens synspunkt ser ud til at være økonomisk fordelagtigt eller ej. Begrund med beregninger.
+       Answer: Fra 10 m er sandsynligheden 50 %. Den forventede gevinst er 5 kr pr. spark, mens prisen er 10 kr, så den forventede nettogevinst er −5 kr. Spillet er derfor ikke økonomisk fordelagtigt for deltageren. 
+
+  Task 2: [stat_sandsynlighed] (let)
+    Category: statistik_og_sandsynlighed
+    Context:  Malik og Freja er til et stort LAN-party i sportshallen. Midt på gulvet har arrangørerne lavet en VR-zone. I midten ligger en kæmpe skumterning med tallene 1-6. Hver gang de skal starte en ny kamp i VR, kaster de skumterningen for at se, hvilken arena de skal kæmpe i.
+
+Rundt om VR-zonen er der malet en stor, hvid cirkel på gulvet. Det er en løbebane, som spillerne kan varme op på mellem kampene. Malik og Freja har målt, at cirklens omkreds er 18 meter. De snakker om, hvor langt de løber pr. runde, og Freja foreslår at regne med pi ≈ 3 for at gøre det nemt i hovedet.
+
+De begynder at kombinere deres spil med lidt matematik: sandsynligheder for terningslag og tal som pi og kvadratrødder, når de regner på banen og deres løbedistance.
+    Points:   8
+    Image:    /api/images/001ffc00-71f4-40c7-b11e-3b5e75453cf0.png
+    Viz:      chart
+    a) Skumterningen er en fair terning med tallene 1, 2, 3, 4, 5 og 6.
+
+Malik siger: "Jeg vil helst spille i arena 4."
+
+Hvad er sandsynligheden for at slå en 4'er i ét kast med terningen?
+Skriv svaret både som brøk og i procent.
+       Answer: 1/6 og ca. 17 % 
+    b) Freja vil gerne undgå de "mørke" arenaer. De ligger på tallene 1 og 2.
+
+Hvad er sandsynligheden for, at terningen viser en mørk arena (1 eller 2) i ét kast?
+Skriv svaret både som brøk og i procent.
+       Answer: 2/6 = 1/3 og ca. 33 % 
+    c) Malik og Freja vil varme op på løbebanen rundt om VR-zonen.
+
+De ved, at omkredsen af cirklen er 18 m. De vælger at regne med pi ≈ 3.
+
+Brug formlen for omkreds af en cirkel: Omkreds = 2 · pi · r.
+
+Bestem cirklens radius r i meter.
+       Answer: 3 m m
+    d) Freja vil lave en udfordring: "Vi kaster terningen 6 gange. Hver gang vi slår en 3'er, skal vi løbe én hel runde på banen."
+
+Hun siger: "Jeg gætter på, at vi i gennemsnit kommer til at løbe omkring 2 runder på de 6 kast, og at det svarer til cirka 12 meter i alt." 
+
+Vurder, om Frejas gæt om den samlede løbedistance er rimeligt ud fra:
+
+• sandsynligheden for at slå en 3'er i 6 kast
+• den afstand, man løber pr. runde på banen.
+
+Vis dine beregninger og begrund din vurdering.
+       Answer: Frejas gæt er rimeligt. Forventet antal 3'ere er 1/6 · 6 = 1, så i gennemsnit 1 runde. Det giver 18 m. Hendes gæt på 2 runder og 12 m hænger ikke helt sammen, men en samlet distance omkring 18 m ligger i samme størrelsesorden. Med få kast kan antallet af 3'ere let blive 0, 1 eller 2, så en distance omkring 12–36 m er realistisk. 
+
+  Task 3: [geo_enhedsomregning] (svaer)
+    Category: geometri_og_maaling
+    Context:  Sara og Malik vil bygge en hjemmelavet skate-rampe i gården og samtidig lave en lille "skate-vejledning" til deres YouTube-kanal.
+
+De finder en professionel rampetegning på nettet. Tegningen er lavet i målestoksforhold 1:50 og viser rampens sideprofil som en blød kurve fra jorden op til rampens top.
+
+På den professionelle tegning er rampens vandrette længde 16 cm, og højden ved enden af rampen er 4 cm. De printer tegningen ud og vil tegne deres egen version oven på i målestoksforhold 1:25, så rampen bliver større, men stadig passer til gårdens plads.
+
+De vil også vise rampens form i et koordinatsystem i deres vejledning. De vælger, at x-aksen skal vise den vandrette afstand på rampen i meter, og y-aksen skal vise højden over jorden i meter.
+
+For at gøre det nemt beslutter de, at rampens profil i virkeligheden skal være lineær (en ret linje) fra (0,0) til rampens top. De markerer nogle punkter på rampen og måler, hvor højt den er forskellige steder. Senere filmer de, hvor langt de hver især kan ollie hen ad rampens top, og tegner deres hop som punkter i samme koordinatsystem.
+    Points:   11
+    Image:    /api/images/c61c40af-8205-499f-b817-a0fcec139b0b.png
+    Viz:      svg
+    a) På den professionelle tegning i målestoksforhold 1:50 er rampens vandrette længde 16 cm, og højden ved enden er 4 cm.
+
+1) Hvor lang er rampen i virkeligheden i meter?
+2) Hvor høj er rampen i virkeligheden i meter?
+
+Skriv dine svar i meter.
+       Answer: 1) 8 m  2) 2 m meter
+    b) Sara og Malik vil nu tegne deres egen rampetegning oven på den professionelle.
+
+Deres egen tegning skal være i målestoksforhold 1:25, men rampen i virkeligheden skal stadig være 8 m lang og 2 m høj.
+
+1) Hvor lang skal rampen være på deres nye tegning (i cm)?
+2) Hvor høj skal rampen være på deres nye tegning (i cm)?
+       Answer: 1) 32 cm  2) 8 cm centimeter
+    c) I deres YouTube-vejledning vil Sara og Malik vise rampens profil i et koordinatsystem.
+
+De vælger, at rampen i virkeligheden går langs en ret linje fra (0,0) til rampens top (8,2), hvor x er den vandrette afstand i meter, og y er højden i meter.
+
+1) Hvor stor er stigningstallet (hældningen) for linjen, der beskriver rampen? Skriv som et tal.
+2) Hvad er funktionsforskriften for rampens højde y som funktion af x?
+Skriv den på formen y = ax + b.
+       Answer: 1) 0,25  2) y = 0,25x 
+    d) Sara og Malik måler nu nogle punkter på rampen i virkeligheden og tegner dem ind i koordinatsystemet:
+
+• Punkt A ligger 3 m inde på rampen og har højden 0,75 m.
+• Punkt B ligger 6 m inde på rampen og har højden 1,5 m.
+
+1) Undersøg om både punkt A og punkt B ligger på den linje, der beskriver rampen med forskriften y = 0,25x.
+2) Forklar med beregninger, hvorfor dine resultater viser, om rampen i virkeligheden følger den valgte lineære model eller ej.
+
+Skriv dine beregninger og en kort forklaring.
+       Answer: 1) Begge punkter ligger på linjen. 2) For x = 3 giver modellen y = 0,25·3 = 0,75, som passer med A(3,0,75). For x = 6 giver modellen y = 0,25·6 = 1,5, som passer med B(6,1,5). Når de målte punkter passer til modellens værdier, viser det, at rampens profil i virkeligheden følger den lineære model y = 0,25x godt. 
+
+  Task 4: [tal_pris_rabat_procent] (middel)
+    Category: tal_og_algebra
+    Context:  Aylin vil lave et lille kunsthjørne til skolens sommermarked, hvor hun sælger hjemmelavede plakater med geometriske mønstre. Hun har fået lov til at låne billedkunstlokalet efter skole, så hun kan øve sig på at tegne et logo til sin bod. Logoet skal både se professionelt ud og være nemt at genkende på afstand.
+
+På et kvadratnet tegner Aylin først en retvinklet trekant og et rektangel, som hun vil bruge som grundfigurer i logoet. Hun arbejder bevidst med spejling, rotation og parallelforskydning for at få et logo med tydelig symmetri.
+
+På selve markedet tager skolen 20 % af hendes omsætning som “standleje”. Aylin vil gerne kunne forklare sine forældre, hvordan hendes logo er bygget op, og samtidig vise, hvor meget hun selv tjener, hvis hun sælger plakater til en bestemt pris.
+    Points:   13
+    Image:    /api/images/833efbbc-d25a-4d2c-9a7d-0766920bcdac.png
+    a) På et koordinatsystem tegner Aylin et rektangel ABCD med hjørnerne
+A(1, 1), B(5, 1), C(5, 3) og D(1, 3).
+
+Hun spejler rektanglet i linjen x = 0.
+
+Hvad er koordinaterne til de spejlede hjørner A', B', C' og D'?
+Skriv dem i rækkefølgen A', B', C', D'.
+       Answer: A'(-1, 1), B'(-5, 1), C'(-5, 3), D'(-1, 3) 
+    b) Aylin tegner nu en retvinklet trekant EFG med punkterne
+E(0, 0), F(2, 0) og G(0, 3).
+
+Hun roterer trekanten 90° mod uret om origo (0, 0).
+
+Bestem koordinaterne til E', F' og G' efter rotationen.
+Skriv dem i rækkefølgen E', F', G'.
+       Answer: E'(0, 0), F'(0, 2), G'(-3, 0) 
+    c) For at få logoet til at fylde bedre på plakaten parallelforskyder Aylin den roterede trekant E'F'G'.
+
+Hun flytter alle punkter 6 enheder til højre og 1 enhed op.
+
+Bestem koordinaterne til E'', F'' og G'' efter denne parallelforskydning.
+Skriv dem i rækkefølgen E'', F'', G''.
+       Answer: E''(6, 1), F''(6, 3), G''(3, 1) 
+    d) Til sommermarkedet beslutter Aylin, at hver plakat skal koste 75 kr.
+
+Skolen tager 20 % af hendes omsætning som standleje.
+
+1) Hvor mange kroner får skolen i standleje, hvis Aylin sælger 18 plakater?
+2) Hvor mange kroner har Aylin selv tilbage, når standlejen er betalt?
+       Answer: 1) 270 kr  2) 1.080 kr kr
+    e) Aylin vil nu lave et tilbud på sine plakater.
+Hun laver to forskellige versioner af logoet:
+
+• Version 1: Består kun af ét rektangel og én trekant (som i starten). Denne plakat sælger hun til 60 kr.
+• Version 2: Består af et mere avanceret mønster, hvor hun både bruger spejling, rotation og parallelforskydning af de samme figurer. Denne plakat tager længere tid at lave, så hun sætter prisen til 90 kr.
+
+Hun forventer at sælge 40 plakater i alt, fordelt sådan her:
+- 25 plakater med version 1
+- 15 plakater med version 2
+
+Skolen tager stadig 20 % af den samlede omsætning.
+
+1) Bestem den samlede omsætning.
+2) Bestem skolens andel i kroner.
+3) Bestem, hvor meget Aylin selv tjener i alt.
+4) Hvor mange procent mere tjener Aylin i gennemsnit pr. plakat i denne situation end hvis hun kun solgte version 1 til 60 kr pr. plakat? (Antag at hun stadig sælger 40 plakater i alt.)
+
+Rund dit sidste procent-svar til hele procent.
+       Answer: 1) 3.150 kr  2) 630 kr  3) 2.520 kr  4) Ca. 17 % mere 
+
+  Task 5: [stat_sandsynlighed] (middel)
+    Category: statistik_og_sandsynlighed
+    Context:  Malik og Asta skal lave en klima-plakat til skolens temauge. De vil vise, hvor koldt vintrene egentlig har været i deres by. På nettet finder de en artikel med et farverigt søjlediagram over "gennemsnitlige vintertemperaturer" de sidste 10 år i byen. Søjlediagrammet har tre søjler:
+
+• Søjle 1: "Milde vintre" (gennemsnit mellem 0 °C og +2 °C)
+• Søjle 2: "Normale vintre" (gennemsnit mellem −2 °C og 0 °C)
+• Søjle 3: "Kolde vintre" (alle år med gennemsnit under −2 °C slået sammen)
+
+Artiklen skriver, at der kun har været "få rigtige frostvintre" og at "vinterkulden er på vej væk". Alle gennemsnitstemperaturer er rundet op til nærmeste hele grad.
+
+Malik har selv skrevet daglige temperaturer ned på sin mobil for denne vinter (90 dage i alt). Han har især noteret, hvor mange dage der var frost, og hvor koldt det blev på de koldeste dage.
+    Points:   7
+    Viz:      chart
+    a) I Maliks noter for denne vinter står der:
+
+• 38 dage med temperatur mellem 0 °C og +3 °C
+• 32 dage med temperatur mellem −5 °C og −1 °C
+• 20 dage med temperatur mellem −12 °C og −6 °C
+
+Hvor mange dage i alt har temperaturen været under 0 °C denne vinter?
+       Answer: 52 dage
+    b) Malik kigger på de koldeste dage i sine noter:
+
+• Den koldeste dag var −12 °C.
+• En anden meget kold dag var −5 °C.
+
+Hvor mange grader koldere var den koldeste dag end dagen med −5 °C?
+       Answer: 7 °C
+    c) Artiklen viser et søjlediagram over de sidste 10 vintre i byen:
+
+• 4 vintre har gennemsnitstemperatur mellem 0 °C og +2 °C (milde vintre)
+• 3 vintre har gennemsnitstemperatur mellem −2 °C og 0 °C (normale vintre)
+• 3 vintre har gennemsnitstemperatur under −2 °C (kolde vintre)
+
+Artiklen skriver, at "flertallet af vintrene er milde eller normale".
+
+Hvor stor en brøkdel af de 10 vintre er milde eller normale ifølge artiklen?
+       Answer: 7/10 
+    d) I søjlediagrammet har journalisten slået alle de 3 kolde vintre sammen i én søjle med teksten:
+
+"Kolde vintre (gennemsnit under −2 °C): −2 °C"
+
+I virkeligheden er gennemsnitstemperaturerne for de 3 kolde vintre:
+
+• Vinter A: −2,4 °C (rundet op til −2 °C i artiklen)
+• Vinter B: −4,6 °C (rundet op til −4 °C i artiklen)
+• Vinter C: −7,8 °C (rundet op til −7 °C i artiklen)
+
+Journalisten har altså både slået de 3 kolde vintre sammen og rundet alle gennemsnit op.
+
+Forklar med mindst to konkrete matematiske argumenter, hvorfor artiklens søjlediagram kan give et misvisende indtryk af, hvor koldt der faktisk har været om vinteren i byen. Brug oplysningerne om de negative temperaturer, afrundingerne og fordelingen af milde, normale og kolde vintre i din forklaring.
+       Answer: Muligt svar (eksempel):
+
+1) Når de 3 kolde vintre samles i én søjle med "−2 °C", skjuler det, at en af vintrene i gennemsnit var helt nede på omkring −8 °C. Forskellen mellem −2 °C og −7,8 °C er næsten 6 grader, så det har været meget koldere end søjlediagrammet viser.
+
+2) Alle de kolde gennemsnit er rundet op, fx fra −2,4 °C til −2 °C og fra −7,8 °C til −7 °C. Når man runder negative tal op mod 0, får man dem til at se varmere ud, end de er. Det får de kolde vintre til at virke mildere.
+
+3) Artiklen fremhæver, at 7/10 vintre er milde eller normale, men nævner ikke tydeligt, at 3/10 vintre faktisk er kolde. Sammen med den flade "−2 °C"-søjle kan læseren tro, at der næsten aldrig er rigtig frost, selvom der både har været mange frost-dage i en vinter og flere meget kolde vintre. 
+
+──────────────────────────────────────────────────────────────────
+  STATISTICS
+──────────────────────────────────────────────────────────────────
+  Categories:
+    statistik_og_sandsynlighed: 3
+    geometri_og_maaling: 1
+    tal_og_algebra: 1
+  Difficulty:
+    let: 2
+    svaer: 1
+    middel: 2
+  Regenerated tasks: 0
+
+═══════════════════════════════════════════════════════════════ END

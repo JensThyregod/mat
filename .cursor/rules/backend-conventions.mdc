@@ -1,0 +1,62 @@
+---
+description: Backend conventions for the Mat .NET Clean Architecture application
+globs: backend/**/*.cs
+alwaysApply: false
+---
+
+# Backend Conventions
+
+## Clean Architecture
+
+- **Core** has zero dependencies on Infrastructure or Api. It contains only interfaces, models, and domain logic.
+- **Infrastructure** implements Core interfaces. References Core only.
+- **Api** is the composition root. References both Core and Infrastructure. Registers DI in `Program.cs`.
+
+## Naming
+
+- Interfaces: `I` prefix (`ITerminsproveRepository`, `IAgentOrchestrator`).
+- Controllers: `Controller` suffix.
+- Repositories: `Repository` suffix.
+- Agents: `Agent` suffix.
+- Services: `Service` suffix.
+
+## Dependency Injection
+
+- All services registered in `Program.cs` using `builder.Services`.
+- Use constructor injection exclusively. Never `new` up a service — inject via its interface.
+
+```csharp
+// Bad
+var repo = new FileTerminsproveRepository();
+
+// Good — injected via constructor
+public class MyService(ITerminsproveRepository repo) { }
+```
+
+## Repository Pattern
+
+- Data access only through repository interfaces defined in Core.
+- Implementations live in `Infrastructure/Repositories/`.
+- File-based persistence uses the `data/` directory with structured folder naming.
+
+## Agent Pattern
+
+- Each agent implements a Core interface from `Interfaces/Agents/`.
+- Orchestrators coordinate agents in a pipeline (Brainstorm -> Format -> Validate -> Visualize).
+- Log all agent interactions to `data/agent-logs/` for debugging.
+
+## Error Handling
+
+- Use `ILogger<T>` for all logging. Inject via constructor.
+- Return `ProblemDetails` for API errors with appropriate HTTP status codes.
+- Never swallow exceptions silently — always log before handling.
+
+## Configuration
+
+- Sensitive values (API keys, connection strings) via environment variables, never in `appsettings.json`.
+- Feature flags (`FastMode`, `ImageGenerationEnabled`) in configuration for optional capabilities.
+
+## Testing
+
+- New agents and services must have corresponding test classes in `MatBackend.Tests`.
+- Test project mirrors the main project folder structure.

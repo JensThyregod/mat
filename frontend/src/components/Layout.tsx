@@ -101,11 +101,13 @@ export const Layout = ({
 
   return (
     <div className={`app-shell ${showNavigation ? 'app-shell--with-sidebar' : ''}`}>
-      {/* Math particles on dashboard/home page */}
+      <a href="#main-content" className="skip-to-content">
+        Gå til indhold
+      </a>
+
       {showParticles && <MathParticles count={25} />}
       
-      {/* Ambient background layer */}
-      <div className="ambient-layer">
+      <div className="ambient-layer" aria-hidden="true">
         {/* Gradient orbs that follow mouse subtly and change color with page */}
         <motion.div
           className="ambient-orb ambient-orb--1"
@@ -151,7 +153,6 @@ export const Layout = ({
         <div className="ambient-noise" />
       </div>
       
-      {/* Sidebar - Desktop only */}
       {showNavigation && (
         <Sidebar
           items={NAV_ITEMS}
@@ -163,12 +164,10 @@ export const Layout = ({
         />
       )}
       
-      {/* Main content area */}
-      <div className="main-content">
+      <main id="main-content" className="main-content">
         <div className="page">{children}</div>
-      </div>
+      </main>
       
-      {/* TabBar - Mobile only */}
       {showNavigation && (
         <TabBar 
           items={TAB_ITEMS}

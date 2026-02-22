@@ -1,0 +1,16 @@
+**/node_modules/
+**/bin/
+**/obj/
+**/.git
+**/dist/
+**/coverage/
+backend/data/terminsprover/
+backend/data/agent-logs/
+backend/data/generated-images/
+backend/MatBackend.Tests/
+playwright/
+docs/
+skills/
+*.md
+.cursor/
+.vscode/

@@ -20,7 +20,7 @@ public class FileTerminsproveRepository : ITerminsproveRepository
         };
     }
 
-    private string GetTerminsproverDirectory(string? studentId = null)
+    private string GetTerminsproverBaseDirectory(string? studentId = null)
     {
         if (!string.IsNullOrEmpty(studentId))
         {
@@ -29,41 +29,62 @@ public class FileTerminsproveRepository : ITerminsproveRepository
         return Path.Combine(_dataRoot, "terminsprover");
     }
 
-    private string GetFilePath(string id, string? studentId = null)
+    /// <summary>
+    /// Build the folder name for a terminsprøve: "yyyy-MM-dd_HH-mm-ss_{id}"
+    /// </summary>
+    internal static string BuildFolderName(TerminsproveResult terminsprove)
     {
-        return Path.Combine(GetTerminsproverDirectory(studentId), $"{id}.json");
+        var timestamp = terminsprove.Metadata.StartedAt != default
+            ? terminsprove.Metadata.StartedAt
+            : DateTime.UtcNow;
+        return $"{timestamp:yyyy-MM-dd_HH-mm-ss}_{terminsprove.Id}";
+    }
+
+    /// <summary>
+    /// Get the dedicated folder for a single terminsprøve.
+    /// All content (JSON, agent log, images) lives inside this folder.
+    /// </summary>
+    public string GetTerminsproveFolderPath(TerminsproveResult terminsprove)
+    {
+        var baseDir = GetTerminsproverBaseDirectory(terminsprove.Request.StudentId);
+        return Path.Combine(baseDir, BuildFolderName(terminsprove));
+    }
+
+    /// <summary>
+    /// Find the folder for a terminsprøve by its ID.
+    /// Scans directory names that end with the given ID.
+    /// </summary>
+    private string? FindFolderById(string id, string? studentId = null)
+    {
+        var baseDir = GetTerminsproverBaseDirectory(studentId);
+        if (!Directory.Exists(baseDir))
+            return null;
+
+        var suffix = $"_{id}";
+        return Directory.GetDirectories(baseDir)
+            .FirstOrDefault(d => Path.GetFileName(d).EndsWith(suffix));
     }
 
     public async Task SaveAsync(TerminsproveResult terminsprove)
     {
-        var directory = GetTerminsproverDirectory(terminsprove.Request.StudentId);
-        
-        if (!Directory.Exists(directory))
-        {
-            Directory.CreateDirectory(directory);
-        }
+        var folder = GetTerminsproveFolderPath(terminsprove);
+        Directory.CreateDirectory(folder);
 
-        var filePath = GetFilePath(terminsprove.Id, terminsprove.Request.StudentId);
+        var filePath = Path.Combine(folder, "terminsprove.json");
         var json = JsonSerializer.Serialize(terminsprove, _jsonOptions);
         await File.WriteAllTextAsync(filePath, json);
         
-        // Also save the full agent chat history as a human-readable log file
-        await SaveAgentChatLogAsync(terminsprove);
+        await SaveAgentChatLogAsync(terminsprove, folder);
     }
     
     /// <summary>
-    /// Saves the full agent chat history (all prompts, responses, and metadata) 
-    /// to a human-readable text file in data/agent-logs/{terminsproveId}.txt
+    /// Saves the full agent chat history to agent-log.txt inside the terminsprøve folder.
     /// </summary>
-    private async Task SaveAgentChatLogAsync(TerminsproveResult terminsprove)
+    private async Task SaveAgentChatLogAsync(TerminsproveResult terminsprove, string folder)
     {
         try
         {
-            var logDir = Path.Combine(_dataRoot, "agent-logs");
-            if (!Directory.Exists(logDir))
-                Directory.CreateDirectory(logDir);
-            
-            var logPath = Path.Combine(logDir, $"{terminsprove.Id}.txt");
+            var logPath = Path.Combine(folder, "agent-log.txt");
             var sb = new StringBuilder();
             
             // Header
@@ -193,12 +214,11 @@ public class FileTerminsproveRepository : ITerminsproveRepository
 
     public async Task<TerminsproveResult?> GetByIdAsync(string id)
     {
-        // First check global terminsprover directory
-        var globalPath = GetFilePath(id);
-        if (File.Exists(globalPath))
+        // Search global terminsprover directory for a folder ending with _{id}
+        var folder = FindFolderById(id);
+        if (folder != null)
         {
-            var json = await File.ReadAllTextAsync(globalPath);
-            return JsonSerializer.Deserialize<TerminsproveResult>(json, _jsonOptions);
+            return await LoadFromFolderAsync(folder);
         }
 
         // Search in user directories
@@ -208,13 +228,14 @@ public class FileTerminsproveRepository : ITerminsproveRepository
             foreach (var userDir in Directory.GetDirectories(usersDir))
             {
                 var userTerminsproverDir = Path.Combine(userDir, "terminsprover");
-                var userPath = Path.Combine(userTerminsproverDir, $"{id}.json");
+                if (!Directory.Exists(userTerminsproverDir)) continue;
                 
-                if (File.Exists(userPath))
-                {
-                    var json = await File.ReadAllTextAsync(userPath);
-                    return JsonSerializer.Deserialize<TerminsproveResult>(json, _jsonOptions);
-                }
+                var suffix = $"_{id}";
+                var match = Directory.GetDirectories(userTerminsproverDir)
+                    .FirstOrDefault(d => Path.GetFileName(d).EndsWith(suffix));
+                
+                if (match != null)
+                    return await LoadFromFolderAsync(match);
             }
         }
 
@@ -227,23 +248,20 @@ public class FileTerminsproveRepository : ITerminsproveRepository
 
         if (!string.IsNullOrEmpty(studentId))
         {
-            // Get terminsprøver for specific student
-            var directory = GetTerminsproverDirectory(studentId);
+            var directory = GetTerminsproverBaseDirectory(studentId);
             if (Directory.Exists(directory))
             {
-                await LoadFromDirectoryAsync(directory, results);
+                await LoadAllFromBaseDirectoryAsync(directory, results);
             }
         }
         else
         {
-            // Get all terminsprøver from global directory
-            var globalDir = GetTerminsproverDirectory();
+            var globalDir = GetTerminsproverBaseDirectory();
             if (Directory.Exists(globalDir))
             {
-                await LoadFromDirectoryAsync(globalDir, results);
+                await LoadAllFromBaseDirectoryAsync(globalDir, results);
             }
 
-            // Also search all user directories
             var usersDir = Path.Combine(_dataRoot, "users");
             if (Directory.Exists(usersDir))
             {
@@ -252,7 +270,7 @@ public class FileTerminsproveRepository : ITerminsproveRepository
                     var userTerminsproverDir = Path.Combine(userDir, "terminsprover");
                     if (Directory.Exists(userTerminsproverDir))
                     {
-                        await LoadFromDirectoryAsync(userTerminsproverDir, results);
+                        await LoadAllFromBaseDirectoryAsync(userTerminsproverDir, results);
                     }
                 }
             }
@@ -261,33 +279,47 @@ public class FileTerminsproveRepository : ITerminsproveRepository
         return results.OrderByDescending(t => t.Metadata.StartedAt);
     }
 
-    private async Task LoadFromDirectoryAsync(string directory, List<TerminsproveResult> results)
+    private async Task<TerminsproveResult?> LoadFromFolderAsync(string folder)
     {
-        foreach (var file in Directory.GetFiles(directory, "*.json"))
+        var jsonPath = Path.Combine(folder, "terminsprove.json");
+        if (!File.Exists(jsonPath))
+            return null;
+
+        try
         {
-            try
+            var json = await File.ReadAllTextAsync(jsonPath);
+            return JsonSerializer.Deserialize<TerminsproveResult>(json, _jsonOptions);
+        }
+        catch (JsonException)
+        {
+            return null;
+        }
+    }
+
+    private async Task LoadAllFromBaseDirectoryAsync(string baseDirectory, List<TerminsproveResult> results)
+    {
+        foreach (var folder in Directory.GetDirectories(baseDirectory))
+        {
+            var result = await LoadFromFolderAsync(folder);
+            if (result != null)
             {
-                var json = await File.ReadAllTextAsync(file);
-                var terminsprove = JsonSerializer.Deserialize<TerminsproveResult>(json, _jsonOptions);
-                if (terminsprove != null)
-                {
-                    results.Add(terminsprove);
-                }
-            }
-            catch (JsonException)
-            {
-                // Skip invalid JSON files
+                results.Add(result);
             }
         }
     }
 
+    public string GetImagesFolderPath(TerminsproveResult terminsprove)
+    {
+        return Path.Combine(GetTerminsproveFolderPath(terminsprove), "images");
+    }
+
     public Task<bool> DeleteAsync(string id)
     {
-        // Check global directory first
-        var globalPath = GetFilePath(id);
-        if (File.Exists(globalPath))
+        // Find and delete the entire folder for this terminsprøve
+        var folder = FindFolderById(id);
+        if (folder != null)
         {
-            File.Delete(globalPath);
+            Directory.Delete(folder, recursive: true);
             return Task.FromResult(true);
         }
 
@@ -297,10 +329,16 @@ public class FileTerminsproveRepository : ITerminsproveRepository
         {
             foreach (var userDir in Directory.GetDirectories(usersDir))
             {
-                var userPath = Path.Combine(userDir, "terminsprover", $"{id}.json");
-                if (File.Exists(userPath))
+                var userTerminsproverDir = Path.Combine(userDir, "terminsprover");
+                if (!Directory.Exists(userTerminsproverDir)) continue;
+                
+                var suffix = $"_{id}";
+                var match = Directory.GetDirectories(userTerminsproverDir)
+                    .FirstOrDefault(d => Path.GetFileName(d).EndsWith(suffix));
+                
+                if (match != null)
                 {
-                    File.Delete(userPath);
+                    Directory.Delete(match, recursive: true);
                     return Task.FromResult(true);
                 }
             }

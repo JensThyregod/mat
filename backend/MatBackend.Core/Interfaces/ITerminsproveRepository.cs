@@ -23,5 +23,11 @@ public interface ITerminsproveRepository
     /// Delete a terminsprøve by ID
     /// </summary>
     Task<bool> DeleteAsync(string id);
+    
+    /// <summary>
+    /// Get the path to the images subfolder for a terminsprøve.
+    /// Used by the orchestrator to tell the image generation agent where to save images.
+    /// </summary>
+    string GetImagesFolderPath(TerminsproveResult terminsprove);
 }
 

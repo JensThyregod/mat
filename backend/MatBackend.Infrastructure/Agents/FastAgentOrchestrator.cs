@@ -1,44 +1,97 @@
 using System.Diagnostics;
 using Microsoft.Extensions.Logging;
+using MatBackend.Core.Interfaces;
 using MatBackend.Core.Interfaces.Agents;
+using MatBackend.Core.Models.Agents;
+using MatBackend.Core.Models.Curriculum;
 using MatBackend.Core.Models.Terminsprove;
+using MatBackend.Infrastructure.Repositories;
 
 namespace MatBackend.Infrastructure.Agents;
 
 /// <summary>
-/// Optimized orchestrator that generates tasks in sequential batches with smooth streaming.
+/// Orchestrator that generates each task individually in its own LLM call, run in parallel.
 /// 
-/// Performance improvements over original:
-/// - Batch generation: 5 tasks per LLM call instead of 4 calls per task
-/// - Skip separate validation: Tasks are self-validated during generation
-/// - Lazy visualization: Only for tasks that truly need it
-/// - Smooth streaming: Tasks appear one-by-one on the canvas with stagger delays
-/// 
-/// Token savings: ~70% reduction
-/// Speed improvement: ~3-5x faster
+/// Flow: CurriculumSampler → TopicBrainstormAgent → BatchTaskGenerator (per task)
+/// Each task gets a unique topic pair and brainstormed concept for maximum diversity.
+/// Tasks are generated concurrently (up to MaxParallelTasks) and streamed to the frontend.
 /// </summary>
 public class FastAgentOrchestrator : IAgentOrchestrator
 {
     private readonly IBatchTaskGeneratorAgent _batchGenerator;
+    private readonly ITopicBrainstormAgent _topicBrainstormAgent;
+    private readonly ICurriculumSampler _curriculumSampler;
     private readonly IVisualizationAgent _visualizationAgent;
     private readonly IImageGenerationAgent _imageGenerationAgent;
+    private readonly ITerminsproveRepository _repository;
     private readonly ILogger<FastAgentOrchestrator> _logger;
     
-    // Tunable parameters
-    private const int BatchSize = 5; // Tasks per LLM call
+    private const int MaxParallelTasks = 5;
     
     public FastAgentOrchestrator(
         IBatchTaskGeneratorAgent batchGenerator,
+        ITopicBrainstormAgent topicBrainstormAgent,
+        ICurriculumSampler curriculumSampler,
         IVisualizationAgent visualizationAgent,
         IImageGenerationAgent imageGenerationAgent,
+        ITerminsproveRepository repository,
         ILogger<FastAgentOrchestrator> logger)
     {
         _batchGenerator = batchGenerator;
+        _topicBrainstormAgent = topicBrainstormAgent;
+        _curriculumSampler = curriculumSampler;
         _visualizationAgent = visualizationAgent;
         _imageGenerationAgent = imageGenerationAgent;
+        _repository = repository;
         _logger = logger;
     }
     
+    public PipelineDescriptor DescribePipeline() => new()
+    {
+        Name = "Fast Orchestrator",
+        Description = "Parallel pipeline with curriculum-based topic sampling and per-task LLM calls.",
+        Steps = new List<PipelineStep>
+        {
+            new()
+            {
+                AgentName = "CurriculumSampler",
+                Description = "Sample unique topic pairs from the curriculum",
+                DependsOn = new(),
+            },
+            new()
+            {
+                AgentName = "TopicBrainstormAgent",
+                Description = "Brainstorm a creative task concept per topic pair",
+                DependsOn = new() { "CurriculumSampler" },
+                IsParallel = true,
+            },
+            new()
+            {
+                AgentName = "BatchTaskGeneratorAgent",
+                Description = "Generate a complete task from each brainstormed concept",
+                DependsOn = new() { "TopicBrainstormAgent" },
+                IsParallel = true,
+            },
+            new()
+            {
+                AgentName = "VisualizationAgent",
+                Description = "Create SVG/TikZ visualization for geometry/statistics tasks",
+                DependsOn = new() { "BatchTaskGeneratorAgent" },
+                IsParallel = true,
+                IsOptional = true,
+            },
+            new()
+            {
+                AgentName = "ImageGenerationAgent",
+                Description = "Generate illustrative image via Gemini (background)",
+                DependsOn = new() { "BatchTaskGeneratorAgent" },
+                IsParallel = true,
+                IsOptional = true,
+                IsBackground = true,
+            },
+        }
+    };
+
     public async Task<TerminsproveResult> GenerateTerminsproveAsync(
         TerminsproveRequest request,
         IProgress<GenerationProgress>? progress = null,
@@ -50,96 +103,154 @@ public class FastAgentOrchestrator : IAgentOrchestrator
             Metadata = new GenerationMetadata { StartedAt = DateTime.UtcNow }
         };
         
+        var imageOutputPath = _repository.GetImagesFolderPath(result);
+        var terminsproveFolderName = FileTerminsproveRepository.BuildFolderName(result);
         var stopwatch = Stopwatch.StartNew();
         
         try
         {
-            _logger.LogInformation("Fast generation: {TaskCount} tasks for {Level}", 
+            _logger.LogInformation("Parallel generation: {TaskCount} individual tasks for {Level}", 
                 request.TaskCount, request.Level);
             
-            // Calculate batches needed
-            var batchCount = (int)Math.Ceiling((double)request.TaskCount / BatchSize);
-            var batches = CreateBatches(request, batchCount);
-            
-            _logger.LogInformation("Splitting into {BatchCount} batches of ~{BatchSize} tasks", 
-                batchCount, BatchSize);
-            
-            // Report start
+            // Phase 0: Sample unique topic pairs and brainstorm concepts
             ReportProgress(progress, ProgressEventType.PhaseStarted, GenerationStatus.Formatting,
-                "Starter parallel generering...", 0, request.TaskCount);
+                "Finder kreative emnepar fra pensum...", 0, request.TaskCount);
             
-            // Process batches sequentially for smooth streaming
-            // Image generation fires off immediately per-task (runs in background while next batch generates)
-            var allTasks = new List<GeneratedTask>();
-            var taskCounter = 0;
-            var backgroundImageTasks = new List<Task>(); // fire-and-collect for image gen
-            var imgSw = Stopwatch.StartNew();
-            var imageTaskCount = 0;
+            var difficulties = DistributeDifficulties(request.TaskCount, request.Difficulty);
+            var topicPairs = _curriculumSampler.SampleUniqueTopicPairs(request.TaskCount);
             
-            foreach (var (batch, index) in batches.Select((b, i) => (b, i)))
+            _logger.LogInformation("Sampled {Count} topic pairs, brainstorming concepts in parallel...", topicPairs.Count);
+            
+            // Brainstorm all concepts in parallel
+            var brainstormSw = Stopwatch.StartNew();
+            var conceptTasks = topicPairs.Select((pair, i) =>
+                _topicBrainstormAgent.BrainstormConceptAsync(
+                    pair, difficulties[i], request.ExamPart, cancellationToken)
+            ).ToList();
+            
+            var concepts = await Task.WhenAll(conceptTasks);
+            brainstormSw.Stop();
+            
+            _logger.LogInformation("Brainstormed {Count} concepts in {Duration}ms", 
+                concepts.Length, brainstormSw.ElapsedMilliseconds);
+            
+            var resampledCount = concepts.Count(c => c.WasResampled);
+            var totalResamples = concepts.Sum(c => c.ResampleCount);
+            
+            if (resampledCount > 0)
             {
-                if (cancellationToken.IsCancellationRequested) break;
-                
-                // Emit TaskStarted for each task in this batch - creates placeholder cards
-                var batchTaskIndices = new List<int>();
-                for (int i = 0; i < batch.Count; i++)
+                _logger.LogInformation(
+                    "Brainstorm: {Resampled}/{Total} concepts needed resampling ({TotalResamples} total resamples)",
+                    resampledCount, concepts.Length, totalResamples);
+            }
+            
+            result.AgentLog.Add(new AgentLogEntry
+            {
+                Timestamp = DateTime.UtcNow,
+                AgentName = "TopicBrainstormAgent",
+                Action = $"BrainstormConcepts (count={concepts.Length})",
+                Input = string.Join("\n", topicPairs.Select(p => p.ToString())),
+                Output = string.Join("\n", concepts.Select(c => 
+                    $"[{c.SuggestedTaskTypeId}] {c.ScenarioDescription}" +
+                    (c.WasResampled ? $" (resampled {c.ResampleCount}x: {c.ResampleReason})" : ""))),
+                Duration = brainstormSw.Elapsed,
+                ParsedTaskCount = concepts.Length,
+                ParseSuccess = concepts.All(c => !string.IsNullOrEmpty(c.ScenarioDescription))
+            });
+            
+            // Phase 1: Generate tasks from brainstormed concepts
+            ReportProgress(progress, ProgressEventType.PhaseStarted, GenerationStatus.Formatting,
+                "Genererer opgaver fra kreative koncepter...", 0, request.TaskCount);
+            
+            // Emit TaskStarted for all tasks up front so the frontend creates placeholder cards
+            for (int i = 1; i <= request.TaskCount; i++)
+            {
+                ReportProgress(progress, ProgressEventType.TaskStarted, GenerationStatus.Formatting,
+                    $"Genererer opgave {i}...",
+                    0, request.TaskCount, taskIndex: i);
+                await Task.Delay(60, cancellationToken);
+            }
+            
+            // Generate all tasks in parallel (throttled by semaphore)
+            var semaphore = new SemaphoreSlim(MaxParallelTasks);
+            var completedCount = 0;
+            var backgroundImageTasks = new List<Task>();
+            var imageTaskCount = 0;
+            var imgSw = Stopwatch.StartNew();
+            var lockObj = new object();
+            
+            var taskGenerations = Enumerable.Range(0, request.TaskCount).Select(async i =>
+            {
+                await semaphore.WaitAsync(cancellationToken);
+                try
                 {
-                    var taskIdx = taskCounter + i + 1;
-                    batchTaskIndices.Add(taskIdx);
+                    var taskIndex = i + 1;
+                    var singleRequest = new SingleTaskGenerationRequest
+                    {
+                        Level = request.Level,
+                        ExamPart = request.ExamPart,
+                        FocusCategories = request.FocusCategories,
+                        Difficulty = difficulties[i],
+                        CustomInstructions = request.CustomInstructions,
+                        TaskIndex = taskIndex,
+                        Concept = concepts[i]
+                    };
                     
-                    ReportProgress(progress, ProgressEventType.TaskStarted, GenerationStatus.Formatting,
-                        $"Genererer opgave {taskIdx}...",
-                        taskCounter, request.TaskCount, taskIndex: taskIdx);
+                    var singleResult = await _batchGenerator.GenerateSingleTaskWithLogAsync(singleRequest, cancellationToken);
                     
-                    // Stagger placeholder card appearances
-                    await Task.Delay(60, cancellationToken);
-                }
-                
-                // Generate the batch (this is the slow LLM call) — with full logging
-                var batchResult = await _batchGenerator.GenerateBatchWithLogAsync(batch, cancellationToken);
-                var tasks = batchResult.Tasks;
-                
-                // Save the orchestration log entry
-                result.AgentLog.Add(batchResult.LogEntry);
-                
-                // Emit TaskCompleted for each task with stagger for smooth animation
-                // AND immediately fire off image generation in the background
-                for (int i = 0; i < tasks.Count; i++)
-                {
-                    taskCounter++;
-                    var task = tasks[i];
-                    var taskIdx = batchTaskIndices.Count > i ? batchTaskIndices[i] : taskCounter;
+                    lock (lockObj)
+                    {
+                        result.AgentLog.Add(singleResult.LogEntry);
+                    }
+                    
+                    var task = singleResult.Task!;
+                    var completed = Interlocked.Increment(ref completedCount);
                     
                     ReportProgress(progress, ProgressEventType.TaskCompleted, GenerationStatus.Completed,
-                        $"Opgave {taskIdx} færdig: {task.TaskTypeId.Replace("_", " ")}",
-                        taskCounter, request.TaskCount, 
-                        taskIndex: taskIdx, task: task);
+                        $"Opgave {taskIndex} færdig: {task.TaskTypeId.Replace("_", " ")}",
+                        completed, request.TaskCount,
+                        taskIndex: taskIndex, task: task);
                     
-                    // Fire off image generation immediately (don't await — runs in parallel with next batch)
+                    // Fire off image generation in the background
                     if (await _imageGenerationAgent.ShouldGenerateImageAsync(task, cancellationToken))
                     {
-                        imageTaskCount++;
+                        Interlocked.Increment(ref imageTaskCount);
                         var capturedTask = task;
-                        var capturedIdx = taskIdx;
+                        var capturedIdx = taskIndex;
                         
-                        // Notify frontend: image generation is starting (show placeholder)
                         ReportProgress(progress, ProgressEventType.TaskImageGenerating, GenerationStatus.Formatting,
                             $"Genererer illustration til opgave {capturedIdx}...",
-                            taskCounter, request.TaskCount, taskIndex: capturedIdx, taskId: capturedTask.Id);
+                            completed, request.TaskCount, taskIndex: capturedIdx, taskId: capturedTask.Id);
                         
-                        backgroundImageTasks.Add(Task.Run(async () =>
+                        var imgTask = Task.Run(async () =>
                         {
+                            var imgItemSw = Stopwatch.StartNew();
                             try
                             {
-                                var imageUrl = await _imageGenerationAgent.GenerateImageAsync(capturedTask, cancellationToken);
-                                if (!string.IsNullOrEmpty(imageUrl))
+                                var imageResult = await _imageGenerationAgent.GenerateImageAsync(capturedTask, imageOutputPath, cancellationToken);
+                                imgItemSw.Stop();
+                                
+                                if (imageResult != null)
                                 {
+                                    var imageUrl = $"/api/terminsprover/{terminsproveFolderName}/images/{imageResult.FileName}";
                                     capturedTask.ImageUrl = imageUrl;
                                     
-                                    // Notify frontend: image is ready (fill placeholder)
+                                    lock (lockObj)
+                                    {
+                                        result.AgentLog.Add(new AgentLogEntry
+                                        {
+                                            Timestamp = DateTime.UtcNow,
+                                            AgentName = "GeminiImageGenerationAgent",
+                                            Action = $"GenerateImage (task {capturedIdx}: {capturedTask.Id})",
+                                            Input = imageResult.Prompt,
+                                            Output = $"Generated {imageResult.FileName}",
+                                            Duration = imgItemSw.Elapsed
+                                        });
+                                    }
+                                    
                                     ReportProgress(progress, ProgressEventType.TaskImageReady, GenerationStatus.Formatting,
                                         $"Illustration klar til opgave {capturedIdx}",
-                                        0, request.TaskCount, taskIndex: capturedIdx, 
+                                        0, request.TaskCount, taskIndex: capturedIdx,
                                         taskId: capturedTask.Id, imageUrl: imageUrl);
                                 }
                             }
@@ -147,22 +258,28 @@ public class FastAgentOrchestrator : IAgentOrchestrator
                             {
                                 _logger.LogWarning(ex, "Image generation failed for task {TaskId}", capturedTask.Id);
                             }
-                        }, cancellationToken));
+                        }, cancellationToken);
+                        
+                        lock (lockObj)
+                        {
+                            backgroundImageTasks.Add(imgTask);
+                        }
                     }
                     
-                    // Stagger completed task reveals for smooth canvas animation
-                    await Task.Delay(120, cancellationToken);
+                    return task;
                 }
-                
-                allTasks.AddRange(tasks);
-                result.Metadata.TotalIterations++;
-            }
+                finally
+                {
+                    semaphore.Release();
+                }
+            }).ToList();
             
-            allTasks = allTasks.Take(request.TaskCount).ToList();
+            var allTasks = (await Task.WhenAll(taskGenerations)).ToList();
+            result.Metadata.TotalIterations = request.TaskCount;
             
             _logger.LogInformation("Generated {Count} tasks, now adding visualizations...", allTasks.Count);
             
-            // Phase 2: Add visualizations only for tasks that need them (parallel)
+            // Phase 2: Add visualizations for tasks that need them (parallel)
             var vizSw = Stopwatch.StartNew();
             var tasksNeedingViz = allTasks.Where(t => NeedsVisualization(t)).ToList();
             var visualizationTasks = tasksNeedingViz
@@ -195,10 +312,16 @@ public class FastAgentOrchestrator : IAgentOrchestrator
             }
             
             // Wait for all background image generation to finish
-            if (backgroundImageTasks.Count > 0)
+            List<Task> imageTasks;
+            lock (lockObj)
             {
-                _logger.LogInformation("Waiting for {Count} background image generations to complete...", backgroundImageTasks.Count);
-                await Task.WhenAll(backgroundImageTasks);
+                imageTasks = backgroundImageTasks.ToList();
+            }
+            
+            if (imageTasks.Count > 0)
+            {
+                _logger.LogInformation("Waiting for {Count} background image generations to complete...", imageTasks.Count);
+                await Task.WhenAll(imageTasks);
                 imgSw.Stop();
                 
                 var completedImages = allTasks.Count(t => !string.IsNullOrEmpty(t.ImageUrl));
@@ -209,7 +332,7 @@ public class FastAgentOrchestrator : IAgentOrchestrator
                     Timestamp = DateTime.UtcNow,
                     AgentName = "GeminiImageGenerationAgent",
                     Action = $"GenerateImages (count={imageTaskCount})",
-                    Input = $"Images generated in parallel with task batches",
+                    Input = $"Images generated in parallel with tasks",
                     Output = $"Completed {completedImages}/{imageTaskCount} images",
                     Duration = imgSw.Elapsed
                 });
@@ -223,12 +346,11 @@ public class FastAgentOrchestrator : IAgentOrchestrator
             CalculateMetadataStatistics(result);
             
             stopwatch.Stop();
-            _logger.LogInformation("Fast generation completed: {TaskCount} tasks in {Duration}ms ({PerTask}ms/task)",
+            _logger.LogInformation("Parallel generation completed: {TaskCount} tasks in {Duration}ms ({PerTask}ms/task)",
                 result.Tasks.Count, 
                 stopwatch.ElapsedMilliseconds,
                 stopwatch.ElapsedMilliseconds / Math.Max(1, result.Tasks.Count));
             
-            // Add summary log entry
             result.AgentLog.Insert(0, new AgentLogEntry
             {
                 Timestamp = DateTime.UtcNow,
@@ -238,7 +360,7 @@ public class FastAgentOrchestrator : IAgentOrchestrator
                         $"difficulty=({request.Difficulty.Easy:P0}/{request.Difficulty.Medium:P0}/{request.Difficulty.Hard:P0}), " +
                         $"categories=[{string.Join(", ", request.FocusCategories)}]",
                 Output = $"Generated {result.Tasks.Count} tasks in {stopwatch.ElapsedMilliseconds}ms " +
-                         $"({result.Metadata.TotalIterations} batches, " +
+                         $"({request.TaskCount} parallel LLM calls, " +
                          $"{result.AgentLog.Count} agent calls)",
                 Duration = stopwatch.Elapsed,
                 ParsedTaskCount = result.Tasks.Count,
@@ -251,7 +373,7 @@ public class FastAgentOrchestrator : IAgentOrchestrator
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Fast generation failed");
+            _logger.LogError(ex, "Parallel generation failed");
             result.Status = GenerationStatus.Failed;
             result.ErrorMessage = ex.Message;
             result.Metadata.CompletedAt = DateTime.UtcNow;
@@ -268,32 +390,32 @@ public class FastAgentOrchestrator : IAgentOrchestrator
         ValidationResult validationResult,
         CancellationToken cancellationToken = default)
     {
-        // Not needed with batch generation - tasks are pre-validated
         return Task.FromResult(failedTask);
     }
     
-    private List<BatchGenerationRequest> CreateBatches(TerminsproveRequest request, int batchCount)
+    /// <summary>
+    /// Distribute difficulty levels across tasks based on the requested percentages.
+    /// </summary>
+    private static List<string> DistributeDifficulties(int taskCount, DifficultyDistribution dist)
     {
-        var batches = new List<BatchGenerationRequest>();
-        var remaining = request.TaskCount;
+        var easyCount = (int)Math.Round(taskCount * dist.Easy);
+        var hardCount = (int)Math.Round(taskCount * dist.Hard);
+        var mediumCount = taskCount - easyCount - hardCount;
         
-        for (int i = 0; i < batchCount; i++)
+        var difficulties = new List<string>();
+        for (int i = 0; i < easyCount; i++) difficulties.Add("let");
+        for (int i = 0; i < mediumCount; i++) difficulties.Add("middel");
+        for (int i = 0; i < hardCount; i++) difficulties.Add("svær");
+        
+        // Shuffle so difficulties are interleaved, not grouped
+        var rng = new Random();
+        for (int i = difficulties.Count - 1; i > 0; i--)
         {
-            var count = Math.Min(BatchSize, remaining);
-            batches.Add(new BatchGenerationRequest
-            {
-                Count = count,
-                Level = request.Level,
-                ExamPart = request.ExamPart,
-                FocusCategories = request.FocusCategories,
-                Difficulty = request.Difficulty,
-                CustomInstructions = request.CustomInstructions,
-                BatchIndex = i
-            });
-            remaining -= count;
+            int j = rng.Next(i + 1);
+            (difficulties[i], difficulties[j]) = (difficulties[j], difficulties[i]);
         }
         
-        return batches;
+        return difficulties;
     }
     
     private bool NeedsVisualization(GeneratedTask task)

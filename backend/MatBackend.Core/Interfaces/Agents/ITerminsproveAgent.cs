@@ -1,3 +1,4 @@
+using MatBackend.Core.Models.Curriculum;
 using MatBackend.Core.Models.Terminsprove;
 
 namespace MatBackend.Core.Interfaces.Agents;
@@ -99,10 +100,12 @@ public interface IImageGenerationAgent : ITerminsproveAgent
 {
     /// <summary>
     /// Generate an illustration image for a task based on its context.
-    /// Returns the URL path to the generated image, or null if generation failed.
+    /// Images are saved into the imageOutputPath directory.
+    /// Returns the result including filename and the prompt used, or null if generation failed.
     /// </summary>
-    Task<string?> GenerateImageAsync(
+    Task<ImageGenerationResult?> GenerateImageAsync(
         GeneratedTask task,
+        string imageOutputPath,
         CancellationToken cancellationToken = default);
     
     /// <summary>
@@ -110,6 +113,33 @@ public interface IImageGenerationAgent : ITerminsproveAgent
     /// </summary>
     Task<bool> ShouldGenerateImageAsync(
         GeneratedTask task,
+        CancellationToken cancellationToken = default);
+}
+
+/// <summary>
+/// Result of an image generation call, including the prompt sent to the image model.
+/// </summary>
+public class ImageGenerationResult
+{
+    public string FileName { get; set; } = string.Empty;
+    public string Prompt { get; set; } = string.Empty;
+}
+
+/// <summary>
+/// Topic brainstorm agent - takes a pair of sampled curriculum topics and brainstorms
+/// a creative task concept that combines them. Can signal that a re-sample is needed
+/// if the pair is truly incompatible.
+/// </summary>
+public interface ITopicBrainstormAgent : ITerminsproveAgent
+{
+    /// <summary>
+    /// Given a topic pair, brainstorm a creative task concept that weaves both topics together.
+    /// Returns a TaskConcept with a rich scenario description for the task generator.
+    /// </summary>
+    Task<TaskConcept> BrainstormConceptAsync(
+        TopicPair topicPair,
+        string difficulty,
+        string examPart,
         CancellationToken cancellationToken = default);
 }
 
@@ -131,6 +161,14 @@ public interface IBatchTaskGeneratorAgent : ITerminsproveAgent
     /// </summary>
     Task<BatchGenerationResult> GenerateBatchWithLogAsync(
         BatchGenerationRequest request,
+        CancellationToken cancellationToken = default);
+    
+    /// <summary>
+    /// Generate a single complete task in one dedicated LLM call.
+    /// Each task gets its own call for higher quality scaffolded output.
+    /// </summary>
+    Task<SingleTaskGenerationResult> GenerateSingleTaskWithLogAsync(
+        SingleTaskGenerationRequest request,
         CancellationToken cancellationToken = default);
 }
 
@@ -155,6 +193,34 @@ public class BatchGenerationRequest
     public DifficultyDistribution Difficulty { get; set; } = new();
     public string? CustomInstructions { get; set; }
     public int BatchIndex { get; set; }
+}
+
+/// <summary>
+/// Request for generating a single task in its own LLM call
+/// </summary>
+public class SingleTaskGenerationRequest
+{
+    public string Level { get; set; } = "fp9";
+    public string ExamPart { get; set; } = "uden_hjaelpemidler";
+    public List<string> FocusCategories { get; set; } = new();
+    public string Difficulty { get; set; } = "middel";
+    public string? CustomInstructions { get; set; }
+    public int TaskIndex { get; set; }
+    
+    /// <summary>
+    /// Pre-brainstormed task concept from the TopicBrainstormAgent.
+    /// When set, the task generator uses this concept instead of inventing its own.
+    /// </summary>
+    public TaskConcept? Concept { get; set; }
+}
+
+/// <summary>
+/// Result of a single task generation including orchestration log
+/// </summary>
+public class SingleTaskGenerationResult
+{
+    public GeneratedTask? Task { get; set; }
+    public AgentLogEntry LogEntry { get; set; } = new();
 }
 
 /// <summary>

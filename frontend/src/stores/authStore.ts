@@ -2,7 +2,6 @@ import { makeAutoObservable, runInAction } from 'mobx'
 import type { Student } from '../types'
 import { readJson, writeJson } from '../utils/storage'
 import type { RootStore } from './storeProvider'
-import { authenticateStudent } from '../services/mockApi'
 
 const STUDENT_KEY = 'mock.student'
 
@@ -32,7 +31,7 @@ export class AuthStore {
     }
     this.loading = true
     this.error = null
-    const student = await authenticateStudent(name, code)
+    const student = await this.root.api.authenticateStudent(name, code)
     runInAction(() => {
       if (student) {
         this.student = student

@@ -6,6 +6,7 @@ import { useStore } from '../stores/storeProvider'
 import { Button } from '../components/Button'
 import { Input } from '../components/Input'
 import { PageTransition } from '../components/animation'
+import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import './LoginView.css'
 
 // Staggered form animation
@@ -46,6 +47,7 @@ const logoVariants = {
 }
 
 export const LoginView = observer(() => {
+  useDocumentTitle('Log ind')
   const { authStore } = useStore()
   const navigate = useNavigate()
   const [name, setName] = useState(authStore.student?.name ?? '')

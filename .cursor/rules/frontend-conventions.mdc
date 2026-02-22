@@ -1,0 +1,73 @@
+---
+description: Frontend conventions for the Mat React/TypeScript/MobX application
+globs: frontend/**/*.{ts,tsx,css}
+alwaysApply: false
+---
+
+# Frontend Conventions
+
+## Component Structure
+
+- Max ~300 lines per component file. If larger, extract sub-components into the same directory and custom hooks into `src/hooks/`.
+- **Views** orchestrate layout and data; **components** handle rendering and interaction.
+- One exported component per file. Co-locate its `.css` file alongside it.
+
+## State Management
+
+- **MobX** for global/shared state (stores in `src/stores/`). Mark components with `observer`.
+- **React hooks** (`useState`, `useReducer`) for local UI state only.
+- Never use module-level mutable variables (`let` at file scope). Use `useRef` instead.
+
+## Custom Hooks
+
+- Reusable stateful logic belongs in `src/hooks/`, one hook per file, named `use<Name>.ts`.
+- Examples: `useAbortController`, `useBodyScrollLock`, `useKeyboardShortcut`, `useDocumentTitle`.
+
+## Types
+
+- All shared types live in `src/types/` with a barrel `index.ts`.
+- Domain/schema types in `src/types/taskSchema.ts`.
+- No duplicate type names across files. Import from `@/types`.
+
+## Imports
+
+- Use the `@/` path alias for all imports from `src/`. Never use `../../../` chains.
+
+```typescript
+// Bad
+import { useStore } from '../../../stores/storeProvider'
+
+// Good
+import { useStore } from '@/stores/storeProvider'
+```
+
+## API Layer
+
+- Never import API implementations directly in stores or components.
+- Stores receive an `ApiClient` interface via the `RootStore`. Swap implementations via `VITE_API_MODE`.
+
+## Error Handling
+
+- Route-level views are wrapped in `<ErrorBoundary>`.
+- All async operations use try-catch with a user-facing error state.
+- The math rendering pipeline (KaTeX/LaTeX) has its own error boundary.
+
+## CSS
+
+- Use CSS variables from `index.css` for colors, spacing, border-radius, and shadows. Never hardcode hex values.
+- Follow BEM naming: `.block__element--modifier`.
+- No inline styles except for truly dynamic values (computed positions, transforms).
+- Each component has a co-located `.css` file imported at the top.
+- Glass morphism patterns use the shared `--glass-*` variables.
+
+## Testing
+
+- New utilities and hooks must have tests in `src/__tests__/`.
+- New components should have at least a smoke render test.
+- Run `npm run test:run` before committing.
+
+## Accessibility
+
+- Interactive elements need keyboard support (`onKeyDown`, `tabIndex`).
+- Modals and overlays need focus trapping and `role="dialog"` with `aria-label`.
+- Use semantic HTML (`<nav>`, `<main>`, `<section>`, `<button>`) over generic `<div>`.

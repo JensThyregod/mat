@@ -1,11 +1,5 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 import type { AnswerRecord, Task } from '../types'
-import {
-  fetchAnswersForStudent,
-  fetchTask,
-  fetchTasks,
-  saveAnswer,
-} from '../services/mockApi'
 import type { RootStore } from './storeProvider'
 
 type SavingState = Record<string, boolean>
@@ -21,6 +15,10 @@ export class TaskStore {
   constructor(root: RootStore) {
     makeAutoObservable(this)
     this.root = root
+  }
+
+  private get api() {
+    return this.root.api
   }
 
   reset() {
@@ -50,15 +48,15 @@ export class TaskStore {
     this.error = null
     try {
       const [tasks, answers] = await Promise.all([
-        fetchTasks(studentId),
-        fetchAnswersForStudent(studentId),
+        this.api.fetchTasks(studentId),
+        this.api.fetchAnswersForStudent(studentId),
       ])
       runInAction(() => {
         this.tasks = tasks
         this.answers = answers
         this.loading = false
       })
-    } catch (err) {
+    } catch {
       runInAction(() => {
         this.error = 'Kunne ikke hente opgaverne.'
         this.loading = false
@@ -71,7 +69,7 @@ export class TaskStore {
     const studentId = this.root.authStore.student.id
     const existing = this.tasks.find((t) => t.id === taskId)
     if (existing) return existing
-    const fetched = await fetchTask(studentId, taskId)
+    const fetched = await this.api.fetchTask(studentId, taskId)
     if (fetched) {
       runInAction(() => {
         this.tasks = [...this.tasks, fetched]
@@ -93,7 +91,7 @@ export class TaskStore {
     const studentId = this.root.authStore.student.id
     this.saving = { ...this.saving, [`${taskId}-${partIndex}`]: true }
     try {
-      const record = await saveAnswer(
+      const record = await this.api.saveAnswer(
         studentId,
         taskId,
         partIndex,
@@ -110,7 +108,7 @@ export class TaskStore {
         this.saving = nextSaving
       })
       return record
-    } catch (err) {
+    } catch {
       runInAction(() => {
         this.error = 'Fejl under gemning af svar.'
         const nextSaving = { ...this.saving }

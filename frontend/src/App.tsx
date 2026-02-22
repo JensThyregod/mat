@@ -12,6 +12,7 @@ import { SkillTreeView } from './views/SkillTreeView'
 import { TerminsproveGeneratorView } from './views/TerminsproveGeneratorView'
 import { Layout } from './components/Layout'
 import { VoxelTaskDemo } from './components/VoxelTaskDemo'
+import { ErrorBoundary } from './components/ErrorBoundary'
 
 const RequireAuth = ({ children }: { children: React.ReactElement }) => {
   const { authStore } = useStore()
@@ -59,107 +60,99 @@ const App = observer(() => {
       studentId={authStore.student?.id}
       onLogout={() => authStore.logout()}
     >
-      <AnimatePresence mode="wait">
-        <Routes location={location} key={getRouteKey(location.pathname)}>
-          {/* Public routes */}
-          <Route
-            path="/login"
-            element={
-              isAuthenticated ? <Navigate to="/" replace /> : <LoginView />
-            }
-          />
-          
-          {/* Dashboard - new home */}
-          <Route
-            path="/"
-            element={
-              <RequireAuth>
-                <DashboardView />
-              </RequireAuth>
-            }
-          />
-          
-          {/* Tasks */}
-          <Route
-            path="/tasks"
-            element={
-              <RequireAuth>
-                <TasksView />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/tasks/:taskId"
-            element={
-              <RequireAuth>
-                <TasksView />
-              </RequireAuth>
-            }
-          />
-          
-          {/* Skills */}
-          <Route
-            path="/skills"
-            element={
-              <RequireAuth>
-                <SkillTreeView />
-              </RequireAuth>
-            }
-          />
-          
-          {/* Practice (formerly Ligninger) */}
-          <Route
-            path="/practice"
-            element={
-              <RequireAuth>
-                <LigningerView />
-              </RequireAuth>
-            }
-          />
-          {/* Keep old route for backwards compatibility */}
-          <Route
-            path="/ligninger"
-            element={<Navigate to="/practice" replace />}
-          />
-          
-          {/* Test Lab - dev only */}
-          <Route
-            path="/test-lab"
-            element={
-              <RequireTestUser>
-                <GeneratorTestView />
-              </RequireTestUser>
-            }
-          />
-          
-          {/* Terminsprøve Generator - test only */}
-          <Route
-            path="/terminsprove"
-            element={
-              <RequireTestUser>
-                <TerminsproveGeneratorView />
-              </RequireTestUser>
-            }
-          />
-          
-          {/* Voxel demo - public */}
-          <Route
-            path="/voxel-demo"
-            element={<VoxelTaskDemo />}
-          />
-          
-          {/* Catch-all */}
-          <Route
-            path="*"
-            element={
-              <Navigate
-                to={isAuthenticated ? '/' : '/login'}
-                replace
-              />
-            }
-          />
-        </Routes>
-      </AnimatePresence>
+      <ErrorBoundary>
+        <AnimatePresence mode="wait">
+          <Routes location={location} key={getRouteKey(location.pathname)}>
+            <Route
+              path="/login"
+              element={
+                isAuthenticated ? <Navigate to="/" replace /> : <LoginView />
+              }
+            />
+            
+            <Route
+              path="/"
+              element={
+                <RequireAuth>
+                  <DashboardView />
+                </RequireAuth>
+              }
+            />
+            
+            <Route
+              path="/tasks"
+              element={
+                <RequireAuth>
+                  <TasksView />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/tasks/:taskId"
+              element={
+                <RequireAuth>
+                  <TasksView />
+                </RequireAuth>
+              }
+            />
+            
+            <Route
+              path="/skills"
+              element={
+                <RequireAuth>
+                  <SkillTreeView />
+                </RequireAuth>
+              }
+            />
+            
+            <Route
+              path="/practice"
+              element={
+                <RequireAuth>
+                  <LigningerView />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/ligninger"
+              element={<Navigate to="/practice" replace />}
+            />
+            
+            <Route
+              path="/test-lab"
+              element={
+                <RequireTestUser>
+                  <GeneratorTestView />
+                </RequireTestUser>
+              }
+            />
+            
+            <Route
+              path="/terminsprove"
+              element={
+                <RequireTestUser>
+                  <TerminsproveGeneratorView />
+                </RequireTestUser>
+              }
+            />
+            
+            <Route
+              path="/voxel-demo"
+              element={<VoxelTaskDemo />}
+            />
+            
+            <Route
+              path="*"
+              element={
+                <Navigate
+                  to={isAuthenticated ? '/' : '/login'}
+                  replace
+                />
+              }
+            />
+          </Routes>
+        </AnimatePresence>
+      </ErrorBoundary>
     </Layout>
   )
 })

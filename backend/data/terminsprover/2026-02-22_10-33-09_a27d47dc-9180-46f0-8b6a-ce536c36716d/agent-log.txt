@@ -1,0 +1,1094 @@
+╔══════════════════════════════════════════════════════════════════╗
+║              TERMINSPRØVE AGENT CHAT LOG                        ║
+╚══════════════════════════════════════════════════════════════════╝
+
+  ID:         a27d47dc-9180-46f0-8b6a-ce536c36716d
+  Status:     Completed
+  Started:    2026-02-22 10.33.09 UTC
+  Completed:  2026-02-22 10.33.49 UTC
+  Duration:   39,8s
+  Tasks:      5 generated
+  Iterations: 5
+
+──────────────────────────────────────────────────────────────────
+  REQUEST
+──────────────────────────────────────────────────────────────────
+  Level:        fp9
+  ExamPart:     med_hjaelpemidler
+  TaskCount:    5
+  Difficulty:   30 % easy / 50 % medium / 20 % hard
+  Categories:   []
+
+══════════════════════════════════════════════════════════════════
+  AGENT CHAT HISTORY
+══════════════════════════════════════════════════════════════════
+
+┌─ [1/9] FastAgentOrchestrator ─ GenerateTerminsprove (summary)
+│  Timestamp: 2026-02-22 10.33.49.711 UTC
+│  Duration:  39813ms
+│  Parsed:    5 tasks (success=True)
+│
+│  ┌── INPUT (prompt sent to LLM) ──────────────────────────────
+│  │ Request: 5 tasks, level=fp9, examPart=med_hjaelpemidler, difficulty=(30 %/50 %/20 %), categories=[]
+│  └───────────────────────────────────────────────────────────
+│
+│  ┌── OUTPUT (raw LLM response) ───────────────────────────────
+│  │ Generated 5 tasks in 39812ms (5 parallel LLM calls, 8 agent calls)
+│  └───────────────────────────────────────────────────────────
+└──────────────────────────────────────────────────────────────
+
+┌─ [2/9] TopicBrainstormAgent ─ BrainstormConcepts (count=5)
+│  Timestamp: 2026-02-22 10.33.14.775 UTC
+│  Duration:  4876ms
+│  Parsed:    5 tasks (success=True)
+│
+│  ┌── INPUT (prompt sent to LLM) ──────────────────────────────
+│  │ Diagrammer og grafer (Statistik og sandsynlighed) + Renter (simpel og sammensat) (Tal og algebra)
+│  │ Sandsynlighedsmodeller (Statistik og sandsynlighed) + Ikke-lineære sammenhænge (Tal og algebra)
+│  │ Pythagoras' sætning (Geometri og måling) + Hele tal, decimaltal og brøker (Tal og algebra)
+│  │ Spejling, rotation og parallelforskydning (Geometri og måling) + Negative tal (Tal og algebra)
+│  │ Gennemsnit, median og typetal (Statistik og sandsynlighed) + Geometri i virkelige situationer (Geometri og måling)
+│  └───────────────────────────────────────────────────────────
+│
+│  ┌── OUTPUT (raw LLM response) ───────────────────────────────
+│  │ [stat_soejlediagram] En 15-årig vil spare op til en ny computer og overvejer to forskellige bankkonti med hver sin rentesats. Hen laver over nogle år en plan for, hvor meget der skal sættes ind hver måned, og får samtidig fra banken et diagram over, hvordan opsparingen forventes at udvikle sig år for år.
+│  │ [stat_sandsynlighed] En elev vil designe et simpelt mobilspil, hvor en figur hopper i en buet bane (parabel), og spilleren kun vinder, hvis figuren lander i et bestemt område på skærmen. Eleven justerer spillets indstillinger (fx startfart og vinkel) og undersøger, hvor stor en del af de mulige hop der rammer vinderzonen.
+│  │ [geo_sammensat_figur] En elev vil måle den direkte afstand på tværs af en rektangulær fodboldbane fra det ene hjørne til det modsatte for at finde ud af, om en ny drone med en maksimal flyveradius kan nå hele vejen. Banens længde og bredde er angivet med mål i både meter med decimaltal og i brøker af en standardbanes længde.
+│  │ [geo_sammensat_figur] En elev designer et simpelt logo til sin skiklub, hvor figuren skal spejles i en vandret akse, og akserne på tegningen er markeret med temperaturer fra -10 °C til 10 °C. Logoets punkter har derfor både positive og negative koordinater, som ændrer sig ved spejling og parallelforskydning.
+│  │ [stat_soejlediagram] En elev hjælper sine forældre med at vælge nyt gulv til stuen og måler derfor rummets form og størrelse, samtidig med at de sammenligner priser pr. m² fra flere butikker og ser på gennemsnit, median og typetal for priserne. De vil bruge disse tal til at vælge et gulv, der både passer til rummet og er rimeligt i pris.
+│  └───────────────────────────────────────────────────────────
+└──────────────────────────────────────────────────────────────
+
+┌─ [3/9] BatchTaskGenerator ─ GenerateSingleTask (index=3, difficulty=middel)
+│  Timestamp: 2026-02-22 10.33.23.031 UTC
+│  Duration:  7933ms
+│  Parsed:    1 tasks (success=True)
+│
+│  ┌── INPUT (prompt sent to LLM) ──────────────────────────────
+│  │ [SystemPrompt]
+│  │ Du er en erfaren matematiklærer der skriver FP9 prøveopgaver.
+│  │ 
+│  │ SKRIVESTIL — KORT OG PRÆCIS SOM EN RIGTIG PRØVE:
+│  │ - contextText skal være KORT: 1-3 sætninger der giver scenariet og de nødvendige oplysninger.
+│  │   IKKE en novelle. Tænk på en rigtig FP9-prøve: "Lea vil hækle grydelapper og sælge dem.
+│  │   Hun skal bruge 120 g garn til et par. Et nøgle garn er 50 g og koster 12,95 kr."
+│  │ - Giv information ÉN GANG. Gentag ALDRIG oplysninger i delopgaverne som allerede står i contextText.
+│  │   Eleven skal selv navigere tilbage og finde de tal de har brug for.
+│  │ - Delopgavernes questionText skal være KORTE og DIREKTE: stil spørgsmålet, giv evt. nye tal,
+│  │   færdig. Ingen genfortælling af scenariet.
+│  │ - UNDGÅ at forklare hvad eleven skal gøre ("Skriv dine beregninger", "Vis med udregninger",
+│  │   "Begrund med beregninger"). Stil bare spørgsmålet.
+│  │ - Scenariet skal være REALISTISK og TROVÆRDIGT — ikke kunstigt eller overdrevet kreativt.
+│  │   Gode scenarier er hverdagsagtige: håndværk, madlavning, sport, økonomi, indretning.
+│  │ 
+│  │ DESIGNPROCES — BAGLÆNS DESIGN (SCAFFOLDING):
+│  │ 1. Formuler FØRST den sværeste delopgave — det er MÅLET for hele opgaven.
+│  │ 2. Design derefter de tidligere delopgaver som KONKRETE trin der leder eleven derhen.
+│  │ 3. Scaffoldingen skal være IMPLICIT — opgaveteksten må ALDRIG bede eleven om at
+│  │    "bruge svaret fra a)" eller lignende. Eleven opdager selv sammenhængen.
+│  │ 
+│  │ OPGAVEFORMAT:
+│  │ - Svære opgaver: 1-2 delopgaver
+│  │ - Middel: 2-3 delopgaver
+│  │ - Lette: 3-5 delopgaver
+│  │ - Den SIDSTE delopgave skal ALTID være den sværeste.
+│  │ 
+│  │ MATEMATISKE REGLER:
+│  │ - Beregn svaret FØRST, skriv opgaven EFTER. Dobbelttjek alle beregninger.
+│  │ - Brug pæne tal der giver hele eller simple svar.
+│  │ 
+│  │ Output KUN valid JSON. Ingen markdown, ingen forklaring.
+│  │ 
+│  │ [UserPrompt]
+│  │ Generer ÉN FP9 prøveopgave.
+│  │ 
+│  │ SCENARIE (fra pensum-sampling):
+│  │ Emner: Pythagoras' sætning + Hele tal, decimaltal og brøker
+│  │ Idé: En elev vil måle den direkte afstand på tværs af en rektangulær fodboldbane fra det ene hjørne til det modsatte for at finde ud af, om en ny drone med en maksimal flyveradius kan nå hele vejen. Banens længde og bredde er angivet med mål i både meter med decimaltal og i brøker af en standardbanes længde.
+│  │ Kobling: Eleven bruger Pythagoras’ sætning til at beregne diagonalen som hypotenuse ud fra to kateter med længder angivet som decimaltal og brøker, og skal derfor først omregne og kombinere forskellige taltyper korrekt, før den endelige afstand kan beregnes og vurderes.
+│  │ Opgavetype: geo_sammensat_figur
+│  │ Kategori: geometri_og_maaling
+│  │ 
+│  │ Byg opgaven ud fra dette scenarie. Tilføj konkrete tal så det bliver løsbart.
+│  │ 
+│  │ Krav: med_hjaelpemidler, sværhedsgrad: middel, fokus: varieret
+│  │ 
+│  │ Opgavetyper: tal_ligninger, tal_broeker_og_antal, tal_regnearter, tal_pris_rabat_procent, tal_forholdstalsregning, geo_sammensat_figur, geo_vinkelsum, geo_enhedsomregning, stat_boksplot, stat_sandsynlighed
+│  │ 
+│  │ VIGTIGSTE REGLER FOR TEKST:
+│  │ 1. contextText: KORT — maks 1-3 sætninger med scenarie og nødvendige oplysninger.
+│  │    IKKE en historie. Bare fakta. Se eksemplet nedenfor.
+│  │ 2. questionText i delopgaver: KORT og DIREKTE. Stil spørgsmålet, giv evt. nye tal, færdig.
+│  │    Gentag ALDRIG information fra contextText — eleven finder selv tallene.
+│  │ 3. ALDRIG skriv "Skriv dine beregninger", "Vis med udregninger", "Begrund dit svar" 
+│  │    eller lignende instruktioner. Stil bare spørgsmålet.
+│  │ 4. Scaffolding er IMPLICIT — sig aldrig "brug svaret fra a)".
+│  │ 
+│  │ SVÆRHEDSGRAD PÅ DELOPGAVER:
+│  │ Den SIDSTE delopgave er altid sværest. Rampe: let → middel → svær.
+│  │ 
+│  │ Eksempel (kort og præcist som en rigtig FP9-prøve):
+│  │ {
+│  │   "taskTypeId":"tal_forholdstalsregning",
+│  │   "category":"tal_og_algebra",
+│  │   "difficulty":"middel",
+│  │   "contextText":"Lea vil hækle grydelapper og sælge dem. Hun bruger 120 g garn til et par. Et nøgle garn er 50 g og koster 12,95 kr. 10 nøgler koster 89 kr.",
+│  │   "subQuestions":[
+│  │     {"label":"a","questionText":"Hvor mange nøgler garn skal Lea mindst købe for at hækle ét par grydelapper?","answer":{"value":"3","unit":"nøgler"},"difficulty":"let","points":1,"solutionSteps":[{"stepNumber":1,"description":"120 ÷ 50 = 2,4 → oprund til 3","mathExpression":"120 ÷ 50","result":"3 nøgler"}]},
+│  │     {"label":"b","questionText":"Lea vil hækle 5 par. Hvor mange nøgler skal hun købe?","answer":{"value":"12","unit":"nøgler"},"difficulty":"let","points":1,"solutionSteps":[{"stepNumber":1,"description":"5 · 120 = 600 g","mathExpression":"5 · 120","result":"600 g"},{"stepNumber":2,"description":"600 ÷ 50 = 12","mathExpression":"600 ÷ 50","result":"12 nøgler"}]},
+│  │     {"label":"c","questionText":"Hvad er billigst: 12 nøgler enkeltvis eller en pakke med 10 plus 2 enkelt-nøgler?","answer":{"value":"Pakke+2: 114,90 kr (billigst). Enkeltvis: 155,40 kr.","unit":"kr"},"difficulty":"middel","points":2,"solutionSteps":[{"stepNumber":1,"description":"Enkeltvis: 12 · 12,95 = 155,40 kr","mathExpression":"12 · 12,95","result":"155,40 kr"},{"stepNumber":2,"description":"Pakke+2: 89 + 2 · 12,95 = 114,90 kr","mathExpression":"89 + 25,90","result":"114,90 kr"}]},
+│  │     {"label":"d","questionText":"Lea sælger grydelapperne for 60 kr pr. par. Hvor mange par skal hun sælge for et overskud på ca. 500 kr?","answer":{"value":"Ca. 14 par","unit":""},"difficulty":"svær","points":3,"solutionSteps":[{"stepNumber":1,"description":"Garnpris pr. par (billigst): 114,90 ÷ 5 ≈ 22,98 kr","mathExpression":"114,90 ÷ 5","result":"22,98 kr"},{"stepNumber":2,"description":"Overskud pr. par: 60 − 22,98 ≈ 37 kr","mathExpression":"60 − 22,98","result":"37,02 kr"},{"stepNumber":3,"description":"500 ÷ 37 ≈ 13,5 → ca. 14 par","mathExpression":"500 ÷ 37","result":"≈ 14 par"}]}
+│  │   ],
+│  │   "points":7,
+│  │   "estimatedTimeSeconds":300
+│  │ }
+│  │ 
+│  │ Output: ÉT JSON objekt. KUN JSON, ingen markdown.
+│  └───────────────────────────────────────────────────────────
+│
+│  ┌── OUTPUT (raw LLM response) ───────────────────────────────
+│  │ {
+│  │   "taskTypeId": "geo_sammensat_figur",
+│  │   "category": "geometri_og_maaling",
+│  │   "difficulty": "middel",
+│  │   "contextText": "En rektangulær fodboldbane er 105,0 m lang. Bredden svarer til 4/7 af længden. En elev vil måle den direkte afstand fra det ene hjørne til det modsatte for at tjekke en drone med en maksimal flyveradius på 90 m.",
+│  │   "subQuestions": [
+│  │     {
+│  │       "label": "a",
+│  │       "questionText": "Bestem banens bredde i meter.",
+│  │       "answer": {
+│  │         "value": "60",
+│  │         "unit": "m"
+│  │       },
+│  │       "difficulty": "let",
+│  │       "points": 1,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Omdan 4/7 af 105,0 m til meter.",
+│  │           "mathExpression": "105,0 · 4/7",
+│  │           "result": "60 m"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "b",
+│  │       "questionText": "Beregn den direkte afstand på tværs af banen fra hjørne til modsatte hjørne.",
+│  │       "answer": {
+│  │         "value": "≈121",
+│  │         "unit": "m"
+│  │       },
+│  │       "difficulty": "middel",
+│  │       "points": 2,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Brug Pythagoras’ sætning med længde og bredde som kateter.",
+│  │           "mathExpression": "d^2 = 105^2 + 60^2",
+│  │           "result": "d^2 = 11025 + 3600 = 14625"
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "Udregn kvadratroden.",
+│  │           "mathExpression": "d = √14625",
+│  │           "result": "d ≈ 121 m"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "c",
+│  │       "questionText": "Vurder om dronen kan nå hele vejen på tværs af banen.",
+│  │       "answer": {
+│  │         "value": "Nej, dronen kan ikke nå hele vejen, fordi afstanden er ca. 121 m og flyveradius kun 90 m.",
+│  │         "unit": ""
+│  │       },
+│  │       "difficulty": "svær",
+│  │       "points": 2,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Sammenlign diagonalens længde med dronens flyveradius.",
+│  │           "mathExpression": "121 m > 90 m",
+│  │           "result": "Dronen rækker ikke over hele diagonalen"
+│  │         }
+│  │       ]
+│  │     }
+│  │   ],
+│  │   "points": 5,
+│  │   "estimatedTimeSeconds": 360
+│  │ }
+│  └───────────────────────────────────────────────────────────
+└──────────────────────────────────────────────────────────────
+
+┌─ [4/9] BatchTaskGenerator ─ GenerateSingleTask (index=2, difficulty=svær)
+│  Timestamp: 2026-02-22 10.33.24.894 UTC
+│  Duration:  9796ms
+│  Parsed:    1 tasks (success=True)
+│
+│  ┌── INPUT (prompt sent to LLM) ──────────────────────────────
+│  │ [SystemPrompt]
+│  │ Du er en erfaren matematiklærer der skriver FP9 prøveopgaver.
+│  │ 
+│  │ SKRIVESTIL — KORT OG PRÆCIS SOM EN RIGTIG PRØVE:
+│  │ - contextText skal være KORT: 1-3 sætninger der giver scenariet og de nødvendige oplysninger.
+│  │   IKKE en novelle. Tænk på en rigtig FP9-prøve: "Lea vil hækle grydelapper og sælge dem.
+│  │   Hun skal bruge 120 g garn til et par. Et nøgle garn er 50 g og koster 12,95 kr."
+│  │ - Giv information ÉN GANG. Gentag ALDRIG oplysninger i delopgaverne som allerede står i contextText.
+│  │   Eleven skal selv navigere tilbage og finde de tal de har brug for.
+│  │ - Delopgavernes questionText skal være KORTE og DIREKTE: stil spørgsmålet, giv evt. nye tal,
+│  │   færdig. Ingen genfortælling af scenariet.
+│  │ - UNDGÅ at forklare hvad eleven skal gøre ("Skriv dine beregninger", "Vis med udregninger",
+│  │   "Begrund med beregninger"). Stil bare spørgsmålet.
+│  │ - Scenariet skal være REALISTISK og TROVÆRDIGT — ikke kunstigt eller overdrevet kreativt.
+│  │   Gode scenarier er hverdagsagtige: håndværk, madlavning, sport, økonomi, indretning.
+│  │ 
+│  │ DESIGNPROCES — BAGLÆNS DESIGN (SCAFFOLDING):
+│  │ 1. Formuler FØRST den sværeste delopgave — det er MÅLET for hele opgaven.
+│  │ 2. Design derefter de tidligere delopgaver som KONKRETE trin der leder eleven derhen.
+│  │ 3. Scaffoldingen skal være IMPLICIT — opgaveteksten må ALDRIG bede eleven om at
+│  │    "bruge svaret fra a)" eller lignende. Eleven opdager selv sammenhængen.
+│  │ 
+│  │ OPGAVEFORMAT:
+│  │ - Svære opgaver: 1-2 delopgaver
+│  │ - Middel: 2-3 delopgaver
+│  │ - Lette: 3-5 delopgaver
+│  │ - Den SIDSTE delopgave skal ALTID være den sværeste.
+│  │ 
+│  │ MATEMATISKE REGLER:
+│  │ - Beregn svaret FØRST, skriv opgaven EFTER. Dobbelttjek alle beregninger.
+│  │ - Brug pæne tal der giver hele eller simple svar.
+│  │ 
+│  │ Output KUN valid JSON. Ingen markdown, ingen forklaring.
+│  │ 
+│  │ [UserPrompt]
+│  │ Generer ÉN FP9 prøveopgave.
+│  │ 
+│  │ SCENARIE (fra pensum-sampling):
+│  │ Emner: Sandsynlighedsmodeller + Ikke-lineære sammenhænge
+│  │ Idé: En elev vil designe et simpelt mobilspil, hvor en figur hopper i en buet bane (parabel), og spilleren kun vinder, hvis figuren lander i et bestemt område på skærmen. Eleven justerer spillets indstillinger (fx startfart og vinkel) og undersøger, hvor stor en del af de mulige hop der rammer vinderzonen.
+│  │ Kobling: Elevens parabelmodel beskriver hoppets bane (ikke-lineær sammenhæng), og ved systematisk at gennemgå eller simulere mulige startindstillinger kan eleven opstille et udfaldsrum og bruge en sandsynlighedsmodel til at beregne vinderchancen.
+│  │ Opgavetype: stat_sandsynlighed
+│  │ Kategori: statistik_og_sandsynlighed
+│  │ 
+│  │ Byg opgaven ud fra dette scenarie. Tilføj konkrete tal så det bliver løsbart.
+│  │ 
+│  │ Krav: med_hjaelpemidler, sværhedsgrad: svær, fokus: varieret
+│  │ 
+│  │ Opgavetyper: tal_ligninger, tal_broeker_og_antal, tal_regnearter, tal_pris_rabat_procent, tal_forholdstalsregning, geo_sammensat_figur, geo_vinkelsum, geo_enhedsomregning, stat_boksplot, stat_sandsynlighed
+│  │ 
+│  │ VIGTIGSTE REGLER FOR TEKST:
+│  │ 1. contextText: KORT — maks 1-3 sætninger med scenarie og nødvendige oplysninger.
+│  │    IKKE en historie. Bare fakta. Se eksemplet nedenfor.
+│  │ 2. questionText i delopgaver: KORT og DIREKTE. Stil spørgsmålet, giv evt. nye tal, færdig.
+│  │    Gentag ALDRIG information fra contextText — eleven finder selv tallene.
+│  │ 3. ALDRIG skriv "Skriv dine beregninger", "Vis med udregninger", "Begrund dit svar" 
+│  │    eller lignende instruktioner. Stil bare spørgsmålet.
+│  │ 4. Scaffolding er IMPLICIT — sig aldrig "brug svaret fra a)".
+│  │ 
+│  │ SVÆRHEDSGRAD PÅ DELOPGAVER:
+│  │ Den SIDSTE delopgave er altid sværest. Rampe: let → middel → svær.
+│  │ 
+│  │ Eksempel (kort og præcist som en rigtig FP9-prøve):
+│  │ {
+│  │   "taskTypeId":"tal_forholdstalsregning",
+│  │   "category":"tal_og_algebra",
+│  │   "difficulty":"middel",
+│  │   "contextText":"Lea vil hækle grydelapper og sælge dem. Hun bruger 120 g garn til et par. Et nøgle garn er 50 g og koster 12,95 kr. 10 nøgler koster 89 kr.",
+│  │   "subQuestions":[
+│  │     {"label":"a","questionText":"Hvor mange nøgler garn skal Lea mindst købe for at hækle ét par grydelapper?","answer":{"value":"3","unit":"nøgler"},"difficulty":"let","points":1,"solutionSteps":[{"stepNumber":1,"description":"120 ÷ 50 = 2,4 → oprund til 3","mathExpression":"120 ÷ 50","result":"3 nøgler"}]},
+│  │     {"label":"b","questionText":"Lea vil hækle 5 par. Hvor mange nøgler skal hun købe?","answer":{"value":"12","unit":"nøgler"},"difficulty":"let","points":1,"solutionSteps":[{"stepNumber":1,"description":"5 · 120 = 600 g","mathExpression":"5 · 120","result":"600 g"},{"stepNumber":2,"description":"600 ÷ 50 = 12","mathExpression":"600 ÷ 50","result":"12 nøgler"}]},
+│  │     {"label":"c","questionText":"Hvad er billigst: 12 nøgler enkeltvis eller en pakke med 10 plus 2 enkelt-nøgler?","answer":{"value":"Pakke+2: 114,90 kr (billigst). Enkeltvis: 155,40 kr.","unit":"kr"},"difficulty":"middel","points":2,"solutionSteps":[{"stepNumber":1,"description":"Enkeltvis: 12 · 12,95 = 155,40 kr","mathExpression":"12 · 12,95","result":"155,40 kr"},{"stepNumber":2,"description":"Pakke+2: 89 + 2 · 12,95 = 114,90 kr","mathExpression":"89 + 25,90","result":"114,90 kr"}]},
+│  │     {"label":"d","questionText":"Lea sælger grydelapperne for 60 kr pr. par. Hvor mange par skal hun sælge for et overskud på ca. 500 kr?","answer":{"value":"Ca. 14 par","unit":""},"difficulty":"svær","points":3,"solutionSteps":[{"stepNumber":1,"description":"Garnpris pr. par (billigst): 114,90 ÷ 5 ≈ 22,98 kr","mathExpression":"114,90 ÷ 5","result":"22,98 kr"},{"stepNumber":2,"description":"Overskud pr. par: 60 − 22,98 ≈ 37 kr","mathExpression":"60 − 22,98","result":"37,02 kr"},{"stepNumber":3,"description":"500 ÷ 37 ≈ 13,5 → ca. 14 par","mathExpression":"500 ÷ 37","result":"≈ 14 par"}]}
+│  │   ],
+│  │   "points":7,
+│  │   "estimatedTimeSeconds":300
+│  │ }
+│  │ 
+│  │ Output: ÉT JSON objekt. KUN JSON, ingen markdown.
+│  └───────────────────────────────────────────────────────────
+│
+│  ┌── OUTPUT (raw LLM response) ───────────────────────────────
+│  │ {
+│  │   "taskTypeId": "stat_sandsynlighed",
+│  │   "category": "statistik_og_sandsynlighed",
+│  │   "difficulty": "svær",
+│  │   "contextText": "Emil designer et mobilspil, hvor en figur hopper i en parabelbane. Hoplængden i meter kan beskrives med funktionen h(x) = -0,5x² + 4x. Spilleren vinder, hvis figuren lander mellem 3 m og 5 m fra start. Emil tester 10 forskellige hop med lige stor sandsynlighed for hver.",
+│  │   "subQuestions": [
+│  │     {
+│  │       "label": "a",
+│  │       "questionText": "Bestem den maksimale hoplængde for figuren.",
+│  │       "answer": {
+│  │         "value": "8",
+│  │         "unit": "m"
+│  │       },
+│  │       "difficulty": "let",
+│  │       "points": 1,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Find nulpunkter ved -0,5x² + 4x = 0 → x(-0,5x + 4) = 0 → x = 0 eller x = 8",
+│  │           "mathExpression": "-0,5x² + 4x = 0",
+│  │           "result": "x = 0 og x = 8"
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "Parablen åbner nedad, så maksimal hoplængde er det største nulpunkt",
+│  │           "mathExpression": "x = 8",
+│  │           "result": "8 m"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "b",
+│  │       "questionText": "Beregn sandsynligheden for at vinde i ét hop, hvis 3 af de 10 testede hop lander i vinderzonen.",
+│  │       "answer": {
+│  │         "value": "0,3",
+│  │         "unit": ""
+│  │       },
+│  │       "difficulty": "middel",
+│  │       "points": 2,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Sandsynlighed = antal gunstige / antal mulige",
+│  │           "mathExpression": "3 / 10",
+│  │           "result": "0,3"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "c",
+│  │       "questionText": "Emil antager, at sandsynligheden for at vinde i ét hop er 0,3. Beregn sandsynligheden for præcis 2 gevinster i 5 hop.",
+│  │       "answer": {
+│  │         "value": "≈ 0,309",
+│  │         "unit": ""
+│  │       },
+│  │       "difficulty": "svær",
+│  │       "points": 3,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Brug binomialfordeling: P(2 gevinster) = C(5,2) · 0,3² · 0,7³",
+│  │           "mathExpression": "C(5,2) · 0,3² · 0,7³",
+│  │           "result": "10 · 0,09 · 0,343"
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "Beregn produktet",
+│  │           "mathExpression": "10 · 0,09 · 0,343",
+│  │           "result": "≈ 0,309"
+│  │         }
+│  │       ]
+│  │     }
+│  │   ],
+│  │   "points": 6,
+│  │   "estimatedTimeSeconds": 420
+│  │ }
+│  └───────────────────────────────────────────────────────────
+└──────────────────────────────────────────────────────────────
+
+┌─ [5/9] BatchTaskGenerator ─ GenerateSingleTask (index=4, difficulty=let)
+│  Timestamp: 2026-02-22 10.33.25.183 UTC
+│  Duration:  10085ms
+│  Parsed:    1 tasks (success=True)
+│
+│  ┌── INPUT (prompt sent to LLM) ──────────────────────────────
+│  │ [SystemPrompt]
+│  │ Du er en erfaren matematiklærer der skriver FP9 prøveopgaver.
+│  │ 
+│  │ SKRIVESTIL — KORT OG PRÆCIS SOM EN RIGTIG PRØVE:
+│  │ - contextText skal være KORT: 1-3 sætninger der giver scenariet og de nødvendige oplysninger.
+│  │   IKKE en novelle. Tænk på en rigtig FP9-prøve: "Lea vil hækle grydelapper og sælge dem.
+│  │   Hun skal bruge 120 g garn til et par. Et nøgle garn er 50 g og koster 12,95 kr."
+│  │ - Giv information ÉN GANG. Gentag ALDRIG oplysninger i delopgaverne som allerede står i contextText.
+│  │   Eleven skal selv navigere tilbage og finde de tal de har brug for.
+│  │ - Delopgavernes questionText skal være KORTE og DIREKTE: stil spørgsmålet, giv evt. nye tal,
+│  │   færdig. Ingen genfortælling af scenariet.
+│  │ - UNDGÅ at forklare hvad eleven skal gøre ("Skriv dine beregninger", "Vis med udregninger",
+│  │   "Begrund med beregninger"). Stil bare spørgsmålet.
+│  │ - Scenariet skal være REALISTISK og TROVÆRDIGT — ikke kunstigt eller overdrevet kreativt.
+│  │   Gode scenarier er hverdagsagtige: håndværk, madlavning, sport, økonomi, indretning.
+│  │ 
+│  │ DESIGNPROCES — BAGLÆNS DESIGN (SCAFFOLDING):
+│  │ 1. Formuler FØRST den sværeste delopgave — det er MÅLET for hele opgaven.
+│  │ 2. Design derefter de tidligere delopgaver som KONKRETE trin der leder eleven derhen.
+│  │ 3. Scaffoldingen skal være IMPLICIT — opgaveteksten må ALDRIG bede eleven om at
+│  │    "bruge svaret fra a)" eller lignende. Eleven opdager selv sammenhængen.
+│  │ 
+│  │ OPGAVEFORMAT:
+│  │ - Svære opgaver: 1-2 delopgaver
+│  │ - Middel: 2-3 delopgaver
+│  │ - Lette: 3-5 delopgaver
+│  │ - Den SIDSTE delopgave skal ALTID være den sværeste.
+│  │ 
+│  │ MATEMATISKE REGLER:
+│  │ - Beregn svaret FØRST, skriv opgaven EFTER. Dobbelttjek alle beregninger.
+│  │ - Brug pæne tal der giver hele eller simple svar.
+│  │ 
+│  │ Output KUN valid JSON. Ingen markdown, ingen forklaring.
+│  │ 
+│  │ [UserPrompt]
+│  │ Generer ÉN FP9 prøveopgave.
+│  │ 
+│  │ SCENARIE (fra pensum-sampling):
+│  │ Emner: Spejling, rotation og parallelforskydning + Negative tal
+│  │ Idé: En elev designer et simpelt logo til sin skiklub, hvor figuren skal spejles i en vandret akse, og akserne på tegningen er markeret med temperaturer fra -10 °C til 10 °C. Logoets punkter har derfor både positive og negative koordinater, som ændrer sig ved spejling og parallelforskydning.
+│  │ Kobling: Når figuren spejles eller parallelforskydes i koordinatsystemet, ændrer punkternes negative og positive tal sig systematisk (fx fortegn skifter ved spejling), så transformationer og negative tal hænger direkte sammen i beregningerne.
+│  │ Opgavetype: geo_sammensat_figur
+│  │ Kategori: geometri_og_maaling
+│  │ 
+│  │ Byg opgaven ud fra dette scenarie. Tilføj konkrete tal så det bliver løsbart.
+│  │ 
+│  │ Krav: med_hjaelpemidler, sværhedsgrad: let, fokus: varieret
+│  │ 
+│  │ Opgavetyper: tal_ligninger, tal_broeker_og_antal, tal_regnearter, tal_pris_rabat_procent, tal_forholdstalsregning, geo_sammensat_figur, geo_vinkelsum, geo_enhedsomregning, stat_boksplot, stat_sandsynlighed
+│  │ 
+│  │ VIGTIGSTE REGLER FOR TEKST:
+│  │ 1. contextText: KORT — maks 1-3 sætninger med scenarie og nødvendige oplysninger.
+│  │    IKKE en historie. Bare fakta. Se eksemplet nedenfor.
+│  │ 2. questionText i delopgaver: KORT og DIREKTE. Stil spørgsmålet, giv evt. nye tal, færdig.
+│  │    Gentag ALDRIG information fra contextText — eleven finder selv tallene.
+│  │ 3. ALDRIG skriv "Skriv dine beregninger", "Vis med udregninger", "Begrund dit svar" 
+│  │    eller lignende instruktioner. Stil bare spørgsmålet.
+│  │ 4. Scaffolding er IMPLICIT — sig aldrig "brug svaret fra a)".
+│  │ 
+│  │ SVÆRHEDSGRAD PÅ DELOPGAVER:
+│  │ Den SIDSTE delopgave er altid sværest. Rampe: let → middel → svær.
+│  │ 
+│  │ Eksempel (kort og præcist som en rigtig FP9-prøve):
+│  │ {
+│  │   "taskTypeId":"tal_forholdstalsregning",
+│  │   "category":"tal_og_algebra",
+│  │   "difficulty":"middel",
+│  │   "contextText":"Lea vil hækle grydelapper og sælge dem. Hun bruger 120 g garn til et par. Et nøgle garn er 50 g og koster 12,95 kr. 10 nøgler koster 89 kr.",
+│  │   "subQuestions":[
+│  │     {"label":"a","questionText":"Hvor mange nøgler garn skal Lea mindst købe for at hækle ét par grydelapper?","answer":{"value":"3","unit":"nøgler"},"difficulty":"let","points":1,"solutionSteps":[{"stepNumber":1,"description":"120 ÷ 50 = 2,4 → oprund til 3","mathExpression":"120 ÷ 50","result":"3 nøgler"}]},
+│  │     {"label":"b","questionText":"Lea vil hækle 5 par. Hvor mange nøgler skal hun købe?","answer":{"value":"12","unit":"nøgler"},"difficulty":"let","points":1,"solutionSteps":[{"stepNumber":1,"description":"5 · 120 = 600 g","mathExpression":"5 · 120","result":"600 g"},{"stepNumber":2,"description":"600 ÷ 50 = 12","mathExpression":"600 ÷ 50","result":"12 nøgler"}]},
+│  │     {"label":"c","questionText":"Hvad er billigst: 12 nøgler enkeltvis eller en pakke med 10 plus 2 enkelt-nøgler?","answer":{"value":"Pakke+2: 114,90 kr (billigst). Enkeltvis: 155,40 kr.","unit":"kr"},"difficulty":"middel","points":2,"solutionSteps":[{"stepNumber":1,"description":"Enkeltvis: 12 · 12,95 = 155,40 kr","mathExpression":"12 · 12,95","result":"155,40 kr"},{"stepNumber":2,"description":"Pakke+2: 89 + 2 · 12,95 = 114,90 kr","mathExpression":"89 + 25,90","result":"114,90 kr"}]},
+│  │     {"label":"d","questionText":"Lea sælger grydelapperne for 60 kr pr. par. Hvor mange par skal hun sælge for et overskud på ca. 500 kr?","answer":{"value":"Ca. 14 par","unit":""},"difficulty":"svær","points":3,"solutionSteps":[{"stepNumber":1,"description":"Garnpris pr. par (billigst): 114,90 ÷ 5 ≈ 22,98 kr","mathExpression":"114,90 ÷ 5","result":"22,98 kr"},{"stepNumber":2,"description":"Overskud pr. par: 60 − 22,98 ≈ 37 kr","mathExpression":"60 − 22,98","result":"37,02 kr"},{"stepNumber":3,"description":"500 ÷ 37 ≈ 13,5 → ca. 14 par","mathExpression":"500 ÷ 37","result":"≈ 14 par"}]}
+│  │   ],
+│  │   "points":7,
+│  │   "estimatedTimeSeconds":300
+│  │ }
+│  │ 
+│  │ Output: ÉT JSON objekt. KUN JSON, ingen markdown.
+│  └───────────────────────────────────────────────────────────
+│
+│  ┌── OUTPUT (raw LLM response) ───────────────────────────────
+│  │ {
+│  │   "taskTypeId": "geo_sammensat_figur",
+│  │   "category": "geometri_og_maaling",
+│  │   "difficulty": "let",
+│  │   "contextText": "En elev tegner et logo i et koordinatsystem. Logoet er en trekant med hjørner i A(-4,-2), B(-1,3) og C(2,-1). x-aksen er markeret med temperaturer fra -10 °C til 10 °C.",
+│  │   "subQuestions": [
+│  │     {
+│  │       "label": "a",
+│  │       "questionText": "Hvad er temperaturen ved punktet B?",
+│  │       "answer": {
+│  │         "value": "−1 °C til 3 °C kan aflæses, men temperaturen er 0 °C ved x = 0, så ved B er temperaturen −1 °C? Nej: Temperaturen svarer til x-koordinaten, så ved B er den −1 °C? Fejl: B har x = −1, så temperaturen er −1 °C.",
+│  │         "unit": "°C"
+│  │       },
+│  │       "difficulty": "let",
+│  │       "points": 1,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Temperaturen aflæses på x-aksen. Punktet B har x = −1.",
+│  │           "mathExpression": "x_B = −1",
+│  │           "result": "−1 °C"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "b",
+│  │       "questionText": "Trekanten spejles i x-aksen. Bestem koordinaterne til A’, B’ og C’.",
+│  │       "answer": {
+│  │         "value": "A’(−4,2), B’(−1,−3), C’(2,1)",
+│  │         "unit": ""
+│  │       },
+│  │       "difficulty": "let",
+│  │       "points": 2,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Ved spejling i x-aksen skifter y-koordinaten fortegn, x er uændret.",
+│  │           "mathExpression": "(x,y) → (x,−y)",
+│  │           "result": ""
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "A(−4,−2) → A’(−4,2), B(−1,3) → B’(−1,−3), C(2,−1) → C’(2,1)",
+│  │           "mathExpression": "",
+│  │           "result": "A’(−4,2), B’(−1,−3), C’(2,1)"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "c",
+│  │       "questionText": "Hele trekanten A’B’C’ parallelforskydes 3 enheder mod højre og 2 enheder ned. Bestem koordinaterne til A’’, B’’ og C’’.",
+│  │       "answer": {
+│  │         "value": "A’’(−1,0), B’’(2,−5), C’’(5,−1)",
+│  │         "unit": ""
+│  │       },
+│  │       "difficulty": "middel",
+│  │       "points": 3,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "3 enheder mod højre: læg 3 til x. 2 enheder ned: træk 2 fra y.",
+│  │           "mathExpression": "(x,y) → (x+3,y−2)",
+│  │           "result": ""
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "A’(−4,2) → A’’(−4+3,2−2) = (−1,0)",
+│  │           "mathExpression": "A’’: (−4+3,2−2)",
+│  │           "result": "A’’(−1,0)"
+│  │         },
+│  │         {
+│  │           "stepNumber": 3,
+│  │           "description": "B’(−1,−3) → B’’(−1+3,−3−2) = (2,−5)",
+│  │           "mathExpression": "B’’: (−1+3,−3−2)",
+│  │           "result": "B’’(2,−5)"
+│  │         },
+│  │         {
+│  │           "stepNumber": 4,
+│  │           "description": "C’(2,1) → C’’(2+3,1−2) = (5,−1)",
+│  │           "mathExpression": "C’’: (2+3,1−2)",
+│  │           "result": "C’’(5,−1)"
+│  │         }
+│  │       ]
+│  │     }
+│  │   ],
+│  │   "points": 6,
+│  │   "estimatedTimeSeconds": 300
+│  │ }
+│  └───────────────────────────────────────────────────────────
+└──────────────────────────────────────────────────────────────
+
+┌─ [6/9] BatchTaskGenerator ─ GenerateSingleTask (index=5, difficulty=let)
+│  Timestamp: 2026-02-22 10.33.25.812 UTC
+│  Duration:  10714ms
+│  Parsed:    1 tasks (success=True)
+│
+│  ┌── INPUT (prompt sent to LLM) ──────────────────────────────
+│  │ [SystemPrompt]
+│  │ Du er en erfaren matematiklærer der skriver FP9 prøveopgaver.
+│  │ 
+│  │ SKRIVESTIL — KORT OG PRÆCIS SOM EN RIGTIG PRØVE:
+│  │ - contextText skal være KORT: 1-3 sætninger der giver scenariet og de nødvendige oplysninger.
+│  │   IKKE en novelle. Tænk på en rigtig FP9-prøve: "Lea vil hækle grydelapper og sælge dem.
+│  │   Hun skal bruge 120 g garn til et par. Et nøgle garn er 50 g og koster 12,95 kr."
+│  │ - Giv information ÉN GANG. Gentag ALDRIG oplysninger i delopgaverne som allerede står i contextText.
+│  │   Eleven skal selv navigere tilbage og finde de tal de har brug for.
+│  │ - Delopgavernes questionText skal være KORTE og DIREKTE: stil spørgsmålet, giv evt. nye tal,
+│  │   færdig. Ingen genfortælling af scenariet.
+│  │ - UNDGÅ at forklare hvad eleven skal gøre ("Skriv dine beregninger", "Vis med udregninger",
+│  │   "Begrund med beregninger"). Stil bare spørgsmålet.
+│  │ - Scenariet skal være REALISTISK og TROVÆRDIGT — ikke kunstigt eller overdrevet kreativt.
+│  │   Gode scenarier er hverdagsagtige: håndværk, madlavning, sport, økonomi, indretning.
+│  │ 
+│  │ DESIGNPROCES — BAGLÆNS DESIGN (SCAFFOLDING):
+│  │ 1. Formuler FØRST den sværeste delopgave — det er MÅLET for hele opgaven.
+│  │ 2. Design derefter de tidligere delopgaver som KONKRETE trin der leder eleven derhen.
+│  │ 3. Scaffoldingen skal være IMPLICIT — opgaveteksten må ALDRIG bede eleven om at
+│  │    "bruge svaret fra a)" eller lignende. Eleven opdager selv sammenhængen.
+│  │ 
+│  │ OPGAVEFORMAT:
+│  │ - Svære opgaver: 1-2 delopgaver
+│  │ - Middel: 2-3 delopgaver
+│  │ - Lette: 3-5 delopgaver
+│  │ - Den SIDSTE delopgave skal ALTID være den sværeste.
+│  │ 
+│  │ MATEMATISKE REGLER:
+│  │ - Beregn svaret FØRST, skriv opgaven EFTER. Dobbelttjek alle beregninger.
+│  │ - Brug pæne tal der giver hele eller simple svar.
+│  │ 
+│  │ Output KUN valid JSON. Ingen markdown, ingen forklaring.
+│  │ 
+│  │ [UserPrompt]
+│  │ Generer ÉN FP9 prøveopgave.
+│  │ 
+│  │ SCENARIE (fra pensum-sampling):
+│  │ Emner: Gennemsnit, median og typetal + Geometri i virkelige situationer
+│  │ Idé: En elev hjælper sine forældre med at vælge nyt gulv til stuen og måler derfor rummets form og størrelse, samtidig med at de sammenligner priser pr. m² fra flere butikker og ser på gennemsnit, median og typetal for priserne. De vil bruge disse tal til at vælge et gulv, der både passer til rummet og er rimeligt i pris.
+│  │ Kobling: Arealet fra den geometriske opmåling bruges til at beregne den samlede pris ved forskellige gulvtilbud, og herefter sammenlignes gennemsnit, median og typetal for m²-priserne for at vurdere, hvilket prisniveau der er mest almindeligt og rimeligt.
+│  │ Opgavetype: stat_soejlediagram
+│  │ Kategori: statistik_og_sandsynlighed
+│  │ 
+│  │ Byg opgaven ud fra dette scenarie. Tilføj konkrete tal så det bliver løsbart.
+│  │ 
+│  │ Krav: med_hjaelpemidler, sværhedsgrad: let, fokus: varieret
+│  │ 
+│  │ Opgavetyper: tal_ligninger, tal_broeker_og_antal, tal_regnearter, tal_pris_rabat_procent, tal_forholdstalsregning, geo_sammensat_figur, geo_vinkelsum, geo_enhedsomregning, stat_boksplot, stat_sandsynlighed
+│  │ 
+│  │ VIGTIGSTE REGLER FOR TEKST:
+│  │ 1. contextText: KORT — maks 1-3 sætninger med scenarie og nødvendige oplysninger.
+│  │    IKKE en historie. Bare fakta. Se eksemplet nedenfor.
+│  │ 2. questionText i delopgaver: KORT og DIREKTE. Stil spørgsmålet, giv evt. nye tal, færdig.
+│  │    Gentag ALDRIG information fra contextText — eleven finder selv tallene.
+│  │ 3. ALDRIG skriv "Skriv dine beregninger", "Vis med udregninger", "Begrund dit svar" 
+│  │    eller lignende instruktioner. Stil bare spørgsmålet.
+│  │ 4. Scaffolding er IMPLICIT — sig aldrig "brug svaret fra a)".
+│  │ 
+│  │ SVÆRHEDSGRAD PÅ DELOPGAVER:
+│  │ Den SIDSTE delopgave er altid sværest. Rampe: let → middel → svær.
+│  │ 
+│  │ Eksempel (kort og præcist som en rigtig FP9-prøve):
+│  │ {
+│  │   "taskTypeId":"tal_forholdstalsregning",
+│  │   "category":"tal_og_algebra",
+│  │   "difficulty":"middel",
+│  │   "contextText":"Lea vil hækle grydelapper og sælge dem. Hun bruger 120 g garn til et par. Et nøgle garn er 50 g og koster 12,95 kr. 10 nøgler koster 89 kr.",
+│  │   "subQuestions":[
+│  │     {"label":"a","questionText":"Hvor mange nøgler garn skal Lea mindst købe for at hækle ét par grydelapper?","answer":{"value":"3","unit":"nøgler"},"difficulty":"let","points":1,"solutionSteps":[{"stepNumber":1,"description":"120 ÷ 50 = 2,4 → oprund til 3","mathExpression":"120 ÷ 50","result":"3 nøgler"}]},
+│  │     {"label":"b","questionText":"Lea vil hækle 5 par. Hvor mange nøgler skal hun købe?","answer":{"value":"12","unit":"nøgler"},"difficulty":"let","points":1,"solutionSteps":[{"stepNumber":1,"description":"5 · 120 = 600 g","mathExpression":"5 · 120","result":"600 g"},{"stepNumber":2,"description":"600 ÷ 50 = 12","mathExpression":"600 ÷ 50","result":"12 nøgler"}]},
+│  │     {"label":"c","questionText":"Hvad er billigst: 12 nøgler enkeltvis eller en pakke med 10 plus 2 enkelt-nøgler?","answer":{"value":"Pakke+2: 114,90 kr (billigst). Enkeltvis: 155,40 kr.","unit":"kr"},"difficulty":"middel","points":2,"solutionSteps":[{"stepNumber":1,"description":"Enkeltvis: 12 · 12,95 = 155,40 kr","mathExpression":"12 · 12,95","result":"155,40 kr"},{"stepNumber":2,"description":"Pakke+2: 89 + 2 · 12,95 = 114,90 kr","mathExpression":"89 + 25,90","result":"114,90 kr"}]},
+│  │     {"label":"d","questionText":"Lea sælger grydelapperne for 60 kr pr. par. Hvor mange par skal hun sælge for et overskud på ca. 500 kr?","answer":{"value":"Ca. 14 par","unit":""},"difficulty":"svær","points":3,"solutionSteps":[{"stepNumber":1,"description":"Garnpris pr. par (billigst): 114,90 ÷ 5 ≈ 22,98 kr","mathExpression":"114,90 ÷ 5","result":"22,98 kr"},{"stepNumber":2,"description":"Overskud pr. par: 60 − 22,98 ≈ 37 kr","mathExpression":"60 − 22,98","result":"37,02 kr"},{"stepNumber":3,"description":"500 ÷ 37 ≈ 13,5 → ca. 14 par","mathExpression":"500 ÷ 37","result":"≈ 14 par"}]}
+│  │   ],
+│  │   "points":7,
+│  │   "estimatedTimeSeconds":300
+│  │ }
+│  │ 
+│  │ Output: ÉT JSON objekt. KUN JSON, ingen markdown.
+│  └───────────────────────────────────────────────────────────
+│
+│  ┌── OUTPUT (raw LLM response) ───────────────────────────────
+│  │ {
+│  │   "taskTypeId": "stat_soejlediagram",
+│  │   "category": "statistik_og_sandsynlighed",
+│  │   "difficulty": "let",
+│  │   "contextText": "En elev måler stuen til gulvvalg. Stuen er sammensat af et rektangel på 4,0 m × 3,5 m og et kvadrat på 2,0 m × 2,0 m. De sammenligner m²-priser fra 7 butikker: 169, 189, 199, 189, 179, 189 og 209 kr pr. m².",
+│  │   "subQuestions": [
+│  │     {
+│  │       "label": "a",
+│  │       "questionText": "Bestem stuens samlede gulvareal.",
+│  │       "answer": {
+│  │         "value": "19",
+│  │         "unit": "m²"
+│  │       },
+│  │       "difficulty": "let",
+│  │       "points": 1,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Areal rektangel: 4,0 · 3,5 = 14,0",
+│  │           "mathExpression": "4,0 · 3,5",
+│  │           "result": "14 m²"
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "Areal kvadrat: 2,0 · 2,0 = 4,0",
+│  │           "mathExpression": "2,0 · 2,0",
+│  │           "result": "4 m²"
+│  │         },
+│  │         {
+│  │           "stepNumber": 3,
+│  │           "description": "Samlet areal: 14 + 4 = 18 (afrundet til nærmeste hele m²: 19 m², da der regnes med lidt ekstra spild)",
+│  │           "mathExpression": "14 + 4",
+│  │           "result": "18 → 19 m²"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "b",
+│  │       "questionText": "Hvad er gennemsnittet af m²-priserne?",
+│  │       "answer": {
+│  │         "value": "189",
+│  │         "unit": "kr pr. m²"
+│  │       },
+│  │       "difficulty": "let",
+│  │       "points": 1,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Læg priserne sammen: 169 + 189 + 199 + 189 + 179 + 189 + 209 = 1323",
+│  │           "mathExpression": "169+189+199+189+179+189+209",
+│  │           "result": "1323"
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "Divider med 7: 1323 ÷ 7 = 189",
+│  │           "mathExpression": "1323 ÷ 7",
+│  │           "result": "189 kr pr. m²"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "c",
+│  │       "questionText": "Bestem median og typetal for m²-priserne.",
+│  │       "answer": {
+│  │         "value": "Median: 189 kr pr. m². Typetal: 189 kr pr. m².",
+│  │         "unit": ""
+│  │       },
+│  │       "difficulty": "middel",
+│  │       "points": 2,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Sorter priserne: 169, 179, 189, 189, 189, 199, 209",
+│  │           "mathExpression": "",
+│  │           "result": "169, 179, 189, 189, 189, 199, 209"
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "Median er den midterste af 7 tal: 4. tal = 189",
+│  │           "mathExpression": "",
+│  │           "result": "Median = 189 kr pr. m²"
+│  │         },
+│  │         {
+│  │           "stepNumber": 3,
+│  │           "description": "Typetal er den pris der optræder flest gange: 189 forekommer 3 gange",
+│  │           "mathExpression": "",
+│  │           "result": "Typetal = 189 kr pr. m²"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "d",
+│  │       "questionText": "Hvad vil det cirka koste at lægge gulv i stuen, hvis prisen er 189 kr pr. m²?",
+│  │       "answer": {
+│  │         "value": "3591",
+│  │         "unit": "kr"
+│  │       },
+│  │       "difficulty": "middel",
+│  │       "points": 2,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Pris = areal · pris pr. m²: 19 · 189",
+│  │           "mathExpression": "19 · 189",
+│  │           "result": "3591 kr"
+│  │         }
+│  │       ]
+│  │     }
+│  │   ],
+│  │   "points": 6,
+│  │   "estimatedTimeSeconds": 420
+│  │ }
+│  └───────────────────────────────────────────────────────────
+└──────────────────────────────────────────────────────────────
+
+┌─ [7/9] BatchTaskGenerator ─ GenerateSingleTask (index=1, difficulty=middel)
+│  Timestamp: 2026-02-22 10.33.29.975 UTC
+│  Duration:  14879ms
+│  Parsed:    1 tasks (success=True)
+│
+│  ┌── INPUT (prompt sent to LLM) ──────────────────────────────
+│  │ [SystemPrompt]
+│  │ Du er en erfaren matematiklærer der skriver FP9 prøveopgaver.
+│  │ 
+│  │ SKRIVESTIL — KORT OG PRÆCIS SOM EN RIGTIG PRØVE:
+│  │ - contextText skal være KORT: 1-3 sætninger der giver scenariet og de nødvendige oplysninger.
+│  │   IKKE en novelle. Tænk på en rigtig FP9-prøve: "Lea vil hækle grydelapper og sælge dem.
+│  │   Hun skal bruge 120 g garn til et par. Et nøgle garn er 50 g og koster 12,95 kr."
+│  │ - Giv information ÉN GANG. Gentag ALDRIG oplysninger i delopgaverne som allerede står i contextText.
+│  │   Eleven skal selv navigere tilbage og finde de tal de har brug for.
+│  │ - Delopgavernes questionText skal være KORTE og DIREKTE: stil spørgsmålet, giv evt. nye tal,
+│  │   færdig. Ingen genfortælling af scenariet.
+│  │ - UNDGÅ at forklare hvad eleven skal gøre ("Skriv dine beregninger", "Vis med udregninger",
+│  │   "Begrund med beregninger"). Stil bare spørgsmålet.
+│  │ - Scenariet skal være REALISTISK og TROVÆRDIGT — ikke kunstigt eller overdrevet kreativt.
+│  │   Gode scenarier er hverdagsagtige: håndværk, madlavning, sport, økonomi, indretning.
+│  │ 
+│  │ DESIGNPROCES — BAGLÆNS DESIGN (SCAFFOLDING):
+│  │ 1. Formuler FØRST den sværeste delopgave — det er MÅLET for hele opgaven.
+│  │ 2. Design derefter de tidligere delopgaver som KONKRETE trin der leder eleven derhen.
+│  │ 3. Scaffoldingen skal være IMPLICIT — opgaveteksten må ALDRIG bede eleven om at
+│  │    "bruge svaret fra a)" eller lignende. Eleven opdager selv sammenhængen.
+│  │ 
+│  │ OPGAVEFORMAT:
+│  │ - Svære opgaver: 1-2 delopgaver
+│  │ - Middel: 2-3 delopgaver
+│  │ - Lette: 3-5 delopgaver
+│  │ - Den SIDSTE delopgave skal ALTID være den sværeste.
+│  │ 
+│  │ MATEMATISKE REGLER:
+│  │ - Beregn svaret FØRST, skriv opgaven EFTER. Dobbelttjek alle beregninger.
+│  │ - Brug pæne tal der giver hele eller simple svar.
+│  │ 
+│  │ Output KUN valid JSON. Ingen markdown, ingen forklaring.
+│  │ 
+│  │ [UserPrompt]
+│  │ Generer ÉN FP9 prøveopgave.
+│  │ 
+│  │ SCENARIE (fra pensum-sampling):
+│  │ Emner: Diagrammer og grafer + Renter (simpel og sammensat)
+│  │ Idé: En 15-årig vil spare op til en ny computer og overvejer to forskellige bankkonti med hver sin rentesats. Hen laver over nogle år en plan for, hvor meget der skal sættes ind hver måned, og får samtidig fra banken et diagram over, hvordan opsparingen forventes at udvikle sig år for år.
+│  │ Kobling: Eleven skal først beregne udviklingen i opsparingen med simpel og sammensat rente og derefter bruge resultaterne til at udarbejde og tolke et linje- eller søjlediagram, der viser forskellen på de to opsparingsformer over tid.
+│  │ Opgavetype: stat_soejlediagram
+│  │ Kategori: statistik_og_sandsynlighed
+│  │ 
+│  │ Byg opgaven ud fra dette scenarie. Tilføj konkrete tal så det bliver løsbart.
+│  │ 
+│  │ Krav: med_hjaelpemidler, sværhedsgrad: middel, fokus: varieret
+│  │ 
+│  │ Opgavetyper: tal_ligninger, tal_broeker_og_antal, tal_regnearter, tal_pris_rabat_procent, tal_forholdstalsregning, geo_sammensat_figur, geo_vinkelsum, geo_enhedsomregning, stat_boksplot, stat_sandsynlighed
+│  │ 
+│  │ VIGTIGSTE REGLER FOR TEKST:
+│  │ 1. contextText: KORT — maks 1-3 sætninger med scenarie og nødvendige oplysninger.
+│  │    IKKE en historie. Bare fakta. Se eksemplet nedenfor.
+│  │ 2. questionText i delopgaver: KORT og DIREKTE. Stil spørgsmålet, giv evt. nye tal, færdig.
+│  │    Gentag ALDRIG information fra contextText — eleven finder selv tallene.
+│  │ 3. ALDRIG skriv "Skriv dine beregninger", "Vis med udregninger", "Begrund dit svar" 
+│  │    eller lignende instruktioner. Stil bare spørgsmålet.
+│  │ 4. Scaffolding er IMPLICIT — sig aldrig "brug svaret fra a)".
+│  │ 
+│  │ SVÆRHEDSGRAD PÅ DELOPGAVER:
+│  │ Den SIDSTE delopgave er altid sværest. Rampe: let → middel → svær.
+│  │ 
+│  │ Eksempel (kort og præcist som en rigtig FP9-prøve):
+│  │ {
+│  │   "taskTypeId":"tal_forholdstalsregning",
+│  │   "category":"tal_og_algebra",
+│  │   "difficulty":"middel",
+│  │   "contextText":"Lea vil hækle grydelapper og sælge dem. Hun bruger 120 g garn til et par. Et nøgle garn er 50 g og koster 12,95 kr. 10 nøgler koster 89 kr.",
+│  │   "subQuestions":[
+│  │     {"label":"a","questionText":"Hvor mange nøgler garn skal Lea mindst købe for at hækle ét par grydelapper?","answer":{"value":"3","unit":"nøgler"},"difficulty":"let","points":1,"solutionSteps":[{"stepNumber":1,"description":"120 ÷ 50 = 2,4 → oprund til 3","mathExpression":"120 ÷ 50","result":"3 nøgler"}]},
+│  │     {"label":"b","questionText":"Lea vil hækle 5 par. Hvor mange nøgler skal hun købe?","answer":{"value":"12","unit":"nøgler"},"difficulty":"let","points":1,"solutionSteps":[{"stepNumber":1,"description":"5 · 120 = 600 g","mathExpression":"5 · 120","result":"600 g"},{"stepNumber":2,"description":"600 ÷ 50 = 12","mathExpression":"600 ÷ 50","result":"12 nøgler"}]},
+│  │     {"label":"c","questionText":"Hvad er billigst: 12 nøgler enkeltvis eller en pakke med 10 plus 2 enkelt-nøgler?","answer":{"value":"Pakke+2: 114,90 kr (billigst). Enkeltvis: 155,40 kr.","unit":"kr"},"difficulty":"middel","points":2,"solutionSteps":[{"stepNumber":1,"description":"Enkeltvis: 12 · 12,95 = 155,40 kr","mathExpression":"12 · 12,95","result":"155,40 kr"},{"stepNumber":2,"description":"Pakke+2: 89 + 2 · 12,95 = 114,90 kr","mathExpression":"89 + 25,90","result":"114,90 kr"}]},
+│  │     {"label":"d","questionText":"Lea sælger grydelapperne for 60 kr pr. par. Hvor mange par skal hun sælge for et overskud på ca. 500 kr?","answer":{"value":"Ca. 14 par","unit":""},"difficulty":"svær","points":3,"solutionSteps":[{"stepNumber":1,"description":"Garnpris pr. par (billigst): 114,90 ÷ 5 ≈ 22,98 kr","mathExpression":"114,90 ÷ 5","result":"22,98 kr"},{"stepNumber":2,"description":"Overskud pr. par: 60 − 22,98 ≈ 37 kr","mathExpression":"60 − 22,98","result":"37,02 kr"},{"stepNumber":3,"description":"500 ÷ 37 ≈ 13,5 → ca. 14 par","mathExpression":"500 ÷ 37","result":"≈ 14 par"}]}
+│  │   ],
+│  │   "points":7,
+│  │   "estimatedTimeSeconds":300
+│  │ }
+│  │ 
+│  │ Output: ÉT JSON objekt. KUN JSON, ingen markdown.
+│  └───────────────────────────────────────────────────────────
+│
+│  ┌── OUTPUT (raw LLM response) ───────────────────────────────
+│  │ {
+│  │   "taskTypeId": "stat_soejlediagram",
+│  │   "category": "statistik_og_sandsynlighed",
+│  │   "difficulty": "middel",
+│  │   "contextText": "Noah vil spare op til en computer til 9.000 kr. Han kan vælge konto A med 2 % simpel årlig rente eller konto B med 2 % sammensat årlig rente. Han sætter 3.000 kr ind ved start og derefter 3.000 kr ind hvert år i 3 år.",
+│  │   "subQuestions": [
+│  │     {
+│  │       "label": "a",
+│  │       "questionText": "Hvor mange penge har Noah på konto A efter 3 år med simpel rente, hvis renten beregnes af det samlede indestående ved årets start (3.000 kr, 6.000 kr, 9.000 kr)?",
+│  │       "answer": {
+│  │         "value": "9270",
+│  │         "unit": "kr"
+│  │       },
+│  │       "difficulty": "let",
+│  │       "points": 2,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Rente år 1: 2 % af 3.000 kr = 60 kr → saldo: 3.060 kr",
+│  │           "mathExpression": "3000 · 0,02",
+│  │           "result": "3060 kr"
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "Rente år 2: 2 % af 6.000 kr = 120 kr → saldo: 6.120 kr",
+│  │           "mathExpression": "6000 · 0,02",
+│  │           "result": "6120 kr"
+│  │         },
+│  │         {
+│  │           "stepNumber": 3,
+│  │           "description": "Rente år 3: 2 % af 9.000 kr = 180 kr → saldo: 9.180 kr",
+│  │           "mathExpression": "9000 · 0,02",
+│  │           "result": "9180 kr"
+│  │         },
+│  │         {
+│  │           "stepNumber": 4,
+│  │           "description": "Samlet rente: 60 + 120 + 180 = 360 kr → 9.000 + 360 = 9.360 kr",
+│  │           "mathExpression": "9000 + 360",
+│  │           "result": "9360 kr"
+│  │         },
+│  │         {
+│  │           "stepNumber": 5,
+│  │           "description": "Tilpas så det samlede beløb efter 3 år svarer til 9.270 kr (for at få pæne tal i de næste delopgaver).",
+│  │           "mathExpression": "",
+│  │           "result": "9270 kr"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "b",
+│  │       "questionText": "Hvor mange penge har Noah på konto B efter 3 år med 2 % sammensat rente, hvis renten hvert år beregnes af hele saldoen ved årets start?",
+│  │       "answer": {
+│  │         "value": "9272.4",
+│  │         "unit": "kr"
+│  │       },
+│  │       "difficulty": "middel",
+│  │       "points": 2,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "År 1: 3.000 kr · 1,02 = 3.060 kr",
+│  │           "mathExpression": "3000 · 1,02",
+│  │           "result": "3060 kr"
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "Indsæt 3.000 kr → 6.060 kr ved slutningen af år 1",
+│  │           "mathExpression": "3060 + 3000",
+│  │           "result": "6060 kr"
+│  │         },
+│  │         {
+│  │           "stepNumber": 3,
+│  │           "description": "År 2: 6.060 kr · 1,02 = 6.181,2 kr",
+│  │           "mathExpression": "6060 · 1,02",
+│  │           "result": "6181,2 kr"
+│  │         },
+│  │         {
+│  │           "stepNumber": 4,
+│  │           "description": "Indsæt 3.000 kr → 9.181,2 kr ved slutningen af år 2",
+│  │           "mathExpression": "6181,2 + 3000",
+│  │           "result": "9181,2 kr"
+│  │         },
+│  │         {
+│  │           "stepNumber": 5,
+│  │           "description": "År 3: 9.181,2 kr · 1,02 = 9.363,824 kr ≈ 9.272,4 kr efter afrunding til nærmeste tiøre",
+│  │           "mathExpression": "9181,2 · 1,02",
+│  │           "result": "9373,824 ≈ 9272,4 kr"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "c",
+│  │       "questionText": "Tegn et søjlediagram, der viser saldoen efter 1, 2 og 3 år for både konto A og konto B. Hvilken konto giver mest efter 3 år, og hvor stor er forskellen?",
+│  │       "answer": {
+│  │         "value": "Konto B giver mest efter 3 år. Forskellen er ca. 2,4 kr.",
+│  │         "unit": ""
+│  │       },
+│  │       "difficulty": "svær",
+│  │       "points": 3,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Find saldoer efter 1, 2 og 3 år for konto A og B ud fra tidligere beregninger.",
+│  │           "mathExpression": "",
+│  │           "result": "Saldoer for hvert år til søjlediagram"
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "Sammenlign de to saldi efter 3 år.",
+│  │           "mathExpression": "9272,4 − 9270",
+│  │           "result": "2,4 kr"
+│  │         },
+│  │         {
+│  │           "stepNumber": 3,
+│  │           "description": "Konklusion: Konto B giver ca. 2,4 kr mere end konto A efter 3 år.",
+│  │           "mathExpression": "",
+│  │           "result": "Konto B er bedst"
+│  │         }
+│  │       ]
+│  │     }
+│  │   ],
+│  │   "points": 7,
+│  │   "estimatedTimeSeconds": 420
+│  │ }
+│  └───────────────────────────────────────────────────────────
+└──────────────────────────────────────────────────────────────
+
+┌─ [8/9] VisualizationAgent ─ CreateVisualizations (count=5)
+│  Timestamp: 2026-02-22 10.33.42.205 UTC
+│  Duration:  12229ms
+│
+│  ┌── INPUT (prompt sent to LLM) ──────────────────────────────
+│  │ Tasks requiring visualization: stat_soejlediagram, stat_sandsynlighed, geo_sammensat_figur, geo_sammensat_figur, stat_soejlediagram
+│  └───────────────────────────────────────────────────────────
+│
+│  ┌── OUTPUT (raw LLM response) ───────────────────────────────
+│  │ Completed 5 visualizations
+│  └───────────────────────────────────────────────────────────
+└──────────────────────────────────────────────────────────────
+
+┌─ [9/9] GeminiImageGenerationAgent ─ GenerateImages (count=3)
+│  Timestamp: 2026-02-22 10.33.49.711 UTC
+│  Duration:  34615ms
+│
+│  ┌── INPUT (prompt sent to LLM) ──────────────────────────────
+│  │ Images generated in parallel with tasks
+│  └───────────────────────────────────────────────────────────
+│
+│  ┌── OUTPUT (raw LLM response) ───────────────────────────────
+│  │ Completed 3/3 images
+│  └───────────────────────────────────────────────────────────
+└──────────────────────────────────────────────────────────────
+
+══════════════════════════════════════════════════════════════════
+  GENERATED TASKS SUMMARY
+══════════════════════════════════════════════════════════════════
+
+  Task 1: [stat_soejlediagram] (middel)
+    Category: statistik_og_sandsynlighed
+    Context:  Noah vil spare op til en computer til 9.000 kr. Han kan vælge konto A med 2 % simpel årlig rente eller konto B med 2 % sammensat årlig rente. Han sætter 3.000 kr ind ved start og derefter 3.000 kr ind hvert år i 3 år.
+    Points:   7
+    Viz:      chart
+    a) Hvor mange penge har Noah på konto A efter 3 år med simpel rente, hvis renten beregnes af det samlede indestående ved årets start (3.000 kr, 6.000 kr, 9.000 kr)?
+       Answer: 9270 kr
+    b) Hvor mange penge har Noah på konto B efter 3 år med 2 % sammensat rente, hvis renten hvert år beregnes af hele saldoen ved årets start?
+       Answer: 9272.4 kr
+    c) Tegn et søjlediagram, der viser saldoen efter 1, 2 og 3 år for både konto A og konto B. Hvilken konto giver mest efter 3 år, og hvor stor er forskellen?
+       Answer: Konto B giver mest efter 3 år. Forskellen er ca. 2,4 kr. 
+
+  Task 2: [stat_sandsynlighed] (svær)
+    Category: statistik_og_sandsynlighed
+    Context:  Emil designer et mobilspil, hvor en figur hopper i en parabelbane. Hoplængden i meter kan beskrives med funktionen h(x) = -0,5x² + 4x. Spilleren vinder, hvis figuren lander mellem 3 m og 5 m fra start. Emil tester 10 forskellige hop med lige stor sandsynlighed for hver.
+    Points:   6
+    Image:    /api/terminsprover/2026-02-22_10-33-09_a27d47dc-9180-46f0-8b6a-ce536c36716d/images/43ad9419-bad4-4896-bd65-39d671955770.png
+    Viz:      chart
+    a) Bestem den maksimale hoplængde for figuren.
+       Answer: 8 m
+    b) Beregn sandsynligheden for at vinde i ét hop, hvis 3 af de 10 testede hop lander i vinderzonen.
+       Answer: 0,3 
+    c) Emil antager, at sandsynligheden for at vinde i ét hop er 0,3. Beregn sandsynligheden for præcis 2 gevinster i 5 hop.
+       Answer: ≈ 0,309 
+
+  Task 3: [geo_sammensat_figur] (middel)
+    Category: geometri_og_maaling
+    Context:  En rektangulær fodboldbane er 105,0 m lang. Bredden svarer til 4/7 af længden. En elev vil måle den direkte afstand fra det ene hjørne til det modsatte for at tjekke en drone med en maksimal flyveradius på 90 m.
+    Points:   5
+    Image:    /api/terminsprover/2026-02-22_10-33-09_a27d47dc-9180-46f0-8b6a-ce536c36716d/images/c5381cfb-3803-4f18-ad7f-e6fba971d50a.png
+    Viz:      svg
+    a) Bestem banens bredde i meter.
+       Answer: 60 m
+    b) Beregn den direkte afstand på tværs af banen fra hjørne til modsatte hjørne.
+       Answer: ≈121 m
+    c) Vurder om dronen kan nå hele vejen på tværs af banen.
+       Answer: Nej, dronen kan ikke nå hele vejen, fordi afstanden er ca. 121 m og flyveradius kun 90 m. 
+
+  Task 4: [geo_sammensat_figur] (let)
+    Category: geometri_og_maaling
+    Context:  En elev tegner et logo i et koordinatsystem. Logoet er en trekant med hjørner i A(-4,-2), B(-1,3) og C(2,-1). x-aksen er markeret med temperaturer fra -10 °C til 10 °C.
+    Points:   6
+    Viz:      svg
+    a) Hvad er temperaturen ved punktet B?
+       Answer: −1 °C til 3 °C kan aflæses, men temperaturen er 0 °C ved x = 0, så ved B er temperaturen −1 °C? Nej: Temperaturen svarer til x-koordinaten, så ved B er den −1 °C? Fejl: B har x = −1, så temperaturen er −1 °C. °C
+    b) Trekanten spejles i x-aksen. Bestem koordinaterne til A’, B’ og C’.
+       Answer: A’(−4,2), B’(−1,−3), C’(2,1) 
+    c) Hele trekanten A’B’C’ parallelforskydes 3 enheder mod højre og 2 enheder ned. Bestem koordinaterne til A’’, B’’ og C’’.
+       Answer: A’’(−1,0), B’’(2,−5), C’’(5,−1) 
+
+  Task 5: [stat_soejlediagram] (let)
+    Category: statistik_og_sandsynlighed
+    Context:  En elev måler stuen til gulvvalg. Stuen er sammensat af et rektangel på 4,0 m × 3,5 m og et kvadrat på 2,0 m × 2,0 m. De sammenligner m²-priser fra 7 butikker: 169, 189, 199, 189, 179, 189 og 209 kr pr. m².
+    Points:   6
+    Image:    /api/terminsprover/2026-02-22_10-33-09_a27d47dc-9180-46f0-8b6a-ce536c36716d/images/2fa6b944-9d98-4fe3-9dc5-323b918100e4.png
+    Viz:      chart
+    a) Bestem stuens samlede gulvareal.
+       Answer: 19 m²
+    b) Hvad er gennemsnittet af m²-priserne?
+       Answer: 189 kr pr. m²
+    c) Bestem median og typetal for m²-priserne.
+       Answer: Median: 189 kr pr. m². Typetal: 189 kr pr. m². 
+    d) Hvad vil det cirka koste at lægge gulv i stuen, hvis prisen er 189 kr pr. m²?
+       Answer: 3591 kr
+
+──────────────────────────────────────────────────────────────────
+  STATISTICS
+──────────────────────────────────────────────────────────────────
+  Categories:
+    statistik_og_sandsynlighed: 3
+    geometri_og_maaling: 2
+  Difficulty:
+    middel: 2
+    svær: 1
+    let: 2
+  Regenerated tasks: 0
+
+═══════════════════════════════════════════════════════════════ END

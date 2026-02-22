@@ -42,6 +42,8 @@ export const Sidebar = ({
 
   return (
     <motion.aside
+      role="navigation"
+      aria-label="Hovednavigation"
       className={classNames('sidebar glass-panel', {
         'sidebar--collapsed': collapsed,
       })}

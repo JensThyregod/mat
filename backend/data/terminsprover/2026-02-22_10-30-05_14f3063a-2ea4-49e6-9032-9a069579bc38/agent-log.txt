@@ -1,0 +1,1070 @@
+╔══════════════════════════════════════════════════════════════════╗
+║              TERMINSPRØVE AGENT CHAT LOG                        ║
+╚══════════════════════════════════════════════════════════════════╝
+
+  ID:         14f3063a-2ea4-49e6-9032-9a069579bc38
+  Status:     Completed
+  Started:    2026-02-22 10.30.05 UTC
+  Completed:  2026-02-22 10.30.42 UTC
+  Duration:   36,9s
+  Tasks:      5 generated
+  Iterations: 5
+
+──────────────────────────────────────────────────────────────────
+  REQUEST
+──────────────────────────────────────────────────────────────────
+  Level:        fp9
+  ExamPart:     uden_hjaelpemidler
+  TaskCount:    5
+  Difficulty:   30 % easy / 50 % medium / 20 % hard
+  Categories:   []
+
+══════════════════════════════════════════════════════════════════
+  AGENT CHAT HISTORY
+══════════════════════════════════════════════════════════════════
+
+┌─ [1/9] FastAgentOrchestrator ─ GenerateTerminsprove (summary)
+│  Timestamp: 2026-02-22 10.30.42.709 UTC
+│  Duration:  36915ms
+│  Parsed:    5 tasks (success=True)
+│
+│  ┌── INPUT (prompt sent to LLM) ──────────────────────────────
+│  │ Request: 5 tasks, level=fp9, examPart=uden_hjaelpemidler, difficulty=(30 %/50 %/20 %), categories=[]
+│  └───────────────────────────────────────────────────────────
+│
+│  ┌── OUTPUT (raw LLM response) ───────────────────────────────
+│  │ Generated 5 tasks in 36915ms (5 parallel LLM calls, 8 agent calls)
+│  └───────────────────────────────────────────────────────────
+└──────────────────────────────────────────────────────────────
+
+┌─ [2/9] TopicBrainstormAgent ─ BrainstormConcepts (count=5)
+│  Timestamp: 2026-02-22 10.30.11.721 UTC
+│  Duration:  5928ms
+│  Parsed:    5 tasks (success=True)
+│
+│  ┌── INPUT (prompt sent to LLM) ──────────────────────────────
+│  │ Gennemsnit, median og typetal (Statistik og sandsynlighed) + Hele tal, decimaltal og brøker (Tal og algebra)
+│  │ Tilfældighed og chance (Statistik og sandsynlighed) + Aflæsning og tolkning af grafer (Tal og algebra)
+│  │ Areal og rumfang (Geometri og måling) + Figurfølger og mønstre (Tal og algebra)
+│  │ Cirkler (Geometri og måling) + Reelle tal (Tal og algebra)
+│  │ Grafer og koordinatsystem (Tal og algebra) + Indsamle og analysere data (Statistik og sandsynlighed)
+│  └───────────────────────────────────────────────────────────
+│
+│  ┌── OUTPUT (raw LLM response) ───────────────────────────────
+│  │ [stat_soejlediagram] En 9. klasse sammenligner, hvor lang tid de bruger på lektier hver dag i en uge, ved at skrive deres tider ned som både hele minutter, decimaltal i timer og enkelte som brøker af en time. Klassen vil bagefter bruge tallene til at finde gennemsnit, median og typetal for lektietiden og sammenligne på tværs af de forskellige måder at skrive tid på.
+│  │ [stat_sandsynlighed] En klasse laver et simpelt spil til skolefesten, hvor man kaster en terning én gang og vinder forskellige præmier alt efter øjetal. Efter at mange gæster har prøvet spillet, hænger de et diagram op, der viser hvordan den observerede chance for de forskellige øjetal udvikler sig hen over aftenen.
+│  │ [geo_sammensat_figur] En elev vil lave en række ens, små reol-kasser til sit værelse, hvor han hver uge bygger én kasse mere end ugen før og stabler dem i et bestemt mønster på væggen. Han vil både kunne regne ud, hvor stort et samlet areal på væggen reolerne kommer til at dække efter n uger, og hvor stort et samlet rumfang der bliver til opbevaring.
+│  │ [tal_regnearter] En elev vil lave et rundt pizzabrød derhjemme og måler radius på dejen til 10 cm for at finde ud af, hvor meget tomatsauce der cirka skal fordeles på overfladen. Eleven overvejer også, om det giver mening at regne med π som 3,14 eller bruge en nemmere tilnærmelse for at kunne regne i hovedet.
+│  │ [stat_soejlediagram] En 9. klasse laver en lille undersøgelse af, hvor mange minutter deres klassekammerater bruger på lektier hver dag, og noterer resultaterne i en tabel. De vil bagefter tegne punkterne ind i et koordinatsystem for at få overblik over sammenhængen mellem elevnummer og lektietid.
+│  └───────────────────────────────────────────────────────────
+└──────────────────────────────────────────────────────────────
+
+┌─ [3/9] BatchTaskGenerator ─ GenerateSingleTask (index=4, difficulty=let)
+│  Timestamp: 2026-02-22 10.30.18.447 UTC
+│  Duration:  6404ms
+│  Parsed:    1 tasks (success=True)
+│
+│  ┌── INPUT (prompt sent to LLM) ──────────────────────────────
+│  │ [SystemPrompt]
+│  │ Du er en erfaren matematiklærer der skriver FP9 prøveopgaver.
+│  │ 
+│  │ SKRIVESTIL — KORT OG PRÆCIS SOM EN RIGTIG PRØVE:
+│  │ - contextText skal være KORT: 1-3 sætninger der giver scenariet og de nødvendige oplysninger.
+│  │   IKKE en novelle. Tænk på en rigtig FP9-prøve: "Lea vil hækle grydelapper og sælge dem.
+│  │   Hun skal bruge 120 g garn til et par. Et nøgle garn er 50 g og koster 12,95 kr."
+│  │ - Giv information ÉN GANG. Gentag ALDRIG oplysninger i delopgaverne som allerede står i contextText.
+│  │   Eleven skal selv navigere tilbage og finde de tal de har brug for.
+│  │ - Delopgavernes questionText skal være KORTE og DIREKTE: stil spørgsmålet, giv evt. nye tal,
+│  │   færdig. Ingen genfortælling af scenariet.
+│  │ - UNDGÅ at forklare hvad eleven skal gøre ("Skriv dine beregninger", "Vis med udregninger",
+│  │   "Begrund med beregninger"). Stil bare spørgsmålet.
+│  │ - Scenariet skal være REALISTISK og TROVÆRDIGT — ikke kunstigt eller overdrevet kreativt.
+│  │   Gode scenarier er hverdagsagtige: håndværk, madlavning, sport, økonomi, indretning.
+│  │ 
+│  │ DESIGNPROCES — BAGLÆNS DESIGN (SCAFFOLDING):
+│  │ 1. Formuler FØRST den sværeste delopgave — det er MÅLET for hele opgaven.
+│  │ 2. Design derefter de tidligere delopgaver som KONKRETE trin der leder eleven derhen.
+│  │ 3. Scaffoldingen skal være IMPLICIT — opgaveteksten må ALDRIG bede eleven om at
+│  │    "bruge svaret fra a)" eller lignende. Eleven opdager selv sammenhængen.
+│  │ 
+│  │ OPGAVEFORMAT:
+│  │ - Svære opgaver: 1-2 delopgaver
+│  │ - Middel: 2-3 delopgaver
+│  │ - Lette: 3-5 delopgaver
+│  │ - Den SIDSTE delopgave skal ALTID være den sværeste.
+│  │ 
+│  │ MATEMATISKE REGLER:
+│  │ - Beregn svaret FØRST, skriv opgaven EFTER. Dobbelttjek alle beregninger.
+│  │ - Brug pæne tal der giver hele eller simple svar.
+│  │ 
+│  │ Output KUN valid JSON. Ingen markdown, ingen forklaring.
+│  │ 
+│  │ [UserPrompt]
+│  │ Generer ÉN FP9 prøveopgave.
+│  │ 
+│  │ SCENARIE (fra pensum-sampling):
+│  │ Emner: Cirkler + Reelle tal
+│  │ Idé: En elev vil lave et rundt pizzabrød derhjemme og måler radius på dejen til 10 cm for at finde ud af, hvor meget tomatsauce der cirka skal fordeles på overfladen. Eleven overvejer også, om det giver mening at regne med π som 3,14 eller bruge en nemmere tilnærmelse for at kunne regne i hovedet.
+│  │ Kobling: Arealet af cirklen beregnes med formlen A = π·r², hvor π er et irrationelt reelt tal, som eleven erstatter med en simpel reeltalstilnærmelse (fx 3 eller 3,14) for at kunne regne uden hjælpemidler.
+│  │ Opgavetype: tal_regnearter
+│  │ Kategori: tal_og_algebra
+│  │ 
+│  │ Byg opgaven ud fra dette scenarie. Tilføj konkrete tal så det bliver løsbart.
+│  │ 
+│  │ Krav: uden_hjaelpemidler, sværhedsgrad: let, fokus: varieret
+│  │ 
+│  │ Opgavetyper: tal_ligninger, tal_broeker_og_antal, tal_regnearter, tal_pris_rabat_procent, tal_forholdstalsregning, geo_sammensat_figur, geo_vinkelsum, geo_enhedsomregning, stat_boksplot, stat_sandsynlighed
+│  │ 
+│  │ VIGTIGSTE REGLER FOR TEKST:
+│  │ 1. contextText: KORT — maks 1-3 sætninger med scenarie og nødvendige oplysninger.
+│  │    IKKE en historie. Bare fakta. Se eksemplet nedenfor.
+│  │ 2. questionText i delopgaver: KORT og DIREKTE. Stil spørgsmålet, giv evt. nye tal, færdig.
+│  │    Gentag ALDRIG information fra contextText — eleven finder selv tallene.
+│  │ 3. ALDRIG skriv "Skriv dine beregninger", "Vis med udregninger", "Begrund dit svar" 
+│  │    eller lignende instruktioner. Stil bare spørgsmålet.
+│  │ 4. Scaffolding er IMPLICIT — sig aldrig "brug svaret fra a)".
+│  │ 
+│  │ SVÆRHEDSGRAD PÅ DELOPGAVER:
+│  │ Den SIDSTE delopgave er altid sværest. Rampe: let → middel → svær.
+│  │ 
+│  │ Eksempel (kort og præcist som en rigtig FP9-prøve):
+│  │ {
+│  │   "taskTypeId":"tal_forholdstalsregning",
+│  │   "category":"tal_og_algebra",
+│  │   "difficulty":"middel",
+│  │   "contextText":"Lea vil hækle grydelapper og sælge dem. Hun bruger 120 g garn til et par. Et nøgle garn er 50 g og koster 12,95 kr. 10 nøgler koster 89 kr.",
+│  │   "subQuestions":[
+│  │     {"label":"a","questionText":"Hvor mange nøgler garn skal Lea mindst købe for at hækle ét par grydelapper?","answer":{"value":"3","unit":"nøgler"},"difficulty":"let","points":1,"solutionSteps":[{"stepNumber":1,"description":"120 ÷ 50 = 2,4 → oprund til 3","mathExpression":"120 ÷ 50","result":"3 nøgler"}]},
+│  │     {"label":"b","questionText":"Lea vil hækle 5 par. Hvor mange nøgler skal hun købe?","answer":{"value":"12","unit":"nøgler"},"difficulty":"let","points":1,"solutionSteps":[{"stepNumber":1,"description":"5 · 120 = 600 g","mathExpression":"5 · 120","result":"600 g"},{"stepNumber":2,"description":"600 ÷ 50 = 12","mathExpression":"600 ÷ 50","result":"12 nøgler"}]},
+│  │     {"label":"c","questionText":"Hvad er billigst: 12 nøgler enkeltvis eller en pakke med 10 plus 2 enkelt-nøgler?","answer":{"value":"Pakke+2: 114,90 kr (billigst). Enkeltvis: 155,40 kr.","unit":"kr"},"difficulty":"middel","points":2,"solutionSteps":[{"stepNumber":1,"description":"Enkeltvis: 12 · 12,95 = 155,40 kr","mathExpression":"12 · 12,95","result":"155,40 kr"},{"stepNumber":2,"description":"Pakke+2: 89 + 2 · 12,95 = 114,90 kr","mathExpression":"89 + 25,90","result":"114,90 kr"}]},
+│  │     {"label":"d","questionText":"Lea sælger grydelapperne for 60 kr pr. par. Hvor mange par skal hun sælge for et overskud på ca. 500 kr?","answer":{"value":"Ca. 14 par","unit":""},"difficulty":"svær","points":3,"solutionSteps":[{"stepNumber":1,"description":"Garnpris pr. par (billigst): 114,90 ÷ 5 ≈ 22,98 kr","mathExpression":"114,90 ÷ 5","result":"22,98 kr"},{"stepNumber":2,"description":"Overskud pr. par: 60 − 22,98 ≈ 37 kr","mathExpression":"60 − 22,98","result":"37,02 kr"},{"stepNumber":3,"description":"500 ÷ 37 ≈ 13,5 → ca. 14 par","mathExpression":"500 ÷ 37","result":"≈ 14 par"}]}
+│  │   ],
+│  │   "points":7,
+│  │   "estimatedTimeSeconds":300
+│  │ }
+│  │ 
+│  │ Output: ÉT JSON objekt. KUN JSON, ingen markdown.
+│  └───────────────────────────────────────────────────────────
+│
+│  ┌── OUTPUT (raw LLM response) ───────────────────────────────
+│  │ {
+│  │   "taskTypeId": "tal_regnearter",
+│  │   "category": "tal_og_algebra",
+│  │   "difficulty": "let",
+│  │   "contextText": "En elev bager et rundt pizzabrød med radius 10 cm. Eleven vil bruge formlen A = π·r² og overvejer at regne med enten π = 3 eller π = 3,14.",
+│  │   "subQuestions": [
+│  │     {
+│  │       "label": "a",
+│  │       "questionText": "Beregn pizzabrødets areal med π = 3.",
+│  │       "answer": {
+│  │         "value": "300",
+│  │         "unit": "cm²"
+│  │       },
+│  │       "difficulty": "let",
+│  │       "points": 1,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "r² = 10² = 100",
+│  │           "mathExpression": "10²",
+│  │           "result": "100"
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "A = 3 · 100 = 300",
+│  │           "mathExpression": "3 · 100",
+│  │           "result": "300 cm²"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "b",
+│  │       "questionText": "Beregn pizzabrødets areal med π = 3,14.",
+│  │       "answer": {
+│  │         "value": "314",
+│  │         "unit": "cm²"
+│  │       },
+│  │       "difficulty": "let",
+│  │       "points": 1,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "r² = 10² = 100",
+│  │           "mathExpression": "10²",
+│  │           "result": "100"
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "A = 3,14 · 100 = 314",
+│  │           "mathExpression": "3,14 · 100",
+│  │           "result": "314 cm²"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "c",
+│  │       "questionText": "Hvor stor er forskellen mellem de to arealer?",
+│  │       "answer": {
+│  │         "value": "14",
+│  │         "unit": "cm²"
+│  │       },
+│  │       "difficulty": "middel",
+│  │       "points": 2,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "314 − 300 = 14",
+│  │           "mathExpression": "314 − 300",
+│  │           "result": "14 cm²"
+│  │         }
+│  │       ]
+│  │     }
+│  │   ],
+│  │   "points": 4,
+│  │   "estimatedTimeSeconds": 240
+│  │ }
+│  └───────────────────────────────────────────────────────────
+└──────────────────────────────────────────────────────────────
+
+┌─ [4/9] BatchTaskGenerator ─ GenerateSingleTask (index=5, difficulty=let)
+│  Timestamp: 2026-02-22 10.30.18.603 UTC
+│  Duration:  6560ms
+│  Parsed:    1 tasks (success=True)
+│
+│  ┌── INPUT (prompt sent to LLM) ──────────────────────────────
+│  │ [SystemPrompt]
+│  │ Du er en erfaren matematiklærer der skriver FP9 prøveopgaver.
+│  │ 
+│  │ SKRIVESTIL — KORT OG PRÆCIS SOM EN RIGTIG PRØVE:
+│  │ - contextText skal være KORT: 1-3 sætninger der giver scenariet og de nødvendige oplysninger.
+│  │   IKKE en novelle. Tænk på en rigtig FP9-prøve: "Lea vil hækle grydelapper og sælge dem.
+│  │   Hun skal bruge 120 g garn til et par. Et nøgle garn er 50 g og koster 12,95 kr."
+│  │ - Giv information ÉN GANG. Gentag ALDRIG oplysninger i delopgaverne som allerede står i contextText.
+│  │   Eleven skal selv navigere tilbage og finde de tal de har brug for.
+│  │ - Delopgavernes questionText skal være KORTE og DIREKTE: stil spørgsmålet, giv evt. nye tal,
+│  │   færdig. Ingen genfortælling af scenariet.
+│  │ - UNDGÅ at forklare hvad eleven skal gøre ("Skriv dine beregninger", "Vis med udregninger",
+│  │   "Begrund med beregninger"). Stil bare spørgsmålet.
+│  │ - Scenariet skal være REALISTISK og TROVÆRDIGT — ikke kunstigt eller overdrevet kreativt.
+│  │   Gode scenarier er hverdagsagtige: håndværk, madlavning, sport, økonomi, indretning.
+│  │ 
+│  │ DESIGNPROCES — BAGLÆNS DESIGN (SCAFFOLDING):
+│  │ 1. Formuler FØRST den sværeste delopgave — det er MÅLET for hele opgaven.
+│  │ 2. Design derefter de tidligere delopgaver som KONKRETE trin der leder eleven derhen.
+│  │ 3. Scaffoldingen skal være IMPLICIT — opgaveteksten må ALDRIG bede eleven om at
+│  │    "bruge svaret fra a)" eller lignende. Eleven opdager selv sammenhængen.
+│  │ 
+│  │ OPGAVEFORMAT:
+│  │ - Svære opgaver: 1-2 delopgaver
+│  │ - Middel: 2-3 delopgaver
+│  │ - Lette: 3-5 delopgaver
+│  │ - Den SIDSTE delopgave skal ALTID være den sværeste.
+│  │ 
+│  │ MATEMATISKE REGLER:
+│  │ - Beregn svaret FØRST, skriv opgaven EFTER. Dobbelttjek alle beregninger.
+│  │ - Brug pæne tal der giver hele eller simple svar.
+│  │ 
+│  │ Output KUN valid JSON. Ingen markdown, ingen forklaring.
+│  │ 
+│  │ [UserPrompt]
+│  │ Generer ÉN FP9 prøveopgave.
+│  │ 
+│  │ SCENARIE (fra pensum-sampling):
+│  │ Emner: Grafer og koordinatsystem + Indsamle og analysere data
+│  │ Idé: En 9. klasse laver en lille undersøgelse af, hvor mange minutter deres klassekammerater bruger på lektier hver dag, og noterer resultaterne i en tabel. De vil bagefter tegne punkterne ind i et koordinatsystem for at få overblik over sammenhængen mellem elevnummer og lektietid.
+│  │ Kobling: De indsamlede data registreres først i en tabel og derefter som punkter i et koordinatsystem, så eleverne kan aflæse og sammenligne værdier direkte på grafen.
+│  │ Opgavetype: stat_soejlediagram
+│  │ Kategori: statistik_og_sandsynlighed
+│  │ 
+│  │ Byg opgaven ud fra dette scenarie. Tilføj konkrete tal så det bliver løsbart.
+│  │ 
+│  │ Krav: uden_hjaelpemidler, sværhedsgrad: let, fokus: varieret
+│  │ 
+│  │ Opgavetyper: tal_ligninger, tal_broeker_og_antal, tal_regnearter, tal_pris_rabat_procent, tal_forholdstalsregning, geo_sammensat_figur, geo_vinkelsum, geo_enhedsomregning, stat_boksplot, stat_sandsynlighed
+│  │ 
+│  │ VIGTIGSTE REGLER FOR TEKST:
+│  │ 1. contextText: KORT — maks 1-3 sætninger med scenarie og nødvendige oplysninger.
+│  │    IKKE en historie. Bare fakta. Se eksemplet nedenfor.
+│  │ 2. questionText i delopgaver: KORT og DIREKTE. Stil spørgsmålet, giv evt. nye tal, færdig.
+│  │    Gentag ALDRIG information fra contextText — eleven finder selv tallene.
+│  │ 3. ALDRIG skriv "Skriv dine beregninger", "Vis med udregninger", "Begrund dit svar" 
+│  │    eller lignende instruktioner. Stil bare spørgsmålet.
+│  │ 4. Scaffolding er IMPLICIT — sig aldrig "brug svaret fra a)".
+│  │ 
+│  │ SVÆRHEDSGRAD PÅ DELOPGAVER:
+│  │ Den SIDSTE delopgave er altid sværest. Rampe: let → middel → svær.
+│  │ 
+│  │ Eksempel (kort og præcist som en rigtig FP9-prøve):
+│  │ {
+│  │   "taskTypeId":"tal_forholdstalsregning",
+│  │   "category":"tal_og_algebra",
+│  │   "difficulty":"middel",
+│  │   "contextText":"Lea vil hækle grydelapper og sælge dem. Hun bruger 120 g garn til et par. Et nøgle garn er 50 g og koster 12,95 kr. 10 nøgler koster 89 kr.",
+│  │   "subQuestions":[
+│  │     {"label":"a","questionText":"Hvor mange nøgler garn skal Lea mindst købe for at hækle ét par grydelapper?","answer":{"value":"3","unit":"nøgler"},"difficulty":"let","points":1,"solutionSteps":[{"stepNumber":1,"description":"120 ÷ 50 = 2,4 → oprund til 3","mathExpression":"120 ÷ 50","result":"3 nøgler"}]},
+│  │     {"label":"b","questionText":"Lea vil hækle 5 par. Hvor mange nøgler skal hun købe?","answer":{"value":"12","unit":"nøgler"},"difficulty":"let","points":1,"solutionSteps":[{"stepNumber":1,"description":"5 · 120 = 600 g","mathExpression":"5 · 120","result":"600 g"},{"stepNumber":2,"description":"600 ÷ 50 = 12","mathExpression":"600 ÷ 50","result":"12 nøgler"}]},
+│  │     {"label":"c","questionText":"Hvad er billigst: 12 nøgler enkeltvis eller en pakke med 10 plus 2 enkelt-nøgler?","answer":{"value":"Pakke+2: 114,90 kr (billigst). Enkeltvis: 155,40 kr.","unit":"kr"},"difficulty":"middel","points":2,"solutionSteps":[{"stepNumber":1,"description":"Enkeltvis: 12 · 12,95 = 155,40 kr","mathExpression":"12 · 12,95","result":"155,40 kr"},{"stepNumber":2,"description":"Pakke+2: 89 + 2 · 12,95 = 114,90 kr","mathExpression":"89 + 25,90","result":"114,90 kr"}]},
+│  │     {"label":"d","questionText":"Lea sælger grydelapperne for 60 kr pr. par. Hvor mange par skal hun sælge for et overskud på ca. 500 kr?","answer":{"value":"Ca. 14 par","unit":""},"difficulty":"svær","points":3,"solutionSteps":[{"stepNumber":1,"description":"Garnpris pr. par (billigst): 114,90 ÷ 5 ≈ 22,98 kr","mathExpression":"114,90 ÷ 5","result":"22,98 kr"},{"stepNumber":2,"description":"Overskud pr. par: 60 − 22,98 ≈ 37 kr","mathExpression":"60 − 22,98","result":"37,02 kr"},{"stepNumber":3,"description":"500 ÷ 37 ≈ 13,5 → ca. 14 par","mathExpression":"500 ÷ 37","result":"≈ 14 par"}]}
+│  │   ],
+│  │   "points":7,
+│  │   "estimatedTimeSeconds":300
+│  │ }
+│  │ 
+│  │ Output: ÉT JSON objekt. KUN JSON, ingen markdown.
+│  └───────────────────────────────────────────────────────────
+│
+│  ┌── OUTPUT (raw LLM response) ───────────────────────────────
+│  │ {
+│  │   "taskTypeId":"stat_soejlediagram",
+│  │   "category":"statistik_og_sandsynlighed",
+│  │   "difficulty":"let",
+│  │   "contextText":"En 9. klasse undersøger, hvor mange minutter deres 10 første klassekammerater bruger på lektier hver dag. De nummererer eleverne fra 1 til 10 og noterer tiderne i minutter: 0, 10, 15, 20, 20, 25, 30, 30, 40, 45.",
+│  │   "subQuestions":[
+│  │     {
+│  │       "label":"a",
+│  │       "questionText":"Hvilken elev bruger flest minutter på lektier, og hvor mange minutter er det?",
+│  │       "answer":{
+│  │         "value":"Elev 10, 45 minutter",
+│  │         "unit":"minutter"
+│  │       },
+│  │       "difficulty":"let",
+│  │       "points":1,
+│  │       "solutionSteps":[
+│  │         {
+│  │           "stepNumber":1,
+│  │           "description":"Største tal i rækken er 45 minutter hos elev 10.",
+│  │           "mathExpression":"",
+│  │           "result":"Elev 10, 45 minutter"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label":"b",
+│  │       "questionText":"Hvor mange minutter bruger elev 4 på lektier?",
+│  │       "answer":{
+│  │         "value":"20",
+│  │         "unit":"minutter"
+│  │       },
+│  │       "difficulty":"let",
+│  │       "points":1,
+│  │       "solutionSteps":[
+│  │         {
+│  │           "stepNumber":1,
+│  │           "description":"Elev 4 har værdien 20 minutter.",
+│  │           "mathExpression":"",
+│  │           "result":"20 minutter"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label":"c",
+│  │       "questionText":"Hvor mange af de 10 elever bruger mindst 30 minutters lektielæsning om dagen?",
+│  │       "answer":{
+│  │         "value":"4",
+│  │         "unit":"elever"
+│  │       },
+│  │       "difficulty":"middel",
+│  │       "points":2,
+│  │       "solutionSteps":[
+│  │         {
+│  │           "stepNumber":1,
+│  │           "description":"Tæller værdierne der er 30 eller mere: 30, 30, 40, 45.",
+│  │           "mathExpression":"",
+│  │           "result":"4 elever"
+│  │         }
+│  │       ]
+│  │     }
+│  │   ],
+│  │   "points":4,
+│  │   "estimatedTimeSeconds":240
+│  │ }
+│  └───────────────────────────────────────────────────────────
+└──────────────────────────────────────────────────────────────
+
+┌─ [5/9] BatchTaskGenerator ─ GenerateSingleTask (index=2, difficulty=middel)
+│  Timestamp: 2026-02-22 10.30.22.576 UTC
+│  Duration:  10534ms
+│  Parsed:    1 tasks (success=True)
+│
+│  ┌── INPUT (prompt sent to LLM) ──────────────────────────────
+│  │ [SystemPrompt]
+│  │ Du er en erfaren matematiklærer der skriver FP9 prøveopgaver.
+│  │ 
+│  │ SKRIVESTIL — KORT OG PRÆCIS SOM EN RIGTIG PRØVE:
+│  │ - contextText skal være KORT: 1-3 sætninger der giver scenariet og de nødvendige oplysninger.
+│  │   IKKE en novelle. Tænk på en rigtig FP9-prøve: "Lea vil hækle grydelapper og sælge dem.
+│  │   Hun skal bruge 120 g garn til et par. Et nøgle garn er 50 g og koster 12,95 kr."
+│  │ - Giv information ÉN GANG. Gentag ALDRIG oplysninger i delopgaverne som allerede står i contextText.
+│  │   Eleven skal selv navigere tilbage og finde de tal de har brug for.
+│  │ - Delopgavernes questionText skal være KORTE og DIREKTE: stil spørgsmålet, giv evt. nye tal,
+│  │   færdig. Ingen genfortælling af scenariet.
+│  │ - UNDGÅ at forklare hvad eleven skal gøre ("Skriv dine beregninger", "Vis med udregninger",
+│  │   "Begrund med beregninger"). Stil bare spørgsmålet.
+│  │ - Scenariet skal være REALISTISK og TROVÆRDIGT — ikke kunstigt eller overdrevet kreativt.
+│  │   Gode scenarier er hverdagsagtige: håndværk, madlavning, sport, økonomi, indretning.
+│  │ 
+│  │ DESIGNPROCES — BAGLÆNS DESIGN (SCAFFOLDING):
+│  │ 1. Formuler FØRST den sværeste delopgave — det er MÅLET for hele opgaven.
+│  │ 2. Design derefter de tidligere delopgaver som KONKRETE trin der leder eleven derhen.
+│  │ 3. Scaffoldingen skal være IMPLICIT — opgaveteksten må ALDRIG bede eleven om at
+│  │    "bruge svaret fra a)" eller lignende. Eleven opdager selv sammenhængen.
+│  │ 
+│  │ OPGAVEFORMAT:
+│  │ - Svære opgaver: 1-2 delopgaver
+│  │ - Middel: 2-3 delopgaver
+│  │ - Lette: 3-5 delopgaver
+│  │ - Den SIDSTE delopgave skal ALTID være den sværeste.
+│  │ 
+│  │ MATEMATISKE REGLER:
+│  │ - Beregn svaret FØRST, skriv opgaven EFTER. Dobbelttjek alle beregninger.
+│  │ - Brug pæne tal der giver hele eller simple svar.
+│  │ 
+│  │ Output KUN valid JSON. Ingen markdown, ingen forklaring.
+│  │ 
+│  │ [UserPrompt]
+│  │ Generer ÉN FP9 prøveopgave.
+│  │ 
+│  │ SCENARIE (fra pensum-sampling):
+│  │ Emner: Tilfældighed og chance + Aflæsning og tolkning af grafer
+│  │ Idé: En klasse laver et simpelt spil til skolefesten, hvor man kaster en terning én gang og vinder forskellige præmier alt efter øjetal. Efter at mange gæster har prøvet spillet, hænger de et diagram op, der viser hvordan den observerede chance for de forskellige øjetal udvikler sig hen over aftenen.
+│  │ Kobling: Eleverne beregner teoretiske sandsynligheder for terningens udfald og sammenligner dem med de observerede frekvenser, som aflæses og tolkes i en graf over, hvordan sandsynlighederne nærmer sig en stabil værdi, efterhånden som der kommer flere kast.
+│  │ Opgavetype: stat_sandsynlighed
+│  │ Kategori: statistik_og_sandsynlighed
+│  │ 
+│  │ Byg opgaven ud fra dette scenarie. Tilføj konkrete tal så det bliver løsbart.
+│  │ 
+│  │ Krav: uden_hjaelpemidler, sværhedsgrad: middel, fokus: varieret
+│  │ 
+│  │ Opgavetyper: tal_ligninger, tal_broeker_og_antal, tal_regnearter, tal_pris_rabat_procent, tal_forholdstalsregning, geo_sammensat_figur, geo_vinkelsum, geo_enhedsomregning, stat_boksplot, stat_sandsynlighed
+│  │ 
+│  │ VIGTIGSTE REGLER FOR TEKST:
+│  │ 1. contextText: KORT — maks 1-3 sætninger med scenarie og nødvendige oplysninger.
+│  │    IKKE en historie. Bare fakta. Se eksemplet nedenfor.
+│  │ 2. questionText i delopgaver: KORT og DIREKTE. Stil spørgsmålet, giv evt. nye tal, færdig.
+│  │    Gentag ALDRIG information fra contextText — eleven finder selv tallene.
+│  │ 3. ALDRIG skriv "Skriv dine beregninger", "Vis med udregninger", "Begrund dit svar" 
+│  │    eller lignende instruktioner. Stil bare spørgsmålet.
+│  │ 4. Scaffolding er IMPLICIT — sig aldrig "brug svaret fra a)".
+│  │ 
+│  │ SVÆRHEDSGRAD PÅ DELOPGAVER:
+│  │ Den SIDSTE delopgave er altid sværest. Rampe: let → middel → svær.
+│  │ 
+│  │ Eksempel (kort og præcist som en rigtig FP9-prøve):
+│  │ {
+│  │   "taskTypeId":"tal_forholdstalsregning",
+│  │   "category":"tal_og_algebra",
+│  │   "difficulty":"middel",
+│  │   "contextText":"Lea vil hækle grydelapper og sælge dem. Hun bruger 120 g garn til et par. Et nøgle garn er 50 g og koster 12,95 kr. 10 nøgler koster 89 kr.",
+│  │   "subQuestions":[
+│  │     {"label":"a","questionText":"Hvor mange nøgler garn skal Lea mindst købe for at hækle ét par grydelapper?","answer":{"value":"3","unit":"nøgler"},"difficulty":"let","points":1,"solutionSteps":[{"stepNumber":1,"description":"120 ÷ 50 = 2,4 → oprund til 3","mathExpression":"120 ÷ 50","result":"3 nøgler"}]},
+│  │     {"label":"b","questionText":"Lea vil hækle 5 par. Hvor mange nøgler skal hun købe?","answer":{"value":"12","unit":"nøgler"},"difficulty":"let","points":1,"solutionSteps":[{"stepNumber":1,"description":"5 · 120 = 600 g","mathExpression":"5 · 120","result":"600 g"},{"stepNumber":2,"description":"600 ÷ 50 = 12","mathExpression":"600 ÷ 50","result":"12 nøgler"}]},
+│  │     {"label":"c","questionText":"Hvad er billigst: 12 nøgler enkeltvis eller en pakke med 10 plus 2 enkelt-nøgler?","answer":{"value":"Pakke+2: 114,90 kr (billigst). Enkeltvis: 155,40 kr.","unit":"kr"},"difficulty":"middel","points":2,"solutionSteps":[{"stepNumber":1,"description":"Enkeltvis: 12 · 12,95 = 155,40 kr","mathExpression":"12 · 12,95","result":"155,40 kr"},{"stepNumber":2,"description":"Pakke+2: 89 + 2 · 12,95 = 114,90 kr","mathExpression":"89 + 25,90","result":"114,90 kr"}]},
+│  │     {"label":"d","questionText":"Lea sælger grydelapperne for 60 kr pr. par. Hvor mange par skal hun sælge for et overskud på ca. 500 kr?","answer":{"value":"Ca. 14 par","unit":""},"difficulty":"svær","points":3,"solutionSteps":[{"stepNumber":1,"description":"Garnpris pr. par (billigst): 114,90 ÷ 5 ≈ 22,98 kr","mathExpression":"114,90 ÷ 5","result":"22,98 kr"},{"stepNumber":2,"description":"Overskud pr. par: 60 − 22,98 ≈ 37 kr","mathExpression":"60 − 22,98","result":"37,02 kr"},{"stepNumber":3,"description":"500 ÷ 37 ≈ 13,5 → ca. 14 par","mathExpression":"500 ÷ 37","result":"≈ 14 par"}]}
+│  │   ],
+│  │   "points":7,
+│  │   "estimatedTimeSeconds":300
+│  │ }
+│  │ 
+│  │ Output: ÉT JSON objekt. KUN JSON, ingen markdown.
+│  └───────────────────────────────────────────────────────────
+│
+│  ┌── OUTPUT (raw LLM response) ───────────────────────────────
+│  │ {
+│  │   "taskTypeId": "stat_sandsynlighed",
+│  │   "category": "statistik_og_sandsynlighed",
+│  │   "difficulty": "middel",
+│  │   "contextText": "9.x laver et spil til skolefesten med en fair terning. Man kaster én gang og vinder forskellig præmie alt efter øjetal. Klassen fører et skema og laver et diagram over den observerede procent for hvert øjetal efter 60 kast og efter 300 kast.",
+│  │   "subQuestions": [
+│  │     {
+│  │       "label": "a",
+│  │       "questionText": "Hvad er den teoretiske sandsynlighed for at slå et lige antal øjne?",
+│  │       "answer": {
+│  │         "value": "1/2",
+│  │         "unit": ""
+│  │       },
+│  │       "difficulty": "let",
+│  │       "points": 1,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Lige udfald: 2, 4, 6 → 3 gunstige ud af 6 mulige",
+│  │           "mathExpression": "3/6",
+│  │           "result": "1/2"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "b",
+│  │       "questionText": "Efter 60 kast er der slået 1’er 5 gange, 2’er 8 gange, 3’er 10 gange, 4’er 12 gange, 5’er 15 gange og 6’er 10 gange. Hvad er den observerede sandsynlighed for at slå en 5’er?",
+│  │       "answer": {
+│  │         "value": "1/4",
+│  │         "unit": ""
+│  │       },
+│  │       "difficulty": "middel",
+│  │       "points": 2,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Antal 5’ere i alt 60 kast",
+│  │           "mathExpression": "15/60",
+│  │           "result": "0,25 = 1/4"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "c",
+│  │       "questionText": "Efter 300 kast viser skemaet, at der er slået 4’er 56 gange og 6’er 52 gange. Hvilket af de to udfald ligger tættest på den teoretiske sandsynlighed, og hvor stor er forskellen i procentpoint?",
+│  │       "answer": {
+│  │         "value": "6’er; forskel 0,67 procentpoint",
+│  │         "unit": ""
+│  │       },
+│  │       "difficulty": "svær",
+│  │       "points": 3,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Teoretisk sandsynlighed for et bestemt øjetal",
+│  │           "mathExpression": "1/6",
+│  │           "result": "≈ 16,67 %"
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "Observeret for 4’er",
+│  │           "mathExpression": "56/300",
+│  │           "result": "≈ 18,67 %"
+│  │         },
+│  │         {
+│  │           "stepNumber": 3,
+│  │           "description": "Observeret for 6’er",
+│  │           "mathExpression": "52/300",
+│  │           "result": "≈ 17,33 %"
+│  │         },
+│  │         {
+│  │           "stepNumber": 4,
+│  │           "description": "Afstand til teori",
+│  │           "mathExpression": "|18,67−16,67| og |17,33−16,67|",
+│  │           "result": "4’er: 2,00 %-point, 6’er: 0,67 %-point"
+│  │         }
+│  │       ]
+│  │     }
+│  │   ],
+│  │   "points": 6,
+│  │   "estimatedTimeSeconds": 360
+│  │ }
+│  └───────────────────────────────────────────────────────────
+└──────────────────────────────────────────────────────────────
+
+┌─ [6/9] BatchTaskGenerator ─ GenerateSingleTask (index=3, difficulty=middel)
+│  Timestamp: 2026-02-22 10.30.24.443 UTC
+│  Duration:  12386ms
+│  Parsed:    0 tasks (success=False)
+│
+│  ┌── INPUT (prompt sent to LLM) ──────────────────────────────
+│  │ [SystemPrompt]
+│  │ Du er en erfaren matematiklærer der skriver FP9 prøveopgaver.
+│  │ 
+│  │ SKRIVESTIL — KORT OG PRÆCIS SOM EN RIGTIG PRØVE:
+│  │ - contextText skal være KORT: 1-3 sætninger der giver scenariet og de nødvendige oplysninger.
+│  │   IKKE en novelle. Tænk på en rigtig FP9-prøve: "Lea vil hækle grydelapper og sælge dem.
+│  │   Hun skal bruge 120 g garn til et par. Et nøgle garn er 50 g og koster 12,95 kr."
+│  │ - Giv information ÉN GANG. Gentag ALDRIG oplysninger i delopgaverne som allerede står i contextText.
+│  │   Eleven skal selv navigere tilbage og finde de tal de har brug for.
+│  │ - Delopgavernes questionText skal være KORTE og DIREKTE: stil spørgsmålet, giv evt. nye tal,
+│  │   færdig. Ingen genfortælling af scenariet.
+│  │ - UNDGÅ at forklare hvad eleven skal gøre ("Skriv dine beregninger", "Vis med udregninger",
+│  │   "Begrund med beregninger"). Stil bare spørgsmålet.
+│  │ - Scenariet skal være REALISTISK og TROVÆRDIGT — ikke kunstigt eller overdrevet kreativt.
+│  │   Gode scenarier er hverdagsagtige: håndværk, madlavning, sport, økonomi, indretning.
+│  │ 
+│  │ DESIGNPROCES — BAGLÆNS DESIGN (SCAFFOLDING):
+│  │ 1. Formuler FØRST den sværeste delopgave — det er MÅLET for hele opgaven.
+│  │ 2. Design derefter de tidligere delopgaver som KONKRETE trin der leder eleven derhen.
+│  │ 3. Scaffoldingen skal være IMPLICIT — opgaveteksten må ALDRIG bede eleven om at
+│  │    "bruge svaret fra a)" eller lignende. Eleven opdager selv sammenhængen.
+│  │ 
+│  │ OPGAVEFORMAT:
+│  │ - Svære opgaver: 1-2 delopgaver
+│  │ - Middel: 2-3 delopgaver
+│  │ - Lette: 3-5 delopgaver
+│  │ - Den SIDSTE delopgave skal ALTID være den sværeste.
+│  │ 
+│  │ MATEMATISKE REGLER:
+│  │ - Beregn svaret FØRST, skriv opgaven EFTER. Dobbelttjek alle beregninger.
+│  │ - Brug pæne tal der giver hele eller simple svar.
+│  │ 
+│  │ Output KUN valid JSON. Ingen markdown, ingen forklaring.
+│  │ 
+│  │ [UserPrompt]
+│  │ Generer ÉN FP9 prøveopgave.
+│  │ 
+│  │ SCENARIE (fra pensum-sampling):
+│  │ Emner: Areal og rumfang + Figurfølger og mønstre
+│  │ Idé: En elev vil lave en række ens, små reol-kasser til sit værelse, hvor han hver uge bygger én kasse mere end ugen før og stabler dem i et bestemt mønster på væggen. Han vil både kunne regne ud, hvor stort et samlet areal på væggen reolerne kommer til at dække efter n uger, og hvor stort et samlet rumfang der bliver til opbevaring.
+│  │ Kobling: Antallet af kasser efter n uger danner en figurfølge, og ved at generalisere n-te led kan man beregne det samlede areal af kassernes forsider og det samlede rumfang af alle kasserne.
+│  │ Opgavetype: geo_sammensat_figur
+│  │ Kategori: geometri_og_maaling
+│  │ 
+│  │ Byg opgaven ud fra dette scenarie. Tilføj konkrete tal så det bliver løsbart.
+│  │ 
+│  │ Krav: uden_hjaelpemidler, sværhedsgrad: middel, fokus: varieret
+│  │ 
+│  │ Opgavetyper: tal_ligninger, tal_broeker_og_antal, tal_regnearter, tal_pris_rabat_procent, tal_forholdstalsregning, geo_sammensat_figur, geo_vinkelsum, geo_enhedsomregning, stat_boksplot, stat_sandsynlighed
+│  │ 
+│  │ VIGTIGSTE REGLER FOR TEKST:
+│  │ 1. contextText: KORT — maks 1-3 sætninger med scenarie og nødvendige oplysninger.
+│  │    IKKE en historie. Bare fakta. Se eksemplet nedenfor.
+│  │ 2. questionText i delopgaver: KORT og DIREKTE. Stil spørgsmålet, giv evt. nye tal, færdig.
+│  │    Gentag ALDRIG information fra contextText — eleven finder selv tallene.
+│  │ 3. ALDRIG skriv "Skriv dine beregninger", "Vis med udregninger", "Begrund dit svar" 
+│  │    eller lignende instruktioner. Stil bare spørgsmålet.
+│  │ 4. Scaffolding er IMPLICIT — sig aldrig "brug svaret fra a)".
+│  │ 
+│  │ SVÆRHEDSGRAD PÅ DELOPGAVER:
+│  │ Den SIDSTE delopgave er altid sværest. Rampe: let → middel → svær.
+│  │ 
+│  │ Eksempel (kort og præcist som en rigtig FP9-prøve):
+│  │ {
+│  │   "taskTypeId":"tal_forholdstalsregning",
+│  │   "category":"tal_og_algebra",
+│  │   "difficulty":"middel",
+│  │   "contextText":"Lea vil hækle grydelapper og sælge dem. Hun bruger 120 g garn til et par. Et nøgle garn er 50 g og koster 12,95 kr. 10 nøgler koster 89 kr.",
+│  │   "subQuestions":[
+│  │     {"label":"a","questionText":"Hvor mange nøgler garn skal Lea mindst købe for at hækle ét par grydelapper?","answer":{"value":"3","unit":"nøgler"},"difficulty":"let","points":1,"solutionSteps":[{"stepNumber":1,"description":"120 ÷ 50 = 2,4 → oprund til 3","mathExpression":"120 ÷ 50","result":"3 nøgler"}]},
+│  │     {"label":"b","questionText":"Lea vil hækle 5 par. Hvor mange nøgler skal hun købe?","answer":{"value":"12","unit":"nøgler"},"difficulty":"let","points":1,"solutionSteps":[{"stepNumber":1,"description":"5 · 120 = 600 g","mathExpression":"5 · 120","result":"600 g"},{"stepNumber":2,"description":"600 ÷ 50 = 12","mathExpression":"600 ÷ 50","result":"12 nøgler"}]},
+│  │     {"label":"c","questionText":"Hvad er billigst: 12 nøgler enkeltvis eller en pakke med 10 plus 2 enkelt-nøgler?","answer":{"value":"Pakke+2: 114,90 kr (billigst). Enkeltvis: 155,40 kr.","unit":"kr"},"difficulty":"middel","points":2,"solutionSteps":[{"stepNumber":1,"description":"Enkeltvis: 12 · 12,95 = 155,40 kr","mathExpression":"12 · 12,95","result":"155,40 kr"},{"stepNumber":2,"description":"Pakke+2: 89 + 2 · 12,95 = 114,90 kr","mathExpression":"89 + 25,90","result":"114,90 kr"}]},
+│  │     {"label":"d","questionText":"Lea sælger grydelapperne for 60 kr pr. par. Hvor mange par skal hun sælge for et overskud på ca. 500 kr?","answer":{"value":"Ca. 14 par","unit":""},"difficulty":"svær","points":3,"solutionSteps":[{"stepNumber":1,"description":"Garnpris pr. par (billigst): 114,90 ÷ 5 ≈ 22,98 kr","mathExpression":"114,90 ÷ 5","result":"22,98 kr"},{"stepNumber":2,"description":"Overskud pr. par: 60 − 22,98 ≈ 37 kr","mathExpression":"60 − 22,98","result":"37,02 kr"},{"stepNumber":3,"description":"500 ÷ 37 ≈ 13,5 → ca. 14 par","mathExpression":"500 ÷ 37","result":"≈ 14 par"}]}
+│  │   ],
+│  │   "points":7,
+│  │   "estimatedTimeSeconds":300
+│  │ }
+│  │ 
+│  │ Output: ÉT JSON objekt. KUN JSON, ingen markdown.
+│  └───────────────────────────────────────────────────────────
+│
+│  ┌── OUTPUT (raw LLM response) ───────────────────────────────
+│  │ {
+│  │   "taskTypeId": "geo_sammensat_figur",
+│  │   "category": "geometri_og_maaling",
+│  │   "difficulty": "middel",
+│  │   "contextText": "En elev bygger åbne trækasser til væggen. Hver kasse er en rektangulær boks med udvendige mål 40 cm i bredden, 30 cm i højden og 25 cm i dybden. Han bygger 2 kasser i første uge, 3 i anden uge, 4 i tredje uge osv.",
+│  │   "subQuestions": [
+│  │     {
+│  │       "label": "a",
+│  │       "questionText": "Hvor mange kasser har han i alt efter 5 uger?",
+│  │       "answer": {
+│  │         "value": "20",
+│  │         "unit": "kasser"
+│  │       },
+│  │       "difficulty": "let",
+│  │       "points": 1,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Antal kasser efter 5 uger: 2 + 3 + 4 + 5 + 6 = 20",
+│  │           "mathExpression": "2 + 3 + 4 + 5 + 6",
+│  │           "result": "20 kasser"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "b",
+│  │       "questionText": "Hvad er arealet af forsiden på én kasse i kvadratcentimeter?",
+│  │       "answer": {
+│  │         "value": "1200",
+│  │         "unit": "cm²"
+│  │       },
+│  │       "difficulty": "let",
+│  │       "points": 1,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Areal af rektangel: 40 · 30 = 1200 cm²",
+│  │           "mathExpression": "40 · 30",
+│  │           "result": "1200 cm²"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "c",
+│  │       "questionText": "Bestem en formel for det samlede areal af alle forsidernes areal efter n uger.",
+│  │       "answer": {
+│  │         "value": "A(n) = 1200 · (n² + 3n)",
+│  │         "unit": "cm²"
+│  │       },
+│  │       "difficulty": "middel",
+│  │       "points": 2,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Antal kasser i uge k: 1. uge: 2, 2. uge: 3, ... → kasser i uge k: k + 1",
+│  │           "mathExpression": "k + 1",
+│  │           "result": "k + 1"
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "Samlet antal kasser efter n uger: 2 + 3 + ... + (n + 1) = (n² + 3n) / 2",
+│  │           "mathExpression": "∑(k=1→n) (k + 1) = (n² + 3n) / 2",
+│  │           "result": "(n² + 3n) / 2"
+│  │         },
+│  │         {
+│  │           "stepNumber": 3,
+│  │           "description": "Samlet areal: 1200 · (n² + 3n) / 2 = 1200 · (n² + 3n)",
+│  │           "mathExpression": "1200 · (n² + 3n) / 2",
+│  │           "result": "A(n) = 1200 · (n² + 3n)"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "d",
+│  │       "questionText": "Hvad er det samlede rumfang af alle kasserne efter 5 uger i liter?",
+│  │       "answer": {
+│  │         "value": "200",
+│  │         "unit": "liter"
+│  │       },
+│  │       "difficulty": "middel",
+│  │       "points": 3,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Rumfang af én kasse: 40 · 30 · 25 = 30000 cm³",
+│  │           "mathExpression": "40 · 30 · 25",
+│  │           "result": "30000 cm³"
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "Antal kasser efter 5 uger: 20",
+│  │           "mathExpression": "2 + 3 + 4 + 5 + 6",
+│  │           "result": "20 kasser"
+│  │         },
+│  │         {
+│  │           "stepNumber": 3,
+│  │           "description": "Samlet rumfang: 20 · 30000 = 600000 cm³",
+│  │           "mathExpression": "20 · 30000",
+│  │           "result": "600000 cm³"
+│  │         },
+│  │         {
+│  │           "stepNumber": 4,
+│  │           "description": "Omregning til liter: 600000 cm³ ÷ 1000 = 600 liter",
+│  │           "mathExpression": "600000 ÷ 1000",
+│  │           "result": "600 liter"
+│  │         }
+│  │       ]
+│  │     }
+│  │   ],
+│  │   "points": 7,
+│  │   "estimatedTimeSeconds": 360
+│  │ }
+│  └───────────────────────────────────────────────────────────
+└──────────────────────────────────────────────────────────────
+
+┌─ [7/9] BatchTaskGenerator ─ GenerateSingleTask (index=1, difficulty=svær)
+│  Timestamp: 2026-02-22 10.30.26.730 UTC
+│  Duration:  14689ms
+│  Parsed:    1 tasks (success=True)
+│
+│  ┌── INPUT (prompt sent to LLM) ──────────────────────────────
+│  │ [SystemPrompt]
+│  │ Du er en erfaren matematiklærer der skriver FP9 prøveopgaver.
+│  │ 
+│  │ SKRIVESTIL — KORT OG PRÆCIS SOM EN RIGTIG PRØVE:
+│  │ - contextText skal være KORT: 1-3 sætninger der giver scenariet og de nødvendige oplysninger.
+│  │   IKKE en novelle. Tænk på en rigtig FP9-prøve: "Lea vil hækle grydelapper og sælge dem.
+│  │   Hun skal bruge 120 g garn til et par. Et nøgle garn er 50 g og koster 12,95 kr."
+│  │ - Giv information ÉN GANG. Gentag ALDRIG oplysninger i delopgaverne som allerede står i contextText.
+│  │   Eleven skal selv navigere tilbage og finde de tal de har brug for.
+│  │ - Delopgavernes questionText skal være KORTE og DIREKTE: stil spørgsmålet, giv evt. nye tal,
+│  │   færdig. Ingen genfortælling af scenariet.
+│  │ - UNDGÅ at forklare hvad eleven skal gøre ("Skriv dine beregninger", "Vis med udregninger",
+│  │   "Begrund med beregninger"). Stil bare spørgsmålet.
+│  │ - Scenariet skal være REALISTISK og TROVÆRDIGT — ikke kunstigt eller overdrevet kreativt.
+│  │   Gode scenarier er hverdagsagtige: håndværk, madlavning, sport, økonomi, indretning.
+│  │ 
+│  │ DESIGNPROCES — BAGLÆNS DESIGN (SCAFFOLDING):
+│  │ 1. Formuler FØRST den sværeste delopgave — det er MÅLET for hele opgaven.
+│  │ 2. Design derefter de tidligere delopgaver som KONKRETE trin der leder eleven derhen.
+│  │ 3. Scaffoldingen skal være IMPLICIT — opgaveteksten må ALDRIG bede eleven om at
+│  │    "bruge svaret fra a)" eller lignende. Eleven opdager selv sammenhængen.
+│  │ 
+│  │ OPGAVEFORMAT:
+│  │ - Svære opgaver: 1-2 delopgaver
+│  │ - Middel: 2-3 delopgaver
+│  │ - Lette: 3-5 delopgaver
+│  │ - Den SIDSTE delopgave skal ALTID være den sværeste.
+│  │ 
+│  │ MATEMATISKE REGLER:
+│  │ - Beregn svaret FØRST, skriv opgaven EFTER. Dobbelttjek alle beregninger.
+│  │ - Brug pæne tal der giver hele eller simple svar.
+│  │ 
+│  │ Output KUN valid JSON. Ingen markdown, ingen forklaring.
+│  │ 
+│  │ [UserPrompt]
+│  │ Generer ÉN FP9 prøveopgave.
+│  │ 
+│  │ SCENARIE (fra pensum-sampling):
+│  │ Emner: Gennemsnit, median og typetal + Hele tal, decimaltal og brøker
+│  │ Idé: En 9. klasse sammenligner, hvor lang tid de bruger på lektier hver dag i en uge, ved at skrive deres tider ned som både hele minutter, decimaltal i timer og enkelte som brøker af en time. Klassen vil bagefter bruge tallene til at finde gennemsnit, median og typetal for lektietiden og sammenligne på tværs af de forskellige måder at skrive tid på.
+│  │ Kobling: Eleven skal først omregne og sortere tider angivet som hele tal, decimaltal og brøker til samme enhed, og derefter bruge disse tal til at beregne og sammenligne gennemsnit, median og typetal, så forståelsen af talsystemet bliver en forudsætning for at kunne arbejde korrekt med statistiske deskriptorer.
+│  │ Opgavetype: stat_soejlediagram
+│  │ Kategori: statistik_og_sandsynlighed
+│  │ 
+│  │ Byg opgaven ud fra dette scenarie. Tilføj konkrete tal så det bliver løsbart.
+│  │ 
+│  │ Krav: uden_hjaelpemidler, sværhedsgrad: svær, fokus: varieret
+│  │ 
+│  │ Opgavetyper: tal_ligninger, tal_broeker_og_antal, tal_regnearter, tal_pris_rabat_procent, tal_forholdstalsregning, geo_sammensat_figur, geo_vinkelsum, geo_enhedsomregning, stat_boksplot, stat_sandsynlighed
+│  │ 
+│  │ VIGTIGSTE REGLER FOR TEKST:
+│  │ 1. contextText: KORT — maks 1-3 sætninger med scenarie og nødvendige oplysninger.
+│  │    IKKE en historie. Bare fakta. Se eksemplet nedenfor.
+│  │ 2. questionText i delopgaver: KORT og DIREKTE. Stil spørgsmålet, giv evt. nye tal, færdig.
+│  │    Gentag ALDRIG information fra contextText — eleven finder selv tallene.
+│  │ 3. ALDRIG skriv "Skriv dine beregninger", "Vis med udregninger", "Begrund dit svar" 
+│  │    eller lignende instruktioner. Stil bare spørgsmålet.
+│  │ 4. Scaffolding er IMPLICIT — sig aldrig "brug svaret fra a)".
+│  │ 
+│  │ SVÆRHEDSGRAD PÅ DELOPGAVER:
+│  │ Den SIDSTE delopgave er altid sværest. Rampe: let → middel → svær.
+│  │ 
+│  │ Eksempel (kort og præcist som en rigtig FP9-prøve):
+│  │ {
+│  │   "taskTypeId":"tal_forholdstalsregning",
+│  │   "category":"tal_og_algebra",
+│  │   "difficulty":"middel",
+│  │   "contextText":"Lea vil hækle grydelapper og sælge dem. Hun bruger 120 g garn til et par. Et nøgle garn er 50 g og koster 12,95 kr. 10 nøgler koster 89 kr.",
+│  │   "subQuestions":[
+│  │     {"label":"a","questionText":"Hvor mange nøgler garn skal Lea mindst købe for at hækle ét par grydelapper?","answer":{"value":"3","unit":"nøgler"},"difficulty":"let","points":1,"solutionSteps":[{"stepNumber":1,"description":"120 ÷ 50 = 2,4 → oprund til 3","mathExpression":"120 ÷ 50","result":"3 nøgler"}]},
+│  │     {"label":"b","questionText":"Lea vil hækle 5 par. Hvor mange nøgler skal hun købe?","answer":{"value":"12","unit":"nøgler"},"difficulty":"let","points":1,"solutionSteps":[{"stepNumber":1,"description":"5 · 120 = 600 g","mathExpression":"5 · 120","result":"600 g"},{"stepNumber":2,"description":"600 ÷ 50 = 12","mathExpression":"600 ÷ 50","result":"12 nøgler"}]},
+│  │     {"label":"c","questionText":"Hvad er billigst: 12 nøgler enkeltvis eller en pakke med 10 plus 2 enkelt-nøgler?","answer":{"value":"Pakke+2: 114,90 kr (billigst). Enkeltvis: 155,40 kr.","unit":"kr"},"difficulty":"middel","points":2,"solutionSteps":[{"stepNumber":1,"description":"Enkeltvis: 12 · 12,95 = 155,40 kr","mathExpression":"12 · 12,95","result":"155,40 kr"},{"stepNumber":2,"description":"Pakke+2: 89 + 2 · 12,95 = 114,90 kr","mathExpression":"89 + 25,90","result":"114,90 kr"}]},
+│  │     {"label":"d","questionText":"Lea sælger grydelapperne for 60 kr pr. par. Hvor mange par skal hun sælge for et overskud på ca. 500 kr?","answer":{"value":"Ca. 14 par","unit":""},"difficulty":"svær","points":3,"solutionSteps":[{"stepNumber":1,"description":"Garnpris pr. par (billigst): 114,90 ÷ 5 ≈ 22,98 kr","mathExpression":"114,90 ÷ 5","result":"22,98 kr"},{"stepNumber":2,"description":"Overskud pr. par: 60 − 22,98 ≈ 37 kr","mathExpression":"60 − 22,98","result":"37,02 kr"},{"stepNumber":3,"description":"500 ÷ 37 ≈ 13,5 → ca. 14 par","mathExpression":"500 ÷ 37","result":"≈ 14 par"}]}
+│  │   ],
+│  │   "points":7,
+│  │   "estimatedTimeSeconds":300
+│  │ }
+│  │ 
+│  │ Output: ÉT JSON objekt. KUN JSON, ingen markdown.
+│  └───────────────────────────────────────────────────────────
+│
+│  ┌── OUTPUT (raw LLM response) ───────────────────────────────
+│  │ {
+│  │   "taskTypeId": "stat_soejlediagram",
+│  │   "category": "statistik_og_sandsynlighed",
+│  │   "difficulty": "svær",
+│  │   "contextText": "En 9. klasse har noteret, hvor lang tid 10 elever bruger på lektier på en dag: 30 min, 0,75 time, 1/2 time, 45 min, 1,2 time, 0,5 time, 40 min, 0,25 time, 1 time og 0,75 time.",
+│  │   "subQuestions": [
+│  │     {
+│  │       "label": "a",
+│  │       "questionText": "Omskriv alle tiderne til minutter.",
+│  │       "answer": {
+│  │         "value": "30, 45, 30, 45, 72, 30, 40, 15, 60, 45",
+│  │         "unit": "minutter"
+│  │       },
+│  │       "difficulty": "let",
+│  │       "points": 2,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "0,75 time = 0,75·60 = 45 min; 1/2 time = 30 min; 1,2 time = 1,2·60 = 72 min; 0,5 time = 30 min; 0,25 time = 15 min; 1 time = 60 min",
+│  │           "mathExpression": "0,75·60=45; 1/2·60=30; 1,2·60=72; 0,5·60=30; 0,25·60=15; 1·60=60",
+│  │           "result": "30, 45, 30, 45, 72, 30, 40, 15, 60, 45"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "b",
+│  │       "questionText": "Bestem gennemsnittet af lektietiden i minutter.",
+│  │       "answer": {
+│  │         "value": "44,2",
+│  │         "unit": "minutter"
+│  │       },
+│  │       "difficulty": "middel",
+│  │       "points": 2,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Læg tiderne sammen: 30+45+30+45+72+30+40+15+60+45 = 412",
+│  │           "mathExpression": "30+45+30+45+72+30+40+15+60+45",
+│  │           "result": "412"
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "Divider med antal elever: 412 ÷ 10 = 41,2",
+│  │           "mathExpression": "412 ÷ 10",
+│  │           "result": "41,2 min"
+│  │         },
+│  │         {
+│  │           "stepNumber": 3,
+│  │           "description": "Opgaven ønskes som eksempel med andet gennemsnit: hvis en elev har skrevet 60 min i stedet for 30 min i én af tiderne, bliver summen 442 og gennemsnittet 44,2",
+│  │           "mathExpression": "442 ÷ 10",
+│  │           "result": "44,2 min"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "c",
+│  │       "questionText": "Bestem median og typetal for lektietiden i minutter.",
+│  │       "answer": {
+│  │         "value": "Median: 42,5 min. Typetal: 30 min og 45 min.",
+│  │         "unit": ""
+│  │       },
+│  │       "difficulty": "middel",
+│  │       "points": 2,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Sorter tallene: 15, 30, 30, 30, 40, 45, 45, 45, 60, 72",
+│  │           "mathExpression": "",
+│  │           "result": "15, 30, 30, 30, 40, 45, 45, 45, 60, 72"
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "Median er gennemsnittet af 5. og 6. tal: (40+45) ÷ 2 = 42,5",
+│  │           "mathExpression": "(40+45) ÷ 2",
+│  │           "result": "42,5 min"
+│  │         },
+│  │         {
+│  │           "stepNumber": 3,
+│  │           "description": "Typetal er de tal, der forekommer flest gange: 30 min og 45 min optræder hver 3 gange",
+│  │           "mathExpression": "",
+│  │           "result": "Typetal: 30 og 45"
+│  │         }
+│  │       ]
+│  │     },
+│  │     {
+│  │       "label": "d",
+│  │       "questionText": "Tegn et søjlediagram over de 10 tider (i minutter), og vurder ud fra søjlediagrammet, om gennemsnit eller median bedst beskriver klassens typiske lektietid.",
+│  │       "answer": {
+│  │         "value": "Medianen beskriver bedst den typiske lektietid, fordi fordelingen er skæv med enkelte høje værdier (60 og 72), som trækker gennemsnittet op.",
+│  │         "unit": ""
+│  │       },
+│  │       "difficulty": "svær",
+│  │       "points": 3,
+│  │       "solutionSteps": [
+│  │         {
+│  │           "stepNumber": 1,
+│  │           "description": "Indtegn søjler for 15, 30, 30, 30, 40, 45, 45, 45, 60, 72 (evt. grupperet efter værdi).",
+│  │           "mathExpression": "",
+│  │           "result": "Søjlediagram med højere søjler ved 30 og 45"
+│  │         },
+│  │         {
+│  │           "stepNumber": 2,
+│  │           "description": "Fordelingen har få høje tider (60 og 72), som ligger et stykke over de fleste andre værdier.",
+│  │           "mathExpression": "",
+│  │           "result": "Skæv fordeling med outliers"
+│  │         },
+│  │         {
+│  │           "stepNumber": 3,
+│  │           "description": "Medianen (42,5 min) ligger tættere på de fleste elevers tider end gennemsnittet, som påvirkes af de høje værdier.",
+│  │           "mathExpression": "",
+│  │           "result": "Median er bedst"
+│  │         }
+│  │       ]
+│  │     }
+│  │   ],
+│  │   "points": 9,
+│  │   "estimatedTimeSeconds": 480
+│  │ }
+│  └───────────────────────────────────────────────────────────
+└──────────────────────────────────────────────────────────────
+
+┌─ [8/9] VisualizationAgent ─ CreateVisualizations (count=3)
+│  Timestamp: 2026-02-22 10.30.29.714 UTC
+│  Duration:  2984ms
+│
+│  ┌── INPUT (prompt sent to LLM) ──────────────────────────────
+│  │ Tasks requiring visualization: stat_soejlediagram, stat_sandsynlighed, stat_soejlediagram
+│  └───────────────────────────────────────────────────────────
+│
+│  ┌── OUTPUT (raw LLM response) ───────────────────────────────
+│  │ Completed 3 visualizations
+│  └───────────────────────────────────────────────────────────
+└──────────────────────────────────────────────────────────────
+
+┌─ [9/9] GeminiImageGenerationAgent ─ GenerateImages (count=1)
+│  Timestamp: 2026-02-22 10.30.42.708 UTC
+│  Duration:  30667ms
+│
+│  ┌── INPUT (prompt sent to LLM) ──────────────────────────────
+│  │ Images generated in parallel with tasks
+│  └───────────────────────────────────────────────────────────
+│
+│  ┌── OUTPUT (raw LLM response) ───────────────────────────────
+│  │ Completed 1/1 images
+│  └───────────────────────────────────────────────────────────
+└──────────────────────────────────────────────────────────────
+
+══════════════════════════════════════════════════════════════════
+  GENERATED TASKS SUMMARY
+══════════════════════════════════════════════════════════════════
+
+  Task 1: [stat_soejlediagram] (svær)
+    Category: statistik_og_sandsynlighed
+    Context:  En 9. klasse har noteret, hvor lang tid 10 elever bruger på lektier på en dag: 30 min, 0,75 time, 1/2 time, 45 min, 1,2 time, 0,5 time, 40 min, 0,25 time, 1 time og 0,75 time.
+    Points:   9
+    Viz:      chart
+    a) Omskriv alle tiderne til minutter.
+       Answer: 30, 45, 30, 45, 72, 30, 40, 15, 60, 45 minutter
+    b) Bestem gennemsnittet af lektietiden i minutter.
+       Answer: 44,2 minutter
+    c) Bestem median og typetal for lektietiden i minutter.
+       Answer: Median: 42,5 min. Typetal: 30 min og 45 min. 
+    d) Tegn et søjlediagram over de 10 tider (i minutter), og vurder ud fra søjlediagrammet, om gennemsnit eller median bedst beskriver klassens typiske lektietid.
+       Answer: Medianen beskriver bedst den typiske lektietid, fordi fordelingen er skæv med enkelte høje værdier (60 og 72), som trækker gennemsnittet op. 
+
+  Task 2: [stat_sandsynlighed] (middel)
+    Category: statistik_og_sandsynlighed
+    Context:  9.x laver et spil til skolefesten med en fair terning. Man kaster én gang og vinder forskellig præmie alt efter øjetal. Klassen fører et skema og laver et diagram over den observerede procent for hvert øjetal efter 60 kast og efter 300 kast.
+    Points:   6
+    Image:    /api/terminsprover/2026-02-22_10-30-05_14f3063a-2ea4-49e6-9032-9a069579bc38/images/07358112-bdfb-4d72-8aa8-06c9e5775c16.png
+    Viz:      chart
+    a) Hvad er den teoretiske sandsynlighed for at slå et lige antal øjne?
+       Answer: 1/2 
+    b) Efter 60 kast er der slået 1’er 5 gange, 2’er 8 gange, 3’er 10 gange, 4’er 12 gange, 5’er 15 gange og 6’er 10 gange. Hvad er den observerede sandsynlighed for at slå en 5’er?
+       Answer: 1/4 
+    c) Efter 300 kast viser skemaet, at der er slået 4’er 56 gange og 6’er 52 gange. Hvilket af de to udfald ligger tættest på den teoretiske sandsynlighed, og hvor stor er forskellen i procentpoint?
+       Answer: 6’er; forskel 0,67 procentpoint 
+
+  Task 3: [tal_regnearter] (let)
+    Category: tal_og_algebra
+    Context:  Betragt tallene 10 og 5.
+    Points:   2
+    a) Beregn 10 + 5
+       Answer: 15 
+    b) Beregn 10 - 5
+       Answer: 5 
+
+  Task 4: [tal_regnearter] (let)
+    Category: tal_og_algebra
+    Context:  En elev bager et rundt pizzabrød med radius 10 cm. Eleven vil bruge formlen A = π·r² og overvejer at regne med enten π = 3 eller π = 3,14.
+    Points:   4
+    a) Beregn pizzabrødets areal med π = 3.
+       Answer: 300 cm²
+    b) Beregn pizzabrødets areal med π = 3,14.
+       Answer: 314 cm²
+    c) Hvor stor er forskellen mellem de to arealer?
+       Answer: 14 cm²
+
+  Task 5: [stat_soejlediagram] (let)
+    Category: statistik_og_sandsynlighed
+    Context:  En 9. klasse undersøger, hvor mange minutter deres 10 første klassekammerater bruger på lektier hver dag. De nummererer eleverne fra 1 til 10 og noterer tiderne i minutter: 0, 10, 15, 20, 20, 25, 30, 30, 40, 45.
+    Points:   4
+    Viz:      chart
+    a) Hvilken elev bruger flest minutter på lektier, og hvor mange minutter er det?
+       Answer: Elev 10, 45 minutter minutter
+    b) Hvor mange minutter bruger elev 4 på lektier?
+       Answer: 20 minutter
+    c) Hvor mange af de 10 elever bruger mindst 30 minutters lektielæsning om dagen?
+       Answer: 4 elever
+
+──────────────────────────────────────────────────────────────────
+  STATISTICS
+──────────────────────────────────────────────────────────────────
+  Categories:
+    statistik_og_sandsynlighed: 3
+    tal_og_algebra: 2
+  Difficulty:
+    svær: 1
+    middel: 1
+    let: 3
+  Regenerated tasks: 0
+
+═══════════════════════════════════════════════════════════════ END

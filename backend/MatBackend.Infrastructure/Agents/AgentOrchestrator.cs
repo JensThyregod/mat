@@ -2,7 +2,9 @@ using System.Diagnostics;
 using Microsoft.Extensions.Logging;
 using MatBackend.Core.Interfaces;
 using MatBackend.Core.Interfaces.Agents;
+using MatBackend.Core.Models.Agents;
 using MatBackend.Core.Models.Terminsprove;
+using MatBackend.Infrastructure.Repositories;
 
 namespace MatBackend.Infrastructure.Agents;
 
@@ -17,6 +19,7 @@ public class AgentOrchestrator : IAgentOrchestrator
     private readonly IValidatorAgent _validatorAgent;
     private readonly IVisualizationAgent _visualizationAgent;
     private readonly IImageGenerationAgent _imageGenerationAgent;
+    private readonly ITerminsproveRepository _terminsproveRepository;
     private readonly ITaskRepository _taskRepository;
     private readonly ILogger<AgentOrchestrator> _logger;
     private readonly AgentConfiguration _configuration;
@@ -29,6 +32,7 @@ public class AgentOrchestrator : IAgentOrchestrator
         IValidatorAgent validatorAgent,
         IVisualizationAgent visualizationAgent,
         IImageGenerationAgent imageGenerationAgent,
+        ITerminsproveRepository terminsproveRepository,
         ITaskRepository taskRepository,
         AgentConfiguration configuration,
         ILogger<AgentOrchestrator> logger)
@@ -38,11 +42,53 @@ public class AgentOrchestrator : IAgentOrchestrator
         _validatorAgent = validatorAgent;
         _visualizationAgent = visualizationAgent;
         _imageGenerationAgent = imageGenerationAgent;
+        _terminsproveRepository = terminsproveRepository;
         _taskRepository = taskRepository;
         _configuration = configuration;
         _logger = logger;
     }
     
+    public PipelineDescriptor DescribePipeline() => new()
+    {
+        Name = "Standard Orchestrator",
+        Description = "Sequential pipeline that processes tasks one at a time through all agents.",
+        Steps = new List<PipelineStep>
+        {
+            new()
+            {
+                AgentName = "BrainstormAgent",
+                Description = "Generate N task ideas from the request",
+                DependsOn = new(),
+            },
+            new()
+            {
+                AgentName = "FormatterAgent",
+                Description = "Convert each task idea into a structured GeneratedTask",
+                DependsOn = new() { "BrainstormAgent" },
+            },
+            new()
+            {
+                AgentName = "ValidatorAgent",
+                Description = "Validate mathematical correctness (retry up to 3x)",
+                DependsOn = new() { "FormatterAgent" },
+            },
+            new()
+            {
+                AgentName = "VisualizationAgent",
+                Description = "Create SVG/TikZ visualization if needed",
+                DependsOn = new() { "ValidatorAgent" },
+                IsOptional = true,
+            },
+            new()
+            {
+                AgentName = "ImageGenerationAgent",
+                Description = "Generate illustrative image via Gemini",
+                DependsOn = new() { "ValidatorAgent" },
+                IsOptional = true,
+            },
+        }
+    };
+
     public async Task<TerminsproveResult> GenerateTerminsproveAsync(
         TerminsproveRequest request,
         IProgress<GenerationProgress>? progress = null,
@@ -54,6 +100,8 @@ public class AgentOrchestrator : IAgentOrchestrator
             Metadata = new GenerationMetadata { StartedAt = DateTime.UtcNow }
         };
         
+        var imageOutputPath = _terminsproveRepository.GetImagesFolderPath(result);
+        var terminsproveFolderName = FileTerminsproveRepository.BuildFolderName(result);
         var stopwatch = Stopwatch.StartNew();
         
         try
@@ -124,10 +172,23 @@ public class AgentOrchestrator : IAgentOrchestrator
                     {
                         try
                         {
-                            var imageUrl = await _imageGenerationAgent.GenerateImageAsync(validatedTask, cancellationToken);
-                            if (!string.IsNullOrEmpty(imageUrl))
+                            var imgSw = Stopwatch.StartNew();
+                            var imageResult = await _imageGenerationAgent.GenerateImageAsync(validatedTask, imageOutputPath, cancellationToken);
+                            imgSw.Stop();
+                            
+                            if (imageResult != null)
                             {
-                                validatedTask.ImageUrl = imageUrl;
+                                validatedTask.ImageUrl = $"/api/terminsprover/{terminsproveFolderName}/images/{imageResult.FileName}";
+                                
+                                result.AgentLog.Add(new AgentLogEntry
+                                {
+                                    Timestamp = DateTime.UtcNow,
+                                    AgentName = "GeminiImageGenerationAgent",
+                                    Action = $"GenerateImage (task {taskNumber}: {validatedTask.Id})",
+                                    Input = imageResult.Prompt,
+                                    Output = $"Generated {imageResult.FileName}",
+                                    Duration = imgSw.Elapsed
+                                });
                             }
                         }
                         catch (Exception imgEx)

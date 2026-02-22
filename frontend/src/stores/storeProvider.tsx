@@ -1,12 +1,16 @@
 import { createContext, useContext } from 'react'
 import { AuthStore } from './authStore'
 import { TaskStore } from './taskStore'
+import { createApiClient } from '../services'
+import type { ApiClient } from '../services'
 
 export class RootStore {
   authStore: AuthStore
   taskStore: TaskStore
+  api: ApiClient
 
-  constructor() {
+  constructor(api?: ApiClient) {
+    this.api = api ?? createApiClient()
     this.authStore = new AuthStore(this)
     this.taskStore = new TaskStore(this)
   }
@@ -32,5 +36,5 @@ export function useStore() {
   return ctx
 }
 
-export const createRootStore = () => new RootStore()
+export const createRootStore = (api?: ApiClient) => new RootStore(api)
 

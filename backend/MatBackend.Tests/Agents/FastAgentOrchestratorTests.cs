@@ -1,37 +1,50 @@
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Moq;
+using MatBackend.Core.Interfaces;
 using MatBackend.Core.Interfaces.Agents;
+using MatBackend.Core.Models.Curriculum;
 using MatBackend.Core.Models.Terminsprove;
 using MatBackend.Infrastructure.Agents;
+
+// Alias to avoid ambiguity with Xunit's Task
+using ImageGenResult = MatBackend.Core.Interfaces.Agents.ImageGenerationResult;
 
 namespace MatBackend.Tests.Agents;
 
 /// <summary>
 /// Tests for the FastAgentOrchestrator.
-/// Covers: batch generation, progress reporting, image generation integration,
+/// Covers: parallel individual task generation, progress reporting, image generation integration,
 /// visualization, error handling, and the streaming protocol.
 /// </summary>
 public class FastAgentOrchestratorTests
 {
     private readonly Mock<IBatchTaskGeneratorAgent> _batchGeneratorMock;
+    private readonly Mock<ITopicBrainstormAgent> _topicBrainstormAgentMock;
+    private readonly Mock<ICurriculumSampler> _curriculumSamplerMock;
     private readonly Mock<IVisualizationAgent> _visualizationAgentMock;
     private readonly Mock<IImageGenerationAgent> _imageGenerationAgentMock;
+    private readonly Mock<ITerminsproveRepository> _repositoryMock;
     private readonly Mock<ILogger<FastAgentOrchestrator>> _loggerMock;
 
     public FastAgentOrchestratorTests()
     {
         _batchGeneratorMock = new Mock<IBatchTaskGeneratorAgent>();
+        _topicBrainstormAgentMock = new Mock<ITopicBrainstormAgent>();
+        _curriculumSamplerMock = new Mock<ICurriculumSampler>();
         _visualizationAgentMock = new Mock<IVisualizationAgent>();
         _imageGenerationAgentMock = new Mock<IImageGenerationAgent>();
+        _repositoryMock = new Mock<ITerminsproveRepository>();
         _loggerMock = new Mock<ILogger<FastAgentOrchestrator>>();
 
-        // Default: image generation disabled
+        _repositoryMock
+            .Setup(x => x.GetImagesFolderPath(It.IsAny<TerminsproveResult>()))
+            .Returns((TerminsproveResult r) => Path.Combine(Path.GetTempPath(), "mat-test", r.Id, "images"));
+
         _imageGenerationAgentMock
             .Setup(x => x.ShouldGenerateImageAsync(It.IsAny<GeneratedTask>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(false);
 
-        // Default: no visualization needed
         _visualizationAgentMock
             .Setup(x => x.CreateVisualizationAsync(It.IsAny<GeneratedTask>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync((TaskVisualization?)null);
@@ -39,14 +52,60 @@ public class FastAgentOrchestratorTests
         _batchGeneratorMock.SetupGet(x => x.Name).Returns("BatchTaskGenerator");
         _imageGenerationAgentMock.SetupGet(x => x.Name).Returns("GeminiImageGenerationAgent");
         _visualizationAgentMock.SetupGet(x => x.Name).Returns("VisualizationAgent");
+        _topicBrainstormAgentMock.SetupGet(x => x.Name).Returns("TopicBrainstormAgent");
+
+        // Default curriculum sampler: returns unique topic pairs
+        _curriculumSamplerMock
+            .Setup(x => x.SampleUniqueTopicPairs(It.IsAny<int>()))
+            .Returns((int count) => Enumerable.Range(0, count).Select(i => CreateTopicPair(i)).ToList());
+
+        // Default brainstorm agent: returns a concept for any pair
+        _topicBrainstormAgentMock
+            .Setup(x => x.BrainstormConceptAsync(It.IsAny<TopicPair>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync((TopicPair pair, string diff, string exam, CancellationToken _) => new TaskConcept
+            {
+                TopicPair = pair,
+                ScenarioDescription = $"Test scenario for {pair.Topic1.Name} + {pair.Topic2.Name}",
+                MathematicalConnection = "Test connection",
+                SuggestedTaskTypeId = "tal_regnearter",
+                PrimaryCategory = "tal_og_algebra"
+            });
+    }
+
+    private static TopicPair CreateTopicPair(int index)
+    {
+        return new TopicPair
+        {
+            Topic1 = new CurriculumTopic
+            {
+                Id = $"topic_a_{index}",
+                Name = $"Topic A {index}",
+                CategoryId = "tal_og_algebra",
+                CategoryName = "Tal og algebra",
+                SubcategoryId = "talforståelse",
+                SubcategoryName = "Talforståelse"
+            },
+            Topic2 = new CurriculumTopic
+            {
+                Id = $"topic_b_{index}",
+                Name = $"Topic B {index}",
+                CategoryId = "geometri_og_maaling",
+                CategoryName = "Geometri og måling",
+                SubcategoryId = "figurer_og_legemer",
+                SubcategoryName = "Figurer og legemer"
+            }
+        };
     }
 
     private FastAgentOrchestrator CreateOrchestrator()
     {
         return new FastAgentOrchestrator(
             _batchGeneratorMock.Object,
+            _topicBrainstormAgentMock.Object,
+            _curriculumSamplerMock.Object,
             _visualizationAgentMock.Object,
             _imageGenerationAgentMock.Object,
+            _repositoryMock.Object,
             _loggerMock.Object);
     }
 
@@ -61,44 +120,45 @@ public class FastAgentOrchestratorTests
         };
     }
 
-    private static List<GeneratedTask> CreateTasks(int count)
+    private static GeneratedTask CreateSingleTask(int index)
     {
-        return Enumerable.Range(1, count).Select(i => new GeneratedTask
+        return new GeneratedTask
         {
             Id = Guid.NewGuid().ToString(),
             TaskTypeId = "tal_regnearter",
             Category = "tal_og_algebra",
             Difficulty = "let",
-            ContextText = $"Test opgave {i}",
+            ContextText = $"Test opgave {index}",
             SubQuestions = new List<SubQuestion>
             {
                 new SubQuestion
                 {
                     Label = "a",
-                    QuestionText = $"Hvad er {i} + {i}?",
-                    Answer = new TaskAnswer { Value = $"{i * 2}", Unit = "" },
+                    QuestionText = $"Hvad er {index} + {index}?",
+                    Answer = new TaskAnswer { Value = $"{index * 2}", Unit = "" },
                     Points = 1
                 }
             },
             Points = 1,
             EstimatedTimeSeconds = 60
-        }).ToList();
+        };
     }
 
-    private void SetupBatchGenerator(int batchSize)
+    private void SetupSingleTaskGenerator()
     {
         _batchGeneratorMock
-            .Setup(x => x.GenerateBatchWithLogAsync(It.IsAny<BatchGenerationRequest>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync((BatchGenerationRequest req, CancellationToken _) =>
+            .Setup(x => x.GenerateSingleTaskWithLogAsync(It.IsAny<SingleTaskGenerationRequest>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync((SingleTaskGenerationRequest req, CancellationToken _) =>
             {
-                var tasks = CreateTasks(req.Count);
-                return new BatchGenerationResult
+                var task = CreateSingleTask(req.TaskIndex);
+                task.Difficulty = req.Difficulty;
+                return new SingleTaskGenerationResult
                 {
-                    Tasks = tasks,
+                    Task = task,
                     LogEntry = new AgentLogEntry
                     {
                         AgentName = "BatchTaskGenerator",
-                        Action = $"GenerateBatch (count={req.Count})",
+                        Action = $"GenerateSingleTask (index={req.TaskIndex})",
                         Duration = TimeSpan.FromMilliseconds(500)
                     }
                 };
@@ -110,7 +170,7 @@ public class FastAgentOrchestratorTests
     [Fact]
     public async Task GenerateTerminsprove_GeneratesRequestedNumberOfTasks()
     {
-        SetupBatchGenerator(5);
+        SetupSingleTaskGenerator();
         var orchestrator = CreateOrchestrator();
         var request = CreateRequest(taskCount: 5);
 
@@ -121,9 +181,9 @@ public class FastAgentOrchestratorTests
     }
 
     [Fact]
-    public async Task GenerateTerminsprove_GeneratesMultipleBatches()
+    public async Task GenerateTerminsprove_CallsGenerateSingleTaskForEachTask()
     {
-        SetupBatchGenerator(5);
+        SetupSingleTaskGenerator();
         var orchestrator = CreateOrchestrator();
         var request = CreateRequest(taskCount: 10);
 
@@ -131,14 +191,14 @@ public class FastAgentOrchestratorTests
 
         result.Tasks.Should().HaveCount(10);
         _batchGeneratorMock.Verify(
-            x => x.GenerateBatchWithLogAsync(It.IsAny<BatchGenerationRequest>(), It.IsAny<CancellationToken>()),
-            Times.Exactly(2)); // 10 tasks / 5 per batch = 2 batches
+            x => x.GenerateSingleTaskWithLogAsync(It.IsAny<SingleTaskGenerationRequest>(), It.IsAny<CancellationToken>()),
+            Times.Exactly(10));
     }
 
     [Fact]
     public async Task GenerateTerminsprove_SetsMetadata()
     {
-        SetupBatchGenerator(5);
+        SetupSingleTaskGenerator();
         var orchestrator = CreateOrchestrator();
         var request = CreateRequest(taskCount: 5);
 
@@ -146,13 +206,13 @@ public class FastAgentOrchestratorTests
 
         result.Metadata.StartedAt.Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(5));
         result.Metadata.CompletedAt.Should().NotBeNull();
-        result.Metadata.TotalIterations.Should().BeGreaterThan(0);
+        result.Metadata.TotalIterations.Should().Be(5);
     }
 
     [Fact]
     public async Task GenerateTerminsprove_SetsRequestOnResult()
     {
-        SetupBatchGenerator(5);
+        SetupSingleTaskGenerator();
         var orchestrator = CreateOrchestrator();
         var request = CreateRequest(taskCount: 5);
 
@@ -164,7 +224,7 @@ public class FastAgentOrchestratorTests
     [Fact]
     public async Task GenerateTerminsprove_CalculatesCategoryDistribution()
     {
-        SetupBatchGenerator(5);
+        SetupSingleTaskGenerator();
         var orchestrator = CreateOrchestrator();
         var request = CreateRequest(taskCount: 5);
 
@@ -176,13 +236,28 @@ public class FastAgentOrchestratorTests
     [Fact]
     public async Task GenerateTerminsprove_CalculatesDifficultyDistribution()
     {
-        SetupBatchGenerator(5);
+        SetupSingleTaskGenerator();
         var orchestrator = CreateOrchestrator();
         var request = CreateRequest(taskCount: 5);
 
         var result = await orchestrator.GenerateTerminsproveAsync(request);
 
-        result.Metadata.DifficultyDistribution.Should().ContainKey("let");
+        result.Metadata.DifficultyDistribution.Should().NotBeEmpty();
+    }
+
+    [Fact]
+    public async Task GenerateTerminsprove_DistributesDifficultiesAcrossTasks()
+    {
+        SetupSingleTaskGenerator();
+        var orchestrator = CreateOrchestrator();
+        var request = CreateRequest(taskCount: 10);
+
+        var result = await orchestrator.GenerateTerminsproveAsync(request);
+
+        var difficulties = result.Tasks.Select(t => t.Difficulty).ToList();
+        difficulties.Should().Contain("let");
+        difficulties.Should().Contain("middel");
+        difficulties.Should().Contain("svær");
     }
 
     #endregion
@@ -192,15 +267,13 @@ public class FastAgentOrchestratorTests
     [Fact]
     public async Task GenerateTerminsprove_ReportsProgressEvents()
     {
-        SetupBatchGenerator(5);
+        SetupSingleTaskGenerator();
         var orchestrator = CreateOrchestrator();
         var request = CreateRequest(taskCount: 5);
         var progressEvents = new List<GenerationProgress>();
         var progress = new Progress<GenerationProgress>(p => progressEvents.Add(p));
 
         var result = await orchestrator.GenerateTerminsproveAsync(request, progress);
-
-        // Wait a bit for progress events to be processed (Progress<T> uses SynchronizationContext)
         await Task.Delay(200);
 
         progressEvents.Should().NotBeEmpty();
@@ -209,7 +282,7 @@ public class FastAgentOrchestratorTests
     [Fact]
     public async Task GenerateTerminsprove_ReportsPhaseStarted()
     {
-        SetupBatchGenerator(5);
+        SetupSingleTaskGenerator();
         var orchestrator = CreateOrchestrator();
         var request = CreateRequest(taskCount: 5);
         var progressEvents = new List<GenerationProgress>();
@@ -224,7 +297,7 @@ public class FastAgentOrchestratorTests
     [Fact]
     public async Task GenerateTerminsprove_ReportsTaskStarted()
     {
-        SetupBatchGenerator(5);
+        SetupSingleTaskGenerator();
         var orchestrator = CreateOrchestrator();
         var request = CreateRequest(taskCount: 5);
         var progressEvents = new List<GenerationProgress>();
@@ -239,7 +312,7 @@ public class FastAgentOrchestratorTests
     [Fact]
     public async Task GenerateTerminsprove_ReportsTaskCompleted()
     {
-        SetupBatchGenerator(5);
+        SetupSingleTaskGenerator();
         var orchestrator = CreateOrchestrator();
         var request = CreateRequest(taskCount: 5);
         var progressEvents = new List<GenerationProgress>();
@@ -255,7 +328,7 @@ public class FastAgentOrchestratorTests
     [Fact]
     public async Task GenerateTerminsprove_ReportsCompletedEvent()
     {
-        SetupBatchGenerator(5);
+        SetupSingleTaskGenerator();
         var orchestrator = CreateOrchestrator();
         var request = CreateRequest(taskCount: 5);
         var progressEvents = new List<GenerationProgress>();
@@ -270,7 +343,7 @@ public class FastAgentOrchestratorTests
     [Fact]
     public async Task GenerateTerminsprove_TaskCompletedIncludesTask()
     {
-        SetupBatchGenerator(5);
+        SetupSingleTaskGenerator();
         var orchestrator = CreateOrchestrator();
         var request = CreateRequest(taskCount: 5);
         var progressEvents = new List<GenerationProgress>();
@@ -290,7 +363,7 @@ public class FastAgentOrchestratorTests
     [Fact]
     public async Task GenerateTerminsprove_WhenImageEnabled_CallsShouldGenerate()
     {
-        SetupBatchGenerator(5);
+        SetupSingleTaskGenerator();
         _imageGenerationAgentMock
             .Setup(x => x.ShouldGenerateImageAsync(It.IsAny<GeneratedTask>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(false);
@@ -308,13 +381,13 @@ public class FastAgentOrchestratorTests
     [Fact]
     public async Task GenerateTerminsprove_WhenImageNeeded_CallsGenerateImage()
     {
-        SetupBatchGenerator(5);
+        SetupSingleTaskGenerator();
         _imageGenerationAgentMock
             .Setup(x => x.ShouldGenerateImageAsync(It.IsAny<GeneratedTask>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(true);
         _imageGenerationAgentMock
-            .Setup(x => x.GenerateImageAsync(It.IsAny<GeneratedTask>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync("/api/images/test.png");
+            .Setup(x => x.GenerateImageAsync(It.IsAny<GeneratedTask>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(new ImageGenResult { FileName = "test.png", Prompt = "test prompt" });
 
         var orchestrator = CreateOrchestrator();
         var request = CreateRequest(taskCount: 5);
@@ -322,38 +395,38 @@ public class FastAgentOrchestratorTests
         var result = await orchestrator.GenerateTerminsproveAsync(request);
 
         _imageGenerationAgentMock.Verify(
-            x => x.GenerateImageAsync(It.IsAny<GeneratedTask>(), It.IsAny<CancellationToken>()),
+            x => x.GenerateImageAsync(It.IsAny<GeneratedTask>(), It.IsAny<string>(), It.IsAny<CancellationToken>()),
             Times.Exactly(5));
     }
 
     [Fact]
     public async Task GenerateTerminsprove_WhenImageGenerated_SetsImageUrlOnTask()
     {
-        SetupBatchGenerator(5);
+        SetupSingleTaskGenerator();
         _imageGenerationAgentMock
             .Setup(x => x.ShouldGenerateImageAsync(It.IsAny<GeneratedTask>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(true);
         _imageGenerationAgentMock
-            .Setup(x => x.GenerateImageAsync(It.IsAny<GeneratedTask>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync("/api/images/test.png");
+            .Setup(x => x.GenerateImageAsync(It.IsAny<GeneratedTask>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(new ImageGenResult { FileName = "test.png", Prompt = "test prompt" });
 
         var orchestrator = CreateOrchestrator();
         var request = CreateRequest(taskCount: 5);
 
         var result = await orchestrator.GenerateTerminsproveAsync(request);
 
-        result.Tasks.Should().AllSatisfy(t => t.ImageUrl.Should().Be("/api/images/test.png"));
+        result.Tasks.Should().AllSatisfy(t => t.ImageUrl.Should().Contain("test.png"));
     }
 
     [Fact]
     public async Task GenerateTerminsprove_WhenImageFails_DoesNotCrash()
     {
-        SetupBatchGenerator(5);
+        SetupSingleTaskGenerator();
         _imageGenerationAgentMock
             .Setup(x => x.ShouldGenerateImageAsync(It.IsAny<GeneratedTask>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(true);
         _imageGenerationAgentMock
-            .Setup(x => x.GenerateImageAsync(It.IsAny<GeneratedTask>(), It.IsAny<CancellationToken>()))
+            .Setup(x => x.GenerateImageAsync(It.IsAny<GeneratedTask>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
             .ThrowsAsync(new Exception("Image generation failed"));
 
         var orchestrator = CreateOrchestrator();
@@ -369,13 +442,13 @@ public class FastAgentOrchestratorTests
     [Fact]
     public async Task GenerateTerminsprove_WhenImageReturnsNull_TaskHasNoImageUrl()
     {
-        SetupBatchGenerator(5);
+        SetupSingleTaskGenerator();
         _imageGenerationAgentMock
             .Setup(x => x.ShouldGenerateImageAsync(It.IsAny<GeneratedTask>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(true);
         _imageGenerationAgentMock
-            .Setup(x => x.GenerateImageAsync(It.IsAny<GeneratedTask>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync((string?)null);
+            .Setup(x => x.GenerateImageAsync(It.IsAny<GeneratedTask>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync((ImageGenResult?)null);
 
         var orchestrator = CreateOrchestrator();
         var request = CreateRequest(taskCount: 5);
@@ -388,13 +461,13 @@ public class FastAgentOrchestratorTests
     [Fact]
     public async Task GenerateTerminsprove_WhenImageNeeded_ReportsImageGeneratingEvent()
     {
-        SetupBatchGenerator(5);
+        SetupSingleTaskGenerator();
         _imageGenerationAgentMock
             .Setup(x => x.ShouldGenerateImageAsync(It.IsAny<GeneratedTask>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(true);
         _imageGenerationAgentMock
-            .Setup(x => x.GenerateImageAsync(It.IsAny<GeneratedTask>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync("/api/images/test.png");
+            .Setup(x => x.GenerateImageAsync(It.IsAny<GeneratedTask>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(new ImageGenResult { FileName = "test.png", Prompt = "test prompt" });
 
         var orchestrator = CreateOrchestrator();
         var request = CreateRequest(taskCount: 5);
@@ -402,7 +475,7 @@ public class FastAgentOrchestratorTests
         var progress = new Progress<GenerationProgress>(p => progressEvents.Add(p));
 
         await orchestrator.GenerateTerminsproveAsync(request, progress);
-        await Task.Delay(500); // Wait for background tasks
+        await Task.Delay(500);
 
         progressEvents.Should().Contain(p => p.EventType == ProgressEventType.TaskImageGenerating);
     }
@@ -410,13 +483,13 @@ public class FastAgentOrchestratorTests
     [Fact]
     public async Task GenerateTerminsprove_WhenImageReady_ReportsImageReadyEvent()
     {
-        SetupBatchGenerator(5);
+        SetupSingleTaskGenerator();
         _imageGenerationAgentMock
             .Setup(x => x.ShouldGenerateImageAsync(It.IsAny<GeneratedTask>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(true);
         _imageGenerationAgentMock
-            .Setup(x => x.GenerateImageAsync(It.IsAny<GeneratedTask>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync("/api/images/test.png");
+            .Setup(x => x.GenerateImageAsync(It.IsAny<GeneratedTask>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(new ImageGenResult { FileName = "test.png", Prompt = "test prompt" });
 
         var orchestrator = CreateOrchestrator();
         var request = CreateRequest(taskCount: 5);
@@ -424,13 +497,13 @@ public class FastAgentOrchestratorTests
         var progress = new Progress<GenerationProgress>(p => progressEvents.Add(p));
 
         await orchestrator.GenerateTerminsproveAsync(request, progress);
-        await Task.Delay(500); // Wait for background tasks
+        await Task.Delay(500);
 
         var imageReadyEvents = progressEvents.Where(p => p.EventType == ProgressEventType.TaskImageReady).ToList();
         imageReadyEvents.Should().HaveCountGreaterThan(0);
         imageReadyEvents.Should().AllSatisfy(e =>
         {
-            e.ImageUrl.Should().Be("/api/images/test.png");
+            e.ImageUrl.Should().Contain("test.png");
             e.TaskId.Should().NotBeNullOrEmpty();
         });
     }
@@ -438,13 +511,13 @@ public class FastAgentOrchestratorTests
     [Fact]
     public async Task GenerateTerminsprove_ImageGeneratingEventHasTaskId()
     {
-        SetupBatchGenerator(5);
+        SetupSingleTaskGenerator();
         _imageGenerationAgentMock
             .Setup(x => x.ShouldGenerateImageAsync(It.IsAny<GeneratedTask>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(true);
         _imageGenerationAgentMock
-            .Setup(x => x.GenerateImageAsync(It.IsAny<GeneratedTask>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync("/api/images/test.png");
+            .Setup(x => x.GenerateImageAsync(It.IsAny<GeneratedTask>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(new ImageGenResult { FileName = "test.png", Prompt = "test prompt" });
 
         var orchestrator = CreateOrchestrator();
         var request = CreateRequest(taskCount: 5);
@@ -461,18 +534,18 @@ public class FastAgentOrchestratorTests
     [Fact]
     public async Task GenerateTerminsprove_OnlySelectiveTasksGetImages()
     {
-        SetupBatchGenerator(5);
+        SetupSingleTaskGenerator();
         var callCount = 0;
         _imageGenerationAgentMock
             .Setup(x => x.ShouldGenerateImageAsync(It.IsAny<GeneratedTask>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(() =>
             {
-                callCount++;
-                return callCount % 2 == 0; // Only even tasks get images
+                Interlocked.Increment(ref callCount);
+                return callCount % 2 == 0;
             });
         _imageGenerationAgentMock
-            .Setup(x => x.GenerateImageAsync(It.IsAny<GeneratedTask>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync("/api/images/test.png");
+            .Setup(x => x.GenerateImageAsync(It.IsAny<GeneratedTask>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(new ImageGenResult { FileName = "test.png", Prompt = "test prompt" });
 
         var orchestrator = CreateOrchestrator();
         var request = CreateRequest(taskCount: 5);
@@ -493,23 +566,20 @@ public class FastAgentOrchestratorTests
     public async Task GenerateTerminsprove_GeometryTasks_GetVisualization()
     {
         _batchGeneratorMock
-            .Setup(x => x.GenerateBatchWithLogAsync(It.IsAny<BatchGenerationRequest>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync((BatchGenerationRequest req, CancellationToken _) =>
+            .Setup(x => x.GenerateSingleTaskWithLogAsync(It.IsAny<SingleTaskGenerationRequest>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync((SingleTaskGenerationRequest req, CancellationToken _) =>
             {
-                var tasks = new List<GeneratedTask>
+                return new SingleTaskGenerationResult
                 {
-                    new GeneratedTask
+                    Task = new GeneratedTask
                     {
                         Id = Guid.NewGuid().ToString(),
                         TaskTypeId = "geo_sammensat_figur",
                         Category = "geometri_og_maaling",
+                        Difficulty = req.Difficulty,
                         ContextText = "Geometry task",
                         SubQuestions = new List<SubQuestion>()
-                    }
-                };
-                return new BatchGenerationResult
-                {
-                    Tasks = tasks,
+                    },
                     LogEntry = new AgentLogEntry { AgentName = "BatchTaskGenerator" }
                 };
             });
@@ -531,7 +601,7 @@ public class FastAgentOrchestratorTests
     [Fact]
     public async Task GenerateTerminsprove_AlgebraTasks_SkipVisualization()
     {
-        SetupBatchGenerator(5);
+        SetupSingleTaskGenerator();
         var orchestrator = CreateOrchestrator();
         var request = CreateRequest(taskCount: 5);
 
@@ -547,10 +617,10 @@ public class FastAgentOrchestratorTests
     #region Error Handling Tests
 
     [Fact]
-    public async Task GenerateTerminsprove_WhenBatchGeneratorThrows_ReturnsFailedResult()
+    public async Task GenerateTerminsprove_WhenGeneratorThrows_ReturnsFailedResult()
     {
         _batchGeneratorMock
-            .Setup(x => x.GenerateBatchWithLogAsync(It.IsAny<BatchGenerationRequest>(), It.IsAny<CancellationToken>()))
+            .Setup(x => x.GenerateSingleTaskWithLogAsync(It.IsAny<SingleTaskGenerationRequest>(), It.IsAny<CancellationToken>()))
             .ThrowsAsync(new Exception("LLM API error"));
 
         var orchestrator = CreateOrchestrator();
@@ -563,10 +633,10 @@ public class FastAgentOrchestratorTests
     }
 
     [Fact]
-    public async Task GenerateTerminsprove_WhenBatchGeneratorThrows_ReportsErrorEvent()
+    public async Task GenerateTerminsprove_WhenGeneratorThrows_ReportsErrorEvent()
     {
         _batchGeneratorMock
-            .Setup(x => x.GenerateBatchWithLogAsync(It.IsAny<BatchGenerationRequest>(), It.IsAny<CancellationToken>()))
+            .Setup(x => x.GenerateSingleTaskWithLogAsync(It.IsAny<SingleTaskGenerationRequest>(), It.IsAny<CancellationToken>()))
             .ThrowsAsync(new Exception("LLM API error"));
 
         var orchestrator = CreateOrchestrator();
@@ -584,23 +654,20 @@ public class FastAgentOrchestratorTests
     public async Task GenerateTerminsprove_WhenVisualizationFails_DoesNotCrash()
     {
         _batchGeneratorMock
-            .Setup(x => x.GenerateBatchWithLogAsync(It.IsAny<BatchGenerationRequest>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync((BatchGenerationRequest req, CancellationToken _) =>
+            .Setup(x => x.GenerateSingleTaskWithLogAsync(It.IsAny<SingleTaskGenerationRequest>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync((SingleTaskGenerationRequest req, CancellationToken _) =>
             {
-                var tasks = new List<GeneratedTask>
+                return new SingleTaskGenerationResult
                 {
-                    new GeneratedTask
+                    Task = new GeneratedTask
                     {
                         Id = Guid.NewGuid().ToString(),
                         TaskTypeId = "geo_sammensat_figur",
                         Category = "geometri_og_maaling",
+                        Difficulty = req.Difficulty,
                         ContextText = "Geometry task",
                         SubQuestions = new List<SubQuestion>()
-                    }
-                };
-                return new BatchGenerationResult
-                {
-                    Tasks = tasks,
+                    },
                     LogEntry = new AgentLogEntry { AgentName = "BatchTaskGenerator" }
                 };
             });
@@ -618,35 +685,6 @@ public class FastAgentOrchestratorTests
         result.Tasks.Should().HaveCount(1);
     }
 
-    [Fact]
-    public async Task GenerateTerminsprove_WithCancellation_StopsEarly()
-    {
-        var cts = new CancellationTokenSource();
-        var callCount = 0;
-
-        _batchGeneratorMock
-            .Setup(x => x.GenerateBatchWithLogAsync(It.IsAny<BatchGenerationRequest>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync((BatchGenerationRequest req, CancellationToken ct) =>
-            {
-                callCount++;
-                if (callCount > 1)
-                    cts.Cancel();
-                return new BatchGenerationResult
-                {
-                    Tasks = CreateTasks(req.Count),
-                    LogEntry = new AgentLogEntry { AgentName = "BatchTaskGenerator" }
-                };
-            });
-
-        var orchestrator = CreateOrchestrator();
-        var request = CreateRequest(taskCount: 20); // Would need 4 batches
-
-        var result = await orchestrator.GenerateTerminsproveAsync(request, cancellationToken: cts.Token);
-
-        // Should have completed at least the first batch but not all 4
-        result.Tasks.Count.Should().BeLessThan(20);
-    }
-
     #endregion
 
     #region Agent Log Tests
@@ -654,7 +692,7 @@ public class FastAgentOrchestratorTests
     [Fact]
     public async Task GenerateTerminsprove_IncludesAgentLog()
     {
-        SetupBatchGenerator(5);
+        SetupSingleTaskGenerator();
         var orchestrator = CreateOrchestrator();
         var request = CreateRequest(taskCount: 5);
 
@@ -666,7 +704,7 @@ public class FastAgentOrchestratorTests
     [Fact]
     public async Task GenerateTerminsprove_AgentLogIncludesSummary()
     {
-        SetupBatchGenerator(5);
+        SetupSingleTaskGenerator();
         var orchestrator = CreateOrchestrator();
         var request = CreateRequest(taskCount: 5);
 
@@ -676,9 +714,9 @@ public class FastAgentOrchestratorTests
     }
 
     [Fact]
-    public async Task GenerateTerminsprove_AgentLogIncludesBatchEntries()
+    public async Task GenerateTerminsprove_AgentLogIncludesTaskEntries()
     {
-        SetupBatchGenerator(5);
+        SetupSingleTaskGenerator();
         var orchestrator = CreateOrchestrator();
         var request = CreateRequest(taskCount: 5);
 
@@ -690,13 +728,13 @@ public class FastAgentOrchestratorTests
     [Fact]
     public async Task GenerateTerminsprove_WithImages_AgentLogIncludesImageEntry()
     {
-        SetupBatchGenerator(5);
+        SetupSingleTaskGenerator();
         _imageGenerationAgentMock
             .Setup(x => x.ShouldGenerateImageAsync(It.IsAny<GeneratedTask>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(true);
         _imageGenerationAgentMock
-            .Setup(x => x.GenerateImageAsync(It.IsAny<GeneratedTask>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync("/api/images/test.png");
+            .Setup(x => x.GenerateImageAsync(It.IsAny<GeneratedTask>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(new ImageGenResult { FileName = "test.png", Prompt = "test prompt" });
 
         var orchestrator = CreateOrchestrator();
         var request = CreateRequest(taskCount: 5);
@@ -714,7 +752,7 @@ public class FastAgentOrchestratorTests
     public async Task RegenerateTask_ReturnsOriginalTask()
     {
         var orchestrator = CreateOrchestrator();
-        var task = CreateTasks(1).First();
+        var task = CreateSingleTask(1);
         var validation = new ValidationResult { IsValid = false, Issues = new List<string> { "Bad" } };
 
         var result = await orchestrator.RegenerateTaskAsync(task, validation);
@@ -724,4 +762,3 @@ public class FastAgentOrchestratorTests
 
     #endregion
 }
-

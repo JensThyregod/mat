@@ -8,6 +8,7 @@ import { EmptyState } from '../components/EmptyState'
 import { TaskCard } from '../components/TaskCard'
 import { TaskDetailOverlayWrapper } from '../components/TaskDetailOverlay'
 import { PageTransition, AnimatedList, AnimatedListItem } from '../components/animation'
+import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import type { Task } from '../types'
 import './TasksView.css'
 
@@ -49,6 +50,7 @@ const titleVariants = {
 }
 
 export const TasksView = observer(() => {
+  useDocumentTitle('Opgaver')
   const { taskStore, authStore } = useStore()
   const navigate = useNavigate()
   const { taskId } = useParams<{ taskId?: string }>()

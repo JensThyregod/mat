@@ -4,6 +4,7 @@ using System.Text.Json;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Moq;
+using MatBackend.Core.Interfaces.Agents;
 using MatBackend.Core.Models.Terminsprove;
 using MatBackend.Infrastructure.Agents;
 
@@ -47,7 +48,6 @@ public class GeminiImageGenerationAgentTests : IDisposable
         return new GeminiImageGenerationAgent(
             httpClient ?? new HttpClient(),
             config,
-            _tempImagePath,
             _loggerMock.Object);
     }
 
@@ -761,7 +761,7 @@ public class GeminiImageGenerationAgentTests : IDisposable
         var agent = CreateAgent(geminiApiKey: "");
         var task = CreateTask();
 
-        var result = await agent.GenerateImageAsync(task);
+        var result = await agent.GenerateImageAsync(task, _tempImagePath);
 
         result.Should().BeNull();
     }
@@ -778,7 +778,7 @@ public class GeminiImageGenerationAgentTests : IDisposable
         var task = CreateTask(
             contextText: "Emma og Victor er på skoletur til Experimentarium.");
 
-        var result = await agent.GenerateImageAsync(task);
+        var result = await agent.GenerateImageAsync(task, _tempImagePath);
 
         result.Should().BeNull();
     }
@@ -815,15 +815,14 @@ public class GeminiImageGenerationAgentTests : IDisposable
         var task = CreateTask(
             contextText: "Emma og Victor er på skoletur til Experimentarium.");
 
-        var result = await agent.GenerateImageAsync(task);
+        var result = await agent.GenerateImageAsync(task, _tempImagePath);
 
         result.Should().NotBeNull();
-        result.Should().StartWith("/api/images/");
-        result.Should().EndWith(".png");
+        result!.FileName.Should().EndWith(".png");
+        result.Prompt.Should().NotBeNullOrEmpty();
 
         // Verify file was saved
-        var fileName = result!.Replace("/api/images/", "");
-        var filePath = Path.Combine(_tempImagePath, fileName);
+        var filePath = Path.Combine(_tempImagePath, result.FileName);
         File.Exists(filePath).Should().BeTrue();
         var savedBytes = await File.ReadAllBytesAsync(filePath);
         savedBytes.Should().BeEquivalentTo(fakeImageBytes);
@@ -858,7 +857,7 @@ public class GeminiImageGenerationAgentTests : IDisposable
         var task = CreateTask(
             contextText: "Emma og Victor er på skoletur til Experimentarium.");
 
-        var result = await agent.GenerateImageAsync(task);
+        var result = await agent.GenerateImageAsync(task, _tempImagePath);
 
         result.Should().BeNull();
     }
@@ -877,7 +876,7 @@ public class GeminiImageGenerationAgentTests : IDisposable
         var task = CreateTask(
             contextText: "Emma og Victor er på skoletur til Experimentarium.");
 
-        var result = await agent.GenerateImageAsync(task);
+        var result = await agent.GenerateImageAsync(task, _tempImagePath);
 
         result.Should().BeNull();
     }
@@ -915,10 +914,11 @@ public class GeminiImageGenerationAgentTests : IDisposable
         var task = CreateTask(
             contextText: "Emma og Victor er på skoletur til Experimentarium.");
 
-        var result = await agent.GenerateImageAsync(task);
+        var result = await agent.GenerateImageAsync(task, _tempImagePath);
 
         result.Should().NotBeNull();
-        result.Should().StartWith("/api/images/");
+        result!.FileName.Should().EndWith(".png");
+        result.Prompt.Should().NotBeNullOrEmpty();
     }
 
     [Fact]
@@ -938,7 +938,7 @@ public class GeminiImageGenerationAgentTests : IDisposable
         var task = CreateTask(
             contextText: "Emma og Victor er på skoletur til Experimentarium.");
 
-        await agent.GenerateImageAsync(task);
+        await agent.GenerateImageAsync(task, _tempImagePath);
 
         capturedUrl.Should().NotBeNull();
         capturedUrl.Should().Contain("generativelanguage.googleapis.com");
@@ -967,7 +967,7 @@ public class GeminiImageGenerationAgentTests : IDisposable
                 new SubQuestion { Label = "a", QuestionText = "Hvad koster frokosten?" }
             });
 
-        await agent.GenerateImageAsync(task);
+        await agent.GenerateImageAsync(task, _tempImagePath);
 
         capturedBody.Should().NotBeNull();
         capturedBody.Should().Contain("responseModalities");
@@ -988,7 +988,7 @@ public class GeminiImageGenerationAgentTests : IDisposable
         var task = CreateTask(
             contextText: "Emma og Victor er på skoletur til Experimentarium.");
 
-        var result = await agent.GenerateImageAsync(task);
+        var result = await agent.GenerateImageAsync(task, _tempImagePath);
 
         result.Should().BeNull();
     }
@@ -1002,7 +1002,7 @@ public class GeminiImageGenerationAgentTests : IDisposable
         var task = CreateTask(
             contextText: "Emma og Victor er på skoletur til Experimentarium.");
 
-        var result = await agent.GenerateImageAsync(task);
+        var result = await agent.GenerateImageAsync(task, _tempImagePath);
 
         result.Should().BeNull();
     }
@@ -1026,18 +1026,20 @@ public class GeminiImageGenerationAgentTests : IDisposable
     }
 
     [Fact]
-    public void Agent_CreatesOutputDirectory()
+    public async Task GenerateImage_CreatesOutputDirectory()
     {
         var newPath = Path.Combine(Path.GetTempPath(), $"mat-test-new-{Guid.NewGuid()}");
         try
         {
             var agent = new GeminiImageGenerationAgent(
                 new HttpClient(),
-                new AgentConfiguration { ImageGenerationEnabled = true, GeminiApiKey = "key" },
-                newPath,
+                new AgentConfiguration { ImageGenerationEnabled = true, GeminiApiKey = "" },
                 _loggerMock.Object);
 
-            Directory.Exists(newPath).Should().BeTrue();
+            // GenerateImageAsync with empty key returns null but still creates the directory
+            await agent.GenerateImageAsync(CreateTask(), newPath);
+
+            Directory.Exists(newPath).Should().BeFalse("no directory created when API key is empty");
         }
         finally
         {

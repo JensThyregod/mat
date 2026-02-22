@@ -193,15 +193,15 @@
 }
 
 .skills__legend-dot--tal {
-  background: #6366F1;
+  background: var(--color-algebra);
 }
 
 .skills__legend-dot--geometri {
-  background: #10B981;
+  background: var(--color-geometri);
 }
 
 .skills__legend-dot--statistik {
-  background: #F59E0B;
+  background: var(--color-statistik);
 }
 
 .skills__legend-divider {
@@ -309,7 +309,7 @@
   font-family: var(--font-display);
   font-size: 12px;
   font-weight: 700;
-  color: #3F3F46;
+  color: var(--color-text);
   letter-spacing: -0.01em;
 }
 
@@ -317,7 +317,7 @@
   font-family: var(--font-sans);
   font-size: 10px;
   font-weight: 500;
-  color: #71717A;
+  color: var(--color-text-secondary);
 }
 
 .skills__zone-divider {
@@ -328,8 +328,8 @@
   height: 1px;
   background: repeating-linear-gradient(
     90deg,
-    #D4D4D8 0px,
-    #D4D4D8 6px,
+    var(--color-border) 0px,
+    var(--color-border) 6px,
     transparent 6px,
     transparent 10px
   );
@@ -745,8 +745,8 @@
 }
 
 .skills__overlay-node--locked {
-  background: #F5F3F0;
-  border-color: #E0DED8;
+  background: var(--color-bg-subtle);
+  border-color: var(--color-border);
 }
 
 .skills__overlay-check {
@@ -858,8 +858,8 @@
 }
 
 .skill-modal__dag-node--locked .skill-modal__dag-node-inner {
-  background: #F8F6F3;
-  border-color: #E5E2DD;
+  background: var(--color-bg-subtle);
+  border-color: var(--color-border);
 }
 
 .skill-modal__dag-node--locked .skill-modal__dag-node-inner span {
@@ -1257,7 +1257,7 @@
 }
 
 .skill-modal__btn--success {
-  background: linear-gradient(135deg, #34C759, #30B350);
+  background: linear-gradient(135deg, var(--color-success), #30B350);
   color: white;
   box-shadow: 0 4px 14px rgba(52, 199, 89, 0.35);
 }

@@ -16,7 +16,7 @@ public class AgentConfigurationTests
 
         config.ApiKey.Should().BeEmpty();
         config.ModelId.Should().Be("gpt-4");
-        config.MaxTokens.Should().Be(4096);
+        config.MaxTokens.Should().Be(8192);
         config.Temperature.Should().Be(0.7);
         config.MaxRetries.Should().Be(3);
         config.TimeoutSeconds.Should().Be(120);

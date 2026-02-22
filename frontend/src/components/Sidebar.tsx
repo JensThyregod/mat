@@ -49,7 +49,7 @@ export const Sidebar = ({
       })}
       initial={{ x: -20, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
-      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] as const }}
     >
       {/* Brand */}
       <div className="sidebar__header">
@@ -94,7 +94,7 @@ export const Sidebar = ({
           >
             <motion.span
               animate={{ rotate: collapsed ? 180 : 0 }}
-              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] as const }}
             >
               ‹
             </motion.span>

@@ -101,7 +101,7 @@ export class OverslagGenerator extends LogicBasedGenerator {
         problemType,
         expression,
         answer,
-        options,
+        options: options.join(', '),
       }
     }
   }

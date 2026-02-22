@@ -28,7 +28,7 @@ const itemVariants = {
     y: 0,
     transition: {
       duration: 0.5,
-      ease: [0.22, 1, 0.36, 1],
+      ease: [0.22, 1, 0.36, 1] as const,
     },
   },
 }
@@ -220,7 +220,7 @@ export const DashboardView = observer(() => {
                         transition={{ 
                           duration: 1, 
                           delay: 0.3 + index * 0.1,
-                          ease: [0.22, 1, 0.36, 1]
+                          ease: [0.22, 1, 0.36, 1] as const
                         }}
                       />
                     </div>

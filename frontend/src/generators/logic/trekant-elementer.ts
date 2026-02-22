@@ -34,8 +34,6 @@ export class TrekantElementerGenerator extends LogicBasedGenerator {
     
     // Midpoints
     const midAB = { x: (A.x + B.x) / 2, y: (A.y + B.y) / 2 }
-    const midBC = { x: (B.x + C.x) / 2, y: (B.y + C.y) / 2 }
-    const midCA = { x: (C.x + A.x) / 2, y: (C.y + A.y) / 2 }
     
     // Foot of height from C to AB
     const footC = { x: C.x, y: A.y } // Since AB is horizontal

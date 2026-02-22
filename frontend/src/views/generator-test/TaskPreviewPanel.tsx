@@ -102,7 +102,7 @@ export function TaskPreviewPanel({
                 )}
               </button>
             </div>
-            <GeneratedTaskPreview task={task as any} showAnswers={showAnswers} />
+            <GeneratedTaskPreview task={task as TaskInstance} showAnswers={showAnswers} />
           </div>
         ))}
       </div>

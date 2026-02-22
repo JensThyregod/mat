@@ -94,7 +94,7 @@ const QUESTION_TEMPLATES: QuestionTemplate[] = [
   
   // Median reading
   {
-    generate: (context, measure, datasets, datasetNames, rng) => {
+    generate: (_context, _measure, datasets, datasetNames, rng) => {
       const name = rng.pick(datasetNames)
       return {
         text: `Hvad er medianen for ${name}?`,
@@ -106,7 +106,7 @@ const QUESTION_TEMPLATES: QuestionTemplate[] = [
   
   // Q1 reading
   {
-    generate: (context, measure, datasets, datasetNames, rng) => {
+    generate: (_context, _measure, datasets, datasetNames, rng) => {
       const name = rng.pick(datasetNames)
       return {
         text: `Hvad er nedre kvartil (Q1) for ${name}?`,
@@ -118,7 +118,7 @@ const QUESTION_TEMPLATES: QuestionTemplate[] = [
   
   // Q3 reading
   {
-    generate: (context, measure, datasets, datasetNames, rng) => {
+    generate: (_context, _measure, datasets, datasetNames, rng) => {
       const name = rng.pick(datasetNames)
       return {
         text: `Hvad er øvre kvartil (Q3) for ${name}?`,
@@ -135,7 +135,7 @@ const QUESTION_TEMPLATES: QuestionTemplate[] = [
   // "I hvilken [context] har 75% af observationerne en værdi OVER [value]?"
   // Answer: The one where Q1 equals that value (25% below Q1, 75% above)
   {
-    generate: (context, measure, datasets, datasetNames) => {
+    generate: (context, _measure, datasets, _datasetNames) => {
       // Find a Q1 value that is unique
       const q1Values = Object.entries(datasets).map(([name, d]) => ({ name, value: d.q1 }))
       const uniqueQ1s = q1Values.filter(item => 
@@ -158,7 +158,7 @@ const QUESTION_TEMPLATES: QuestionTemplate[] = [
   // "I hvilken [context] har 25% af observationerne en værdi OVER [value]?"
   // Answer: The one where Q3 equals that value (75% below Q3, 25% above)
   {
-    generate: (context, measure, datasets, datasetNames) => {
+    generate: (context, _measure, datasets, _datasetNames) => {
       const q3Values = Object.entries(datasets).map(([name, d]) => ({ name, value: d.q3 }))
       const uniqueQ3s = q3Values.filter(item => 
         q3Values.filter(other => other.value === item.value).length === 1
@@ -179,7 +179,7 @@ const QUESTION_TEMPLATES: QuestionTemplate[] = [
   // "I hvilken [context] har 50% af observationerne en værdi under [value]?"
   // Answer: The one where median equals that value
   {
-    generate: (context, measure, datasets, datasetNames) => {
+    generate: (context, _measure, datasets, _datasetNames) => {
       const medianValues = Object.entries(datasets).map(([name, d]) => ({ name, value: d.median }))
       const uniqueMedians = medianValues.filter(item => 
         medianValues.filter(other => other.value === item.value).length === 1
@@ -199,7 +199,7 @@ const QUESTION_TEMPLATES: QuestionTemplate[] = [
   
   // "I hvilken [context] ligger de midterste 50% af observationerne mellem [Q1] og [Q3]?"
   {
-    generate: (context, measure, datasets, datasetNames) => {
+    generate: (context, _measure, datasets, _datasetNames) => {
       // Find a dataset with unique IQR boundaries
       const iqrBounds = Object.entries(datasets).map(([name, d]) => ({ 
         name, 
@@ -225,7 +225,7 @@ const QUESTION_TEMPLATES: QuestionTemplate[] = [
   
   // "Hvor mange [contexts] har mindst 75% af observationerne over [threshold]?"
   {
-    generate: (context, measure, datasets, datasetNames, rng) => {
+    generate: (context, _measure, datasets, datasetNames, rng) => {
       // Pick a threshold value that exists as a Q1
       const allQ1s = [...new Set(Object.values(datasets).map(d => d.q1))].sort((a, b) => a - b)
       if (allQ1s.length === 0) return null
@@ -250,7 +250,7 @@ const QUESTION_TEMPLATES: QuestionTemplate[] = [
   
   // "Hvor mange [contexts] har en median højere end [threshold]?"
   {
-    generate: (context, measure, datasets, datasetNames) => {
+    generate: (context, _measure, datasets, _datasetNames) => {
       // Find a median value to use as threshold
       const medians = Object.values(datasets).map(d => d.median).sort((a, b) => a - b)
       // Use a value that's not the highest or lowest median
@@ -273,7 +273,7 @@ const QUESTION_TEMPLATES: QuestionTemplate[] = [
   
   // Highest median (with uniqueness check)
   {
-    generate: (context, measure, datasets) => {
+    generate: (context, _measure, datasets) => {
       const medians = Object.entries(datasets).map(([n, d]) => ({ name: n, value: d.median }))
       const winner = findUniqueExtreme(medians, 'max')
       if (!winner) return null
@@ -288,7 +288,7 @@ const QUESTION_TEMPLATES: QuestionTemplate[] = [
   
   // Lowest median (with uniqueness check)
   {
-    generate: (context, measure, datasets) => {
+    generate: (context, _measure, datasets) => {
       const medians = Object.entries(datasets).map(([n, d]) => ({ name: n, value: d.median }))
       const winner = findUniqueExtreme(medians, 'min')
       if (!winner) return null
@@ -303,7 +303,7 @@ const QUESTION_TEMPLATES: QuestionTemplate[] = [
   
   // Largest range (with uniqueness check)
   {
-    generate: (context, measure, datasets) => {
+    generate: (context, _measure, datasets) => {
       const ranges = Object.entries(datasets).map(([n, d]) => ({ name: n, value: d.max - d.min }))
       const winner = findUniqueExtreme(ranges, 'max')
       if (!winner) return null
@@ -318,7 +318,7 @@ const QUESTION_TEMPLATES: QuestionTemplate[] = [
   
   // Smallest range (with uniqueness check)
   {
-    generate: (context, measure, datasets) => {
+    generate: (context, _measure, datasets) => {
       const ranges = Object.entries(datasets).map(([n, d]) => ({ name: n, value: d.max - d.min }))
       const winner = findUniqueExtreme(ranges, 'min')
       if (!winner) return null
@@ -333,7 +333,7 @@ const QUESTION_TEMPLATES: QuestionTemplate[] = [
   
   // Largest IQR (with uniqueness check)
   {
-    generate: (context, measure, datasets) => {
+    generate: (context, _measure, datasets) => {
       const iqrs = Object.entries(datasets).map(([n, d]) => ({ name: n, value: d.q3 - d.q1 }))
       const winner = findUniqueExtreme(iqrs, 'max')
       if (!winner) return null
@@ -348,7 +348,7 @@ const QUESTION_TEMPLATES: QuestionTemplate[] = [
   
   // Smallest IQR (with uniqueness check)
   {
-    generate: (context, measure, datasets) => {
+    generate: (context, _measure, datasets) => {
       const iqrs = Object.entries(datasets).map(([n, d]) => ({ name: n, value: d.q3 - d.q1 }))
       const winner = findUniqueExtreme(iqrs, 'min')
       if (!winner) return null
@@ -363,7 +363,7 @@ const QUESTION_TEMPLATES: QuestionTemplate[] = [
   
   // Highest max value (with uniqueness check)
   {
-    generate: (context, measure, datasets) => {
+    generate: (context, _measure, datasets) => {
       const maxes = Object.entries(datasets).map(([n, d]) => ({ name: n, value: d.max }))
       const winner = findUniqueExtreme(maxes, 'max')
       if (!winner) return null
@@ -378,7 +378,7 @@ const QUESTION_TEMPLATES: QuestionTemplate[] = [
   
   // Lowest min value (with uniqueness check)
   {
-    generate: (context, measure, datasets) => {
+    generate: (context, _measure, datasets) => {
       const mins = Object.entries(datasets).map(([n, d]) => ({ name: n, value: d.min }))
       const winner = findUniqueExtreme(mins, 'min')
       if (!winner) return null
@@ -397,7 +397,7 @@ const QUESTION_TEMPLATES: QuestionTemplate[] = [
   
   // Variationsbredde
   {
-    generate: (context, measure, datasets, datasetNames, rng) => {
+    generate: (_context, measure, datasets, datasetNames, rng) => {
       const name = rng.pick(datasetNames)
       const range = datasets[name].max - datasets[name].min
       return {
@@ -411,7 +411,7 @@ const QUESTION_TEMPLATES: QuestionTemplate[] = [
   
   // IQR
   {
-    generate: (context, measure, datasets, datasetNames, rng) => {
+    generate: (_context, _measure, datasets, datasetNames, rng) => {
       const name = rng.pick(datasetNames)
       const iqr = datasets[name].q3 - datasets[name].q1
       return {
@@ -424,7 +424,7 @@ const QUESTION_TEMPLATES: QuestionTemplate[] = [
   
   // Difference in medians
   {
-    generate: (context, measure, datasets, datasetNames, rng) => {
+    generate: (_context, _measure, datasets, datasetNames, rng) => {
       if (datasetNames.length < 2) return null
       const [name1, name2] = rng.shuffle([...datasetNames]).slice(0, 2)
       const diff = Math.abs(datasets[name1].median - datasets[name2].median)
@@ -610,7 +610,7 @@ export class BoksplotGenerator extends LogicBasedGenerator {
       variables: { 
         context: context.name,
         measure: measure.name,
-        datasets: datasetNames,
+        datasets: datasetNames.join(', '),
         numDatasets
       }
     }

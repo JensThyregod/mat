@@ -92,7 +92,7 @@ export class RegnehierarkiGenerator extends LogicBasedGenerator {
       title: 'Regnearternes hierarki',
       intro: 'Beregn følgende udtryk. Husk at bruge regnearternes rækkefølge.',
       figure: null,
-      questions: expressions.map((e, i) => ({
+      questions: expressions.map((e) => ({
         text: `Beregn \\(${e.expr}\\)`,
         answer: String(e.answer),
         answer_type: 'number' as const,

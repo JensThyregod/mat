@@ -87,7 +87,7 @@ export function generateProjectionGrid(
       gridWidth = bounds.maxX - bounds.minX + 1
       gridHeight = bounds.maxZ - bounds.minZ + 1
       filled = new Set(
-        cubes.map(([x, _, z]) => `${x - bounds.minX},${bounds.maxZ - z}`)
+        cubes.map(([x, , z]) => `${x - bounds.minX},${bounds.maxZ - z}`)
       )
       break
       
@@ -96,7 +96,7 @@ export function generateProjectionGrid(
       gridWidth = bounds.maxX - bounds.minX + 1
       gridHeight = bounds.maxY - bounds.minY + 1
       filled = new Set(
-        cubes.map(([x, y, _]) => `${x - bounds.minX},${bounds.maxY - y}`)
+        cubes.map(([x, y]) => `${x - bounds.minX},${bounds.maxY - y}`)
       )
       break
       
@@ -105,7 +105,7 @@ export function generateProjectionGrid(
       gridWidth = bounds.maxZ - bounds.minZ + 1
       gridHeight = bounds.maxY - bounds.minY + 1
       filled = new Set(
-        cubes.map(([_, y, z]) => `${z - bounds.minZ},${bounds.maxY - y}`)
+        cubes.map(([, y, z]) => `${z - bounds.minZ},${bounds.maxY - y}`)
       )
       break
   }

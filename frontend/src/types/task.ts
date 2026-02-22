@@ -8,4 +8,6 @@ export type Task = {
   tags: string[]
   difficulty: LegacyDifficulty
   dueAt?: string
+  /** Task type for categorization (e.g. stat_boksplot, tal_ligninger) */
+  type?: string
 }

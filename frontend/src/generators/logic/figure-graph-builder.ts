@@ -8,7 +8,7 @@
  * 4. Setting up targets (the areas we want to compute)
  */
 
-import type { CompositeFigure, Shape, Edge } from './sammensat-figur'
+import type { CompositeFigure, Edge } from './sammensat-figur'
 import {
   createGraph,
   addQuantity,
@@ -64,16 +64,6 @@ function areParallel(e1: Edge, e2: Edge): boolean {
   const cross = dx1 * dy2 - dy1 * dx2
   return Math.abs(cross) < EPSILON * Math.max(edgeLength(e1), edgeLength(e2))
 }
-
-/**
- * Check if two edges have the same length
- */
-function haveSameLength(e1: Edge, e2: Edge): boolean {
-  const len1 = edgeLength(e1)
-  const len2 = edgeLength(e2)
-  return Math.abs(len1 - len2) < EPSILON
-}
-
 
 // ════════════════════════════════════════════════════════════════
 // QUANTITY ID GENERATORS
@@ -220,8 +210,6 @@ function addShapeRules(graph: DerivationGraph, figure: CompositeFigure): void {
  * Check if two edges share any vertex (are adjacent)
  */
 function edgesShareVertex(e1: Edge, e2: Edge): boolean {
-  const points = [e1.p1, e1.p2, e2.p1, e2.p2]
-  
   // Check if any point from e1 matches any point from e2
   for (const p1 of [e1.p1, e1.p2]) {
     for (const p2 of [e2.p1, e2.p2]) {
@@ -539,7 +527,7 @@ function addAreaRules(graph: DerivationGraph, figure: CompositeFigure): void {
 /**
  * Set up the target quantities (what we want to compute)
  */
-function setupTargets(graph: DerivationGraph, figure: CompositeFigure): void {
+function setupTargets(graph: DerivationGraph, _figure: CompositeFigure): void {
   // The main target is total area
   addTarget(graph, 'total_area')
   

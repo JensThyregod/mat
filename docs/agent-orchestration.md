@@ -196,7 +196,6 @@ flowchart TD
     BatchTaskGeneratorAgent(["BatchTaskGeneratorAgent<br/>Generate a complete task from each brainstormed concept"])
     VisualizationAgent(["VisualizationAgent<br/>Create SVG/TikZ visualization for geometry/statistics tasks<br/>(optional)"])
     ImageGenerationAgent(["ImageGenerationAgent<br/>Generate illustrative image via Gemini (background)<br/>(optional, background)"])
-    EvaluationAgent["EvaluationAgent<br/>Evaluate terminsprøve quality and provide agent-level feedback"]
 
     subgraph parallel_VisualizationAgent ["Parallel"]
         VisualizationAgent
@@ -207,9 +206,6 @@ flowchart TD
     TopicBrainstormAgent --> BatchTaskGeneratorAgent
     BatchTaskGeneratorAgent -.-> VisualizationAgent
     BatchTaskGeneratorAgent -.->|"background"| ImageGenerationAgent
-    BatchTaskGeneratorAgent --> EvaluationAgent
-    VisualizationAgent --> EvaluationAgent
-    ImageGenerationAgent --> EvaluationAgent
 ```
 
 <!-- END AUTO-GENERATED PIPELINE DIAGRAMS -->

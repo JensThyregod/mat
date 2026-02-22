@@ -73,7 +73,7 @@ export class AlgebraiskeUdtrykGenerator extends LogicBasedGenerator {
     
     const pairs = this.generateExpressionPairs(rng)
     
-    const questions = pairs.map((pair, i) => {
+    const questions = pairs.map((pair, _i) => {
       // Pick one equivalent and two non-equivalents
       const correct = rng.pick(pair.equivalents)
       const wrongs = rng.shuffle(pair.nonEquivalents).slice(0, 2)

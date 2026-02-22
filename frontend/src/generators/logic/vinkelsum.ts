@@ -34,13 +34,14 @@ export class VinkelsumGenerator extends LogicBasedGenerator {
         angleB = 90 - angleA
         break
         
-      case 'stumpvinklet':
+      case 'stumpvinklet': {
         // One angle > 90°
         angleC = rng.int(91, 140)
         const remaining = 180 - angleC
         angleA = rng.int(Math.max(10, Math.floor(remaining / 4)), Math.floor(remaining / 2))
         angleB = remaining - angleA
         break
+      }
         
       case 'spidsvinklet':
       default:

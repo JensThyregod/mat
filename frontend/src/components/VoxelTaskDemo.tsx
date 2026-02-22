@@ -37,6 +37,7 @@ export function VoxelTaskDemo() {
       showProjections: ['top', 'front', 'side'],
       shuffleOptions: true,
     }, renderOptions)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [difficulty, taskKey])
 
   const handleNewTask = () => {

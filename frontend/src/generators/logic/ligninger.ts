@@ -80,7 +80,12 @@ export class LigningerGenerator extends LogicBasedGenerator {
           accept_alternatives: [`x = ${x}`, `x=${x}`],
         }
       ],
-      variables: { a, b, c, x }
+      variables: {
+        ...(a !== undefined && { a }),
+        ...(b !== undefined && { b }),
+        c,
+        x
+      }
     }
   }
 }

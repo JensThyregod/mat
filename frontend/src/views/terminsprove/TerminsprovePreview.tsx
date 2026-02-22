@@ -35,7 +35,7 @@ export function ExamCanvas({
       exit={{ opacity: 0, y: 20 }}
       transition={{
         duration: 0.6,
-        ease: [0.22, 1, 0.36, 1],
+        ease: [0.22, 1, 0.36, 1] as const,
         scale: { duration: 0.5 }
       }}
     >
@@ -180,7 +180,7 @@ function ExamTaskCard({ canvasTask }: { canvasTask: CanvasTask }) {
           className="terminsprove__exam-task-body"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] as const }}
         >
           {displayText && (
             <p className="terminsprove__exam-task-context">{displayText}</p>
@@ -197,7 +197,7 @@ function ExamTaskCard({ canvasTask }: { canvasTask: CanvasTask }) {
               className="terminsprove__exam-task-image"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] as const }}
             >
               <img
                 src={`${API_BASE_URL}${canvasTask.imageUrl}`}

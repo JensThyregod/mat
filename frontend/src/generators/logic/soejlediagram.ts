@@ -73,7 +73,6 @@ export class SoejlediagramGenerator extends LogicBasedGenerator {
     let maxVal = 0
     let minVal = Infinity
     let maxCat = ''
-    let minCat = ''
     
     for (const cat of categories) {
       const value = rng.int(1, 15)
@@ -86,7 +85,6 @@ export class SoejlediagramGenerator extends LogicBasedGenerator {
       }
       if (value < minVal) {
         minVal = value
-        minCat = cat
       }
     }
     
@@ -137,7 +135,7 @@ export class SoejlediagramGenerator extends LogicBasedGenerator {
       ],
       variables: { 
         context: context.name,
-        categories,
+        categories: categories.join(', '),
         sum,
         average: averageStr
       }

@@ -1,5 +1,5 @@
 ---
-description: Backend conventions for the Mat .NET Clean Architecture application
+description: Backend conventions for the Mat Tutor .NET Clean Architecture application
 globs: backend/**/*.cs
 alwaysApply: false
 ---

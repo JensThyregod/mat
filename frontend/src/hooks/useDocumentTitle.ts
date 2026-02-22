@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-const BASE_TITLE = 'TaskLab · Math Edition'
+const BASE_TITLE = 'Mat Tutor'
 
 export function useDocumentTitle(title?: string) {
   useEffect(() => {

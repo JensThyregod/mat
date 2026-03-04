@@ -82,11 +82,17 @@ resource "scaleway_container" "backend" {
     "Gemini__ModelId"                 = "gemini-3-pro-image-preview"
     "Gemini__ImageGenerationEnabled"  = "false"
     "Generation__FastMode"            = "true"
+    "Auth__FrontendUrl"               = "https://${var.domain_name}"
+    "ScalewayTem__Region"             = var.scw_region
+    "ScalewayTem__SenderEmail"        = "noreply@${var.domain_name}"
+    "ScalewayTem__SenderName"         = "Matematik Tutor"
+    "SCW_DEFAULT_PROJECT_ID"          = var.scw_project_id
   }
 
   secret_environment_variables = {
-    "OpenAI__ApiKey" = var.openai_api_key
-    "Gemini__ApiKey" = var.gemini_api_key
+    "OpenAI__ApiKey"        = var.openai_api_key
+    "Gemini__ApiKey"        = var.gemini_api_key
+    "ScalewayTem__SecretKey" = var.scw_secret_key
   }
 
   timeout = 600
@@ -131,6 +137,60 @@ resource "scaleway_container_domain" "frontend_www" {
 resource "scaleway_container_domain" "backend" {
   container_id = scaleway_container.backend.id
   hostname     = "${var.api_subdomain}.${var.domain_name}"
+}
+
+# ---------------------------------------------------------------------------
+# Transactional Email (TEM) — domain registration for sending verification emails
+# ---------------------------------------------------------------------------
+resource "scaleway_tem_domain" "main" {
+  name       = var.domain_name
+  accept_tos = true
+}
+
+# Scaleway requires this TXT record to prove domain ownership before TEM activation
+resource "cloudflare_record" "tem_domain_verification" {
+  zone_id = var.cloudflare_zone_id
+  name    = "_scaleway-challenge"
+  type    = "TXT"
+  content = var.scw_tem_domain_verification_token
+  ttl     = 3600
+}
+
+# ---------------------------------------------------------------------------
+# Cloudflare DNS records for email authentication (SPF, DKIM, MX, DMARC)
+# These ensure verification emails from noreply@mattutor.dk are delivered.
+# ---------------------------------------------------------------------------
+resource "cloudflare_record" "tem_spf" {
+  zone_id = var.cloudflare_zone_id
+  name    = var.domain_name
+  type    = "TXT"
+  content = "v=spf1 ${scaleway_tem_domain.main.spf_config} -all"
+  ttl     = 3600
+}
+
+resource "cloudflare_record" "tem_dkim" {
+  zone_id = var.cloudflare_zone_id
+  name    = "${scaleway_tem_domain.main.project_id}._domainkey.${var.domain_name}"
+  type    = "TXT"
+  content = scaleway_tem_domain.main.dkim_config
+  ttl     = 3600
+}
+
+resource "cloudflare_record" "tem_mx" {
+  zone_id  = var.cloudflare_zone_id
+  name     = var.domain_name
+  type     = "MX"
+  content  = "."
+  priority = 0
+  ttl      = 3600
+}
+
+resource "cloudflare_record" "tem_dmarc" {
+  zone_id = var.cloudflare_zone_id
+  name    = "_dmarc.${var.domain_name}"
+  type    = "TXT"
+  content = "v=DMARC1; p=none;"
+  ttl     = 3600
 }
 
 # ---------------------------------------------------------------------------

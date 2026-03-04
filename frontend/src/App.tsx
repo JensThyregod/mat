@@ -112,18 +112,18 @@ const App = observer(() => {
             <Route
               path="/skills"
               element={
-                <RequireAuth>
+                <RequireTestUser>
                   <SkillTreeView />
-                </RequireAuth>
+                </RequireTestUser>
               }
             />
             
             <Route
               path="/practice"
               element={
-                <RequireAuth>
+                <RequireTestUser>
                   <LigningerView />
-                </RequireAuth>
+                </RequireTestUser>
               }
             />
             <Route
@@ -143,9 +143,9 @@ const App = observer(() => {
             <Route
               path="/terminsprove"
               element={
-                <RequireTestUser>
+                <RequireAuth>
                   <TerminsproveGeneratorView />
-                </RequireTestUser>
+                </RequireAuth>
               }
             />
             

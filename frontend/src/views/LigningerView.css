@@ -33,10 +33,9 @@
   /* Break out of page container for full-bleed dark theme */
   position: relative;
   min-height: calc(100vh - 120px);
-  padding: 40px 24px 80px;
-  margin: -32px calc(-50vw + 50%);
-  margin-bottom: -80px;
-  width: 100vw;
+  padding: 40px clamp(var(--space-4), 4vw, var(--space-12)) 80px;
+  margin: calc(-1 * var(--space-8)) calc(-1 * clamp(var(--space-4), 4vw, var(--space-12)));
+  margin-bottom: calc(-1 * var(--space-20));
   background: var(--eq-bg);
   overflow: hidden;
 }

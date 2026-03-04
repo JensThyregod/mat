@@ -43,7 +43,7 @@
 }
 
 .dashboard__greeting-name {
-  font-size: var(--text-4xl);
+  font-size: clamp(var(--text-3xl), 4vw, var(--text-4xl));
   font-weight: 900;
   letter-spacing: -0.03em;
   background: linear-gradient(135deg, var(--color-text) 0%, var(--color-text-secondary) 100%);
@@ -148,7 +148,7 @@
 
 .dashboard__quick-actions {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
   gap: var(--space-4);
 }
 
@@ -216,7 +216,7 @@
 
 .dashboard__categories {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
   gap: var(--space-4);
 }
 

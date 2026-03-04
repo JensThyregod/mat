@@ -5,23 +5,29 @@ using Microsoft.Extensions.Logging;
 
 namespace MatBackend.Infrastructure.Services;
 
-public class BrevoEmailService : IEmailService
+public class ScalewayEmailService : IEmailService
 {
     private readonly HttpClient _httpClient;
-    private readonly string _apiKey;
+    private readonly string _secretKey;
+    private readonly string _projectId;
+    private readonly string _region;
     private readonly string _senderEmail;
     private readonly string _senderName;
-    private readonly ILogger<BrevoEmailService> _logger;
+    private readonly ILogger<ScalewayEmailService> _logger;
 
-    public BrevoEmailService(
+    public ScalewayEmailService(
         HttpClient httpClient,
-        string apiKey,
+        string secretKey,
+        string projectId,
+        string region,
         string senderEmail,
         string senderName,
-        ILogger<BrevoEmailService> logger)
+        ILogger<ScalewayEmailService> logger)
     {
         _httpClient = httpClient;
-        _apiKey = apiKey;
+        _secretKey = secretKey;
+        _projectId = projectId;
+        _region = region;
         _senderEmail = senderEmail;
         _senderName = senderName;
         _logger = logger;
@@ -33,29 +39,31 @@ public class BrevoEmailService : IEmailService
 
         var payload = new
         {
-            sender = new { name = _senderName, email = _senderEmail },
-            to = new[] { new { email = toEmail, name = studentName } },
+            from = new { name = _senderName, email = _senderEmail },
+            to = new[] { new { name = studentName, email = toEmail } },
             subject = "Bekræft din email — Matematik Tutor",
-            htmlContent
+            html = htmlContent,
+            project_id = _projectId
         };
 
         var json = JsonSerializer.Serialize(payload);
-        var request = new HttpRequestMessage(HttpMethod.Post, "https://api.brevo.com/v3/smtp/email")
+        var endpoint = $"https://api.scaleway.com/transactional-email/v1alpha1/regions/{_region}/emails";
+        var request = new HttpRequestMessage(HttpMethod.Post, endpoint)
         {
             Content = new StringContent(json, Encoding.UTF8, "application/json")
         };
-        request.Headers.Add("api-key", _apiKey);
+        request.Headers.Add("X-Auth-Token", _secretKey);
 
         var response = await _httpClient.SendAsync(request);
 
         if (!response.IsSuccessStatusCode)
         {
             var body = await response.Content.ReadAsStringAsync();
-            _logger.LogError("Brevo API error {Status}: {Body}", response.StatusCode, body);
+            _logger.LogError("Scaleway TEM API error {Status}: {Body}", response.StatusCode, body);
             throw new InvalidOperationException($"Failed to send verification email: {response.StatusCode}");
         }
 
-        _logger.LogInformation("Verification email sent to {Email}", toEmail);
+        _logger.LogInformation("Verification email sent to {Email} via Scaleway TEM", toEmail);
     }
 
     private static string BuildVerificationHtml(string studentName, string verificationUrl)

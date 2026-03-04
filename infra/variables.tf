@@ -156,3 +156,8 @@ variable "api_subdomain" {
   type        = string
   default     = "api"
 }
+
+variable "scw_tem_domain_verification_token" {
+  description = "Scaleway TEM domain ownership verification token (from the verification email)"
+  type        = string
+}

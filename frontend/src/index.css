@@ -219,7 +219,7 @@ a {
   flex-direction: row;
 }
 
-.app-shell--with-sidebar .main-content {
+.main-content {
   flex: 1;
   min-width: 0;
   display: flex;
@@ -231,7 +231,7 @@ a {
   width: 100%;
   max-width: var(--content-max-width);
   margin: 0 auto;
-  padding: var(--space-8) var(--space-6);
+  padding: var(--space-8) clamp(var(--space-4), 4vw, var(--space-12));
   padding-bottom: var(--space-20);
 }
 
@@ -486,7 +486,7 @@ p {
 }
 
 .grid.columns-2 {
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
 }
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -2369,7 +2369,7 @@ textarea:focus-visible {
 .testlab {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 24px 80px;
+  padding: 0 0 80px;
 }
 
 /* Hero Header */

@@ -11,7 +11,9 @@ export class AuthStore {
   error: string | null = null
   successMessage: string | null = null
   emailNotVerified = false
+  resendCooldown = 0
   private root: RootStore
+  private cooldownTimer: ReturnType<typeof setInterval> | null = null
 
   constructor(root: RootStore) {
     makeAutoObservable(this)
@@ -125,15 +127,40 @@ export class AuthStore {
       runInAction(() => {
         this.successMessage = 'Ny bekræftelses-email sendt! Tjek din indbakke.'
         this.loading = false
+        this.startCooldown(60)
       })
       return true
-    } catch {
+    } catch (err: unknown) {
       runInAction(() => {
-        this.error = 'Kunne ikke sende email. Tjek brugernavn og kode.'
+        const message = err instanceof Error ? err.message : String(err)
+        if (message.includes('429')) {
+          this.emailNotVerified = true
+          this.error = 'Vent venligst før du sender en ny bekræftelses-email.'
+          this.startCooldown(60)
+        } else {
+          this.error = 'Kunne ikke sende email. Prøv igen.'
+        }
         this.loading = false
       })
       return false
     }
+  }
+
+  private startCooldown(seconds: number) {
+    if (this.cooldownTimer) clearInterval(this.cooldownTimer)
+    this.resendCooldown = seconds
+    this.cooldownTimer = setInterval(() => {
+      runInAction(() => {
+        this.resendCooldown--
+        if (this.resendCooldown <= 0) {
+          this.resendCooldown = 0
+          if (this.cooldownTimer) {
+            clearInterval(this.cooldownTimer)
+            this.cooldownTimer = null
+          }
+        }
+      })
+    }, 1000)
   }
 
   logout() {

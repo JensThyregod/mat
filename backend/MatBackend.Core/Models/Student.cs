@@ -10,6 +10,7 @@ public class Student
     public bool EmailVerified { get; set; }
     public string? VerificationToken { get; set; }
     public DateTime? VerificationTokenExpiry { get; set; }
+    public DateTime? LastVerificationEmailSent { get; set; }
     public List<Skill> Skills { get; set; } = new();
 }
 

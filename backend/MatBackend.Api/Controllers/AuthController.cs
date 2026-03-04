@@ -84,6 +84,8 @@ public class AuthController : ControllerBase
         try
         {
             await _emailService.SendVerificationEmailAsync(email, name, verificationUrl);
+            student.LastVerificationEmailSent = DateTime.UtcNow;
+            await _studentRepository.UpdateStudentAsync(student);
         }
         catch (Exception ex)
         {
@@ -226,6 +228,22 @@ public class AuthController : ControllerBase
             return Ok(new { message = "Email er allerede bekræftet." });
         }
 
+        if (student.LastVerificationEmailSent.HasValue)
+        {
+            var elapsed = DateTime.UtcNow - student.LastVerificationEmailSent.Value;
+            var cooldown = TimeSpan.FromSeconds(60);
+            if (elapsed < cooldown)
+            {
+                var remaining = (int)Math.Ceiling((cooldown - elapsed).TotalSeconds);
+                return StatusCode(429, new ProblemDetails
+                {
+                    Title = "For mange forsøg",
+                    Detail = $"Vent {remaining} sekunder før du sender en ny bekræftelses-email.",
+                    Extensions = { ["retryAfterSeconds"] = remaining }
+                });
+            }
+        }
+
         var token = GenerateVerificationToken();
         student.VerificationToken = token;
         student.VerificationTokenExpiry = DateTime.UtcNow.AddHours(24);
@@ -235,6 +253,9 @@ public class AuthController : ControllerBase
         var verificationUrl = $"{frontendUrl}/verify-email?token={token}";
 
         await _emailService.SendVerificationEmailAsync(student.Email, student.Name, verificationUrl);
+
+        student.LastVerificationEmailSent = DateTime.UtcNow;
+        await _studentRepository.UpdateStudentAsync(student);
 
         return Ok(new { message = "Ny bekræftelses-email sendt." });
     }

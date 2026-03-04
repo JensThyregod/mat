@@ -241,9 +241,11 @@ export const LoginView = observer(() => {
                           type="button"
                           className="auth__resend-link"
                           onClick={handleResend}
-                          disabled={authStore.loading}
+                          disabled={authStore.loading || authStore.resendCooldown > 0}
                         >
-                          Send bekræftelses-email igen
+                          {authStore.resendCooldown > 0
+                            ? `Vent ${authStore.resendCooldown}s...`
+                            : 'Send bekræftelses-email igen'}
                         </button>
                       )}
                     </motion.div>

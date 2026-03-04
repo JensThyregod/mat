@@ -23,7 +23,7 @@ builder.Services.AddCors(options =>
         policy.SetIsOriginAllowed(origin =>
             {
                 var host = new Uri(origin).Host;
-                return host == "localhost" || host.EndsWith(".scw.cloud");
+                return host == "localhost" || host.EndsWith(".scw.cloud") || host == "mattutor.dk" || host.EndsWith(".mattutor.dk");
             })
             .AllowAnyMethod()
             .AllowAnyHeader()
@@ -42,19 +42,21 @@ builder.Services.AddScoped<ITerminsproveRepository>(provider => new FileTerminsp
 builder.Services.AddScoped<IEvaluationService, EvaluationService>();
 builder.Services.AddScoped<ISkillService, SkillService>();
 
-// Email verification (Brevo)
-var brevoApiKey = builder.Configuration["Brevo:ApiKey"] ?? Environment.GetEnvironmentVariable("BREVO_API_KEY") ?? "";
-var brevoSenderEmail = builder.Configuration["Brevo:SenderEmail"] ?? "noreply@mattutor.dk";
-var brevoSenderName = builder.Configuration["Brevo:SenderName"] ?? "Matematik Tutor";
-builder.Services.AddHttpClient("Brevo");
+// Email verification (Scaleway TEM)
+var scwSecretKey = builder.Configuration["ScalewayTem:SecretKey"] ?? Environment.GetEnvironmentVariable("SCW_SECRET_KEY") ?? "";
+var scwProjectId = builder.Configuration["ScalewayTem:ProjectId"] ?? Environment.GetEnvironmentVariable("SCW_DEFAULT_PROJECT_ID") ?? "";
+var scwRegion = builder.Configuration["ScalewayTem:Region"] ?? "fr-par";
+var temSenderEmail = builder.Configuration["ScalewayTem:SenderEmail"] ?? "noreply@mattutor.dk";
+var temSenderName = builder.Configuration["ScalewayTem:SenderName"] ?? "Matematik Tutor";
+builder.Services.AddHttpClient("ScalewayTem");
 builder.Services.AddScoped<IEmailService>(provider =>
 {
     var httpClientFactory = provider.GetRequiredService<IHttpClientFactory>();
-    var httpClient = httpClientFactory.CreateClient("Brevo");
-    var logger = provider.GetRequiredService<ILogger<BrevoEmailService>>();
-    return new BrevoEmailService(httpClient, brevoApiKey, brevoSenderEmail, brevoSenderName, logger);
+    var httpClient = httpClientFactory.CreateClient("ScalewayTem");
+    var logger = provider.GetRequiredService<ILogger<ScalewayEmailService>>();
+    return new ScalewayEmailService(httpClient, scwSecretKey, scwProjectId, scwRegion, temSenderEmail, temSenderName, logger);
 });
-Console.WriteLine($"📧 Brevo email: {(string.IsNullOrEmpty(brevoApiKey) ? "(no API key)" : "configured")}");
+Console.WriteLine($"📧 Scaleway TEM email: {(string.IsNullOrEmpty(scwSecretKey) ? "(no secret key)" : "configured")}");
 
 // Agent Configuration
 var agentConfig = new AgentConfiguration

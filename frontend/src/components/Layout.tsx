@@ -16,9 +16,9 @@ type LayoutProps = {
 const NAV_ITEMS: NavItem[] = [
   { path: '/dashboard', label: 'Hjem', icon: '🏠' },
   { path: '/tasks', label: 'Opgaver', icon: '📚' },
-  { path: '/skills', label: 'Færdigheder', icon: '⭐' },
-  { path: '/practice', label: 'Øvelse', icon: '✏️' },
-  { path: '/terminsprove', label: 'Terminsprøve', icon: '🤖', testOnly: true },
+  { path: '/skills', label: 'Færdigheder', icon: '⭐', testOnly: true },
+  { path: '/practice', label: 'Øvelse', icon: '✏️', testOnly: true },
+  { path: '/terminsprove', label: 'Terminsprøve', icon: '🤖' },
   { path: '/test-lab', label: 'Test Lab', icon: '🧪', testOnly: true },
 ]
 

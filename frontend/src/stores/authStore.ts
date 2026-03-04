@@ -87,6 +87,8 @@ export class AuthStore {
         const message = err instanceof Error ? err.message : String(err)
         if (message.includes('409')) {
           this.error = 'Brugernavn eller email er allerede i brug.'
+        } else if (message && !message.startsWith('API ')) {
+          this.error = message
         } else {
           this.error = 'Noget gik galt. Prøv igen.'
         }

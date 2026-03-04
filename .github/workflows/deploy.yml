@@ -94,7 +94,7 @@ jobs:
             ${{ secrets.SCW_REGISTRY_ENDPOINT }}/mat-frontend:${{ env.IMAGE_TAG }}
             ${{ secrets.SCW_REGISTRY_ENDPOINT }}/mat-frontend:latest
           build-args: |
-            VITE_API_BASE_URL=https://${{ secrets.API_DOMAIN }}
+            VITE_API_BASE_URL=https://${{ secrets.API_DOMAIN }}/api
           cache-from: type=gha
           cache-to: type=gha,mode=max
 

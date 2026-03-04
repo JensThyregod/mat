@@ -13,6 +13,7 @@ variable "scw_secret_key" {
 variable "scw_project_id" {
   description = "Scaleway project ID"
   type        = string
+  default     = "9dc503c8-9b60-4767-89c8-912c90571835"
 }
 
 variable "scw_region" {
@@ -129,19 +130,19 @@ variable "cloudflare_api_token" {
 variable "cloudflare_zone_id" {
   description = "Cloudflare Zone ID for the domain"
   type        = string
-  default     = ""
+  default     = "662199342d99eb38732a47dff69e9b94"
 }
 
 variable "restrict_access" {
   description = "When true, only IPs in allowed_ips can reach the site (dev lockdown)"
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "allowed_ips" {
   description = "List of IPv4 addresses allowed to access the site when restrict_access is true"
   type        = list(string)
-  default     = []
+  default     = ["188.177.32.198"]
 }
 
 # Domain configuration
@@ -160,4 +161,5 @@ variable "api_subdomain" {
 variable "scw_tem_domain_verification_token" {
   description = "Scaleway TEM domain ownership verification token (from the verification email)"
   type        = string
+  default     = "61d72919-6f40-44cb-880d-04ebcda792f5"
 }

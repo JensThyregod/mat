@@ -6,6 +6,10 @@ terraform {
       source  = "scaleway/scaleway"
       version = "~> 2.46"
     }
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "~> 4.0"
+    }
   }
 
   backend "s3" {
@@ -27,6 +31,10 @@ provider "scaleway" {
   project_id = var.scw_project_id
   region     = var.scw_region
   zone       = var.scw_zone
+}
+
+provider "cloudflare" {
+  api_token = var.cloudflare_api_token
 }
 
 # ---------------------------------------------------------------------------
@@ -123,4 +131,31 @@ resource "scaleway_container_domain" "frontend_www" {
 resource "scaleway_container_domain" "backend" {
   container_id = scaleway_container.backend.id
   hostname     = "${var.api_subdomain}.${var.domain_name}"
+}
+
+# ---------------------------------------------------------------------------
+# Cloudflare Firewall — restrict access to allowed IPs during development
+# Enable by setting restrict_access = true and providing allowed_ips.
+# Uses the legacy Firewall Rules API (works with Zone > Firewall Services).
+# ---------------------------------------------------------------------------
+locals {
+  ip_list = join(" ", var.allowed_ips)
+}
+
+resource "cloudflare_filter" "ip_restrict" {
+  count = var.restrict_access ? 1 : 0
+
+  zone_id     = var.cloudflare_zone_id
+  description = "Match requests NOT from allowed developer IPs"
+  expression  = "(not ip.src in {${local.ip_list}})"
+}
+
+resource "cloudflare_firewall_rule" "ip_restrict" {
+  count = var.restrict_access ? 1 : 0
+
+  zone_id     = var.cloudflare_zone_id
+  description = "Block all traffic except allowed developer IPs"
+  filter_id   = cloudflare_filter.ip_restrict[0].id
+  action      = "block"
+  priority    = 1
 }

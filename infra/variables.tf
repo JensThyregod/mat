@@ -116,6 +116,34 @@ variable "gemini_api_key" {
   default     = ""
 }
 
+# ---------------------------------------------------------------------------
+# Cloudflare — used for IP-based access restriction during development
+# ---------------------------------------------------------------------------
+variable "cloudflare_api_token" {
+  description = "Cloudflare API token with Zone.Firewall permissions"
+  type        = string
+  sensitive   = true
+  default     = ""
+}
+
+variable "cloudflare_zone_id" {
+  description = "Cloudflare Zone ID for the domain"
+  type        = string
+  default     = ""
+}
+
+variable "restrict_access" {
+  description = "When true, only IPs in allowed_ips can reach the site (dev lockdown)"
+  type        = bool
+  default     = false
+}
+
+variable "allowed_ips" {
+  description = "List of IPv4 addresses allowed to access the site when restrict_access is true"
+  type        = list(string)
+  default     = []
+}
+
 # Domain configuration
 variable "domain_name" {
   description = "Root domain name (e.g. mattutor.dk)"

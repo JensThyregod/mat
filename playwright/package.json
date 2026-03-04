@@ -1,7 +1,7 @@
 {
-  "name": "mat-playwright-tests",
+  "name": "mat-tutor-playwright-tests",
   "version": "1.0.0",
-  "description": "Playwright E2E tests for Mat task generator validation",
+  "description": "Playwright E2E tests for Mat Tutor task generator validation",
   "type": "module",
   "scripts": {
     "install": "playwright install chromium",

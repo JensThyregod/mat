@@ -1,6 +1,6 @@
-# Mat Playwright Test Suite
+# Mat Tutor Playwright Test Suite
 
-Automated E2E testing for the Mat task generator system. This test suite validates all 22 task generators through the Test Lab UI.
+Automated E2E testing for the Mat Tutor task generator system. This test suite validates all 22 task generators through the Test Lab UI.
 
 ## 🚀 Quick Start
 

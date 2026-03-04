@@ -1,4 +1,4 @@
-# Math Learning Platform
+# Mat Tutor
 
 A modern, procedural math learning platform built with React, TypeScript, and MobX.
 

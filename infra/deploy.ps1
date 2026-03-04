@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Build, push, and deploy the Mat application to Scaleway.
+    Build, push, and deploy the Mat Tutor application to Scaleway.
 
 .DESCRIPTION
     This script builds Docker images for the frontend and backend,

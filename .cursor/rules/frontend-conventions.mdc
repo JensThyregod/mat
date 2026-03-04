@@ -1,5 +1,5 @@
 ---
-description: Frontend conventions for the Mat React/TypeScript/MobX application
+description: Frontend conventions for the Mat Tutor React/TypeScript/MobX application
 globs: frontend/**/*.{ts,tsx,css}
 alwaysApply: false
 ---

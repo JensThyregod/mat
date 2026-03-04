@@ -27,6 +27,9 @@ function createMockApi(overrides: Partial<ApiClient> = {}): ApiClient {
       parts: {},
       updatedAt: new Date().toISOString(),
     }),
+    signupStudent: vi.fn().mockResolvedValue({ message: 'ok', studentId: 's1' }),
+    verifyEmail: vi.fn().mockResolvedValue({ id: 's1', name: 'Test', code: 'abc', emailVerified: true }),
+    resendVerification: vi.fn().mockResolvedValue(undefined),
     ...overrides,
   }
 }

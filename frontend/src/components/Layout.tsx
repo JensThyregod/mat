@@ -3,7 +3,6 @@ import { useLocation } from 'react-router-dom'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { Sidebar, type NavItem } from './Sidebar'
 import { TabBar, type TabBarItem } from './TabBar'
-import { MathParticles } from './MathParticles'
 
 type LayoutProps = {
   children: React.ReactNode
@@ -15,7 +14,7 @@ type LayoutProps = {
 
 // Navigation items - shared between Sidebar and TabBar
 const NAV_ITEMS: NavItem[] = [
-  { path: '/', label: 'Hjem', icon: '🏠' },
+  { path: '/dashboard', label: 'Hjem', icon: '🏠' },
   { path: '/tasks', label: 'Opgaver', icon: '📚' },
   { path: '/skills', label: 'Færdigheder', icon: '⭐' },
   { path: '/practice', label: 'Øvelse', icon: '✏️' },
@@ -33,7 +32,8 @@ const TAB_ITEMS: TabBarItem[] = NAV_ITEMS.map(item => ({
 
 // Page color themes for ambient background
 const PAGE_THEMES: Record<string, { primary: string; secondary: string; accent: string }> = {
-  '/': { primary: '#C2725A', secondary: '#6366F1', accent: '#10B981' },
+  '/': { primary: '#C2725A', secondary: '#5856D6', accent: '#34C759' },
+  '/dashboard': { primary: '#C2725A', secondary: '#6366F1', accent: '#10B981' },
   '/login': { primary: '#C2725A', secondary: '#D4A574', accent: '#C2725A' },
   '/tasks': { primary: '#5856D6', secondary: '#34C759', accent: '#C2725A' },
   '/skills': { primary: '#8B5CF6', secondary: '#EC4899', accent: '#5856D6' },
@@ -47,6 +47,7 @@ function getBasePath(pathname: string): string {
   if (pathname.startsWith('/tasks')) return '/tasks'
   if (pathname.startsWith('/practice')) return '/practice'
   if (pathname === '/ligninger') return '/practice'
+  if (pathname.startsWith('/dashboard')) return '/dashboard'
   return pathname
 }
 
@@ -97,16 +98,12 @@ export const Layout = ({
     setSidebarCollapsed(prev => !prev)
   }, [])
 
-  const showParticles = basePath === '/'
-
   return (
     <div className={`app-shell ${showNavigation ? 'app-shell--with-sidebar' : ''}`}>
       <a href="#main-content" className="skip-to-content">
         Gå til indhold
       </a>
 
-      {showParticles && <MathParticles count={25} />}
-      
       <div className="ambient-layer" aria-hidden="true">
         {/* Gradient orbs that follow mouse subtly and change color with page */}
         <motion.div

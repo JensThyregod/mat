@@ -36,7 +36,7 @@ export const Sidebar = ({
 
   // Check if path is active
   const isActive = (path: string) => {
-    if (path === '/') return location.pathname === '/'
+    if (path === '/dashboard') return location.pathname === '/dashboard'
     return location.pathname.startsWith(path)
   }
 
@@ -53,7 +53,7 @@ export const Sidebar = ({
     >
       {/* Brand */}
       <div className="sidebar__header">
-        <Link to="/" className="sidebar__brand">
+        <Link to="/dashboard" className="sidebar__brand">
           <motion.div 
             className="sidebar__brand-dot"
             animate={{ 
@@ -79,7 +79,7 @@ export const Sidebar = ({
                 exit={{ opacity: 0, x: -10 }}
                 transition={{ duration: 0.2 }}
               >
-                <span className="sidebar__brand-name">TaskLab</span>
+                <span className="sidebar__brand-name">Matematik Tutor</span>
                 <span className="sidebar__brand-sub">Math edition</span>
               </motion.div>
             )}

@@ -228,7 +228,6 @@ a {
 
 .page {
   position: relative;
-  z-index: 1;
   width: 100%;
   max-width: var(--content-max-width);
   margin: 0 auto;
@@ -370,9 +369,7 @@ p {
 
 .glass-panel {
   position: relative;
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
+  background: rgba(255, 255, 255, 0.78);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-xl);
   box-shadow: var(--glass-shadow);
@@ -399,9 +396,7 @@ p {
 
 .glass-panel-elevated {
   position: relative;
-  background: var(--glass-bg-elevated);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
+  background: rgba(255, 255, 255, 0.82);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-2xl);
   box-shadow: var(--glass-shadow-elevated);
@@ -409,9 +404,7 @@ p {
 
 .glass-panel-floating {
   position: relative;
-  background: var(--glass-bg-heavy);
-  backdrop-filter: var(--glass-blur-heavy);
-  -webkit-backdrop-filter: var(--glass-blur-heavy);
+  background: rgba(255, 255, 255, 0.85);
   border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: var(--radius-3xl);
   box-shadow: var(--glass-shadow-floating);
@@ -575,16 +568,14 @@ textarea:focus-visible {
 
 /* Secondary - Glass button */
 .btn-secondary {
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur-light);
-  -webkit-backdrop-filter: var(--glass-blur-light);
+  background: rgba(255, 255, 255, 0.72);
   color: var(--color-text);
   border: 1px solid var(--color-border);
   box-shadow: var(--shadow-xs);
 }
 
 .btn-secondary:hover {
-  background: var(--glass-bg-elevated);
+  background: rgba(255, 255, 255, 0.85);
   border-color: var(--color-border-strong);
   transform: translateY(-1px);
   box-shadow: var(--shadow-sm);
@@ -1565,8 +1556,6 @@ textarea:focus-visible {
     rgba(255, 255, 255, 0.06) 50%,
     rgba(255, 255, 255, 0.02) 100%
   );
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
   
   border: 1px solid var(--fi-glass-border);
   border-radius: 20px;
@@ -2285,9 +2274,7 @@ textarea:focus-visible {
 .nav-tab-indicator {
   position: absolute;
   inset: 0;
-  background: var(--glass-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.75);
   border: 1px solid var(--glass-border);
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(28, 25, 23, 0.06);

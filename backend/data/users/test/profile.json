@@ -3,6 +3,8 @@
   "name": "Jens Thyregod",
   "code": "test",
   "class": "demo",
-  "email": "test@example.com"
+  "email": "test@example.com",
+  "emailVerified": true,
+  "verificationToken": null,
+  "verificationTokenExpiry": null
 }
-

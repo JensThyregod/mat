@@ -60,17 +60,15 @@ export const PageTransition = ({ children, className }: PageTransitionProps) => 
       x: hasDirection ? slideX : 0,
       y: hasDirection ? slideY : 30,
       scale: hasDirection ? scaleStart : 0.98,
-      filter: 'blur(4px)',
     },
     animate: {
       opacity: 1,
       x: 0,
       y: 0,
       scale: 1,
-      filter: 'blur(0px)',
       transition: {
         duration: 0.5,
-        ease: [0.22, 1, 0.36, 1] as const, // Custom easing - very smooth
+        ease: [0.22, 1, 0.36, 1] as const,
         staggerChildren: 0.05,
         delayChildren: 0.1,
       },
@@ -80,7 +78,6 @@ export const PageTransition = ({ children, className }: PageTransitionProps) => 
       x: hasDirection ? -slideX * 0.5 : 0,
       y: hasDirection ? -slideY * 0.5 : -20,
       scale: hasDirection ? scaleEnd : 1.02,
-      filter: 'blur(4px)',
       transition: {
         duration: 0.35,
         ease: [0.22, 1, 0.36, 1] as const,
@@ -95,7 +92,6 @@ export const PageTransition = ({ children, className }: PageTransitionProps) => 
       animate="animate"
       exit="exit"
       variants={variants}
-      style={{ willChange: 'transform, opacity, filter' }}
     >
       {children}
     </motion.div>

@@ -69,9 +69,7 @@
   justify-content: center;
   width: 80px;
   height: 80px;
-  background: var(--glass-bg-elevated);
-  backdrop-filter: var(--glass-blur-light);
-  -webkit-backdrop-filter: var(--glass-blur-light);
+  background: rgba(255, 255, 255, 0.82);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-xl);
   box-shadow: var(--glass-shadow);
@@ -126,9 +124,7 @@
 
 .skills__card {
   position: relative;
-  background: var(--glass-bg-elevated);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
+  background: rgba(255, 255, 255, 0.82);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-2xl);
   box-shadow: var(--glass-shadow-elevated);
@@ -297,9 +293,7 @@
   gap: 3px;
   pointer-events: none;
   padding: 8px 12px;
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.78);
   border-radius: 12px;
   margin-left: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
@@ -555,8 +549,6 @@
   max-height: 85vh;
   overflow-y: auto;
   background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(40px) saturate(180%);
-  -webkit-backdrop-filter: blur(40px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.6);
   border-radius: 28px;
   box-shadow: 
@@ -907,8 +899,7 @@
   left: 50%;
   transform: translateX(-50%) translateY(6px);
   padding: 7px 12px;
-  background: rgba(15, 15, 15, 0.92);
-  backdrop-filter: blur(12px);
+  background: rgba(15, 15, 15, 0.95);
   border-radius: 10px;
   font-size: 12px;
   font-weight: 500;

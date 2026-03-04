@@ -1,5 +1,5 @@
 import type { ApiClient } from './apiClient'
-import type { AnswerRecord, Student, Task, TaskSetState } from '../types'
+import type { AnswerRecord, SignupResponse, Student, Task, TaskSetState } from '../types'
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? '/api'
 
@@ -30,6 +30,24 @@ export function createHttpApiClient(): ApiClient {
 
     authenticateStudent(name, code) {
       return request<Student | null>('/auth/login', {
+        method: 'POST',
+        body: JSON.stringify({ name, code }),
+      })
+    },
+
+    signupStudent(name, code, email) {
+      return request<SignupResponse>('/auth/signup', {
+        method: 'POST',
+        body: JSON.stringify({ name, code, email }),
+      })
+    },
+
+    verifyEmail(token) {
+      return request<Student>(`/auth/verify-email?token=${encodeURIComponent(token)}`)
+    },
+
+    resendVerification(name, code) {
+      return request<void>('/auth/resend-verification', {
         method: 'POST',
         body: JSON.stringify({ name, code }),
       })

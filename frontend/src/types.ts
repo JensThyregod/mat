@@ -4,6 +4,7 @@ export type {
   Difficulty,
   LegacyDifficulty,
   Student,
+  SignupResponse,
   AnswerRecord,
   QuestionAnswerState,
   TaskSetState,

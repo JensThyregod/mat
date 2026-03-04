@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { useStore } from '../stores/storeProvider'
 import { GlassCard, InteractiveCard } from '../components/GlassCard'
 import { ProgressRing } from '../components/ProgressRing'
+import { MathParticles } from '../components/MathParticles'
 import { PageTransition } from '../components/animation'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import './DashboardView.css'
@@ -116,6 +117,7 @@ export const DashboardView = observer(() => {
         initial="hidden"
         animate="visible"
       >
+        <MathParticles count={25} />
         {/* Hero Section */}
         <motion.section className="dashboard__hero" variants={itemVariants}>
           <div className="dashboard__greeting">

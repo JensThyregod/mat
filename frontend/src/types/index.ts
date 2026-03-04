@@ -1,6 +1,6 @@
 export type { Task, LegacyDifficulty } from './task'
 export { type LegacyDifficulty as Difficulty } from './task'
-export type { Student, AnswerRecord, QuestionAnswerState, TaskSetState } from './student'
+export type { Student, SignupResponse, AnswerRecord, QuestionAnswerState, TaskSetState } from './student'
 export type {
   TaskInstance,
   TaskTypeDefinition,

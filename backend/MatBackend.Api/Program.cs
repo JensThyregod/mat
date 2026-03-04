@@ -6,6 +6,7 @@ using MatBackend.Core.Interfaces.Agents;
 using MatBackend.Infrastructure.Agents;
 using MatBackend.Infrastructure.Repositories;
 using MatBackend.Infrastructure.Services;
+using Microsoft.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,6 +41,20 @@ builder.Services.AddScoped<ITaskRepository>(provider => new YamlTaskRepository(t
 builder.Services.AddScoped<ITerminsproveRepository>(provider => new FileTerminsproveRepository(dataRoot));
 builder.Services.AddScoped<IEvaluationService, EvaluationService>();
 builder.Services.AddScoped<ISkillService, SkillService>();
+
+// Email verification (Brevo)
+var brevoApiKey = builder.Configuration["Brevo:ApiKey"] ?? Environment.GetEnvironmentVariable("BREVO_API_KEY") ?? "";
+var brevoSenderEmail = builder.Configuration["Brevo:SenderEmail"] ?? "noreply@mattutor.dk";
+var brevoSenderName = builder.Configuration["Brevo:SenderName"] ?? "Matematik Tutor";
+builder.Services.AddHttpClient("Brevo");
+builder.Services.AddScoped<IEmailService>(provider =>
+{
+    var httpClientFactory = provider.GetRequiredService<IHttpClientFactory>();
+    var httpClient = httpClientFactory.CreateClient("Brevo");
+    var logger = provider.GetRequiredService<ILogger<BrevoEmailService>>();
+    return new BrevoEmailService(httpClient, brevoApiKey, brevoSenderEmail, brevoSenderName, logger);
+});
+Console.WriteLine($"📧 Brevo email: {(string.IsNullOrEmpty(brevoApiKey) ? "(no API key)" : "configured")}");
 
 // Agent Configuration
 var agentConfig = new AgentConfiguration

@@ -27,9 +27,7 @@
 .task-card-new__bg {
   position: absolute;
   inset: 0;
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur-light);
-  -webkit-backdrop-filter: var(--glass-blur-light);
+  background: rgba(255, 255, 255, 0.75);
   z-index: 0;
 }
 

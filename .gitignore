@@ -32,6 +32,9 @@ appsettings.Development.json
 # Dev script temp files
 .dev-pids
 
+# Generated terminsprøver data
+backend/data/terminsprover/
+
 # Terraform
 infra/.terraform/
 # infra/.terraform.lock.hcl — committed for reproducible CI builds

@@ -14,10 +14,9 @@
   align-items: center;
   gap: 20px;
   padding: 40px 50px 60px;
-  background: rgba(18, 18, 26, 0.85);
+  background: rgba(18, 18, 26, 0.92);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 20px;
-  backdrop-filter: blur(16px);
 }
 
 /* Equals Sign */

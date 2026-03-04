@@ -3,7 +3,9 @@ import { observer } from 'mobx-react-lite'
 import { useEffect } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import { useStore } from './stores/storeProvider'
+import { LandingView } from './views/LandingView'
 import { LoginView } from './views/LoginView'
+import { VerifyEmailView } from './views/VerifyEmailView'
 import { DashboardView } from './views/DashboardView'
 import { TasksView } from './views/TasksView'
 import { GeneratorTestView } from './views/GeneratorTestView'
@@ -17,7 +19,7 @@ import { ErrorBoundary } from './components/ErrorBoundary'
 const RequireAuth = ({ children }: { children: React.ReactElement }) => {
   const { authStore } = useStore()
   if (!authStore.student) {
-    return <Navigate to="/login" replace />
+    return <Navigate to="/" replace />
   }
   return children
 }
@@ -25,15 +27,14 @@ const RequireAuth = ({ children }: { children: React.ReactElement }) => {
 const RequireTestUser = ({ children }: { children: React.ReactElement }) => {
   const { authStore } = useStore()
   if (!authStore.student) {
-    return <Navigate to="/login" replace />
+    return <Navigate to="/" replace />
   }
   if (authStore.student.id !== 'test') {
-    return <Navigate to="/" replace />
+    return <Navigate to="/dashboard" replace />
   }
   return children
 }
 
-// Get route key for AnimatePresence to avoid unnecessary transitions
 function getRouteKey(pathname: string): string {
   if (pathname.startsWith('/tasks')) return '/tasks'
   return pathname
@@ -64,14 +65,26 @@ const App = observer(() => {
         <AnimatePresence mode="wait">
           <Routes location={location} key={getRouteKey(location.pathname)}>
             <Route
-              path="/login"
+              path="/"
               element={
-                isAuthenticated ? <Navigate to="/" replace /> : <LoginView />
+                isAuthenticated ? <Navigate to="/dashboard" replace /> : <LandingView />
               }
             />
             
             <Route
-              path="/"
+              path="/login"
+              element={
+                isAuthenticated ? <Navigate to="/dashboard" replace /> : <LoginView />
+              }
+            />
+            
+            <Route
+              path="/verify-email"
+              element={<VerifyEmailView />}
+            />
+            
+            <Route
+              path="/dashboard"
               element={
                 <RequireAuth>
                   <DashboardView />
@@ -145,7 +158,7 @@ const App = observer(() => {
               path="*"
               element={
                 <Navigate
-                  to={isAuthenticated ? '/' : '/login'}
+                  to={isAuthenticated ? '/dashboard' : '/'}
                   replace
                 />
               }

@@ -1,4 +1,5 @@
 using System.ClientModel;
+using Amazon.S3;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Connectors.AzureAIInference;
 using MatBackend.Core.Interfaces;
@@ -36,7 +37,38 @@ var dataRoot = Path.Combine(builder.Environment.ContentRootPath, builder.Configu
 var tasksRoot = Path.Combine(builder.Environment.ContentRootPath, builder.Configuration["DataSettings:TasksRoot"] ?? "../../tasks");
 var taskTypesRoot = Path.Combine(builder.Environment.ContentRootPath, builder.Configuration["DataSettings:TaskTypesRoot"] ?? "../../curriculum/task-types");
 
-builder.Services.AddScoped<IStudentRepository>(provider => new FileStudentRepository(dataRoot));
+var storageProvider = builder.Configuration["StudentStorage:Provider"] ?? "File";
+if (storageProvider.Equals("S3", StringComparison.OrdinalIgnoreCase))
+{
+    var s3Bucket = builder.Configuration["StudentStorage:S3:BucketName"] ?? "mat-student-data";
+    var s3Region = builder.Configuration["StudentStorage:S3:Region"] ?? "fr-par";
+    var s3ServiceUrl = builder.Configuration["StudentStorage:S3:ServiceUrl"] ?? $"https://s3.{s3Region}.scw.cloud";
+    var s3AccessKey = builder.Configuration["StudentStorage:S3:AccessKey"]
+                      ?? Environment.GetEnvironmentVariable("SCW_ACCESS_KEY") ?? "";
+    var s3SecretKey = builder.Configuration["StudentStorage:S3:SecretKey"]
+                      ?? Environment.GetEnvironmentVariable("SCW_SECRET_KEY") ?? "";
+
+    var s3Config = new AmazonS3Config
+    {
+        ServiceURL = s3ServiceUrl,
+        ForcePathStyle = true
+    };
+    var s3Client = new AmazonS3Client(s3AccessKey, s3SecretKey, s3Config);
+
+    builder.Services.AddSingleton<IAmazonS3>(s3Client);
+    builder.Services.AddScoped<IStudentRepository>(provider =>
+        new S3StudentRepository(
+            provider.GetRequiredService<IAmazonS3>(),
+            s3Bucket,
+            provider.GetRequiredService<ILogger<S3StudentRepository>>()));
+
+    Console.WriteLine($"Student storage: S3 (bucket={s3Bucket}, endpoint={s3ServiceUrl})");
+}
+else
+{
+    builder.Services.AddScoped<IStudentRepository>(provider => new FileStudentRepository(dataRoot));
+    Console.WriteLine($"Student storage: File ({dataRoot})");
+}
 builder.Services.AddScoped<ITaskRepository>(provider => new YamlTaskRepository(tasksRoot, taskTypesRoot));
 builder.Services.AddScoped<ITerminsproveRepository>(provider => new FileTerminsproveRepository(dataRoot));
 builder.Services.AddScoped<IEvaluationService, EvaluationService>();

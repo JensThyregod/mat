@@ -87,12 +87,18 @@ resource "scaleway_container" "backend" {
     "ScalewayTem__SenderEmail"        = "noreply@${var.domain_name}"
     "ScalewayTem__SenderName"         = "Matematik Tutor"
     "SCW_DEFAULT_PROJECT_ID"          = var.scw_project_id
+    "StudentStorage__Provider"        = "S3"
+    "StudentStorage__S3__BucketName"  = scaleway_object_bucket.student_data.name
+    "StudentStorage__S3__Region"      = var.scw_region
+    "StudentStorage__S3__ServiceUrl"  = "https://s3.${var.scw_region}.scw.cloud"
   }
 
   secret_environment_variables = {
-    "OpenAI__ApiKey"        = var.openai_api_key
-    "Gemini__ApiKey"        = var.gemini_api_key
-    "ScalewayTem__SecretKey" = var.scw_secret_key
+    "OpenAI__ApiKey"              = var.openai_api_key
+    "Gemini__ApiKey"              = var.gemini_api_key
+    "ScalewayTem__SecretKey"      = var.scw_secret_key
+    "StudentStorage__S3__AccessKey" = var.scw_access_key
+    "StudentStorage__S3__SecretKey" = var.scw_secret_key
   }
 
   timeout = 600
@@ -137,6 +143,14 @@ resource "scaleway_container_domain" "frontend_www" {
 resource "scaleway_container_domain" "backend" {
   container_id = scaleway_container.backend.id
   hostname     = "${var.api_subdomain}.${var.domain_name}"
+}
+
+# ---------------------------------------------------------------------------
+# Object Storage — student data bucket (S3-compatible)
+# ---------------------------------------------------------------------------
+resource "scaleway_object_bucket" "student_data" {
+  name   = "${var.app_name}-student-data"
+  region = var.scw_region
 }
 
 # ---------------------------------------------------------------------------

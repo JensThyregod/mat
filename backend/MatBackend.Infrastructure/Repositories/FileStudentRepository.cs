@@ -27,13 +27,13 @@ public class FileStudentRepository : IStudentRepository
     public async Task<Student?> GetStudentByNameAsync(string name)
     {
         return await FindStudentAsync(s =>
-            s.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+            string.Equals(s.Name, name, StringComparison.OrdinalIgnoreCase));
     }
 
     public async Task<Student?> GetStudentByEmailAsync(string email)
     {
         return await FindStudentAsync(s =>
-            s.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
+            string.Equals(s.Email, email, StringComparison.OrdinalIgnoreCase));
     }
 
     public async Task<Student?> GetStudentByVerificationTokenAsync(string token)

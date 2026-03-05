@@ -378,7 +378,7 @@ export const TrainingPanel = observer(({ embedded = false }: { embedded?: boolea
   }, [trainingMode, modeChosen, generateNext])
 
   const [xpDeltas, setXpDeltas] = useState<Record<number, number>>({})
-  const [prevMean, setPrevMean] = useState<number | null>(null)
+  const [, setPrevMean] = useState<number | null>(null)
 
   const handleAnswerChange = useCallback((idx: number, value: string) => {
     if (taskComplete) return

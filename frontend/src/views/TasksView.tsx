@@ -168,7 +168,7 @@ export const TasksView = observer(() => {
 })
 
 const OppgaverPanel = observer(({ taskStore, selectedTask, onTaskClick }: {
-  taskStore: { loading: boolean; error: string | null; tasks: Task[]; answers: Record<string, (any | null)[]> }
+  taskStore: { loading: boolean; error: string | null; tasks: Task[]; answers: Record<string, ({ updatedAt?: string } | null)[]> }
   selectedTask: Task | null
   onTaskClick: (task: Task) => void
 }) => {
@@ -208,7 +208,7 @@ const OppgaverPanel = observer(({ taskStore, selectedTask, onTaskClick }: {
         const allAnswered = answeredCount === parts.length && parts.length > 0
         const updatedAt = answers
           .filter(Boolean)
-          .map((a: any) => a!.updatedAt)
+          .map((a) => a!.updatedAt)
           .sort()
           .at(-1)
         return (

@@ -1,0 +1,15 @@
+{
+  "TaskId": "demo-set",
+  "StudentId": "test",
+  "Parts": {
+    "0": {
+      "0": {
+        "Answer": "11/18",
+        "Validated": true,
+        "Status": "correct",
+        "UpdatedAt": "2026-03-05T17:29:56.5974638Z"
+      }
+    }
+  },
+  "UpdatedAt": "2026-03-05T17:29:56.5974638Z"
+}

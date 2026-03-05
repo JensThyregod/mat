@@ -9,6 +9,37 @@ import {
   generateProjectionTask,
 } from '../utils/voxel'
 import { FractionInput } from './FractionInput'
+import katex from 'katex'
+
+function renderInlineLatex(text: string): string {
+  if (!text) return ''
+  return text.replace(/\\\((.+?)\\\)/g, (_, math) => {
+    try { return katex.renderToString(math, { throwOnError: false, displayMode: false }) }
+    catch { return math }
+  })
+}
+
+interface MCOption {
+  letter: string
+  text: string
+  html: string
+}
+
+function parseMCFromContent(content: string): { promptHtml: string; options: MCOption[] } | null {
+  const optionPattern = /\n\n([A-D]\).+(?:\n[A-D]\).+)*)\s*$/s
+  const match = content.match(optionPattern)
+  if (!match) return null
+
+  const prompt = content.slice(0, match.index!).trim()
+  const promptHtml = renderInlineLatex(prompt).replace(/\n/g, '<br>')
+  const optionLines = match[1].split('\n').filter(l => l.trim())
+  const options: MCOption[] = optionLines.map(line => {
+    const m = line.match(/^([A-D])\)\s*(.+)$/)
+    if (!m) return { letter: '?', text: line, html: renderInlineLatex(line) }
+    return { letter: m[1], text: m[2].trim(), html: renderInlineLatex(m[2].trim()) }
+  })
+  return { promptHtml, options }
+}
 
 /**
  * Parse voxel figure config from .tex content
@@ -145,7 +176,8 @@ type AnswerState = {
 type Props = {
   latex: string
   answers: string[]
-  answerStates?: Map<number, AnswerState>  // Validation state per question from backend
+  answerStates?: Map<number, AnswerState>
+  correctAnswers?: Map<number, string>
   onAnswerChange: (questionIndex: number, value: string) => void
   onAnswerBlur?: (questionIndex: number) => void
   disabled?: boolean
@@ -155,6 +187,7 @@ export const TaskContent = ({
   latex,
   answers,
   answerStates = new Map(),
+  correctAnswers = new Map(),
   onAnswerChange,
   onAnswerBlur,
   disabled = false,
@@ -217,10 +250,11 @@ export const TaskContent = ({
           {parsed.questions.map((question) => {
             const answer = answers[question.index] ?? ''
             const state = answerStates.get(question.index)
-            // Only show correct/incorrect if validated and answer hasn't changed
             const answerStatus = (state?.validated && state.status !== 'neutral')
               ? state.status
               : 'neutral'
+            const isMultipleChoice = question.answerType === 'multiple_choice'
+            const mcData = isMultipleChoice ? parseMCFromContent(question.content) : null
             
             return (
               <div key={question.index} className="task-question">
@@ -230,17 +264,49 @@ export const TaskContent = ({
                   </span>
                   <div
                     className="task-question__text"
-                    dangerouslySetInnerHTML={{ __html: question.contentHtml }}
+                    dangerouslySetInnerHTML={{ __html: mcData ? mcData.promptHtml : question.contentHtml }}
                   />
                 </div>
-                {question.answerType === 'fraction' ? (
-                  <FractionInput
-                    value={answer}
-                    onChange={(value) => onAnswerChange(question.index, value)}
-                    onBlur={() => onAnswerBlur?.(question.index)}
-                    disabled={disabled}
-                    status={answerStatus}
-                  />
+                {mcData ? (
+                  <div className="task-mc-options">
+                    {mcData.options.map(opt => {
+                      const isSelected = answer === opt.letter
+                      const isCorrectOption = opt.letter === question.correctAnswer
+                      const revealed = answerStatus !== 'neutral'
+                      let cls = 'task-mc-option'
+                      if (isSelected && !revealed) cls += ' task-mc-option--selected'
+                      if (revealed && isCorrectOption) cls += ' task-mc-option--correct'
+                      if (revealed && isSelected && !isCorrectOption) cls += ' task-mc-option--incorrect'
+
+                      return (
+                        <button
+                          key={opt.letter}
+                          type="button"
+                          className={cls}
+                          onClick={() => !disabled && onAnswerChange(question.index, opt.letter)}
+                          disabled={disabled}
+                        >
+                          <span className="task-mc-letter">{opt.letter}</span>
+                          <span className="task-mc-text" dangerouslySetInnerHTML={{ __html: opt.html }} />
+                        </button>
+                      )
+                    })}
+                  </div>
+                ) : question.answerType === 'fraction' ? (
+                  <>
+                    <FractionInput
+                      value={answer}
+                      onChange={(value) => onAnswerChange(question.index, value)}
+                      onBlur={() => onAnswerBlur?.(question.index)}
+                      disabled={disabled}
+                      status={answerStatus}
+                    />
+                    {answerStatus === 'incorrect' && correctAnswers.has(question.index) && (
+                      <div className="answer-correction">
+                        Rigtigt svar: <strong>{correctAnswers.get(question.index)}</strong>
+                      </div>
+                    )}
+                  </>
                 ) : (
                   <div className={`answer-pill answer-pill--${answerStatus} ${answerStatus !== 'neutral' && shouldAnimate(question.index) ? 'answer-pill--animate' : ''}`}>
                     {answerStatus !== 'neutral' && (
@@ -265,6 +331,11 @@ export const TaskContent = ({
                       onBlur={() => onAnswerBlur?.(question.index)}
                       disabled={disabled}
                     />
+                  </div>
+                )}
+                {!mcData && answerStatus === 'incorrect' && correctAnswers.has(question.index) && (
+                  <div className="answer-correction">
+                    Rigtigt svar: <strong>{correctAnswers.get(question.index)}</strong>
                   </div>
                 )}
               </div>

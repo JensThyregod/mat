@@ -4,6 +4,7 @@ using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Connectors.AzureAIInference;
 using MatBackend.Core.Interfaces;
 using MatBackend.Core.Interfaces.Agents;
+using MatBackend.Core.Models.Scoring;
 using MatBackend.Infrastructure.Agents;
 using MatBackend.Infrastructure.Repositories;
 using MatBackend.Infrastructure.Services;
@@ -73,6 +74,26 @@ builder.Services.AddScoped<ITaskRepository>(provider => new YamlTaskRepository(t
 builder.Services.AddScoped<ITerminsproveRepository>(provider => new FileTerminsproveRepository(dataRoot));
 builder.Services.AddScoped<IEvaluationService, EvaluationService>();
 builder.Services.AddScoped<ISkillService, SkillService>();
+builder.Services.AddScoped<IAnswerRepository>(provider => new FileAnswerRepository(dataRoot));
+builder.Services.AddScoped<ITaskSetService>(provider => new TaskSetService(tasksRoot));
+
+// Bayesian scoring & training
+var scoringParams = new ScoringParameters
+{
+    MaxEvidence = builder.Configuration.GetValue<double?>("Scoring:MaxEvidence") ?? 30.0,
+    MinAttempts = builder.Configuration.GetValue<int?>("Scoring:MinAttempts") ?? 3,
+    DifficultyWeightMin = builder.Configuration.GetValue<double?>("Scoring:DifficultyWeightMin") ?? 0.5,
+    DifficultyWeightMax = builder.Configuration.GetValue<double?>("Scoring:DifficultyWeightMax") ?? 1.0,
+    MaxDifficulty = builder.Configuration.GetValue<double?>("Scoring:MaxDifficulty") ?? 5.0,
+    PrimarySkillWeightFraction = builder.Configuration.GetValue<double?>("Scoring:PrimarySkillWeightFraction") ?? 0.70,
+};
+builder.Services.AddSingleton(scoringParams);
+builder.Services.AddScoped<ISkillStateRepository>(provider =>
+    new FileSkillStateRepository(dataRoot, provider.GetRequiredService<ILogger<FileSkillStateRepository>>()));
+builder.Services.AddScoped<ITrainingService, TrainingService>();
+
+var verboseScoring = builder.Configuration.GetValue<bool?>("Scoring:VerboseLogging") ?? false;
+Console.WriteLine($"🧠 Bayesian scoring: MaxEvidence={scoringParams.MaxEvidence}, VerboseLogging={verboseScoring}");
 
 // Email verification (Scaleway TEM)
 var scwSecretKey = builder.Configuration["ScalewayTem:SecretKey"] ?? Environment.GetEnvironmentVariable("SCW_SECRET_KEY") ?? "";

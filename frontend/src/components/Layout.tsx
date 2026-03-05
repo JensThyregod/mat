@@ -37,6 +37,7 @@ const PAGE_THEMES: Record<string, { primary: string; secondary: string; accent: 
   '/login': { primary: '#C2725A', secondary: '#D4A574', accent: '#C2725A' },
   '/tasks': { primary: '#5856D6', secondary: '#34C759', accent: '#C2725A' },
   '/skills': { primary: '#8B5CF6', secondary: '#EC4899', accent: '#5856D6' },
+  '/training': { primary: '#F59E0B', secondary: '#8B5CF6', accent: '#22C55E' },
   '/practice': { primary: '#00C8C8', secondary: '#10FFAA', accent: '#00D4FF' },
   '/ligninger': { primary: '#00C8C8', secondary: '#10FFAA', accent: '#00D4FF' },
   '/terminsprove': { primary: '#8B5CF6', secondary: '#EC4899', accent: '#10B981' },
@@ -45,6 +46,7 @@ const PAGE_THEMES: Record<string, { primary: string; secondary: string; accent: 
 
 function getBasePath(pathname: string): string {
   if (pathname.startsWith('/tasks')) return '/tasks'
+  if (pathname.startsWith('/training')) return '/tasks'
   if (pathname.startsWith('/practice')) return '/practice'
   if (pathname === '/ligninger') return '/practice'
   if (pathname.startsWith('/dashboard')) return '/dashboard'

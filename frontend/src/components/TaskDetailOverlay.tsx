@@ -38,6 +38,7 @@ export const TaskDetailOverlay = observer(({ task, onClose }: TaskDetailOverlayP
   const { authStore, taskStore, api } = store
   const [partIndex, setPartIndex] = useState(0)
   const [taskState, setTaskState] = useState<TaskSetState | null>(null)
+  const [revealed, setRevealed] = useState(false)
 
   const parts = task.parts ?? [task.latex]
   const totalParts = parts.length
@@ -59,7 +60,6 @@ export const TaskDetailOverlay = observer(({ task, onClose }: TaskDetailOverlayP
   useKeyboardShortcut('Escape', onClose)
   useBodyScrollLock()
 
-  // Get current answer for a question from state
   const getQuestionState = useCallback(
     (questionIndex: number) => {
       return taskState?.parts[partIndex]?.[questionIndex] ?? null
@@ -69,7 +69,7 @@ export const TaskDetailOverlay = observer(({ task, onClose }: TaskDetailOverlayP
 
   const handleAnswerChange = useCallback(
     (questionIndex: number, value: string) => {
-      if (!task.id || !authStore.student) return
+      if (!task.id || !authStore.student || revealed) return
 
       api.saveQuestionAnswer(
         authStore.student.id,
@@ -83,35 +83,50 @@ export const TaskDetailOverlay = observer(({ task, onClose }: TaskDetailOverlayP
         setTaskState(newState)
       })
     },
-    [task.id, authStore.student, partIndex, api]
+    [task.id, authStore.student, partIndex, api, revealed]
   )
 
-  const handleAnswerBlur = useCallback(
-    (questionIndex: number) => {
-      if (!task.id || !authStore.student) return
+  const handleCheckAnswers = useCallback(async () => {
+    if (!task.id || !authStore.student) return
 
-      const currentState = taskState?.parts[partIndex]?.[questionIndex]
+    for (let i = 0; i < parsedPart.questions.length; i++) {
+      const currentState = taskState?.parts[partIndex]?.[i]
       const answer = currentState?.answer ?? ''
-      
-      const question = parsedPart.questions[questionIndex]
+      const question = parsedPart.questions[i]
       const status = checkAnswerCorrectness(answer, question)
 
-      api.saveQuestionAnswer(
+      const newState = await api.saveQuestionAnswer(
         authStore.student.id,
         task.id,
         partIndex,
-        questionIndex,
+        i,
         answer,
         true,
         status
-      ).then((newState) => {
-        setTaskState(newState)
-      })
-    },
-    [task.id, authStore.student, partIndex, taskState, parsedPart.questions, api]
-  )
+      )
+      setTaskState(newState)
+    }
+    setRevealed(true)
+  }, [task.id, authStore.student, partIndex, taskState, parsedPart.questions, api])
 
-  const goTo = (i: number) => setPartIndex(i)
+  const isPartAlreadyChecked = useCallback((pi: number) => {
+    const partState = taskState?.parts[pi]
+    if (!partState) return false
+    return Object.values(partState).some(q => q.validated && q.status !== 'neutral')
+  }, [taskState])
+
+  const goTo = useCallback((i: number) => {
+    setPartIndex(i)
+    setRevealed(isPartAlreadyChecked(i))
+  }, [isPartAlreadyChecked])
+
+  const handleNextPart = useCallback(() => {
+    if (partIndex < totalParts - 1) {
+      goTo(partIndex + 1)
+    } else {
+      onClose()
+    }
+  }, [partIndex, totalParts, goTo, onClose])
 
   // Build answers array and states from taskState
   const answers: string[] = []
@@ -125,7 +140,16 @@ export const TaskDetailOverlay = observer(({ task, onClose }: TaskDetailOverlayP
     }
   }
 
-  // Get current category based on part index
+  const correctAnswers: Map<number, string> = useMemo(() => {
+    const map = new Map<number, string>()
+    for (const q of parsedPart.questions) {
+      if (q.correctAnswer) map.set(q.index, q.correctAnswer)
+    }
+    return map
+  }, [parsedPart.questions])
+
+  const hasAnyAnswer = answers.some(a => a.trim().length > 0)
+
   const currentCategory = getCategoryByPartIndex(partIndex)
 
   const overlayContent = (
@@ -215,11 +239,30 @@ export const TaskDetailOverlay = observer(({ task, onClose }: TaskDetailOverlayP
               <TaskContent
                 latex={currentPartLatex}
                 answers={answers}
-                answerStates={answerStates}
+                answerStates={revealed ? answerStates : new Map()}
+                correctAnswers={revealed ? correctAnswers : new Map()}
                 onAnswerChange={handleAnswerChange}
-                onAnswerBlur={handleAnswerBlur}
-                disabled={!authStore.student}
+                disabled={!authStore.student || revealed}
               />
+
+              <div className="task-detail__actions">
+                {!revealed ? (
+                  <button
+                    className="task-detail__check-btn"
+                    onClick={handleCheckAnswers}
+                    disabled={!hasAnyAnswer}
+                  >
+                    Tjek svar
+                  </button>
+                ) : (
+                  <button
+                    className="task-detail__next-btn"
+                    onClick={handleNextPart}
+                  >
+                    {partIndex < totalParts - 1 ? 'Næste opgave' : 'Afslut'}
+                  </button>
+                )}
+              </div>
 
               {totalParts > 1 && (
                 <div className="task-detail__pager">

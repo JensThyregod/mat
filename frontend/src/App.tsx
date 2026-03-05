@@ -10,6 +10,7 @@ import { DashboardView } from './views/DashboardView'
 import { TasksView } from './views/TasksView'
 import { GeneratorTestView } from './views/GeneratorTestView'
 import { LigningerView } from './views/LigningerView'
+// TrainingView is now embedded inside TasksView
 import { SkillTreeView } from './views/SkillTreeView'
 import { TerminsproveGeneratorView } from './views/TerminsproveGeneratorView'
 import { Layout } from './components/Layout'
@@ -116,6 +117,11 @@ const App = observer(() => {
                   <SkillTreeView />
                 </RequireTestUser>
               }
+            />
+            
+            <Route
+              path="/training"
+              element={<Navigate to="/tasks?tab=training" replace />}
             />
             
             <Route

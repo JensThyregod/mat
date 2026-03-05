@@ -1,0 +1,12 @@
+---
+description: Backend server lifecycle management - always shut down after spinning up
+alwaysApply: true
+---
+
+# Backend Lifecycle
+
+When you start the .NET backend (`dotnet run` on the API project), you **must** shut it down before ending your turn. Track the PID from the startup output and `taskkill /PID <pid> /F` when done.
+
+- Never leave the backend running in the background after your work is complete.
+- If you started it only to verify endpoints or test a fix, kill it immediately after confirming.
+- If the user needs it running for ongoing development, tell them the PID so they can manage it themselves.

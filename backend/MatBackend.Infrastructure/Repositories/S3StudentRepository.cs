@@ -37,13 +37,13 @@ public class S3StudentRepository : IStudentRepository
     public async Task<Student?> GetStudentByNameAsync(string name)
     {
         return await FindStudentAsync(s =>
-            s.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+            s.Name != null && s.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
     }
 
     public async Task<Student?> GetStudentByEmailAsync(string email)
     {
         return await FindStudentAsync(s =>
-            s.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
+            s.Email != null && s.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
     }
 
     public async Task<Student?> GetStudentByVerificationTokenAsync(string token)
@@ -99,7 +99,7 @@ public class S3StudentRepository : IStudentRepository
         {
             response = await _s3.ListObjectsV2Async(request);
 
-            foreach (var prefix in response.CommonPrefixes)
+            foreach (var prefix in response.CommonPrefixes ?? Enumerable.Empty<string>())
             {
                 var key = $"{prefix}profile.json";
                 var student = await ReadStudentAsync(key);

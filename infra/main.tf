@@ -276,14 +276,10 @@ resource "scaleway_instance_security_group" "keycloak" {
     port     = 80
   }
 
-  dynamic "inbound_rule" {
-    for_each = var.allowed_ips
-    content {
-      action   = "accept"
-      protocol = "TCP"
-      port     = 22
-      ip_range = "${inbound_rule.value}/32"
-    }
+  inbound_rule {
+    action   = "accept"
+    protocol = "TCP"
+    port     = 22
   }
 }
 

@@ -150,6 +150,7 @@ jobs:
           TF_VAR_scw_tem_domain_verification_token: ${{ secrets.SCW_TEM_DOMAIN_VERIFICATION_TOKEN }}
           TF_VAR_keycloak_admin_password: ${{ secrets.KEYCLOAK_ADMIN_PASSWORD }}
           TF_VAR_keycloak_db_password: ${{ secrets.KEYCLOAK_DB_PASSWORD }}
+          TF_VAR_ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
 
       # ── Deploy Keycloak theme ────────────────────────────────────
       - name: Get Keycloak VM IP

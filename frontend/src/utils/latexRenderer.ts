@@ -75,13 +75,12 @@ export function processTextContent(text: string, preserveSpaces: boolean = false
  * - $$...$$ → display math
  * - Plain text with LaTeX commands
  */
-export function renderLatexToHtml(text: string): string {
+export function renderLatexToHtml(text: string, opts?: { newlineToBr?: boolean }): string {
   if (!text) return ''
   
   const parts: string[] = []
   let remaining = text
   
-  // Patterns to match math delimiters
   const patterns: Array<{
     regex: RegExp
     handler: (match: RegExpMatchArray) => string
@@ -127,26 +126,26 @@ export function renderLatexToHtml(text: string): string {
     }
     
     if (!matched) {
-      // Find next math delimiter
       const nextSpecial = remaining.search(/\\\(|\\\[|\$/)
       
       if (nextSpecial === -1) {
-        // Rest is plain text
         parts.push(processTextContent(remaining, true))
         break
       } else if (nextSpecial === 0) {
-        // Unknown pattern starting with special char, consume one char
         parts.push(remaining[0])
         remaining = remaining.slice(1)
       } else {
-        // Plain text before next special
         parts.push(processTextContent(remaining.slice(0, nextSpecial), true))
         remaining = remaining.slice(nextSpecial)
       }
     }
   }
   
-  return parts.join('')
+  let result = parts.join('')
+  if (opts?.newlineToBr) {
+    result = result.replace(/\n/g, '<br>')
+  }
+  return result
 }
 
 /**

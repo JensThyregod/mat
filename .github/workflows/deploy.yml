@@ -247,3 +247,53 @@ jobs:
             cp /tmp/keycloak-deploy/infra/keycloak/Caddyfile /opt/keycloak/ 2>/dev/null || true
             rm -rf /tmp/keycloak-deploy
             cd /opt/keycloak && docker compose up -d --force-recreate keycloak
+
+      - name: Wait for Keycloak to become healthy
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ steps.kc-ip.outputs.ip }}
+          username: root
+          key: ${{ secrets.KEYCLOAK_SSH_PRIVATE_KEY }}
+          script: |
+            for i in $(seq 1 30); do
+              if curl -sf http://127.0.0.1:8080/health/ready > /dev/null 2>&1; then
+                echo "Keycloak is ready"
+                exit 0
+              fi
+              echo "Waiting for Keycloak... ($i/30)"
+              sleep 5
+            done
+            echo "Keycloak did not become ready in time" && exit 1
+
+      - name: Apply realm theme via Keycloak Admin API
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ steps.kc-ip.outputs.ip }}
+          username: root
+          key: ${{ secrets.KEYCLOAK_SSH_PRIVATE_KEY }}
+          script: |
+            KC_URL="http://127.0.0.1:8080"
+            KC_ADMIN="admin"
+            KC_PASS="${{ secrets.KEYCLOAK_ADMIN_PASSWORD }}"
+
+            TOKEN=$(curl -sf -X POST "$KC_URL/realms/master/protocol/openid-connect/token" \
+              -d "client_id=admin-cli" \
+              -d "username=$KC_ADMIN" \
+              -d "password=$KC_PASS" \
+              -d "grant_type=password" | grep -o '"access_token":"[^"]*"' | cut -d'"' -f4)
+
+            if [ -z "$TOKEN" ]; then
+              echo "Failed to obtain admin token" && exit 1
+            fi
+
+            curl -sf -X PUT "$KC_URL/admin/realms/mat-tutor" \
+              -H "Authorization: Bearer $TOKEN" \
+              -H "Content-Type: application/json" \
+              -d '{"loginTheme":"mat-tutor"}' \
+              && echo "Login theme set to mat-tutor on mat-tutor realm"
+
+            curl -sf -X PUT "$KC_URL/admin/realms/mat-tutor-dev" \
+              -H "Authorization: Bearer $TOKEN" \
+              -H "Content-Type: application/json" \
+              -d '{"loginTheme":"mat-tutor"}' \
+              && echo "Login theme set to mat-tutor on mat-tutor-dev realm"

@@ -29,9 +29,12 @@ export class AuthStore {
     if (user && !user.expired) {
       const profile = user.profile
       runInAction(() => {
+        const givenName = (profile.given_name as string) ?? ''
+        const familyName = (profile.family_name as string) ?? ''
+        const fullName = `${givenName} ${familyName}`.trim() || (profile.name as string) || 'Student'
         this.student = {
           id: profile.sub,
-          name: (profile.preferred_username as string) ?? (profile.name as string) ?? 'Student',
+          name: fullName,
           code: '',
           email: profile.email as string | undefined,
           emailVerified: profile.email_verified as boolean | undefined,

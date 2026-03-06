@@ -33,14 +33,16 @@ function createMockApi(overrides: Partial<ApiClient> = {}): ApiClient {
   }
 }
 
-function createFakeOidcUser(sub = 's1', name = 'Test Elev'): User {
+function createFakeOidcUser(sub = 's1', firstName = 'Test', lastName = 'Elev'): User {
   return {
     access_token: 'fake-token',
     token_type: 'Bearer',
     expired: false,
     profile: {
       sub,
-      preferred_username: name,
+      given_name: firstName,
+      family_name: lastName,
+      name: `${firstName} ${lastName}`,
       email: 'test@test.dk',
       email_verified: true,
       iss: 'https://auth.mattutor.dk/realms/mat-tutor',
@@ -96,7 +98,7 @@ describe('AuthStore', () => {
   })
 
   it('sets student from OIDC user', () => {
-    const oidcUser = createFakeOidcUser('s1', 'Test Elev')
+    const oidcUser = createFakeOidcUser('s1', 'Test', 'Elev')
     store.authStore.setOidcUser(oidcUser)
 
     expect(store.authStore.student).not.toBeNull()

@@ -8,8 +8,7 @@ type InfoProps = {
 };
 
 export default function Info(props: InfoProps) {
-  const { kcContext, i18n } = props;
-  const { msgStr, advancedMsgStr } = i18n;
+  const { kcContext } = props;
 
   return (
     <div className="mat-page">
@@ -19,11 +18,7 @@ export default function Info(props: InfoProps) {
             <div className="mat-brand__dot" />
             <span className="mat-brand__name">Mat Tutor</span>
           </div>
-          <h1 className="mat-header__title">
-            {advancedMsgStr(kcContext.messageHeader ?? "info") !== kcContext.messageHeader
-              ? advancedMsgStr(kcContext.messageHeader ?? "info")
-              : "Information"}
-          </h1>
+          <h1 className="mat-header__title">Information</h1>
         </div>
 
         <div className="mat-info">
@@ -42,7 +37,7 @@ export default function Info(props: InfoProps) {
                   className="mat-btn mat-btn--primary"
                   style={{ display: "inline-flex", textDecoration: "none" }}
                 >
-                  {msgStr("backToApplication")}
+                  Tilbage til applikationen
                 </a>
               ) : kcContext.actionUri !== undefined ? (
                 <a
@@ -50,7 +45,7 @@ export default function Info(props: InfoProps) {
                   className="mat-btn mat-btn--primary"
                   style={{ display: "inline-flex", textDecoration: "none" }}
                 >
-                  {msgStr("proceedWithAction")}
+                  Fortsæt
                 </a>
               ) : kcContext.client?.baseUrl !== undefined ? (
                 <a
@@ -58,7 +53,7 @@ export default function Info(props: InfoProps) {
                   className="mat-btn mat-btn--primary"
                   style={{ display: "inline-flex", textDecoration: "none" }}
                 >
-                  {msgStr("backToApplication")}
+                  Tilbage til applikationen
                 </a>
               ) : null}
             </>

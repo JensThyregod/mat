@@ -29,7 +29,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         options.Authority = keycloakAuthority;
         options.Audience = keycloakAudience;
         options.RequireHttpsMetadata = !builder.Environment.IsDevelopment();
-        options.TokenValidationParameters.NameClaimType = "preferred_username";
+        options.TokenValidationParameters.NameClaimType = "name";
         options.TokenValidationParameters.RoleClaimType = ClaimTypes.Role;
     });
 builder.Services.AddAuthorization();

@@ -38,6 +38,10 @@ backend/data/terminsprover/
 # Keycloakify build output
 keycloak-theme/dist/
 keycloak-theme/dist_keycloak/
+frontend/dist_keycloak/
+
+# Local env overrides
+frontend/.env.local
 
 # Terraform
 infra/.terraform/

@@ -8,13 +8,8 @@ type LoginResetPasswordProps = {
 };
 
 export default function LoginResetPassword(props: LoginResetPasswordProps) {
-  const { kcContext, i18n } = props;
-  const { url, realm } = kcContext;
-  const { msg, msgStr } = i18n;
-
-  const label = !realm.loginWithEmailAllowed
-    ? "username"
-    : "email";
+  const { kcContext } = props;
+  const { url } = kcContext;
 
   return (
     <div className="mat-page">
@@ -46,14 +41,15 @@ export default function LoginResetPassword(props: LoginResetPasswordProps) {
         <form className="mat-form" action={url.loginAction} method="post">
           <div className="mat-field">
             <label className="mat-field__label" htmlFor="username">
-              {msg(label)}
+              E-mail
             </label>
             <input
               id="username"
               name="username"
-              type={realm.loginWithEmailAllowed ? "email" : "text"}
+              type="email"
               autoFocus
               autoComplete="email"
+              placeholder="din@email.dk"
               className="mat-field__input"
             />
           </div>
@@ -62,7 +58,7 @@ export default function LoginResetPassword(props: LoginResetPasswordProps) {
             type="submit"
             className="mat-btn mat-btn--primary"
           >
-            {msgStr("doSubmit")}
+            Send nulstillingslink
           </button>
         </form>
 

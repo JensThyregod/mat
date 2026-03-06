@@ -11,7 +11,8 @@
     "preview": "vite preview",
     "test": "vitest",
     "test:run": "vitest run",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "build-keycloak-theme": "npm run build && keycloakify build"
   },
   "dependencies": {
     "@types/dagre": "^0.7.53",
@@ -20,6 +21,7 @@
     "framer-motion": "^12.23.26",
     "js-yaml": "^4.1.1",
     "katex": "^0.16.27",
+    "keycloakify": "^11.15.1",
     "mobx": "^6.15.0",
     "mobx-react-lite": "^4.1.1",
     "oidc-client-ts": "^3.4.1",

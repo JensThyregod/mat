@@ -65,7 +65,7 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: keycloak-theme/package-lock.json
+          cache-dependency-path: frontend/package-lock.json
 
       - uses: actions/setup-java@v4
         with:
@@ -74,17 +74,17 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-        working-directory: keycloak-theme
+        working-directory: frontend
 
       - name: Build Keycloak theme JAR
         run: npm run build-keycloak-theme
-        working-directory: keycloak-theme
+        working-directory: frontend
 
       - name: Upload theme JAR
         uses: actions/upload-artifact@v4
         with:
           name: keycloak-theme-jar
-          path: keycloak-theme/dist_keycloak/*.jar
+          path: frontend/dist_keycloak/*.jar
 
   deploy:
     name: Build, Push & Deploy
@@ -183,7 +183,17 @@ jobs:
           target: /opt/keycloak/providers/
           strip_components: 1
 
-      - name: Restart Keycloak to load theme
+      - name: Deploy Keycloak realm configs
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ steps.kc-ip.outputs.ip }}
+          username: root
+          key: ${{ secrets.KEYCLOAK_SSH_PRIVATE_KEY }}
+          source: infra/keycloak/realm-export.json,infra/keycloak/realm-dev-export.json
+          target: /opt/keycloak/
+          strip_components: 2
+
+      - name: Restart Keycloak to load theme and realm config
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ steps.kc-ip.outputs.ip }}

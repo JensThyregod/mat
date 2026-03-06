@@ -3,8 +3,7 @@
 // Loads YAML task files and provides API endpoints
 // ============================================
 
-import profileTest from '../../../backend/data/users/test/profile.json'
-import type { AnswerRecord, Student, Task, TaskSetState, QuestionAnswerState, TaskInstance } from '../types'
+import type { AnswerRecord, Task, TaskSetState, QuestionAnswerState, TaskInstance } from '../types'
 import { readJson, writeJson } from '../utils/storage'
 import { parseTaskYaml, parseTaskToRuntime } from '../utils/yamlTaskParser'
 
@@ -188,14 +187,6 @@ ${instance.intro}
 }
 
 // ============================================
-// USER PROFILES
-// ============================================
-
-const userProfiles: Student[] = [
-  profileTest as Student,
-]
-
-// ============================================
 // API FUNCTIONS
 // ============================================
 
@@ -221,21 +212,6 @@ export async function fetchAnswersForStudent(
   await delay(140)
   const answers = readJson<AnswerState>(ANSWERS_KEY, {})
   return answers[studentId] ?? {}
-}
-
-export async function authenticateStudent(
-  name: string,
-  code: string,
-): Promise<Student | null> {
-  await delay(80)
-  const normalizedCode = code.trim().toLowerCase()
-  const normalizedName = name.trim().toLowerCase()
-  const match = userProfiles.find(
-    (u) =>
-      (u.code ?? '').toLowerCase() === normalizedCode &&
-      u.name.toLowerCase() === normalizedName,
-  )
-  return match ? { ...match, name: match.name.trim() } : null
 }
 
 export async function saveAnswer(

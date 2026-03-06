@@ -21,7 +21,6 @@ export default function Register(props: RegisterProps) {
     doMakeUserConfirmPassword,
   } = props;
   const { url, isAppInitiatedAction } = kcContext;
-  const { msgStr } = i18n;
 
   const [isFormSubmittable, setIsFormSubmittable] = useState(false);
 
@@ -76,7 +75,7 @@ export default function Register(props: RegisterProps) {
                 value="true"
                 style={{ flex: 1 }}
               >
-                {msgStr("doCancel")}
+                Annuller
               </button>
             )}
             <button
@@ -85,7 +84,7 @@ export default function Register(props: RegisterProps) {
               style={{ flex: 1 }}
               disabled={!isFormSubmittable}
             >
-              {msgStr("doRegister")}
+              Opret konto
             </button>
           </div>
         </form>

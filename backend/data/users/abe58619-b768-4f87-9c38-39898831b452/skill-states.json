@@ -2,15 +2,15 @@
   "regnearter": {
     "SkillId": "regnearter",
     "Distribution": {
-      "Alpha": 1,
+      "Alpha": 1.8,
       "Beta": 1
     },
-    "TotalAttempts": 0,
-    "LastPracticed": null,
+    "TotalAttempts": 1,
+    "LastPracticed": "2026-03-06T14:03:38.8009052Z",
     "ReviewInterval": null,
     "NextReviewAt": null,
-    "Mean": 0.5,
-    "Variance": 0.08333333333333333
+    "Mean": 0.6428571428571429,
+    "Variance": 0.060418904403866824
   },
   "regnehierarki": {
     "SkillId": "regnehierarki",
@@ -67,28 +67,28 @@
   "algebraiske_udtryk": {
     "SkillId": "algebraiske_udtryk",
     "Distribution": {
-      "Alpha": 1,
+      "Alpha": 3.4000000000000004,
       "Beta": 1
     },
-    "TotalAttempts": 0,
-    "LastPracticed": null,
+    "TotalAttempts": 3,
+    "LastPracticed": "2026-03-06T14:04:41.3748005Z",
     "ReviewInterval": null,
     "NextReviewAt": null,
-    "Mean": 0.5,
-    "Variance": 0.08333333333333333
+    "Mean": 0.7727272727272727,
+    "Variance": 0.0325221916131007
   },
   "lineaere_funktioner": {
     "SkillId": "lineaere_funktioner",
     "Distribution": {
-      "Alpha": 1,
+      "Alpha": 1.8,
       "Beta": 1
     },
-    "TotalAttempts": 0,
-    "LastPracticed": null,
+    "TotalAttempts": 1,
+    "LastPracticed": "2026-03-06T14:04:09.4772166Z",
     "ReviewInterval": null,
     "NextReviewAt": null,
-    "Mean": 0.5,
-    "Variance": 0.08333333333333333
+    "Mean": 0.6428571428571429,
+    "Variance": 0.060418904403866824
   },
   "pris_rabat": {
     "SkillId": "pris_rabat",
@@ -171,15 +171,15 @@
   "ligedannethed": {
     "SkillId": "ligedannethed",
     "Distribution": {
-      "Alpha": 1,
+      "Alpha": 5.4,
       "Beta": 1.7
     },
-    "TotalAttempts": 1,
-    "LastPracticed": "2026-03-06T12:43:30.1236117Z",
+    "TotalAttempts": 6,
+    "LastPracticed": "2026-03-06T14:00:07.326777Z",
     "ReviewInterval": null,
     "NextReviewAt": null,
-    "Mean": 0.37037037037037035,
-    "Variance": 0.06302598895191486
+    "Mean": 0.7605633802816901,
+    "Variance": 0.022482311710639417
   },
   "sammensat_figur": {
     "SkillId": "sammensat_figur",
@@ -249,15 +249,15 @@
   "statistiske_maal": {
     "SkillId": "statistiske_maal",
     "Distribution": {
-      "Alpha": 1,
-      "Beta": 1
+      "Alpha": 4.2,
+      "Beta": 3
     },
-    "TotalAttempts": 0,
-    "LastPracticed": null,
+    "TotalAttempts": 8,
+    "LastPracticed": "2026-03-06T14:02:24.3247566Z",
     "ReviewInterval": null,
     "NextReviewAt": null,
-    "Mean": 0.5,
-    "Variance": 0.08333333333333333
+    "Mean": 0.5833333333333334,
+    "Variance": 0.029640921409214097
   },
   "boksplot": {
     "SkillId": "boksplot",

@@ -643,6 +643,10 @@ a:hover {
    UserProfileFormFields overrides (register page)
    ═══════════════════════════════════════════════════════════════════ */
 
+.kcFormGroupClass:has(#username) {
+  display: none !important;
+}
+
 .kcFormGroupClass {
   display: flex;
   flex-direction: column;

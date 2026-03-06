@@ -30,9 +30,11 @@ public class AuthController : ControllerBase
     public async Task<ActionResult<UserProfileDto>> GetProfile()
     {
         var keycloakId = User.GetKeycloakUserId();
-        var name = User.FindFirst("preferred_username")?.Value
-                   ?? User.FindFirst("name")?.Value
-                   ?? "Student";
+        var givenName = User.FindFirst("given_name")?.Value ?? "";
+        var familyName = User.FindFirst("family_name")?.Value ?? "";
+        var name = $"{givenName} {familyName}".Trim();
+        if (string.IsNullOrEmpty(name))
+            name = User.FindFirst("name")?.Value ?? "Student";
         var email = User.FindFirst("email")?.Value ?? "";
         var emailVerified = User.FindFirst("email_verified")?.Value == "true";
 

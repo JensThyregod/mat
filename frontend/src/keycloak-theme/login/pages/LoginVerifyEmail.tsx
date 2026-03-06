@@ -8,9 +8,8 @@ type LoginVerifyEmailProps = {
 };
 
 export default function LoginVerifyEmail(props: LoginVerifyEmailProps) {
-  const { kcContext, i18n } = props;
+  const { kcContext } = props;
   const { url, user } = kcContext;
-  const { msg } = i18n;
 
   return (
     <div className="mat-page">
@@ -26,15 +25,15 @@ export default function LoginVerifyEmail(props: LoginVerifyEmailProps) {
         <div className="mat-info">
           <span className="mat-info__icon">✉️</span>
           <p className="mat-info__message">
-            {msg("emailVerifyInstruction1", user?.email ?? "")}
+            Vi har sendt en e-mail til <strong>{user?.email ?? ""}</strong> med et link til at bekræfte din e-mailadresse.
           </p>
           <p className="mat-info__message">
-            {msg("emailVerifyInstruction2")}
+            Har du ikke modtaget e-mailen?
             <br />
             <a href={url.loginAction}>
-              {msg("doClickHere")}
+              Klik her
             </a>{" "}
-            {msg("emailVerifyInstruction3")}
+            for at sende den igen.
           </p>
         </div>
       </div>

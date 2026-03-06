@@ -9,19 +9,12 @@ type LoginProps = {
 };
 
 export default function Login(props: LoginProps) {
-  const { kcContext, i18n } = props;
+  const { kcContext } = props;
   const { social, realm, url, usernameHidden, login, messagesPerField } =
     kcContext;
-  const { msg, msgStr } = i18n;
 
   const [isLoginButtonDisabled, setIsLoginButtonDisabled] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-
-  const label = !realm.loginWithEmailAllowed
-    ? "username"
-    : realm.registrationEmailAsUsername
-      ? "email"
-      : "usernameOrEmail";
 
   return (
     <div className="mat-page">
@@ -31,7 +24,7 @@ export default function Login(props: LoginProps) {
             <div className="mat-brand__dot" />
             <span className="mat-brand__name">Mat Tutor</span>
           </div>
-          <h1 className="mat-header__title">{msgStr("loginAccountTitle")}</h1>
+          <h1 className="mat-header__title">Log ind</h1>
           <p className="mat-header__subtitle">
             Log ind for at fortsætte til din læring
           </p>
@@ -85,15 +78,16 @@ export default function Login(props: LoginProps) {
           {!usernameHidden && (
             <div className="mat-field">
               <label className="mat-field__label" htmlFor="username">
-                {msg(label)}
+                E-mail
               </label>
               <input
                 id="username"
                 name="username"
                 defaultValue={login.username ?? ""}
-                type="text"
+                type="email"
                 autoFocus
-                autoComplete="username"
+                autoComplete="email"
+                placeholder="din@email.dk"
                 className={`mat-field__input ${
                   messagesPerField.existsError("username", "password")
                     ? "mat-field__input--error"
@@ -118,7 +112,7 @@ export default function Login(props: LoginProps) {
 
           <div className="mat-field">
             <label className="mat-field__label" htmlFor="password">
-              {msg("password")}
+              Adgangskode
             </label>
             <div className="mat-password-wrapper">
               <input
@@ -155,12 +149,12 @@ export default function Login(props: LoginProps) {
                   name="rememberMe"
                   defaultChecked={!!login.rememberMe}
                 />
-                <span className="mat-checkbox__label">{msg("rememberMe")}</span>
+                <span className="mat-checkbox__label">Husk mig</span>
               </label>
             )}
             {realm.resetPasswordAllowed && (
               <a href={url.loginResetCredentialsUrl} className="mat-link">
-                {msg("doForgotPassword")}
+                Glemt adgangskode?
               </a>
             )}
           </div>
@@ -170,9 +164,9 @@ export default function Login(props: LoginProps) {
             className="mat-btn mat-btn--primary"
             disabled={isLoginButtonDisabled}
             name="login"
-            value={msgStr("doLogIn")}
+            value="Log ind"
           >
-            {msgStr("doLogIn")}
+            Log ind
           </button>
         </form>
 

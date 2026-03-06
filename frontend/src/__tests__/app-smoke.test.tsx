@@ -91,14 +91,12 @@ describe('App Component Imports', () => {
   })
 
   it('imports all view components', async () => {
-    const { LoginView } = await import('../views/LoginView')
     const { DashboardView } = await import('../views/DashboardView')
     const { TasksView } = await import('../views/TasksView')
     const { GeneratorTestView } = await import('../views/GeneratorTestView')
     const { LigningerView } = await import('../views/LigningerView')
     const { SkillTreeView } = await import('../views/SkillTreeView')
-    
-    expect(LoginView).toBeDefined()
+
     expect(DashboardView).toBeDefined()
     expect(TasksView).toBeDefined()
     expect(GeneratorTestView).toBeDefined()

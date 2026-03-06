@@ -254,16 +254,21 @@ jobs:
           host: ${{ steps.kc-ip.outputs.ip }}
           username: root
           key: ${{ secrets.KEYCLOAK_SSH_PRIVATE_KEY }}
+          command_timeout: 5m
           script: |
-            for i in $(seq 1 30); do
-              if curl -sf http://127.0.0.1:8080/health/ready > /dev/null 2>&1; then
-                echo "Keycloak is ready"
+            cd /opt/keycloak
+            for i in $(seq 1 40); do
+              STATUS=$(docker compose ps keycloak --format json 2>/dev/null | grep -o '"Health":"[^"]*"' | cut -d'"' -f4)
+              if [ "$STATUS" = "healthy" ]; then
+                echo "Keycloak is healthy"
                 exit 0
               fi
-              echo "Waiting for Keycloak... ($i/30)"
+              echo "Waiting for Keycloak... ($i/40, status: ${STATUS:-starting})"
               sleep 5
             done
-            echo "Keycloak did not become ready in time" && exit 1
+            echo "Keycloak did not become healthy in time"
+            docker compose logs --tail=50 keycloak
+            exit 1
 
       - name: Apply realm theme via Keycloak Admin API
         uses: appleboy/ssh-action@v1.0.3

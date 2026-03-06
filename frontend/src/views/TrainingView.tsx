@@ -333,7 +333,7 @@ export const TrainingPanel = observer(({ embedded = false }: { embedded?: boolea
     } finally {
       setLoading(false)
     }
-  }, [studentId, backendAvailable, catalogMap, catalog, trainingMode, specificSkillId, skills])
+  }, [backendAvailable, catalogMap, catalog, trainingMode, specificSkillId, skills])
 
   const hasGeneratedFirst = useRef(false)
 
@@ -457,7 +457,7 @@ export const TrainingPanel = observer(({ embedded = false }: { embedded?: boolea
         })
         .catch(err => console.error('Failed to record result:', err))
     }
-  }, [activeTask, answers, skills, studentId, backendAvailable, catalogMap])
+  }, [activeTask, answers, skills, backendAvailable, catalogMap])
 
   const handleNextTask = useCallback(() => {
     generateNext()

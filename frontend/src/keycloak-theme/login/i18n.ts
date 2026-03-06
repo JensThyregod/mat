@@ -45,7 +45,7 @@ const daMessages = {
   requiredFields: "Påkrævede felter",
 } as const;
 
-const { useI18n, ofTypeI18n } = i18nBuilder
+const { useI18n, ofTypeI18n: _ofTypeI18n } = i18nBuilder
   .withThemeName<ThemeName>()
   .withCustomTranslations({
     da: daMessages,
@@ -96,6 +96,6 @@ const { useI18n, ofTypeI18n } = i18nBuilder
   })
   .build();
 
-type I18n = typeof ofTypeI18n;
+type I18n = typeof _ofTypeI18n;
 
 export { useI18n, type I18n };

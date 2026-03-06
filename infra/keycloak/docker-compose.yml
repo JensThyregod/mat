@@ -34,8 +34,8 @@ services:
       - ./realm-export.json:/opt/keycloak/data/import/realm-export.json:ro
       - ./realm-dev-export.json:/opt/keycloak/data/import/realm-dev-export.json:ro
       - ./providers:/opt/keycloak/providers:ro
-    expose:
-      - "8080"
+    ports:
+      - "127.0.0.1:8080:8080"
     healthcheck:
       test: ["CMD-SHELL", "echo > /dev/tcp/127.0.0.1/9000"]
       interval: 10s

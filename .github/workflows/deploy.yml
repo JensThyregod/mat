@@ -283,9 +283,7 @@ jobs:
             KC_ADMIN="admin"
             KC_PASS=$(grep 'KEYCLOAK_ADMIN_PASSWORD=' .env | sed 's/.*KEYCLOAK_ADMIN_PASSWORD=//')
 
-            EXEC="docker compose exec -T keycloak"
-
-            TOKEN=$($EXEC curl -sf -X POST "$KC_URL/realms/master/protocol/openid-connect/token" \
+            TOKEN=$(curl -sf -X POST "$KC_URL/realms/master/protocol/openid-connect/token" \
               -d "client_id=admin-cli" \
               -d "username=$KC_ADMIN" \
               -d "password=$KC_PASS" \
@@ -295,13 +293,13 @@ jobs:
               echo "Failed to obtain admin token" && exit 1
             fi
 
-            $EXEC curl -sf -X PUT "$KC_URL/admin/realms/mat-tutor" \
+            curl -sf -X PUT "$KC_URL/admin/realms/mat-tutor" \
               -H "Authorization: Bearer $TOKEN" \
               -H "Content-Type: application/json" \
               -d '{"loginTheme":"mat-tutor"}' \
               && echo "Login theme set to mat-tutor on mat-tutor realm"
 
-            $EXEC curl -sf -X PUT "$KC_URL/admin/realms/mat-tutor-dev" \
+            curl -sf -X PUT "$KC_URL/admin/realms/mat-tutor-dev" \
               -H "Authorization: Bearer $TOKEN" \
               -H "Content-Type: application/json" \
               -d '{"loginTheme":"mat-tutor"}' \

@@ -65,6 +65,10 @@ jobs:
       - name: Type-check & build
         run: npm run build
         working-directory: frontend
+        env:
+          VITE_OIDC_AUTHORITY: https://auth.mattutor.dk/realms/mat-tutor
+          VITE_OIDC_CLIENT_ID: mat-frontend
+          VITE_API_BASE_URL: /api
 
       - name: Build Keycloak theme JAR
         run: npx keycloakify build

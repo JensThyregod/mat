@@ -1,6 +1,6 @@
 import type { AuthProviderProps } from 'react-oidc-context'
 
-const authority = import.meta.env.VITE_OIDC_AUTHORITY ?? 'https://auth.mattutor.dk/realms/mat-tutor'
+const authority = import.meta.env.VITE_OIDC_AUTHORITY ?? 'http://localhost:8080/realms/mat-tutor-dev'
 const clientId = import.meta.env.VITE_OIDC_CLIENT_ID ?? 'mat-frontend'
 
 export const oidcConfig: AuthProviderProps = {

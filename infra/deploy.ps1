@@ -72,6 +72,8 @@ try {
         Write-Host "`nBuilding frontend image..." -ForegroundColor Yellow
         docker build -t "${RegistryEndpoint}/mat-frontend:${ImageTag}" `
             --build-arg "VITE_API_BASE_URL=$BackendUrl" `
+            --build-arg "VITE_OIDC_AUTHORITY=https://auth.mattutor.dk/realms/mat-tutor" `
+            --build-arg "VITE_OIDC_CLIENT_ID=mat-frontend" `
             -f "$RepoRoot/frontend/Dockerfile" $RepoRoot
         if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 

@@ -31,6 +31,7 @@ runcmd:
     DB_USER=${db_user}
     DB_PASSWORD=${db_password}
     ENVEOF
+    sed -i 's/^[[:space:]]*//' /opt/keycloak/.env
   - chmod 600 /opt/keycloak/.env
 
   # Write Caddyfile
@@ -40,6 +41,7 @@ runcmd:
       reverse_proxy keycloak:8080
     }
     CADDYEOF
+    sed -i 's/^[[:space:]]\{4\}//' /opt/keycloak/Caddyfile
 
   # Write docker-compose.yml
   - |
@@ -93,6 +95,7 @@ runcmd:
       caddy_data:
       caddy_config:
     COMPOSEEOF
+    sed -i 's/^[[:space:]]\{4\}//' /opt/keycloak/docker-compose.yml
 
   # Write production realm export
   - |
@@ -182,6 +185,7 @@ runcmd:
       ]
     }
     REALMEOF
+    sed -i 's/^[[:space:]]\{4\}//' /opt/keycloak/realm-export.json
 
   # Write dev realm export (localhost-only, relaxed settings)
   - |
@@ -264,6 +268,7 @@ runcmd:
       ]
     }
     DEVREALMEOF
+    sed -i 's/^[[:space:]]\{4\}//' /opt/keycloak/realm-dev-export.json
 
   # Create providers directory for Keycloak theme JAR
   - mkdir -p /opt/keycloak/providers

@@ -276,12 +276,16 @@ jobs:
           host: ${{ steps.kc-ip.outputs.ip }}
           username: root
           key: ${{ secrets.KEYCLOAK_SSH_PRIVATE_KEY }}
+          command_timeout: 2m
           script: |
+            cd /opt/keycloak
             KC_URL="http://127.0.0.1:8080"
             KC_ADMIN="admin"
-            KC_PASS="${{ secrets.KEYCLOAK_ADMIN_PASSWORD }}"
+            KC_PASS=$(grep 'KEYCLOAK_ADMIN_PASSWORD=' .env | sed 's/.*KEYCLOAK_ADMIN_PASSWORD=//')
 
-            TOKEN=$(curl -sf -X POST "$KC_URL/realms/master/protocol/openid-connect/token" \
+            EXEC="docker compose exec -T keycloak"
+
+            TOKEN=$($EXEC curl -sf -X POST "$KC_URL/realms/master/protocol/openid-connect/token" \
               -d "client_id=admin-cli" \
               -d "username=$KC_ADMIN" \
               -d "password=$KC_PASS" \
@@ -291,13 +295,13 @@ jobs:
               echo "Failed to obtain admin token" && exit 1
             fi
 
-            curl -sf -X PUT "$KC_URL/admin/realms/mat-tutor" \
+            $EXEC curl -sf -X PUT "$KC_URL/admin/realms/mat-tutor" \
               -H "Authorization: Bearer $TOKEN" \
               -H "Content-Type: application/json" \
               -d '{"loginTheme":"mat-tutor"}' \
               && echo "Login theme set to mat-tutor on mat-tutor realm"
 
-            curl -sf -X PUT "$KC_URL/admin/realms/mat-tutor-dev" \
+            $EXEC curl -sf -X PUT "$KC_URL/admin/realms/mat-tutor-dev" \
               -H "Authorization: Bearer $TOKEN" \
               -H "Content-Type: application/json" \
               -d '{"loginTheme":"mat-tutor"}' \

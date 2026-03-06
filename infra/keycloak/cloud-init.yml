@@ -79,6 +79,7 @@ runcmd:
         volumes:
           - ./realm-export.json:/opt/keycloak/data/import/realm-export.json:ro
           - ./realm-dev-export.json:/opt/keycloak/data/import/realm-dev-export.json:ro
+          - ./providers:/opt/keycloak/providers:ro
         expose:
           - "8080"
         healthcheck:
@@ -99,6 +100,7 @@ runcmd:
     {
       "realm": "mat-tutor",
       "enabled": true,
+      "loginTheme": "mat-tutor",
       "registrationAllowed": true,
       "registrationEmailAsUsername": false,
       "verifyEmail": true,
@@ -120,8 +122,8 @@ runcmd:
       "ssoSessionIdleTimeout": 1800,
       "ssoSessionMaxLifespan": 36000,
       "smtpServer": {
-        "host": "smtp.tem.scw.cloud",
-        "port": "587",
+        "host": "smtp.tem.scaleway.com",
+        "port": "2587",
         "fromDisplayName": "Matematik Tutor",
         "from": "${tem_sender_email}",
         "starttls": "true",
@@ -184,9 +186,10 @@ runcmd:
     {
       "realm": "mat-tutor-dev",
       "enabled": true,
+      "loginTheme": "mat-tutor",
       "registrationAllowed": true,
       "registrationEmailAsUsername": false,
-      "verifyEmail": false,
+      "verifyEmail": true,
       "loginWithEmailAllowed": true,
       "duplicateEmailsAllowed": false,
       "resetPasswordAllowed": true,
@@ -197,6 +200,16 @@ runcmd:
       "accessTokenLifespan": 1800,
       "ssoSessionIdleTimeout": 86400,
       "ssoSessionMaxLifespan": 86400,
+      "smtpServer": {
+        "host": "smtp.tem.scaleway.com",
+        "port": "2587",
+        "fromDisplayName": "Matematik Tutor (Dev)",
+        "from": "${tem_sender_email}",
+        "starttls": "true",
+        "auth": "true",
+        "user": "${tem_project_id}",
+        "password": "${tem_secret_key}"
+      },
       "clients": [
         {
           "clientId": "mat-frontend",
@@ -245,6 +258,9 @@ runcmd:
       ]
     }
     DEVREALMEOF
+
+  # Create providers directory for Keycloak theme JAR
+  - mkdir -p /opt/keycloak/providers
 
   # Start the stack
   - cd /opt/keycloak && docker compose up -d

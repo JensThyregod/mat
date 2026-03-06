@@ -55,12 +55,49 @@ jobs:
         run: npm run build
         working-directory: frontend
 
-  deploy:
-    name: Build, Push & Deploy
-    needs: [test-backend, test-frontend]
+  build-keycloak-theme:
+    name: Build Keycloak Theme
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: keycloak-theme/package-lock.json
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: keycloak-theme
+
+      - name: Build Keycloak theme JAR
+        run: npm run build-keycloak-theme
+        working-directory: keycloak-theme
+
+      - name: Upload theme JAR
+        uses: actions/upload-artifact@v4
+        with:
+          name: keycloak-theme-jar
+          path: keycloak-theme/dist_keycloak/*.jar
+
+  deploy:
+    name: Build, Push & Deploy
+    needs: [test-backend, test-frontend, build-keycloak-theme]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download Keycloak theme JAR
+        uses: actions/download-artifact@v4
+        with:
+          name: keycloak-theme-jar
+          path: keycloak-theme-jar
 
       # ── Docker build ──────────────────────────────────────────────
       - name: Log in to Scaleway Container Registry
@@ -129,3 +166,27 @@ jobs:
           TF_VAR_scw_tem_domain_verification_token: ${{ secrets.SCW_TEM_DOMAIN_VERIFICATION_TOKEN }}
           TF_VAR_keycloak_admin_password: ${{ secrets.KEYCLOAK_ADMIN_PASSWORD }}
           TF_VAR_keycloak_db_password: ${{ secrets.KEYCLOAK_DB_PASSWORD }}
+
+      # ── Deploy Keycloak theme ────────────────────────────────────
+      - name: Get Keycloak VM IP
+        id: kc-ip
+        working-directory: infra
+        run: echo "ip=$(terraform output -raw keycloak_vm_public_ip)" >> "$GITHUB_OUTPUT"
+
+      - name: Deploy Keycloak theme JAR
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ steps.kc-ip.outputs.ip }}
+          username: root
+          key: ${{ secrets.KEYCLOAK_SSH_PRIVATE_KEY }}
+          source: keycloak-theme-jar/*.jar
+          target: /opt/keycloak/providers/
+          strip_components: 1
+
+      - name: Restart Keycloak to load theme
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ steps.kc-ip.outputs.ip }}
+          username: root
+          key: ${{ secrets.KEYCLOAK_SSH_PRIVATE_KEY }}
+          script: cd /opt/keycloak && docker compose restart keycloak

@@ -1,0 +1,788 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+/* ═══════════════════════════════════════════════════════════════════
+   Mat Tutor Design Tokens (mirrored from frontend)
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root {
+  --color-bg: #F8F7F4;
+  --color-bg-subtle: #F2F0EC;
+  --color-bg-inset: #ECEAE5;
+  --color-surface: #FFFFFF;
+
+  --color-text: #1A1A1A;
+  --color-text-secondary: #5C5C5C;
+  --color-text-muted: #9CA3AF;
+  --color-text-inverse: #FFFFFF;
+
+  --color-border: rgba(0, 0, 0, 0.08);
+  --color-border-subtle: rgba(0, 0, 0, 0.04);
+  --color-border-strong: rgba(0, 0, 0, 0.12);
+
+  --color-accent: #C2725A;
+  --color-accent-hover: #A85C46;
+  --color-accent-active: #8F4D3A;
+  --color-accent-subtle: rgba(194, 114, 90, 0.1);
+
+  --color-error: #FF3B30;
+  --color-error-subtle: rgba(255, 59, 48, 0.12);
+  --color-success: #34C759;
+  --color-success-subtle: rgba(52, 199, 89, 0.12);
+  --color-info: #007AFF;
+
+  --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.8125rem;
+  --text-base: 0.9375rem;
+  --text-lg: 1.0625rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 2rem;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06), 0 2px 4px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.08), 0 4px 8px rgba(0, 0, 0, 0.04);
+
+  --glass-shadow-floating:
+    0 8px 16px rgba(0, 0, 0, 0.06),
+    0 32px 80px rgba(0, 0, 0, 0.12),
+    0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.22, 1.2, 0.36, 1);
+  --duration-fast: 200ms;
+  --duration-normal: 300ms;
+  --transition-fast: var(--duration-fast) var(--ease-out-expo);
+  --transition-smooth: var(--duration-normal) var(--ease-out-expo);
+  --transition-spring: var(--duration-normal) var(--ease-spring);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Reset & Base
+   ═══════════════════════════════════════════════════════════════════ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  color: var(--color-text);
+  background: var(--color-bg);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-accent-hover);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Hide default Keycloak chrome — we render our own layout
+   ═══════════════════════════════════════════════════════════════════ */
+
+#kc-header-wrapper,
+#kc-locale,
+.kc-logo-text {
+  display: none !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Page Layout
+   ═══════════════════════════════════════════════════════════════════ */
+
+.mat-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: var(--space-6);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ambient background orbs (same as the app) */
+.mat-page::before,
+.mat-page::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.mat-page::before {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(194, 114, 90, 0.15) 0%, transparent 70%);
+  top: -120px;
+  right: -100px;
+}
+
+.mat-page::after {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(88, 86, 214, 0.1) 0%, transparent 70%);
+  bottom: -80px;
+  left: -60px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Card Container (Glass Card — floating variant)
+   ═══════════════════════════════════════════════════════════════════ */
+
+.mat-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 420px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--glass-shadow-floating);
+  padding: var(--space-10);
+  animation: mat-card-enter 0.6s var(--ease-out-expo) both;
+}
+
+@keyframes mat-card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Gradient border overlay */
+.mat-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0.2) 40%,
+    rgba(255, 255, 255, 0.1) 60%,
+    rgba(255, 255, 255, 0.5) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Header / Branding
+   ═══════════════════════════════════════════════════════════════════ */
+
+.mat-header {
+  text-align: center;
+  margin-bottom: var(--space-8);
+}
+
+.mat-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+.mat-brand__dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-hover));
+  box-shadow: 0 0 16px rgba(194, 114, 90, 0.4);
+}
+
+.mat-brand__name {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+}
+
+.mat-header__title {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--color-text);
+  margin: 0 0 var(--space-2);
+}
+
+.mat-header__subtitle {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Form Elements
+   ═══════════════════════════════════════════════════════════════════ */
+
+.mat-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.mat-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.mat-field__label {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  letter-spacing: 0.01em;
+}
+
+.mat-field__input {
+  display: block;
+  width: 100%;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 14px;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.5;
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.02),
+    0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  outline: none;
+}
+
+.mat-field__input:hover {
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.02),
+    0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.mat-field__input:focus {
+  background: var(--color-surface);
+  border-color: var(--color-accent);
+  box-shadow:
+    0 0 0 3px rgba(194, 114, 90, 0.15),
+    0 4px 12px rgba(0, 0, 0, 0.05);
+  transform: translateY(-1px);
+}
+
+.mat-field__input::placeholder {
+  color: var(--color-text-muted);
+  opacity: 0.7;
+}
+
+.mat-field__input--error {
+  border-color: var(--color-error);
+  background: linear-gradient(145deg, rgba(255, 59, 48, 0.04) 0%, rgba(255, 59, 48, 0.01) 100%);
+}
+
+.mat-field__input--error:focus {
+  box-shadow:
+    0 0 0 3px rgba(255, 59, 48, 0.15),
+    0 4px 12px rgba(255, 59, 48, 0.05);
+}
+
+.mat-field__error {
+  font-size: var(--text-xs);
+  color: var(--color-error);
+  font-weight: 500;
+}
+
+.mat-field__hint {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Checkbox / Remember me
+   ═══════════════════════════════════════════════════════════════════ */
+
+.mat-checkbox {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+}
+
+.mat-checkbox input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  border: 1.5px solid var(--color-border-strong);
+  background: var(--color-surface);
+  appearance: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.mat-checkbox input[type="checkbox"]:checked {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.mat-checkbox input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 5px;
+  width: 5px;
+  height: 9px;
+  border: 2px solid white;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg);
+}
+
+.mat-checkbox__label {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Buttons
+   ═══════════════════════════════════════════════════════════════════ */
+
+.mat-btn {
+  position: relative;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 14px 24px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: var(--text-base);
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition:
+    transform var(--transition-spring),
+    box-shadow var(--transition-fast),
+    background var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+}
+
+.mat-btn:active {
+  transform: translateY(0) scale(0.97);
+  transition-duration: 100ms;
+}
+
+.mat-btn--primary {
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-hover) 100%);
+  color: var(--color-text-inverse);
+  box-shadow:
+    0 2px 8px rgba(194, 114, 90, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+}
+
+.mat-btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 6px 20px rgba(194, 114, 90, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.15) inset;
+}
+
+.mat-btn--secondary {
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.mat-btn--secondary:hover {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: var(--color-border-strong);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.mat-btn--ghost {
+  background: transparent;
+  color: var(--color-text-secondary);
+  padding: var(--space-2) var(--space-3);
+}
+
+.mat-btn--ghost:hover {
+  background: var(--color-bg-subtle);
+  color: var(--color-text);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Form Row (remember me + forgot password)
+   ═══════════════════════════════════════════════════════════════════ */
+
+.mat-form-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.mat-link {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-accent);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+  text-decoration: none;
+}
+
+.mat-link:hover {
+  color: var(--color-accent-hover);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Divider
+   ═══════════════════════════════════════════════════════════════════ */
+
+.mat-divider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin: var(--space-2) 0;
+}
+
+.mat-divider::before,
+.mat-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--color-border);
+}
+
+.mat-divider__text {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Social Buttons
+   ═══════════════════════════════════════════════════════════════════ */
+
+.mat-social-providers {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.mat-social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  width: 100%;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+
+.mat-social-btn:hover {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: var(--color-border-strong);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Footer / Switch link
+   ═══════════════════════════════════════════════════════════════════ */
+
+.mat-footer {
+  text-align: center;
+  margin-top: var(--space-6);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.mat-footer__text {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.mat-footer__link {
+  font-weight: 600;
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.mat-footer__link:hover {
+  color: var(--color-accent-hover);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Alert Messages
+   ═══════════════════════════════════════════════════════════════════ */
+
+.mat-alert {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  animation: mat-alert-enter 0.3s var(--ease-out-expo) both;
+}
+
+@keyframes mat-alert-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mat-alert--error {
+  background: var(--color-error-subtle);
+  color: var(--color-error);
+  border: 1px solid rgba(255, 59, 48, 0.15);
+}
+
+.mat-alert--success {
+  background: var(--color-success-subtle);
+  color: #1a8a3e;
+  border: 1px solid rgba(52, 199, 89, 0.15);
+}
+
+.mat-alert--info {
+  background: rgba(0, 122, 255, 0.08);
+  color: var(--color-info);
+  border: 1px solid rgba(0, 122, 255, 0.15);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Info Page
+   ═══════════════════════════════════════════════════════════════════ */
+
+.mat-info {
+  text-align: center;
+}
+
+.mat-info__icon {
+  font-size: 48px;
+  margin-bottom: var(--space-4);
+  display: block;
+}
+
+.mat-info__message {
+  font-size: var(--text-base);
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+  margin-bottom: var(--space-6);
+}
+
+.mat-info__message a {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   UserProfileFormFields overrides (register page)
+   ═══════════════════════════════════════════════════════════════════ */
+
+.kcFormGroupClass {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.kcLabelClass {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  letter-spacing: 0.01em;
+}
+
+.kcInputClass {
+  display: block;
+  width: 100%;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 14px;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.5;
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.02),
+    0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  outline: none;
+}
+
+.kcInputClass:hover {
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+.kcInputClass:focus {
+  background: var(--color-surface);
+  border-color: var(--color-accent);
+  box-shadow:
+    0 0 0 3px rgba(194, 114, 90, 0.15),
+    0 4px 12px rgba(0, 0, 0, 0.05);
+  transform: translateY(-1px);
+}
+
+.kcInputClass::placeholder {
+  color: var(--color-text-muted);
+  opacity: 0.7;
+}
+
+.kcInputErrorMessageClass {
+  font-size: var(--text-xs);
+  color: var(--color-error);
+  font-weight: 500;
+  margin-top: var(--space-1);
+}
+
+.kcFormOptionsClass {
+  margin-top: var(--space-2);
+}
+
+.kcFormButtonsClass {
+  margin-top: var(--space-4);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Password visibility toggle
+   ═══════════════════════════════════════════════════════════════════ */
+
+.mat-password-wrapper {
+  position: relative;
+}
+
+.mat-password-wrapper .mat-field__input {
+  padding-right: 48px;
+}
+
+.mat-password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  padding: 4px;
+  border-radius: var(--radius-sm);
+  transition: color var(--transition-fast);
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mat-password-toggle:hover {
+  color: var(--color-text);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Responsive
+   ═══════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 480px) {
+  .mat-card {
+    padding: var(--space-6) var(--space-5);
+    border-radius: var(--radius-xl);
+  }
+
+  .mat-page {
+    padding: var(--space-4);
+    align-items: flex-start;
+    padding-top: var(--space-10);
+  }
+
+  .mat-header {
+    margin-bottom: var(--space-6);
+  }
+
+  .mat-header__title {
+    font-size: var(--text-xl);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Reduced motion
+   ═══════════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  .mat-card {
+    animation: none;
+  }
+
+  .mat-alert {
+    animation: none;
+  }
+
+  .mat-btn,
+  .mat-field__input,
+  .mat-social-btn {
+    transition: none;
+  }
+}

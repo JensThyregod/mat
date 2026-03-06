@@ -1,9 +1,10 @@
 {
   "realm": "mat-tutor-dev",
   "enabled": true,
+  "loginTheme": "mat-tutor",
   "registrationAllowed": true,
   "registrationEmailAsUsername": false,
-  "verifyEmail": false,
+  "verifyEmail": true,
   "loginWithEmailAllowed": true,
   "duplicateEmailsAllowed": false,
   "resetPasswordAllowed": true,
@@ -14,6 +15,16 @@
   "accessTokenLifespan": 1800,
   "ssoSessionIdleTimeout": 86400,
   "ssoSessionMaxLifespan": 86400,
+  "smtpServer": {
+    "host": "smtp.tem.scaleway.com",
+    "port": "2587",
+    "fromDisplayName": "Matematik Tutor (Dev)",
+    "from": "${tem_sender_email}",
+    "starttls": "true",
+    "auth": "true",
+    "user": "${tem_project_id}",
+    "password": "${tem_secret_key}"
+  },
   "clients": [
     {
       "clientId": "mat-frontend",

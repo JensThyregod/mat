@@ -35,6 +35,10 @@ appsettings.Development.json
 # Generated terminsprøver data
 backend/data/terminsprover/
 
+# Keycloakify build output
+keycloak-theme/dist/
+keycloak-theme/dist_keycloak/
+
 # Terraform
 infra/.terraform/
 # infra/.terraform.lock.hcl — committed for reproducible CI builds

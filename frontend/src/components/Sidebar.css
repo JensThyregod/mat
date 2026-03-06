@@ -24,7 +24,7 @@
 }
 
 /* Hide on mobile */
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .sidebar {
     display: none;
   }
@@ -202,7 +202,7 @@
   font-weight: 700;
   border-radius: var(--radius-md);
   flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(194, 114, 90, 0.3);
+  box-shadow: 0 2px 8px rgb(194, 114, 90, 0.3);
 }
 
 .sidebar__user-info {

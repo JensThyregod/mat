@@ -30,19 +30,6 @@ public class FileStudentRepository : IStudentRepository
             string.Equals(s.Name, name, StringComparison.OrdinalIgnoreCase));
     }
 
-    public async Task<Student?> GetStudentByEmailAsync(string email)
-    {
-        return await FindStudentAsync(s =>
-            string.Equals(s.Email, email, StringComparison.OrdinalIgnoreCase));
-    }
-
-    public async Task<Student?> GetStudentByVerificationTokenAsync(string token)
-    {
-        return await FindStudentAsync(s =>
-            s.VerificationToken != null &&
-            s.VerificationToken.Equals(token, StringComparison.Ordinal));
-    }
-
     public async Task UpdateStudentAsync(Student student)
     {
         var path = Path.Combine(_dataRoot, "users", student.Id, "profile.json");

@@ -25,14 +25,14 @@
   padding: 1px;
   background: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.6) 0%,
-    rgba(255, 255, 255, 0.15) 40%,
-    rgba(255, 255, 255, 0.05) 60%,
-    rgba(255, 255, 255, 0.3) 100%
+    rgb(255, 255, 255, 0.6) 0%,
+    rgb(255, 255, 255, 0.15) 40%,
+    rgb(255, 255, 255, 0.05) 60%,
+    rgb(255, 255, 255, 0.3) 100%
   );
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
   opacity: 0.8;
@@ -47,7 +47,7 @@
   inset: -50%;
   background: radial-gradient(
     circle at 50% 0%,
-    rgba(194, 114, 90, 0.15) 0%,
+    rgb(194, 114, 90, 0.15) 0%,
     transparent 50%
   );
   pointer-events: none;
@@ -64,7 +64,7 @@
    ═══════════════════════════════════════════════════════════════════ */
 
 .glass-card--default {
-  background: rgba(255, 255, 255, 0.72);
+  background: rgb(255, 255, 255, 0.72);
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow);
 }
@@ -74,7 +74,7 @@
    ═══════════════════════════════════════════════════════════════════ */
 
 .glass-card--elevated {
-  background: rgba(255, 255, 255, 0.82);
+  background: rgb(255, 255, 255, 0.82);
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow-elevated);
 }
@@ -84,8 +84,8 @@
    ═══════════════════════════════════════════════════════════════════ */
 
 .glass-card--floating {
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.45);
+  background: rgb(255, 255, 255, 0.85);
+  border: 1px solid rgb(255, 255, 255, 0.45);
   box-shadow: var(--glass-shadow-floating);
 }
 
@@ -93,10 +93,10 @@
   opacity: 1;
   background: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.8) 0%,
-    rgba(255, 255, 255, 0.2) 40%,
-    rgba(255, 255, 255, 0.1) 60%,
-    rgba(255, 255, 255, 0.5) 100%
+    rgb(255, 255, 255, 0.8) 0%,
+    rgb(255, 255, 255, 0.2) 40%,
+    rgb(255, 255, 255, 0.1) 60%,
+    rgb(255, 255, 255, 0.5) 100%
   );
 }
 
@@ -105,7 +105,7 @@
    ═══════════════════════════════════════════════════════════════════ */
 
 .glass-card--surface {
-  background: rgba(255, 255, 255, 0.78);
+  background: rgb(255, 255, 255, 0.78);
   border: 1px solid var(--color-border);
   box-shadow: var(--shadow-sm);
 }
@@ -119,7 +119,7 @@
    ═══════════════════════════════════════════════════════════════════ */
 
 .glass-card--interactive {
-  background: rgba(255, 255, 255, 0.78);
+  background: rgb(255, 255, 255, 0.78);
   border: 1px solid var(--color-border);
   box-shadow: var(--shadow-sm);
   cursor: pointer;
@@ -149,21 +149,21 @@
 .glass-card--accent {
   background: linear-gradient(
     135deg,
-    rgba(194, 114, 90, 0.08) 0%,
-    rgba(194, 114, 90, 0.02) 100%
+    rgb(194, 114, 90, 0.08) 0%,
+    rgb(194, 114, 90, 0.02) 100%
   );
-  border: 1px solid rgba(194, 114, 90, 0.15);
+  border: 1px solid rgb(194, 114, 90, 0.15);
   box-shadow: 
-    0 4px 16px rgba(194, 114, 90, 0.08),
-    0 0 0 1px rgba(255, 255, 255, 0.3) inset;
+    0 4px 16px rgb(194, 114, 90, 0.08),
+    0 0 0 1px rgb(255, 255, 255, 0.3) inset;
 }
 
 .glass-card--accent .glass-card__border {
   background: linear-gradient(
     135deg,
-    rgba(194, 114, 90, 0.3) 0%,
-    rgba(255, 255, 255, 0.2) 50%,
-    rgba(194, 114, 90, 0.2) 100%
+    rgb(194, 114, 90, 0.3) 0%,
+    rgb(255, 255, 255, 0.2) 50%,
+    rgb(194, 114, 90, 0.2) 100%
   );
 }
 

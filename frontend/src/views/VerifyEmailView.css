@@ -67,10 +67,10 @@
 
 .verify-email__icon--success {
   background: linear-gradient(135deg, #34d399, #10b981);
-  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+  box-shadow: 0 4px 16px rgb(16, 185, 129, 0.3);
 }
 
 .verify-email__icon--error {
   background: linear-gradient(135deg, #f87171, #ef4444);
-  box-shadow: 0 4px 16px rgba(239, 68, 68, 0.3);
+  box-shadow: 0 4px 16px rgb(239, 68, 68, 0.3);
 }

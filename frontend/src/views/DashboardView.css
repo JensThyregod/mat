@@ -21,7 +21,7 @@
   align-items: center;
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .dashboard__hero {
     grid-template-columns: 1fr;
     gap: var(--space-6);
@@ -47,7 +47,7 @@
   font-weight: 900;
   letter-spacing: -0.03em;
   background: linear-gradient(135deg, var(--color-text) 0%, var(--color-text-secondary) 100%);
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
@@ -62,7 +62,7 @@
   min-width: 280px;
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .dashboard__progress-card {
     min-width: auto;
   }
@@ -74,7 +74,7 @@
   gap: var(--space-6);
 }
 
-@media (max-width: 480px) {
+@media (width <= 480px) {
   .dashboard__progress-content {
     flex-direction: column;
     text-align: center;
@@ -94,14 +94,14 @@
   font-weight: 900;
   line-height: 1;
   background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-hover) 100%);
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .dashboard__grade-value--pending {
   background: linear-gradient(135deg, var(--color-text-secondary) 0%, var(--color-text-muted) 100%);
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }

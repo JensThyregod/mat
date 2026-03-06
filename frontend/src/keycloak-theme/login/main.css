@@ -8,31 +8,25 @@
   --color-bg: #F8F7F4;
   --color-bg-subtle: #F2F0EC;
   --color-bg-inset: #ECEAE5;
-  --color-surface: #FFFFFF;
-
+  --color-surface: #FFF;
   --color-text: #1A1A1A;
   --color-text-secondary: #5C5C5C;
   --color-text-muted: #9CA3AF;
-  --color-text-inverse: #FFFFFF;
-
-  --color-border: rgba(0, 0, 0, 0.08);
-  --color-border-subtle: rgba(0, 0, 0, 0.04);
-  --color-border-strong: rgba(0, 0, 0, 0.12);
-
+  --color-text-inverse: #FFF;
+  --color-border: rgb(0, 0, 0, 0.08);
+  --color-border-subtle: rgb(0, 0, 0, 0.04);
+  --color-border-strong: rgb(0, 0, 0, 0.12);
   --color-accent: #C2725A;
   --color-accent-hover: #A85C46;
   --color-accent-active: #8F4D3A;
-  --color-accent-subtle: rgba(194, 114, 90, 0.1);
-
+  --color-accent-subtle: rgb(194, 114, 90, 0.1);
   --color-error: #FF3B30;
-  --color-error-subtle: rgba(255, 59, 48, 0.12);
+  --color-error-subtle: rgb(255, 59, 48, 0.12);
   --color-success: #34C759;
-  --color-success-subtle: rgba(52, 199, 89, 0.12);
+  --color-success-subtle: rgb(52, 199, 89, 0.12);
   --color-info: #007AFF;
-
-  --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
-  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
-
+  --font-display: 'Plus Jakarta Sans', -apple-system, blinkmacsystemfont, 'SF Pro Display', sans-serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, blinkmacsystemfont, 'SF Pro Text', sans-serif;
   --text-xs: 0.75rem;
   --text-sm: 0.8125rem;
   --text-base: 0.9375rem;
@@ -40,7 +34,6 @@
   --text-xl: 1.25rem;
   --text-2xl: 1.5rem;
   --text-3xl: 2rem;
-
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -50,23 +43,19 @@
   --space-8: 32px;
   --space-10: 40px;
   --space-12: 48px;
-
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
   --radius-xl: 20px;
   --radius-2xl: 24px;
   --radius-full: 9999px;
-
-  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06), 0 2px 4px rgba(0, 0, 0, 0.04);
-  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.08), 0 4px 8px rgba(0, 0, 0, 0.04);
-
+  --shadow-sm: 0 2px 4px rgb(0, 0, 0, 0.04), 0 1px 2px rgb(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 12px rgb(0, 0, 0, 0.06), 0 2px 4px rgb(0, 0, 0, 0.04);
+  --shadow-lg: 0 12px 32px rgb(0, 0, 0, 0.08), 0 4px 8px rgb(0, 0, 0, 0.04);
   --glass-shadow-floating:
-    0 8px 16px rgba(0, 0, 0, 0.06),
-    0 32px 80px rgba(0, 0, 0, 0.12),
-    0 0 0 1px rgba(255, 255, 255, 0.8) inset;
-
+    0 8px 16px rgb(0, 0, 0, 0.06),
+    0 32px 80px rgb(0, 0, 0, 0.12),
+    0 0 0 1px rgb(255, 255, 255, 0.8) inset;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-spring: cubic-bezier(0.22, 1.2, 0.36, 1);
   --duration-fast: 200ms;
@@ -92,7 +81,7 @@ html, body {
   font-size: var(--text-base);
   color: var(--color-text);
   background: var(--color-bg);
-  text-rendering: optimizeLegibility;
+  text-rendering: optimizelegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.6;
@@ -147,7 +136,7 @@ a:hover {
 .mat-page::before {
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(194, 114, 90, 0.15) 0%, transparent 70%);
+  background: radial-gradient(circle, rgb(194, 114, 90, 0.15) 0%, transparent 70%);
   top: -120px;
   right: -100px;
 }
@@ -155,7 +144,7 @@ a:hover {
 .mat-page::after {
   width: 400px;
   height: 400px;
-  background: radial-gradient(circle, rgba(88, 86, 214, 0.1) 0%, transparent 70%);
+  background: radial-gradient(circle, rgb(88, 86, 214, 0.1) 0%, transparent 70%);
   bottom: -80px;
   left: -60px;
 }
@@ -169,8 +158,8 @@ a:hover {
   z-index: 1;
   width: 100%;
   max-width: 420px;
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.45);
+  background: rgb(255, 255, 255, 0.85);
+  border: 1px solid rgb(255, 255, 255, 0.45);
   border-radius: var(--radius-2xl);
   box-shadow: var(--glass-shadow-floating);
   padding: var(--space-10);
@@ -182,6 +171,7 @@ a:hover {
     opacity: 0;
     transform: translateY(16px) scale(0.97);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -197,14 +187,14 @@ a:hover {
   padding: 1px;
   background: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.8) 0%,
-    rgba(255, 255, 255, 0.2) 40%,
-    rgba(255, 255, 255, 0.1) 60%,
-    rgba(255, 255, 255, 0.5) 100%
+    rgb(255, 255, 255, 0.8) 0%,
+    rgb(255, 255, 255, 0.2) 40%,
+    rgb(255, 255, 255, 0.1) 60%,
+    rgb(255, 255, 255, 0.5) 100%
   );
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
 }
@@ -230,7 +220,7 @@ a:hover {
   height: 14px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--color-accent), var(--color-accent-hover));
-  box-shadow: 0 0 16px rgba(194, 114, 90, 0.4);
+  box-shadow: 0 0 16px rgb(194, 114, 90, 0.4);
 }
 
 .mat-brand__name {
@@ -283,33 +273,33 @@ a:hover {
   display: block;
   width: 100%;
   padding: 12px 16px;
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: rgb(255, 255, 255, 0.72);
+  border: 1px solid rgb(0, 0, 0, 0.08);
   border-radius: 14px;
   color: var(--color-text);
   font-family: var(--font-sans);
   font-size: 15px;
   line-height: 1.5;
   box-shadow:
-    inset 0 2px 4px rgba(0, 0, 0, 0.02),
-    0 1px 2px rgba(0, 0, 0, 0.04);
+    inset 0 2px 4px rgb(0, 0, 0, 0.02),
+    0 1px 2px rgb(0, 0, 0, 0.04);
   transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
   outline: none;
 }
 
 .mat-field__input:hover {
-  border-color: rgba(0, 0, 0, 0.12);
+  border-color: rgb(0, 0, 0, 0.12);
   box-shadow:
-    inset 0 2px 4px rgba(0, 0, 0, 0.02),
-    0 2px 8px rgba(0, 0, 0, 0.04);
+    inset 0 2px 4px rgb(0, 0, 0, 0.02),
+    0 2px 8px rgb(0, 0, 0, 0.04);
 }
 
 .mat-field__input:focus {
   background: var(--color-surface);
   border-color: var(--color-accent);
   box-shadow:
-    0 0 0 3px rgba(194, 114, 90, 0.15),
-    0 4px 12px rgba(0, 0, 0, 0.05);
+    0 0 0 3px rgb(194, 114, 90, 0.15),
+    0 4px 12px rgb(0, 0, 0, 0.05);
   transform: translateY(-1px);
 }
 
@@ -320,13 +310,13 @@ a:hover {
 
 .mat-field__input--error {
   border-color: var(--color-error);
-  background: linear-gradient(145deg, rgba(255, 59, 48, 0.04) 0%, rgba(255, 59, 48, 0.01) 100%);
+  background: linear-gradient(145deg, rgb(255, 59, 48, 0.04) 0%, rgb(255, 59, 48, 0.01) 100%);
 }
 
 .mat-field__input--error:focus {
   box-shadow:
-    0 0 0 3px rgba(255, 59, 48, 0.15),
-    0 4px 12px rgba(255, 59, 48, 0.05);
+    0 0 0 3px rgb(255, 59, 48, 0.15),
+    0 4px 12px rgb(255, 59, 48, 0.05);
 }
 
 .mat-field__error {
@@ -420,26 +410,26 @@ a:hover {
   background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-hover) 100%);
   color: var(--color-text-inverse);
   box-shadow:
-    0 2px 8px rgba(194, 114, 90, 0.35),
-    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+    0 2px 8px rgb(194, 114, 90, 0.35),
+    0 0 0 1px rgb(255, 255, 255, 0.1) inset;
 }
 
 .mat-btn--primary:hover {
   transform: translateY(-2px);
   box-shadow:
-    0 6px 20px rgba(194, 114, 90, 0.4),
-    0 0 0 1px rgba(255, 255, 255, 0.15) inset;
+    0 6px 20px rgb(194, 114, 90, 0.4),
+    0 0 0 1px rgb(255, 255, 255, 0.15) inset;
 }
 
 .mat-btn--secondary {
-  background: rgba(255, 255, 255, 0.72);
+  background: rgb(255, 255, 255, 0.72);
   color: var(--color-text);
   border: 1px solid var(--color-border);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 2px rgb(0, 0, 0, 0.04);
 }
 
 .mat-btn--secondary:hover {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgb(255, 255, 255, 0.85);
   border-color: var(--color-border-strong);
   transform: translateY(-1px);
   box-shadow: var(--shadow-sm);
@@ -526,7 +516,7 @@ a:hover {
   gap: var(--space-3);
   width: 100%;
   padding: 12px 16px;
-  background: rgba(255, 255, 255, 0.72);
+  background: rgb(255, 255, 255, 0.72);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   font-family: var(--font-sans);
@@ -539,7 +529,7 @@ a:hover {
 }
 
 .mat-social-btn:hover {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgb(255, 255, 255, 0.9);
   border-color: var(--color-border-strong);
   transform: translateY(-1px);
   box-shadow: var(--shadow-sm);
@@ -589,6 +579,7 @@ a:hover {
     opacity: 0;
     transform: translateY(-4px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -598,19 +589,19 @@ a:hover {
 .mat-alert--error {
   background: var(--color-error-subtle);
   color: var(--color-error);
-  border: 1px solid rgba(255, 59, 48, 0.15);
+  border: 1px solid rgb(255, 59, 48, 0.15);
 }
 
 .mat-alert--success {
   background: var(--color-success-subtle);
   color: #1a8a3e;
-  border: 1px solid rgba(52, 199, 89, 0.15);
+  border: 1px solid rgb(52, 199, 89, 0.15);
 }
 
 .mat-alert--info {
-  background: rgba(0, 122, 255, 0.08);
+  background: rgb(0, 122, 255, 0.08);
   color: var(--color-info);
-  border: 1px solid rgba(0, 122, 255, 0.15);
+  border: 1px solid rgb(0, 122, 255, 0.15);
 }
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -665,30 +656,30 @@ a:hover {
   display: block;
   width: 100%;
   padding: 12px 16px;
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: rgb(255, 255, 255, 0.72);
+  border: 1px solid rgb(0, 0, 0, 0.08);
   border-radius: 14px;
   color: var(--color-text);
   font-family: var(--font-sans);
   font-size: 15px;
   line-height: 1.5;
   box-shadow:
-    inset 0 2px 4px rgba(0, 0, 0, 0.02),
-    0 1px 2px rgba(0, 0, 0, 0.04);
+    inset 0 2px 4px rgb(0, 0, 0, 0.02),
+    0 1px 2px rgb(0, 0, 0, 0.04);
   transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
   outline: none;
 }
 
 .kcInputClass:hover {
-  border-color: rgba(0, 0, 0, 0.12);
+  border-color: rgb(0, 0, 0, 0.12);
 }
 
 .kcInputClass:focus {
   background: var(--color-surface);
   border-color: var(--color-accent);
   box-shadow:
-    0 0 0 3px rgba(194, 114, 90, 0.15),
-    0 4px 12px rgba(0, 0, 0, 0.05);
+    0 0 0 3px rgb(194, 114, 90, 0.15),
+    0 4px 12px rgb(0, 0, 0, 0.05);
   transform: translateY(-1px);
 }
 
@@ -750,7 +741,7 @@ a:hover {
    Responsive
    ═══════════════════════════════════════════════════════════════════ */
 
-@media (max-width: 480px) {
+@media (width <= 480px) {
   .mat-card {
     padding: var(--space-6) var(--space-5);
     border-radius: var(--radius-xl);

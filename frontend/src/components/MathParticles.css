@@ -30,6 +30,7 @@
   0% {
     transform: translateY(0) rotate(var(--rotate-start));
   }
+
   100% {
     transform: translateY(calc(-100vh - 100px)) rotate(var(--rotate-end));
   }

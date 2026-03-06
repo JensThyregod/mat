@@ -38,7 +38,7 @@
   gap: var(--space-2);
   padding: var(--space-1) var(--space-3);
   border-radius: var(--radius-full, 9999px);
-  background: rgba(245, 158, 11, 0.12);
+  background: rgb(245, 158, 11, 0.12);
   color: #f59e0b;
   font-size: var(--font-sm);
   font-weight: 600;
@@ -61,7 +61,7 @@
 
 /* Danger zone */
 .settings__danger-zone {
-  border-top: 1px solid rgba(239, 68, 68, 0.15);
+  border-top: 1px solid rgb(239, 68, 68, 0.15);
   padding-top: var(--space-5);
 }
 
@@ -86,7 +86,7 @@
   gap: var(--space-2);
   padding: var(--space-3) var(--space-4);
   border-radius: var(--radius-lg);
-  background: rgba(239, 68, 68, 0.1);
+  background: rgb(239, 68, 68, 0.1);
   color: #ef4444;
   font-size: var(--font-sm);
   margin-bottom: var(--space-4);
@@ -102,9 +102,9 @@
   align-items: center;
   justify-content: center;
   padding: var(--space-3) var(--space-5);
-  border: 1px solid rgba(239, 68, 68, 0.3);
+  border: 1px solid rgb(239, 68, 68, 0.3);
   border-radius: var(--radius-lg);
-  background: rgba(239, 68, 68, 0.08);
+  background: rgb(239, 68, 68, 0.08);
   color: #ef4444;
   font-size: var(--font-sm);
   font-weight: 600;
@@ -113,8 +113,8 @@
 }
 
 .settings__delete-btn:hover {
-  background: rgba(239, 68, 68, 0.15);
-  border-color: rgba(239, 68, 68, 0.5);
+  background: rgb(239, 68, 68, 0.15);
+  border-color: rgb(239, 68, 68, 0.5);
 }
 
 /* Confirmation panel */
@@ -155,13 +155,13 @@
 }
 
 .settings__confirm-btn--cancel {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.1);
+  background: rgb(255, 255, 255, 0.06);
+  border-color: rgb(255, 255, 255, 0.1);
   color: var(--text-secondary);
 }
 
 .settings__confirm-btn--cancel:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgb(255, 255, 255, 0.1);
 }
 
 .settings__confirm-btn--delete {
@@ -178,7 +178,7 @@
   display: inline-block;
   width: 16px;
   height: 16px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  border: 2px solid rgb(255, 255, 255, 0.3);
   border-top-color: white;
   border-radius: 50%;
   animation: settings-spin 0.6s linear infinite;
@@ -209,7 +209,7 @@
   font-size: var(--font-base);
 }
 
-@media (max-width: 640px) {
+@media (width <= 640px) {
   .settings {
     padding-top: var(--space-4);
     gap: var(--space-6);

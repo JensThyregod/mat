@@ -17,7 +17,7 @@
 }
 
 /* Hide on desktop */
-@media (min-width: 769px) {
+@media (width >= 769px) {
   .tabbar {
     display: none;
   }

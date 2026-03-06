@@ -34,12 +34,12 @@
   position: sticky;
   top: var(--space-3);
   z-index: 100;
-  background: rgba(255, 255, 255, 0.6);
+  background: rgb(255, 255, 255, 0.6);
   backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
   border-radius: var(--radius-lg);
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.03);
+  border: 1px solid rgb(0, 0, 0, 0.06);
+  box-shadow: 0 2px 12px rgb(0, 0, 0, 0.04), 0 1px 3px rgb(0, 0, 0, 0.03);
   margin-top: var(--space-3);
 }
 
@@ -54,7 +54,7 @@
   height: 12px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--color-accent), var(--color-accent-hover));
-  box-shadow: 0 0 12px rgba(194, 114, 90, 0.4);
+  box-shadow: 0 0 12px rgb(194, 114, 90, 0.4);
 }
 
 .landing__nav-name {
@@ -112,7 +112,7 @@
   width: fit-content;
   padding: 6px 16px;
   background: var(--color-accent-subtle);
-  border: 1px solid rgba(194, 114, 90, 0.15);
+  border: 1px solid rgb(194, 114, 90, 0.15);
   border-radius: var(--radius-full);
   font-size: var(--text-sm);
   font-weight: 600;
@@ -135,7 +135,7 @@
 
 .landing__hero-title-accent {
   background: linear-gradient(135deg, var(--color-accent) 0%, #D4856A 100%);
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
@@ -324,7 +324,7 @@
     color-mix(in srgb, var(--feature-color) 4%, transparent)
   );
   border-radius: var(--radius-lg);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 12px rgb(0, 0, 0, 0.06);
 }
 
 .landing__feature-title {
@@ -359,10 +359,10 @@
   width: 100%;
   background: linear-gradient(
     135deg,
-    rgba(194, 114, 90, 0.06) 0%,
-    rgba(194, 114, 90, 0.02) 100%
+    rgb(194, 114, 90, 0.06) 0%,
+    rgb(194, 114, 90, 0.02) 100%
   ) !important;
-  border-color: rgba(194, 114, 90, 0.12) !important;
+  border-color: rgb(194, 114, 90, 0.12) !important;
 }
 
 .landing__cta-title {
@@ -412,7 +412,7 @@
    Responsive
    ═══════════════════════════════════════════════════════════════════ */
 
-@media (max-width: 900px) {
+@media (width <= 900px) {
   .landing__hero {
     grid-template-columns: 1fr;
     gap: var(--space-10);
@@ -441,7 +441,7 @@
   }
 }
 
-@media (max-width: 640px) {
+@media (width <= 640px) {
   .landing__content {
     gap: var(--space-16);
   }

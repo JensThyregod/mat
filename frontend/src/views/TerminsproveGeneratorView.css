@@ -29,7 +29,7 @@
   align-items: center;
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .terminsprove__hero {
     grid-template-columns: 1fr;
     gap: var(--space-6);
@@ -47,8 +47,8 @@
   align-items: center;
   gap: 8px;
   padding: 6px 14px;
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.12), rgba(236, 72, 153, 0.12));
-  border: 1px solid rgba(139, 92, 246, 0.2);
+  background: linear-gradient(135deg, rgb(139, 92, 246, 0.12), rgb(236, 72, 153, 0.12));
+  border: 1px solid rgb(139, 92, 246, 0.2);
   border-radius: 100px;
   font-size: 12px;
   font-weight: 600;
@@ -65,7 +65,7 @@
   font-weight: 900;
   letter-spacing: -0.03em;
   background: linear-gradient(135deg, var(--color-text) 0%, var(--color-text-secondary) 100%);
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   margin: 0;
@@ -93,10 +93,10 @@
   right: 20px;
   height: 2px;
   background: linear-gradient(90deg, 
-    rgba(139, 92, 246, 0.3),
-    rgba(236, 72, 153, 0.3),
-    rgba(16, 185, 129, 0.3),
-    rgba(245, 158, 11, 0.3)
+    rgb(139, 92, 246, 0.3),
+    rgb(236, 72, 153, 0.3),
+    rgb(16, 185, 129, 0.3),
+    rgb(245, 158, 11, 0.3)
   );
   z-index: 0;
 }
@@ -142,7 +142,7 @@
   gap: var(--space-6);
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .terminsprove__form-grid {
     grid-template-columns: 1fr;
   }
@@ -174,7 +174,7 @@
 .terminsprove__slider {
   flex: 1;
   height: 8px;
-  -webkit-appearance: none;
+  appearance: none;
   appearance: none;
   background: var(--color-border);
   border-radius: var(--radius-full);
@@ -182,14 +182,14 @@
 }
 
 .terminsprove__slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
+  appearance: none;
   appearance: none;
   width: 24px;
   height: 24px;
   background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-hover) 100%);
   border-radius: 50%;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(194, 114, 90, 0.4);
+  box-shadow: 0 2px 8px rgb(194, 114, 90, 0.4);
   transition: transform var(--transition-fast);
 }
 
@@ -291,7 +291,7 @@
   gap: var(--space-4);
 }
 
-@media (max-width: 600px) {
+@media (width <= 600px) {
   .terminsprove__difficulty-grid {
     grid-template-columns: 1fr;
   }
@@ -361,12 +361,12 @@
   font-weight: 700;
   color: white;
   cursor: pointer;
-  box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+  box-shadow: 0 4px 20px rgb(139, 92, 246, 0.4);
   transition: box-shadow var(--transition-fast);
 }
 
 .terminsprove__generate-btn:hover {
-  box-shadow: 0 8px 30px rgba(139, 92, 246, 0.5);
+  box-shadow: 0 8px 30px rgb(139, 92, 246, 0.5);
 }
 
 .terminsprove__generate-icon {
@@ -589,7 +589,7 @@
   max-width: 100%;
   max-height: 400px;
   border-radius: var(--radius-lg, 12px);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 12px rgb(0, 0, 0, 0.08);
   border: 1px solid var(--color-border, #e0e0e0);
   object-fit: contain;
 }
@@ -641,7 +641,7 @@
   max-width: 100%;
   max-height: 400px;
   border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 12px rgb(0, 0, 0, 0.08);
   border: 1px solid var(--color-border, #e0e0e0);
   object-fit: contain;
 }
@@ -710,7 +710,7 @@
   gap: var(--space-4);
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .terminsprove__distribution {
     grid-template-columns: 1fr;
   }
@@ -779,8 +779,8 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   box-shadow: 
-    0 4px 24px rgba(0, 0, 0, 0.08),
-    0 1px 4px rgba(0, 0, 0, 0.04);
+    0 4px 24px rgb(0, 0, 0, 0.08),
+    0 1px 4px rgb(0, 0, 0, 0.04);
   padding: var(--space-8) var(--space-8);
   position: relative;
 }
@@ -810,8 +810,8 @@
   align-items: center;
   gap: 6px;
   padding: 4px 12px;
-  background: rgba(139, 92, 246, 0.1);
-  border: 1px solid rgba(139, 92, 246, 0.25);
+  background: rgb(139, 92, 246, 0.1);
+  border: 1px solid rgb(139, 92, 246, 0.25);
   border-radius: var(--radius-full);
   font-size: var(--text-xs);
   font-weight: 600;
@@ -836,8 +836,8 @@
   align-items: center;
   gap: 4px;
   padding: 4px 12px;
-  background: rgba(239, 68, 68, 0.08);
-  border: 1px solid rgba(239, 68, 68, 0.25);
+  background: rgb(239, 68, 68, 0.08);
+  border: 1px solid rgb(239, 68, 68, 0.25);
   border-radius: var(--radius-full);
   font-family: var(--font-sans);
   font-size: var(--text-xs);
@@ -848,7 +848,7 @@
 }
 
 .terminsprove__exam-cancel-btn:hover {
-  background: rgba(239, 68, 68, 0.15);
+  background: rgb(239, 68, 68, 0.15);
 }
 
 .terminsprove__exam-complete-badge {
@@ -856,8 +856,8 @@
   align-items: center;
   gap: 4px;
   padding: 4px 12px;
-  background: rgba(16, 185, 129, 0.1);
-  border: 1px solid rgba(16, 185, 129, 0.25);
+  background: rgb(16, 185, 129, 0.1);
+  border: 1px solid rgb(16, 185, 129, 0.25);
   border-radius: var(--radius-full);
   font-size: var(--text-xs);
   font-weight: 600;
@@ -872,7 +872,7 @@
   font-size: var(--text-2xl);
   font-weight: 700;
   color: var(--color-text);
-  margin: 0 0 4px 0;
+  margin: 0 0 4px;
   letter-spacing: -0.02em;
 }
 
@@ -978,7 +978,7 @@
 .terminsprove__exam-task-spinner {
   width: 12px;
   height: 12px;
-  border: 2px solid rgba(139, 92, 246, 0.2);
+  border: 2px solid rgb(139, 92, 246, 0.2);
   border-top-color: #8B5CF6;
   border-radius: 50%;
   animation: exam-spinner 0.8s linear infinite;
@@ -1066,7 +1066,7 @@
   font-size: var(--text-base);
   color: var(--color-text);
   line-height: 1.6;
-  margin: 0 0 4px 0;
+  margin: 0 0 4px;
 }
 
 .terminsprove__exam-subquestion-meta {
@@ -1226,16 +1226,16 @@
   font-weight: 600;
   color: white;
   cursor: pointer;
-  box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
+  box-shadow: 0 4px 20px rgb(139, 92, 246, 0.3);
   transition: box-shadow var(--transition-fast);
 }
 
 .terminsprove__new-exam-btn:hover {
-  box-shadow: 0 8px 30px rgba(139, 92, 246, 0.45);
+  box-shadow: 0 8px 30px rgb(139, 92, 246, 0.45);
 }
 
 /* Responsive */
-@media (max-width: 600px) {
+@media (width <= 600px) {
   .terminsprove__exam-paper {
     padding: var(--space-4) var(--space-4);
     border-radius: var(--radius-lg);

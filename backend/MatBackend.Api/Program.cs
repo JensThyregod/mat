@@ -1,16 +1,13 @@
-using System.ClientModel;
 using System.Security.Claims;
 using Amazon.S3;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.SemanticKernel;
-using Microsoft.SemanticKernel.Connectors.AzureAIInference;
 using MatBackend.Core.Interfaces;
 using MatBackend.Core.Interfaces.Agents;
 using MatBackend.Core.Models.Scoring;
 using MatBackend.Infrastructure.Agents;
 using MatBackend.Infrastructure.Repositories;
 using MatBackend.Infrastructure.Services;
-using Microsoft.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -132,22 +129,6 @@ builder.Services.AddScoped<ITrainingService, TrainingService>();
 
 var verboseScoring = builder.Configuration.GetValue<bool?>("Scoring:VerboseLogging") ?? false;
 Console.WriteLine($"🧠 Bayesian scoring: MaxEvidence={scoringParams.MaxEvidence}, VerboseLogging={verboseScoring}");
-
-// Email verification (Scaleway TEM)
-var scwSecretKey = builder.Configuration["ScalewayTem:SecretKey"] ?? Environment.GetEnvironmentVariable("SCW_SECRET_KEY") ?? "";
-var scwProjectId = builder.Configuration["ScalewayTem:ProjectId"] ?? Environment.GetEnvironmentVariable("SCW_DEFAULT_PROJECT_ID") ?? "";
-var scwRegion = builder.Configuration["ScalewayTem:Region"] ?? "fr-par";
-var temSenderEmail = builder.Configuration["ScalewayTem:SenderEmail"] ?? "noreply@mattutor.dk";
-var temSenderName = builder.Configuration["ScalewayTem:SenderName"] ?? "Matematik Tutor";
-builder.Services.AddHttpClient("ScalewayTem");
-builder.Services.AddScoped<IEmailService>(provider =>
-{
-    var httpClientFactory = provider.GetRequiredService<IHttpClientFactory>();
-    var httpClient = httpClientFactory.CreateClient("ScalewayTem");
-    var logger = provider.GetRequiredService<ILogger<ScalewayEmailService>>();
-    return new ScalewayEmailService(httpClient, scwSecretKey, scwProjectId, scwRegion, temSenderEmail, temSenderName, logger);
-});
-Console.WriteLine($"📧 Scaleway TEM email: {(string.IsNullOrEmpty(scwSecretKey) ? "(no secret key)" : "configured")}");
 
 // Agent Configuration
 var agentConfig = new AgentConfiguration

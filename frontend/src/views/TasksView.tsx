@@ -33,7 +33,7 @@ export const TasksView = observer(() => {
 
   useEffect(() => {
     if (authStore.student) {
-      taskStore.loadTasks(authStore.student.id)
+      taskStore.loadTasks()
     }
   }, [authStore.student, taskStore])
 

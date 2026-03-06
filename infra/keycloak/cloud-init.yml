@@ -1,0 +1,250 @@
+#cloud-config
+package_update: true
+package_upgrade: true
+
+packages:
+  - ca-certificates
+  - curl
+  - gnupg
+
+runcmd:
+  # Install Docker
+  - install -m 0755 -d /etc/apt/keyrings
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+  - chmod a+r /etc/apt/keyrings/docker.asc
+  - echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo $VERSION_CODENAME) stable" > /etc/apt/sources.list.d/docker.list
+  - apt-get update
+  - apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+  # Create app directory
+  - mkdir -p /opt/keycloak
+
+  # Write environment file
+  - |
+    cat > /opt/keycloak/.env << 'ENVEOF'
+    KEYCLOAK_IMAGE_TAG=${keycloak_image_tag}
+    KEYCLOAK_HOSTNAME=${keycloak_hostname}
+    KEYCLOAK_ADMIN_PASSWORD=${keycloak_admin_password}
+    DB_HOST=${db_host}
+    DB_PORT=${db_port}
+    DB_NAME=${db_name}
+    DB_USER=${db_user}
+    DB_PASSWORD=${db_password}
+    ENVEOF
+  - chmod 600 /opt/keycloak/.env
+
+  # Write Caddyfile
+  - |
+    cat > /opt/keycloak/Caddyfile << 'CADDYEOF'
+    ${keycloak_hostname} {
+      reverse_proxy keycloak:8080
+    }
+    CADDYEOF
+
+  # Write docker-compose.yml
+  - |
+    cat > /opt/keycloak/docker-compose.yml << 'COMPOSEEOF'
+    services:
+      caddy:
+        image: caddy:2-alpine
+        restart: unless-stopped
+        ports:
+          - "80:80"
+          - "443:443"
+          - "443:443/udp"
+        volumes:
+          - ./Caddyfile:/etc/caddy/Caddyfile:ro
+          - caddy_data:/data
+          - caddy_config:/config
+        depends_on:
+          keycloak:
+            condition: service_healthy
+
+      keycloak:
+        image: quay.io/keycloak/keycloak:$${KEYCLOAK_IMAGE_TAG:-26.0}
+        restart: unless-stopped
+        command: start --import-realm
+        environment:
+          KC_DB: postgres
+          KC_DB_URL: jdbc:postgresql://$${DB_HOST}:$${DB_PORT}/$${DB_NAME}
+          KC_DB_USERNAME: $${DB_USER}
+          KC_DB_PASSWORD: $${DB_PASSWORD}
+          KC_HOSTNAME: $${KEYCLOAK_HOSTNAME}
+          KC_PROXY_HEADERS: xforwarded
+          KC_HTTP_ENABLED: "true"
+          KC_HEALTH_ENABLED: "true"
+          KC_METRICS_ENABLED: "true"
+          KC_BOOTSTRAP_ADMIN_USERNAME: admin
+          KC_BOOTSTRAP_ADMIN_PASSWORD: $${KEYCLOAK_ADMIN_PASSWORD}
+        volumes:
+          - ./realm-export.json:/opt/keycloak/data/import/realm-export.json:ro
+          - ./realm-dev-export.json:/opt/keycloak/data/import/realm-dev-export.json:ro
+        expose:
+          - "8080"
+        healthcheck:
+          test: ["CMD-SHELL", "echo > /dev/tcp/127.0.0.1/9000"]
+          interval: 10s
+          timeout: 5s
+          retries: 15
+          start_period: 30s
+
+    volumes:
+      caddy_data:
+      caddy_config:
+    COMPOSEEOF
+
+  # Write production realm export
+  - |
+    cat > /opt/keycloak/realm-export.json << 'REALMEOF'
+    {
+      "realm": "mat-tutor",
+      "enabled": true,
+      "registrationAllowed": true,
+      "registrationEmailAsUsername": false,
+      "verifyEmail": true,
+      "loginWithEmailAllowed": true,
+      "duplicateEmailsAllowed": false,
+      "resetPasswordAllowed": true,
+      "editUsernameAllowed": false,
+      "bruteForceProtected": true,
+      "permanentLockout": false,
+      "maxFailureWaitSeconds": 900,
+      "minimumQuickLoginWaitSeconds": 60,
+      "waitIncrementSeconds": 60,
+      "quickLoginCheckMilliSeconds": 1000,
+      "maxDeltaTimeSeconds": 43200,
+      "failureFactor": 5,
+      "sslRequired": "external",
+      "defaultSignatureAlgorithm": "RS256",
+      "accessTokenLifespan": 300,
+      "ssoSessionIdleTimeout": 1800,
+      "ssoSessionMaxLifespan": 36000,
+      "smtpServer": {
+        "host": "smtp.tem.scw.cloud",
+        "port": "587",
+        "fromDisplayName": "Matematik Tutor",
+        "from": "${tem_sender_email}",
+        "starttls": "true",
+        "auth": "true",
+        "user": "${tem_project_id}",
+        "password": "${tem_secret_key}"
+      },
+      "clients": [
+        {
+          "clientId": "mat-frontend",
+          "name": "Mat Tutor Frontend",
+          "enabled": true,
+          "publicClient": true,
+          "standardFlowEnabled": true,
+          "directAccessGrantsEnabled": false,
+          "redirectUris": [
+            "https://mattutor.dk/*",
+            "http://localhost:5173/*"
+          ],
+          "webOrigins": [
+            "https://mattutor.dk",
+            "http://localhost:5173"
+          ],
+          "attributes": {
+            "pkce.code.challenge.method": "S256",
+            "post.logout.redirect.uris": "https://mattutor.dk/*##http://localhost:5173/*"
+          },
+          "protocolMappers": [
+            {
+              "name": "mat-backend-audience",
+              "protocol": "openid-connect",
+              "protocolMapper": "oidc-audience-mapper",
+              "consentRequired": false,
+              "config": {
+                "included.client.audience": "mat-backend",
+                "id.token.claim": "false",
+                "lightweight.claim": "false",
+                "access.token.claim": "true",
+                "introspection.token.claim": "true"
+              }
+            }
+          ]
+        },
+        {
+          "clientId": "mat-backend",
+          "name": "Mat Tutor Backend API",
+          "enabled": true,
+          "bearerOnly": true,
+          "publicClient": false,
+          "standardFlowEnabled": false,
+          "directAccessGrantsEnabled": false
+        }
+      ]
+    }
+    REALMEOF
+
+  # Write dev realm export (localhost-only, relaxed settings)
+  - |
+    cat > /opt/keycloak/realm-dev-export.json << 'DEVREALMEOF'
+    {
+      "realm": "mat-tutor-dev",
+      "enabled": true,
+      "registrationAllowed": true,
+      "registrationEmailAsUsername": false,
+      "verifyEmail": false,
+      "loginWithEmailAllowed": true,
+      "duplicateEmailsAllowed": false,
+      "resetPasswordAllowed": true,
+      "editUsernameAllowed": false,
+      "bruteForceProtected": false,
+      "sslRequired": "none",
+      "defaultSignatureAlgorithm": "RS256",
+      "accessTokenLifespan": 1800,
+      "ssoSessionIdleTimeout": 86400,
+      "ssoSessionMaxLifespan": 86400,
+      "clients": [
+        {
+          "clientId": "mat-frontend",
+          "name": "Mat Tutor Frontend (Dev)",
+          "enabled": true,
+          "publicClient": true,
+          "standardFlowEnabled": true,
+          "directAccessGrantsEnabled": true,
+          "redirectUris": [
+            "http://localhost:5173/*",
+            "http://localhost:3000/*"
+          ],
+          "webOrigins": [
+            "http://localhost:5173",
+            "http://localhost:3000"
+          ],
+          "attributes": {
+            "pkce.code.challenge.method": "S256",
+            "post.logout.redirect.uris": "http://localhost:5173/*##http://localhost:3000/*"
+          },
+          "protocolMappers": [
+            {
+              "name": "mat-backend-audience",
+              "protocol": "openid-connect",
+              "protocolMapper": "oidc-audience-mapper",
+              "consentRequired": false,
+              "config": {
+                "included.client.audience": "mat-backend",
+                "id.token.claim": "false",
+                "lightweight.claim": "false",
+                "access.token.claim": "true",
+                "introspection.token.claim": "true"
+              }
+            }
+          ]
+        },
+        {
+          "clientId": "mat-backend",
+          "name": "Mat Tutor Backend API (Dev)",
+          "enabled": true,
+          "bearerOnly": true,
+          "publicClient": false,
+          "standardFlowEnabled": false,
+          "directAccessGrantsEnabled": false
+        }
+      ]
+    }
+    DEVREALMEOF
+
+  # Start the stack
+  - cd /opt/keycloak && docker compose up -d

@@ -11,6 +11,18 @@ import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { StoreProvider, createRootStore } from '../stores/storeProvider'
 
+vi.mock('react-oidc-context', () => ({
+  useAuth: () => ({
+    isAuthenticated: false,
+    isLoading: false,
+    user: null,
+    signinRedirect: vi.fn(),
+    signoutRedirect: vi.fn(),
+    removeUser: vi.fn(),
+  }),
+  AuthProvider: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+}))
+
 const motionPropNames = new Set([
   'initial', 'animate', 'exit', 'transition',
   'variants', 'whileHover', 'whileTap', 'whileFocus',
@@ -163,19 +175,6 @@ describe('Store Imports', () => {
 })
 
 describe('Route Rendering', () => {
-  it('renders LoginView component', async () => {
-    const { LoginView } = await import('../views/LoginView')
-    
-    render(
-      <TestWrapper initialRoute="/login">
-        <LoginView />
-      </TestWrapper>
-    )
-    
-    // Login page should show some login-related content
-    expect(screen.getByRole('button', { name: /log ind/i })).toBeInTheDocument()
-  })
-
   it('renders Layout component with navigation', async () => {
     const { Layout } = await import('../components/Layout')
     

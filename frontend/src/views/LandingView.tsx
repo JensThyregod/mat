@@ -1,5 +1,5 @@
-import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { useAuth } from 'react-oidc-context'
 import { GlassCard } from '../components/GlassCard'
 import { Button } from '../components/Button'
 import { MathParticles } from '../components/MathParticles'
@@ -71,7 +71,8 @@ const FEATURES = [
 
 export const LandingView = () => {
   useDocumentTitle('Matematik Tutor — Træning til 9. klasses afgangsprøve')
-  const navigate = useNavigate()
+  const auth = useAuth()
+  const handleLogin = () => auth.signinRedirect()
 
   return (
     <PageTransition className="landing">
@@ -95,7 +96,7 @@ export const LandingView = () => {
             >
               Funktioner
             </button>
-            <Button variant="primary" onClick={() => navigate('/login?mode=signup')}>
+            <Button variant="primary" onClick={handleLogin}>
               Kom i gang
             </Button>
           </div>
@@ -121,7 +122,7 @@ export const LandingView = () => {
             </motion.p>
 
             <motion.div className="landing__hero-actions" variants={itemVariants}>
-              <Button variant="primary" className="btn-lg" onClick={() => navigate('/login?mode=signup')}>
+              <Button variant="primary" className="btn-lg" onClick={handleLogin}>
                 Start gratis
               </Button>
             </motion.div>
@@ -210,7 +211,7 @@ export const LandingView = () => {
             <p className="landing__cta-subtitle">
               Opret en profil og begynd at træne 9. klasses pensum — det tager under et minut.
             </p>
-            <Button variant="primary" className="btn-lg" onClick={() => navigate('/login?mode=signup')}>
+            <Button variant="primary" className="btn-lg" onClick={handleLogin}>
               Kom i gang
             </Button>
           </GlassCard>

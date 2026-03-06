@@ -43,13 +43,13 @@ export class TaskStore {
     return arr[partIndex]
   }
 
-  async loadTasks(studentId: string) {
+  async loadTasks() {
     this.loading = true
     this.error = null
     try {
       const [tasks, answers] = await Promise.all([
-        this.api.fetchTasks(studentId),
-        this.api.fetchAnswersForStudent(studentId),
+        this.api.fetchTasks(),
+        this.api.fetchAnswersForStudent(),
       ])
       runInAction(() => {
         this.tasks = tasks
@@ -66,10 +66,9 @@ export class TaskStore {
 
   async getTask(taskId: string) {
     if (!this.root.authStore.student) return undefined
-    const studentId = this.root.authStore.student.id
     const existing = this.tasks.find((t) => t.id === taskId)
     if (existing) return existing
-    const fetched = await this.api.fetchTask(studentId, taskId)
+    const fetched = await this.api.fetchTask(taskId)
     if (fetched) {
       runInAction(() => {
         this.tasks = [...this.tasks, fetched]
@@ -88,11 +87,9 @@ export class TaskStore {
       this.error = 'Du skal være logget ind for at aflevere.'
       return null
     }
-    const studentId = this.root.authStore.student.id
     this.saving = { ...this.saving, [`${taskId}-${partIndex}`]: true }
     try {
       const record = await this.api.saveAnswer(
-        studentId,
         taskId,
         partIndex,
         partCount,
@@ -119,4 +116,3 @@ export class TaskStore {
     }
   }
 }
-

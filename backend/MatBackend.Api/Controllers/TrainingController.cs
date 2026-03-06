@@ -1,10 +1,13 @@
+using MatBackend.Api.Extensions;
 using MatBackend.Core.Interfaces;
 using MatBackend.Core.Models.Scoring;
 using MatBackend.Core.Scoring;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MatBackend.Api.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/training")]
 public class TrainingController : ControllerBase
@@ -18,14 +21,13 @@ public class TrainingController : ControllerBase
         _logger = logger;
     }
 
-    /// <summary>
-    /// Get all skill states for a student.
-    /// Returns mastery levels, means, and metadata for all 22 skills.
-    /// </summary>
-    [HttpGet("{studentId}/skills")]
-    public async Task<ActionResult<SkillsResponse>> GetSkills(string studentId)
+    private string GetStudentId() => User.GetKeycloakUserId();
+
+    [HttpGet("me/skills")]
+    public async Task<ActionResult<SkillsResponse>> GetSkills()
     {
-        _logger.LogDebug("[API] GET /training/{StudentId}/skills", studentId);
+        var studentId = GetStudentId();
+        _logger.LogDebug("[API] GET /training/me/skills for {StudentId}", studentId);
 
         var states = await _trainingService.GetSkillStatesAsync(studentId);
         var params_ = ScoringParameters.Default;
@@ -59,15 +61,12 @@ public class TrainingController : ControllerBase
         });
     }
 
-    /// <summary>
-    /// Record the result of a training task.
-    /// Updates the Bayesian skill state and returns the new mastery level.
-    /// </summary>
-    [HttpPost("{studentId}/record")]
+    [HttpPost("me/record")]
     public async Task<ActionResult<TrainingResultDto>> RecordResult(
-        string studentId, [FromBody] TrainingAnswerRequest request)
+        [FromBody] TrainingAnswerRequest request)
     {
-        _logger.LogDebug("[API] POST /training/{StudentId}/record skill={SkillId}", studentId, request.SkillId);
+        var studentId = GetStudentId();
+        _logger.LogDebug("[API] POST /training/me/record skill={SkillId}", request.SkillId);
 
         if (string.IsNullOrEmpty(request.SkillId))
             return BadRequest("SkillId is required");
@@ -79,36 +78,29 @@ public class TrainingController : ControllerBase
         return Ok(result);
     }
 
-    /// <summary>
-    /// Get a recommendation for the next skill to practice.
-    /// Uses Thompson Sampling to balance exploration and exploitation.
-    /// </summary>
-    [HttpGet("{studentId}/recommend")]
+    [HttpGet("me/recommend")]
     public async Task<ActionResult<SkillRecommendation>> Recommend(
-        string studentId, [FromQuery] string? category = null)
+        [FromQuery] string? category = null)
     {
-        _logger.LogDebug("[API] GET /training/{StudentId}/recommend category={Category}",
-            studentId, category ?? "all");
+        var studentId = GetStudentId();
+        _logger.LogDebug("[API] GET /training/me/recommend category={Category}", category ?? "all");
 
         var recommendation = await _trainingService.RecommendNextSkillAsync(studentId, category);
         return Ok(recommendation);
     }
 
-    /// <summary>
-    /// Reset all skill states for a student (dev/testing only).
-    /// </summary>
-    [HttpPost("{studentId}/reset")]
-    public async Task<ActionResult> Reset(string studentId)
+    [HttpPost("me/reset")]
+    public async Task<ActionResult> Reset()
     {
-        _logger.LogWarning("[API] POST /training/{StudentId}/reset", studentId);
+        var studentId = GetStudentId();
+        _logger.LogWarning("[API] POST /training/me/reset for {StudentId}", studentId);
 
         await _trainingService.ResetSkillStatesAsync(studentId);
         return Ok(new { message = "All skill states reset" });
     }
 }
 
-// ── Response DTOs ─────────────────────────────────────────────
-
+// Response DTOs
 public class SkillsResponse
 {
     public string StudentId { get; set; } = string.Empty;

@@ -52,7 +52,7 @@ export const TaskDetailOverlay = observer(({ task, onClose }: TaskDetailOverlayP
   useEffect(() => {
     if (!task.id || !authStore.student) return
     
-    api.loadTaskSetState(authStore.student.id, task.id).then((state) => {
+    api.loadTaskSetState(task.id).then((state) => {
       setTaskState(state)
     })
   }, [task.id, authStore.student, api])
@@ -72,7 +72,6 @@ export const TaskDetailOverlay = observer(({ task, onClose }: TaskDetailOverlayP
       if (!task.id || !authStore.student || revealed) return
 
       api.saveQuestionAnswer(
-        authStore.student.id,
         task.id,
         partIndex,
         questionIndex,
@@ -96,7 +95,6 @@ export const TaskDetailOverlay = observer(({ task, onClose }: TaskDetailOverlayP
       const status = checkAnswerCorrectness(answer, question)
 
       const newState = await api.saveQuestionAnswer(
-        authStore.student.id,
         task.id,
         partIndex,
         i,

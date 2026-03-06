@@ -265,7 +265,7 @@ export const TrainingPanel = observer(({ embedded = false }: { embedded?: boolea
 
   // Load skills from backend on mount
   useEffect(() => {
-    fetchSkills(studentId)
+    fetchSkills()
       .then(res => {
         setSkills(res.skills)
         setCatalog(res.skillCatalog)
@@ -303,7 +303,7 @@ export const TrainingPanel = observer(({ embedded = false }: { embedded?: boolea
         difficulty = skillState ? (skillState.mean < 0.35 ? 'let' : skillState.mean > 0.65 ? 'svaer' : 'middel') : 'middel'
       } else if (backendAvailable) {
         console.log('[Training] Requesting recommendation from backend...', { category: categoryFilter ?? 'all' })
-        const rec = await recommendNextSkill(studentId, categoryFilter)
+        const rec = await recommendNextSkill(categoryFilter)
         console.log('[Training] Recommendation:', rec)
         skillId = rec.skillId
         difficulty = rec.recommendedDifficulty
@@ -442,7 +442,7 @@ export const TrainingPanel = observer(({ embedded = false }: { embedded?: boolea
     setXpDeltas(deltas)
 
     if (backendAvailable) {
-      recordTrainingResult(studentId, activeTask.skillId, activeTask.difficulty, results)
+      recordTrainingResult(activeTask.skillId, activeTask.difficulty, results)
         .then(result => {
           if (result.levelChanged) {
             const entry = catalogMap.get(activeTask.skillId)
@@ -689,8 +689,8 @@ export const TrainingPanel = observer(({ embedded = false }: { embedded?: boolea
                 </div>
                 <button className="training__reset-btn" onClick={async () => {
                   if (backendAvailable) {
-                    await resetSkills(studentId)
-                    const res = await fetchSkills(studentId)
+                    await resetSkills()
+                    const res = await fetchSkills()
                     setSkills(res.skills)
                   }
                   setTasksThisSession(0)

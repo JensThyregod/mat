@@ -1,6 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Channels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MatBackend.Core.Interfaces;
 using MatBackend.Core.Interfaces.Agents;
@@ -11,6 +12,7 @@ namespace MatBackend.Api.Controllers;
 /// <summary>
 /// API controller for generating terminsprøver (term exams) using AI agents
 /// </summary>
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class TerminsproveController : ControllerBase

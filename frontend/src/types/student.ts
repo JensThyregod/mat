@@ -1,14 +1,9 @@
 export type Student = {
   id: string
   name: string
-  code: string
+  code?: string
   email?: string
   emailVerified?: boolean
-}
-
-export type SignupResponse = {
-  message: string
-  studentId: string
 }
 
 export type AnswerRecord = {

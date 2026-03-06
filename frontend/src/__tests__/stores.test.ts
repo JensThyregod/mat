@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import type { ApiClient } from '../services/apiClient'
 import type { AnswerRecord, Task } from '../types'
+import type { User } from 'oidc-client-ts'
 
 vi.stubGlobal('localStorage', {
   getItem: vi.fn(() => null),
@@ -10,10 +11,11 @@ vi.stubGlobal('localStorage', {
 
 function createMockApi(overrides: Partial<ApiClient> = {}): ApiClient {
   return {
+    setAccessToken: vi.fn(),
+    getProfile: vi.fn().mockResolvedValue({ id: 's1', name: 'Test', email: 'test@test.dk', emailVerified: true }),
     fetchTasks: vi.fn().mockResolvedValue([]),
     fetchTask: vi.fn().mockResolvedValue(undefined),
     fetchAnswersForStudent: vi.fn().mockResolvedValue({}),
-    authenticateStudent: vi.fn().mockResolvedValue(null),
     saveAnswer: vi.fn().mockResolvedValue({
       taskId: 't1',
       studentId: 's1',
@@ -27,14 +29,27 @@ function createMockApi(overrides: Partial<ApiClient> = {}): ApiClient {
       parts: {},
       updatedAt: new Date().toISOString(),
     }),
-    signupStudent: vi.fn().mockResolvedValue({ message: 'ok', studentId: 's1' }),
-    verifyEmail: vi.fn().mockResolvedValue({ id: 's1', name: 'Test', code: 'abc', emailVerified: true }),
-    resendVerification: vi.fn().mockResolvedValue(undefined),
     ...overrides,
   }
 }
 
-const fakeStudent = { id: 's1', name: 'Test Elev', code: 'abc123' }
+function createFakeOidcUser(sub = 's1', name = 'Test Elev'): User {
+  return {
+    access_token: 'fake-token',
+    token_type: 'Bearer',
+    expired: false,
+    profile: {
+      sub,
+      preferred_username: name,
+      email: 'test@test.dk',
+      email_verified: true,
+      iss: 'https://auth.mattutor.dk/realms/mat-tutor',
+      aud: 'mat-frontend',
+      exp: Math.floor(Date.now() / 1000) + 3600,
+      iat: Math.floor(Date.now() / 1000),
+    },
+  } as unknown as User
+}
 
 const fakeTasks: Task[] = [
   { id: 't1', title: 'Opgave 1', latex: '2+2', tags: ['aritmetik'], difficulty: 'easy' },
@@ -80,60 +95,36 @@ describe('AuthStore', () => {
     expect(store.authStore.error).toBeNull()
   })
 
-  it('sets error when login fields are empty', async () => {
-    await store.authStore.login('', '')
-    expect(store.authStore.error).toBe('Skriv både navn og klassekode.')
+  it('sets student from OIDC user', () => {
+    const oidcUser = createFakeOidcUser('s1', 'Test Elev')
+    store.authStore.setOidcUser(oidcUser)
+
+    expect(store.authStore.student).not.toBeNull()
+    expect(store.authStore.student!.id).toBe('s1')
+    expect(store.authStore.student!.name).toBe('Test Elev')
+    expect(store.authStore.isAuthenticated).toBe(true)
   })
 
-  it('sets error when name is empty', async () => {
-    const result = await store.authStore.login('', 'abc')
-    expect(result).toBe(false)
-    expect(store.authStore.error).toBe('Skriv både navn og klassekode.')
-  })
+  it('clears student when OIDC user is null', () => {
+    const oidcUser = createFakeOidcUser()
+    store.authStore.setOidcUser(oidcUser)
+    expect(store.authStore.student).not.toBeNull()
 
-  it('sets error when code is empty', async () => {
-    const result = await store.authStore.login('Test', '')
-    expect(result).toBe(false)
-    expect(store.authStore.error).toBe('Skriv både navn og klassekode.')
-  })
-
-  it('sets student on valid credentials', async () => {
-    store = await createStore({
-      authenticateStudent: vi.fn().mockResolvedValue(fakeStudent),
-      fetchTasks: vi.fn().mockResolvedValue(fakeTasks),
-      fetchAnswersForStudent: vi.fn().mockResolvedValue(fakeAnswers),
-    })
-
-    const result = await store.authStore.login('Test Elev', 'abc123')
-
-    expect(result).toBe(true)
-    expect(store.authStore.student).toEqual(fakeStudent)
-    expect(store.authStore.error).toBeNull()
-    expect(store.authStore.loading).toBe(false)
-  })
-
-  it('sets error on invalid credentials', async () => {
-    store = await createStore({
-      authenticateStudent: vi.fn().mockResolvedValue(null),
-    })
-
-    const result = await store.authStore.login('Wrong', 'wrong')
-
-    expect(result).toBe(false)
+    store.authStore.setOidcUser(null)
     expect(store.authStore.student).toBeNull()
-    expect(store.authStore.error).toBe('Ugyldigt login. Tjek navn/kode.')
-    expect(store.authStore.loading).toBe(false)
+    expect(store.authStore.isAuthenticated).toBe(false)
   })
 
-  it('logout clears student and resets task store', async () => {
-    store = await createStore({
-      authenticateStudent: vi.fn().mockResolvedValue(fakeStudent),
-      fetchTasks: vi.fn().mockResolvedValue(fakeTasks),
-      fetchAnswersForStudent: vi.fn().mockResolvedValue(fakeAnswers),
-    })
+  it('provides access token from OIDC user', () => {
+    const oidcUser = createFakeOidcUser()
+    store.authStore.setOidcUser(oidcUser)
+    expect(store.authStore.accessToken).toBe('fake-token')
+  })
 
-    await store.authStore.login('Test Elev', 'abc123')
-    expect(store.authStore.student).toEqual(fakeStudent)
+  it('logout clears student and resets task store', () => {
+    const oidcUser = createFakeOidcUser()
+    store.authStore.setOidcUser(oidcUser)
+    expect(store.authStore.student).not.toBeNull()
 
     store.authStore.logout()
 
@@ -172,7 +163,7 @@ describe('TaskStore', () => {
       fetchAnswersForStudent: vi.fn().mockResolvedValue(fakeAnswers),
     })
 
-    await store.taskStore.loadTasks('s1')
+    await store.taskStore.loadTasks()
 
     expect(store.taskStore.tasks).toEqual(fakeTasks)
     expect(store.taskStore.answers).toEqual(fakeAnswers)
@@ -186,7 +177,7 @@ describe('TaskStore', () => {
       fetchAnswersForStudent: vi.fn().mockResolvedValue({}),
     })
 
-    await store.taskStore.loadTasks('s1')
+    await store.taskStore.loadTasks()
 
     expect(store.taskStore.error).toBe('Kunne ikke hente opgaverne.')
     expect(store.taskStore.loading).toBe(false)
@@ -204,13 +195,12 @@ describe('TaskStore', () => {
     }
 
     store = await createStore({
-      authenticateStudent: vi.fn().mockResolvedValue(fakeStudent),
       fetchTasks: vi.fn().mockResolvedValue(fakeTasks),
       fetchAnswersForStudent: vi.fn().mockResolvedValue({}),
       saveAnswer: vi.fn().mockResolvedValue(savedRecord),
     })
 
-    await store.authStore.login('Test Elev', 'abc123')
+    store.authStore.setOidcUser(createFakeOidcUser())
     const result = await store.taskStore.submitAnswer('t1', 0, 1, '4')
 
     expect(result).toEqual(savedRecord)
@@ -227,13 +217,12 @@ describe('TaskStore', () => {
 
   it('submitAnswer handles save errors', async () => {
     store = await createStore({
-      authenticateStudent: vi.fn().mockResolvedValue(fakeStudent),
       fetchTasks: vi.fn().mockResolvedValue([]),
       fetchAnswersForStudent: vi.fn().mockResolvedValue({}),
       saveAnswer: vi.fn().mockRejectedValue(new Error('Save failed')),
     })
 
-    await store.authStore.login('Test Elev', 'abc123')
+    store.authStore.setOidcUser(createFakeOidcUser())
     const result = await store.taskStore.submitAnswer('t1', 0, 1, '4')
 
     expect(result).toBeNull()
@@ -247,7 +236,7 @@ describe('TaskStore', () => {
       fetchAnswersForStudent: vi.fn().mockResolvedValue(fakeAnswers),
     })
 
-    await store.taskStore.loadTasks('s1')
+    await store.taskStore.loadTasks()
     expect(store.taskStore.tasks.length).toBe(2)
 
     store.taskStore.reset()
@@ -265,7 +254,7 @@ describe('TaskStore', () => {
       fetchAnswersForStudent: vi.fn().mockResolvedValue(fakeAnswers),
     })
 
-    await store.taskStore.loadTasks('s1')
+    await store.taskStore.loadTasks()
 
     const ids = store.taskStore.answeredTaskIds
     expect(ids).toBeInstanceOf(Set)

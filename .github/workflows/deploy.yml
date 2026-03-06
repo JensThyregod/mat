@@ -95,6 +95,8 @@ jobs:
             ${{ secrets.SCW_REGISTRY_ENDPOINT }}/mat-frontend:latest
           build-args: |
             VITE_API_BASE_URL=https://${{ secrets.API_DOMAIN }}/api
+            VITE_OIDC_AUTHORITY=https://auth.mattutor.dk/realms/mat-tutor
+            VITE_OIDC_CLIENT_ID=mat-frontend
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -125,3 +127,5 @@ jobs:
           TF_VAR_cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           TF_VAR_cloudflare_zone_id: ${{ secrets.CLOUDFLARE_ZONE_ID }}
           TF_VAR_scw_tem_domain_verification_token: ${{ secrets.SCW_TEM_DOMAIN_VERIFICATION_TOKEN }}
+          TF_VAR_keycloak_admin_password: ${{ secrets.KEYCLOAK_ADMIN_PASSWORD }}
+          TF_VAR_keycloak_db_password: ${{ secrets.KEYCLOAK_DB_PASSWORD }}

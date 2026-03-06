@@ -138,7 +138,7 @@ export const DashboardView = observer(() => {
 
   useEffect(() => {
     if (!studentId) return
-    fetchSkills(studentId)
+    fetchSkills()
       .then(res => setSkills(res.skills))
       .catch(() => {})
   }, [studentId])

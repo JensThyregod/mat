@@ -7,6 +7,7 @@ import type {
   TaskGenerationPhase,
 } from '../views/terminsprove/types'
 import { API_BASE } from '../views/terminsprove/utils'
+import { getStreamingAuthHeaders } from '../auth/tokenAccessor'
 
 export interface StreamingGenerationState {
   isGenerating: boolean
@@ -167,7 +168,7 @@ export function useStreamingGeneration(): StreamingGenerationState & StreamingGe
     try {
       const response = await fetch(`${API_BASE}/generate/stream`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...getStreamingAuthHeaders() },
         body: JSON.stringify(request),
         signal: abortControllerRef.current.signal,
       })

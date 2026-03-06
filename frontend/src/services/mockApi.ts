@@ -232,7 +232,7 @@ export async function authenticateStudent(
   const normalizedName = name.trim().toLowerCase()
   const match = userProfiles.find(
     (u) =>
-      u.code.toLowerCase() === normalizedCode &&
+      (u.code ?? '').toLowerCase() === normalizedCode &&
       u.name.toLowerCase() === normalizedName,
   )
   return match ? { ...match, name: match.name.trim() } : null

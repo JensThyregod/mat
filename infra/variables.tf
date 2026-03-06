@@ -163,3 +163,47 @@ variable "scw_tem_domain_verification_token" {
   type        = string
   default     = "61d72919-6f40-44cb-880d-04ebcda792f5"
 }
+
+# ---------------------------------------------------------------------------
+# Keycloak — identity provider (VM + managed PostgreSQL)
+# ---------------------------------------------------------------------------
+variable "keycloak_admin_password" {
+  description = "Keycloak admin console password"
+  type        = string
+  sensitive   = true
+}
+
+variable "keycloak_db_password" {
+  description = "Password for the Keycloak PostgreSQL database user"
+  type        = string
+  sensitive   = true
+}
+
+variable "keycloak_hostname" {
+  description = "Public hostname for Keycloak (e.g. auth.mattutor.dk)"
+  type        = string
+  default     = "auth.mattutor.dk"
+}
+
+variable "keycloak_vm_type" {
+  description = "Scaleway instance type for the Keycloak VM"
+  type        = string
+  default     = "DEV1-S"
+}
+
+variable "keycloak_db_node_type" {
+  description = "Scaleway managed database node type for Keycloak"
+  type        = string
+  default     = "DB-DEV-S"
+}
+
+variable "keycloak_image_tag" {
+  description = "Keycloak Docker image tag"
+  type        = string
+  default     = "26.0"
+}
+
+variable "ssh_public_key" {
+  description = "SSH public key for VM access"
+  type        = string
+}

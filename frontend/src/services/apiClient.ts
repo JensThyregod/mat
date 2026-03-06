@@ -1,23 +1,26 @@
-import type { AnswerRecord, SignupResponse, Student, Task, TaskSetState } from '../types'
+import type { AnswerRecord, Task, TaskSetState } from '../types'
+
+export type UserProfile = {
+  id: string
+  name: string
+  email: string
+  emailVerified: boolean
+}
 
 export interface ApiClient {
-  fetchTasks(studentId: string): Promise<Task[]>
-  fetchTask(studentId: string, taskId: string): Promise<Task | undefined>
-  fetchAnswersForStudent(studentId: string): Promise<Record<string, AnswerRecord[]>>
-  authenticateStudent(name: string, code: string): Promise<Student | null>
-  signupStudent(name: string, code: string, email: string): Promise<SignupResponse>
-  verifyEmail(token: string): Promise<Student>
-  resendVerification(name: string, code: string): Promise<void>
+  setAccessToken(token: string | null): void
+  getProfile(): Promise<UserProfile>
+  fetchTasks(): Promise<Task[]>
+  fetchTask(taskId: string): Promise<Task | undefined>
+  fetchAnswersForStudent(): Promise<Record<string, AnswerRecord[]>>
   saveAnswer(
-    studentId: string,
     taskId: string,
     partIndex: number,
     partCount: number,
     answer: string,
   ): Promise<AnswerRecord>
-  loadTaskSetState(studentId: string, taskId: string): Promise<TaskSetState | null>
+  loadTaskSetState(taskId: string): Promise<TaskSetState | null>
   saveQuestionAnswer(
-    studentId: string,
     taskId: string,
     partIndex: number,
     questionIndex: number,

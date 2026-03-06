@@ -1,5 +1,7 @@
 using System.ClientModel;
+using System.Security.Claims;
 using Amazon.S3;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Connectors.AzureAIInference;
 using MatBackend.Core.Interfaces;
@@ -16,6 +18,22 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddOpenApi();
+
+// Keycloak JWT authentication
+var keycloakAuthority = builder.Configuration["Keycloak:Authority"] ?? "https://auth.mattutor.dk/realms/mat-tutor";
+var keycloakAudience = builder.Configuration["Keycloak:Audience"] ?? "mat-backend";
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.Authority = keycloakAuthority;
+        options.Audience = keycloakAudience;
+        options.RequireHttpsMetadata = !builder.Environment.IsDevelopment();
+        options.TokenValidationParameters.NameClaimType = "preferred_username";
+        options.TokenValidationParameters.RoleClaimType = ClaimTypes.Role;
+    });
+builder.Services.AddAuthorization();
+Console.WriteLine($"🔐 Keycloak: authority={keycloakAuthority}, audience={keycloakAudience}");
 
 // Add CORS for frontend
 builder.Services.AddCors(options =>
@@ -217,6 +235,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors("AllowFrontend");
+app.UseAuthentication();
 app.UseAuthorization();
 
 // Serve terminsprøve content (images, etc.) as static files at /api/terminsprover/{folderName}/images/{file}

@@ -1,9 +1,12 @@
+using MatBackend.Api.Extensions;
 using MatBackend.Core.Interfaces;
 using MatBackend.Core.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MatBackend.Api.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class EvaluationController : ControllerBase
@@ -25,14 +28,12 @@ public class EvaluationController : ControllerBase
             return BadRequest("No submission data.");
         }
 
-        // 1. Evaluate answers
+        var studentId = User.GetKeycloakUserId();
+        submission.StudentId = studentId;
+
         var results = await _evaluationService.EvaluateSubmissionAsync(submission);
 
-        // 2. Update skills
-        if (!string.IsNullOrEmpty(submission.StudentId))
-        {
-            await _skillService.UpdateStudentSkillsAsync(submission.StudentId, submission.Answers, results);
-        }
+        await _skillService.UpdateStudentSkillsAsync(studentId, submission.Answers, results);
 
         return Ok(new EvaluationResponse 
         { 
@@ -47,4 +48,3 @@ public class EvaluationResponse
     public List<EvaluationResult> Results { get; set; } = new();
     public DateTime EvaluatedAt { get; set; }
 }
-

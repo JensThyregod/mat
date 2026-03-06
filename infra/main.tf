@@ -83,6 +83,8 @@ resource "scaleway_container" "backend" {
     "Gemini__ImageGenerationEnabled"  = "false"
     "Generation__FastMode"            = "true"
     "Auth__FrontendUrl"               = "https://${var.domain_name}"
+    "Keycloak__Authority"             = "https://${var.keycloak_hostname}/realms/mat-tutor"
+    "Keycloak__Audience"              = "mat-backend"
     "ScalewayTem__Region"             = var.scw_region
     "ScalewayTem__SenderEmail"        = "noreply@${var.domain_name}"
     "ScalewayTem__SenderName"         = "Matematik Tutor"
@@ -205,6 +207,127 @@ resource "cloudflare_record" "tem_dmarc" {
   type    = "TXT"
   content = "v=DMARC1; p=none;"
   ttl     = 3600
+}
+
+# ===========================================================================
+# SSH Key — used for VM access
+# ===========================================================================
+resource "scaleway_account_ssh_key" "main" {
+  name       = "${var.app_name}-deploy-key"
+  public_key = var.ssh_public_key
+}
+
+# ===========================================================================
+# Keycloak Identity Provider — VM + Managed PostgreSQL + DNS
+# ===========================================================================
+
+# ---------------------------------------------------------------------------
+# Managed PostgreSQL — dedicated database for Keycloak
+# ---------------------------------------------------------------------------
+resource "scaleway_rdb_instance" "keycloak" {
+  name           = "${var.app_name}-keycloak-db"
+  node_type      = var.keycloak_db_node_type
+  engine         = "PostgreSQL-16"
+  is_ha_cluster  = false
+  disable_backup = false
+  backup_schedule_frequency = 24
+  backup_schedule_retention = 7
+  volume_type    = "lssd"
+}
+
+resource "scaleway_rdb_database" "keycloak" {
+  instance_id = scaleway_rdb_instance.keycloak.id
+  name        = "keycloak"
+}
+
+resource "scaleway_rdb_user" "keycloak" {
+  instance_id = scaleway_rdb_instance.keycloak.id
+  name        = "keycloak_app"
+  password    = var.keycloak_db_password
+  is_admin    = false
+}
+
+resource "scaleway_rdb_privilege" "keycloak" {
+  instance_id   = scaleway_rdb_instance.keycloak.id
+  user_name     = scaleway_rdb_user.keycloak.name
+  database_name = scaleway_rdb_database.keycloak.name
+  permission    = "all"
+}
+
+# ---------------------------------------------------------------------------
+# Keycloak VM — Instance with Docker Compose (Keycloak + Caddy)
+# ---------------------------------------------------------------------------
+resource "scaleway_instance_ip" "keycloak" {}
+
+resource "scaleway_instance_security_group" "keycloak" {
+  name                    = "${var.app_name}-keycloak-sg"
+  inbound_default_policy  = "drop"
+  outbound_default_policy = "accept"
+
+  inbound_rule {
+    action   = "accept"
+    protocol = "TCP"
+    port     = 443
+  }
+
+  inbound_rule {
+    action   = "accept"
+    protocol = "TCP"
+    port     = 80
+  }
+
+  dynamic "inbound_rule" {
+    for_each = var.allowed_ips
+    content {
+      action   = "accept"
+      protocol = "TCP"
+      port     = 22
+      ip_range = "${inbound_rule.value}/32"
+    }
+  }
+}
+
+resource "scaleway_instance_server" "keycloak" {
+  name  = "${var.app_name}-keycloak"
+  type  = var.keycloak_vm_type
+  image = "ubuntu_noble"
+  ip_id = scaleway_instance_ip.keycloak.id
+
+  security_group_id = scaleway_instance_security_group.keycloak.id
+
+  root_volume {
+    size_in_gb = 20
+  }
+
+  user_data = {
+    cloud-init = templatefile("${path.module}/keycloak/cloud-init.yml", {
+      keycloak_image_tag    = var.keycloak_image_tag
+      keycloak_hostname     = var.keycloak_hostname
+      keycloak_admin_password = var.keycloak_admin_password
+      db_host               = scaleway_rdb_instance.keycloak.endpoint_ip
+      db_port               = scaleway_rdb_instance.keycloak.endpoint_port
+      db_name               = scaleway_rdb_database.keycloak.name
+      db_user               = scaleway_rdb_user.keycloak.name
+      db_password           = var.keycloak_db_password
+      tem_secret_key        = var.scw_secret_key
+      tem_project_id        = var.scw_project_id
+      tem_region            = var.scw_region
+      tem_sender_email      = "noreply@${var.domain_name}"
+    })
+  }
+}
+
+# ---------------------------------------------------------------------------
+# Cloudflare DNS — auth subdomain pointing to Keycloak VM
+# DNS-only (no Cloudflare proxy) so Caddy handles TLS via Let's Encrypt
+# ---------------------------------------------------------------------------
+resource "cloudflare_record" "keycloak" {
+  zone_id = var.cloudflare_zone_id
+  name    = "auth"
+  type    = "A"
+  content = scaleway_instance_ip.keycloak.address
+  ttl     = 300
+  proxied = false
 }
 
 # ---------------------------------------------------------------------------

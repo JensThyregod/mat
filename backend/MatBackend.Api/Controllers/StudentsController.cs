@@ -1,9 +1,12 @@
+using MatBackend.Api.Extensions;
 using MatBackend.Core.Interfaces;
 using MatBackend.Core.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MatBackend.Api.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/students")]
 public class StudentsController : ControllerBase
@@ -17,48 +20,56 @@ public class StudentsController : ControllerBase
         _answerRepository = answerRepository;
     }
 
-    [HttpGet("{studentId}/tasks")]
-    public async Task<ActionResult<List<TaskDto>>> GetTasks(string studentId)
+    private string GetStudentId() => User.GetKeycloakUserId();
+
+    [HttpGet("me/tasks")]
+    public async Task<ActionResult<List<TaskDto>>> GetTasks()
     {
+        var studentId = GetStudentId();
         var tasks = await _taskSetService.GetTasksForStudentAsync(studentId);
         return Ok(tasks);
     }
 
-    [HttpGet("{studentId}/tasks/{taskId}")]
-    public async Task<ActionResult<TaskDto>> GetTask(string studentId, string taskId)
+    [HttpGet("me/tasks/{taskId}")]
+    public async Task<ActionResult<TaskDto>> GetTask(string taskId)
     {
+        var studentId = GetStudentId();
         var task = await _taskSetService.GetTaskForStudentAsync(studentId, taskId);
         if (task == null) return NotFound();
         return Ok(task);
     }
 
-    [HttpGet("{studentId}/answers")]
-    public async Task<ActionResult<Dictionary<string, List<AnswerRecord>>>> GetAnswers(string studentId)
+    [HttpGet("me/answers")]
+    public async Task<ActionResult<Dictionary<string, List<AnswerRecord>>>> GetAnswers()
     {
+        var studentId = GetStudentId();
         var answers = await _answerRepository.GetAnswersForStudentAsync(studentId);
         return Ok(answers);
     }
 
-    [HttpPost("{studentId}/tasks/{taskId}/answers")]
+    [HttpPost("me/tasks/{taskId}/answers")]
     public async Task<ActionResult<AnswerRecord>> SaveAnswer(
-        string studentId, string taskId, [FromBody] SaveAnswerRequest request)
+        string taskId, [FromBody] SaveAnswerRequest request)
     {
+        var studentId = GetStudentId();
         var record = await _answerRepository.SaveAnswerAsync(
             studentId, taskId, request.PartIndex, request.PartCount, request.Answer);
         return Ok(record);
     }
 
-    [HttpGet("{studentId}/tasks/{taskId}/state")]
-    public async Task<ActionResult<TaskSetState>> GetTaskSetState(string studentId, string taskId)
+    [HttpGet("me/tasks/{taskId}/state")]
+    public async Task<ActionResult<TaskSetState>> GetTaskSetState(string taskId)
     {
+        var studentId = GetStudentId();
         var state = await _answerRepository.LoadTaskSetStateAsync(studentId, taskId);
         return new JsonResult(state);
     }
 
-    [HttpPost("{studentId}/tasks/{taskId}/state")]
+    [HttpPost("me/tasks/{taskId}/state")]
     public async Task<ActionResult<TaskSetState>> SaveQuestionAnswer(
-        string studentId, string taskId, [FromBody] SaveQuestionAnswerRequest request)
+        string taskId, [FromBody] SaveQuestionAnswerRequest request)
     {
+        var studentId = GetStudentId();
         var state = await _answerRepository.SaveQuestionAnswerAsync(
             studentId, taskId, request.PartIndex, request.QuestionIndex,
             request.Answer, request.Validated, request.Status);

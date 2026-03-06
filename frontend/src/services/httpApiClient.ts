@@ -1,11 +1,20 @@
-import type { ApiClient } from './apiClient'
-import type { AnswerRecord, SignupResponse, Student, Task, TaskSetState } from '../types'
+import type { ApiClient, UserProfile } from './apiClient'
+import type { AnswerRecord, Task, TaskSetState } from '../types'
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? '/api'
 
+let _accessToken: string | null = null
+
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+  }
+  if (_accessToken) {
+    headers['Authorization'] = `Bearer ${_accessToken}`
+  }
+
   const res = await fetch(`${BASE_URL}${path}`, {
-    headers: { 'Content-Type': 'application/json' },
+    headers,
     ...init,
   })
   if (!res.ok) {
@@ -23,56 +32,39 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 
 export function createHttpApiClient(): ApiClient {
   return {
-    fetchTasks(studentId) {
-      return request<Task[]>(`/students/${studentId}/tasks`)
+    setAccessToken(token: string | null) {
+      _accessToken = token
     },
 
-    fetchTask(studentId, taskId) {
-      return request<Task | undefined>(`/students/${studentId}/tasks/${taskId}`)
+    getProfile() {
+      return request<UserProfile>('/auth/me')
     },
 
-    fetchAnswersForStudent(studentId) {
-      return request<Record<string, AnswerRecord[]>>(`/students/${studentId}/answers`)
+    fetchTasks() {
+      return request<Task[]>('/students/me/tasks')
     },
 
-    authenticateStudent(name, code) {
-      return request<Student | null>('/auth/login', {
-        method: 'POST',
-        body: JSON.stringify({ name, code }),
-      })
+    fetchTask(taskId) {
+      return request<Task | undefined>(`/students/me/tasks/${taskId}`)
     },
 
-    signupStudent(name, code, email) {
-      return request<SignupResponse>('/auth/signup', {
-        method: 'POST',
-        body: JSON.stringify({ name, code, email }),
-      })
+    fetchAnswersForStudent() {
+      return request<Record<string, AnswerRecord[]>>('/students/me/answers')
     },
 
-    verifyEmail(token) {
-      return request<Student>(`/auth/verify-email?token=${encodeURIComponent(token)}`)
-    },
-
-    resendVerification(name, code) {
-      return request<void>('/auth/resend-verification', {
-        method: 'POST',
-        body: JSON.stringify({ name, code }),
-      })
-    },
-
-    saveAnswer(studentId, taskId, partIndex, partCount, answer) {
-      return request<AnswerRecord>(`/students/${studentId}/tasks/${taskId}/answers`, {
+    saveAnswer(taskId, partIndex, partCount, answer) {
+      return request<AnswerRecord>(`/students/me/tasks/${taskId}/answers`, {
         method: 'POST',
         body: JSON.stringify({ partIndex, partCount, answer }),
       })
     },
 
-    loadTaskSetState(studentId, taskId) {
-      return request<TaskSetState | null>(`/students/${studentId}/tasks/${taskId}/state`)
+    loadTaskSetState(taskId) {
+      return request<TaskSetState | null>(`/students/me/tasks/${taskId}/state`)
     },
 
-    saveQuestionAnswer(studentId, taskId, partIndex, questionIndex, answer, validated, status) {
-      return request<TaskSetState>(`/students/${studentId}/tasks/${taskId}/state`, {
+    saveQuestionAnswer(taskId, partIndex, questionIndex, answer, validated, status) {
+      return request<TaskSetState>(`/students/me/tasks/${taskId}/state`, {
         method: 'POST',
         body: JSON.stringify({ partIndex, questionIndex, answer, validated, status }),
       })

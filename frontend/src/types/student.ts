@@ -4,6 +4,7 @@ export type Student = {
   code?: string
   email?: string
   emailVerified?: boolean
+  isTestUser?: boolean
 }
 
 export type AnswerRecord = {

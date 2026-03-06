@@ -5,11 +5,13 @@ export type UserProfile = {
   name: string
   email: string
   emailVerified: boolean
+  isTestUser: boolean
 }
 
 export interface ApiClient {
   setAccessToken(token: string | null): void
   getProfile(): Promise<UserProfile>
+  deleteUser(): Promise<void>
   fetchTasks(): Promise<Task[]>
   fetchTask(taskId: string): Promise<Task | undefined>
   fetchAnswersForStudent(): Promise<Record<string, AnswerRecord[]>>

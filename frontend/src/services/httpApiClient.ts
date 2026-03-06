@@ -30,6 +30,30 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   return res.json() as Promise<T>
 }
 
+async function requestVoid(path: string, init?: RequestInit): Promise<void> {
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+  }
+  if (_accessToken) {
+    headers['Authorization'] = `Bearer ${_accessToken}`
+  }
+
+  const res = await fetch(`${BASE_URL}${path}`, {
+    headers,
+    ...init,
+  })
+  if (!res.ok) {
+    let detail = ''
+    try {
+      const body = await res.json()
+      detail = body?.detail ?? body?.title ?? ''
+    } catch {
+      /* response wasn't JSON */
+    }
+    throw new Error(detail || `API ${res.status}: ${res.statusText}`)
+  }
+}
+
 export function createHttpApiClient(): ApiClient {
   return {
     setAccessToken(token: string | null) {
@@ -38,6 +62,10 @@ export function createHttpApiClient(): ApiClient {
 
     getProfile() {
       return request<UserProfile>('/auth/me')
+    },
+
+    deleteUser() {
+      return requestVoid('/auth/me', { method: 'DELETE' })
     },
 
     fetchTasks() {

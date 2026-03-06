@@ -35,6 +35,26 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddAuthorization();
 Console.WriteLine($"🔐 Keycloak: authority={keycloakAuthority}, audience={keycloakAudience}");
 
+// Keycloak Admin API (for test-user deletion)
+var keycloakBaseUrl = keycloakAuthority.Contains("/realms/")
+    ? keycloakAuthority[..keycloakAuthority.IndexOf("/realms/")]
+    : keycloakAuthority;
+var keycloakRealm = keycloakAuthority.Contains("/realms/")
+    ? keycloakAuthority[(keycloakAuthority.LastIndexOf("/realms/") + "/realms/".Length)..]
+    : "mat-tutor";
+var kcAdminClientId = builder.Configuration["Keycloak:AdminClientId"] ?? "admin-cli";
+var kcAdminClientSecret = builder.Configuration["Keycloak:AdminClientSecret"]
+                          ?? Environment.GetEnvironmentVariable("KEYCLOAK_ADMIN_CLIENT_SECRET") ?? "";
+
+builder.Services.AddHttpClient("KeycloakAdmin");
+builder.Services.AddScoped<IKeycloakAdminService>(provider =>
+{
+    var httpClient = provider.GetRequiredService<IHttpClientFactory>().CreateClient("KeycloakAdmin");
+    var logger = provider.GetRequiredService<ILogger<KeycloakAdminService>>();
+    return new KeycloakAdminService(httpClient, keycloakBaseUrl, keycloakRealm, kcAdminClientId, kcAdminClientSecret, logger);
+});
+Console.WriteLine($"🔑 Keycloak Admin: base={keycloakBaseUrl}, realm={keycloakRealm}, client={kcAdminClientId}");
+
 // Add CORS for frontend
 builder.Services.AddCors(options =>
 {

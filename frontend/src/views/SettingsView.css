@@ -1,0 +1,225 @@
+.settings {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  padding-top: var(--space-6);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.settings__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.settings__title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--font-2xl);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.settings__title-icon {
+  font-size: 1.5em;
+}
+
+.settings__subtitle {
+  color: var(--text-secondary);
+  font-size: var(--font-base);
+}
+
+/* Test user badge */
+.settings__test-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full, 9999px);
+  background: rgba(245, 158, 11, 0.12);
+  color: #f59e0b;
+  font-size: var(--font-sm);
+  font-weight: 600;
+  margin-bottom: var(--space-6);
+  width: fit-content;
+}
+
+.settings__test-badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #f59e0b;
+  animation: settings-pulse 2s ease-in-out infinite;
+}
+
+@keyframes settings-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* Danger zone */
+.settings__danger-zone {
+  border-top: 1px solid rgba(239, 68, 68, 0.15);
+  padding-top: var(--space-5);
+}
+
+.settings__danger-title {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  color: #ef4444;
+  margin-bottom: var(--space-2);
+}
+
+.settings__danger-description {
+  color: var(--text-secondary);
+  font-size: var(--font-sm);
+  line-height: 1.6;
+  margin-bottom: var(--space-5);
+}
+
+/* Error */
+.settings__error {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-lg);
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  font-size: var(--font-sm);
+  margin-bottom: var(--space-4);
+}
+
+.settings__error-icon {
+  flex-shrink: 0;
+}
+
+/* Delete button */
+.settings__delete-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3) var(--space-5);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: var(--radius-lg);
+  background: rgba(239, 68, 68, 0.08);
+  color: #ef4444;
+  font-size: var(--font-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.settings__delete-btn:hover {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.5);
+}
+
+/* Confirmation panel */
+.settings__confirm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.settings__confirm-text {
+  color: var(--text-primary);
+  font-size: var(--font-sm);
+  font-weight: 500;
+}
+
+.settings__confirm-actions {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.settings__confirm-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-sm);
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background 0.2s, opacity 0.2s;
+  min-width: 120px;
+}
+
+.settings__confirm-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.settings__confirm-btn--cancel {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary);
+}
+
+.settings__confirm-btn--cancel:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.settings__confirm-btn--delete {
+  background: #ef4444;
+  color: white;
+}
+
+.settings__confirm-btn--delete:hover:not(:disabled) {
+  background: #dc2626;
+}
+
+/* Spinner */
+.settings__spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: settings-spin 0.6s linear infinite;
+}
+
+@keyframes settings-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Empty state */
+.settings__empty-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  padding: var(--space-8) 0;
+  text-align: center;
+}
+
+.settings__empty-icon {
+  font-size: 3rem;
+  opacity: 0.3;
+}
+
+.settings__empty-text {
+  color: var(--text-tertiary, var(--text-secondary));
+  font-size: var(--font-base);
+}
+
+@media (max-width: 640px) {
+  .settings {
+    padding-top: var(--space-4);
+    gap: var(--space-6);
+  }
+
+  .settings__confirm-actions {
+    flex-direction: column;
+  }
+
+  .settings__confirm-btn {
+    width: 100%;
+  }
+}

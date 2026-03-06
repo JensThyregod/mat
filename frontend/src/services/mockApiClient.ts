@@ -15,7 +15,11 @@ export function createMockApiClient(): ApiClient {
     setAccessToken() {},
 
     async getProfile(): Promise<UserProfile> {
-      return { id: MOCK_STUDENT_ID, name: 'Test User', email: 'test@test.dk', emailVerified: true }
+      return { id: MOCK_STUDENT_ID, name: 'Test User', email: 'test@test.dk', emailVerified: true, isTestUser: true }
+    },
+
+    async deleteUser(): Promise<void> {
+      console.log('Mock: deleteUser called')
     },
 
     fetchTasks() {

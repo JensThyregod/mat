@@ -70,6 +70,37 @@ public class S3StudentRepository : IStudentRepository
         _logger.LogDebug("Saved student {Id} to s3://{Bucket}/{Key}", student.Id, _bucketName, key);
     }
 
+    public async Task<bool> DeleteStudentAsync(string id)
+    {
+        var prefix = $"users/{id}/";
+        var listRequest = new ListObjectsV2Request
+        {
+            BucketName = _bucketName,
+            Prefix = prefix
+        };
+
+        var anyDeleted = false;
+        ListObjectsV2Response listResponse;
+        do
+        {
+            listResponse = await _s3.ListObjectsV2Async(listRequest);
+            if (listResponse.S3Objects.Count == 0) break;
+
+            var deleteRequest = new DeleteObjectsRequest
+            {
+                BucketName = _bucketName,
+                Objects = listResponse.S3Objects.Select(o => new KeyVersion { Key = o.Key }).ToList()
+            };
+            await _s3.DeleteObjectsAsync(deleteRequest);
+            anyDeleted = true;
+
+            listRequest.ContinuationToken = listResponse.NextContinuationToken;
+        } while (listResponse.IsTruncated == true);
+
+        _logger.LogInformation("Deleted all S3 objects for student {Id}", id);
+        return anyDeleted;
+    }
+
     private async Task<Student?> ReadStudentAsync(string key)
     {
         try

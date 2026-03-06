@@ -12,7 +12,8 @@ vi.stubGlobal('localStorage', {
 function createMockApi(overrides: Partial<ApiClient> = {}): ApiClient {
   return {
     setAccessToken: vi.fn(),
-    getProfile: vi.fn().mockResolvedValue({ id: 's1', name: 'Test', email: 'test@test.dk', emailVerified: true }),
+    getProfile: vi.fn().mockResolvedValue({ id: 's1', name: 'Test', email: 'test@test.dk', emailVerified: true, isTestUser: false }),
+    deleteUser: vi.fn().mockResolvedValue(undefined),
     fetchTasks: vi.fn().mockResolvedValue([]),
     fetchTask: vi.fn().mockResolvedValue(undefined),
     fetchAnswersForStudent: vi.fn().mockResolvedValue({}),

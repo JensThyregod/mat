@@ -54,6 +54,16 @@ public class FileStudentRepository : IStudentRepository
         await File.WriteAllTextAsync(path, json);
     }
 
+    public Task<bool> DeleteStudentAsync(string id)
+    {
+        var userDir = Path.Combine(_dataRoot, "users", id);
+        if (!Directory.Exists(userDir))
+            return Task.FromResult(false);
+
+        Directory.Delete(userDir, recursive: true);
+        return Task.FromResult(true);
+    }
+
     private async Task<Student?> FindStudentAsync(Func<Student, bool> predicate)
     {
         var usersDir = Path.Combine(_dataRoot, "users");

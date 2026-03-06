@@ -8,6 +8,7 @@ public class Student
     public string Class { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
     public bool EmailVerified { get; set; }
+    public bool IsTestUser { get; set; }
     public string? VerificationToken { get; set; }
     public DateTime? VerificationTokenExpiry { get; set; }
     public DateTime? LastVerificationEmailSent { get; set; }

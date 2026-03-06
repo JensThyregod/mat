@@ -11,6 +11,7 @@ import { GeneratorTestView } from './views/GeneratorTestView'
 import { LigningerView } from './views/LigningerView'
 import { SkillTreeView } from './views/SkillTreeView'
 import { TerminsproveGeneratorView } from './views/TerminsproveGeneratorView'
+import { SettingsView } from './views/SettingsView'
 import { Layout } from './components/Layout'
 import { VoxelTaskDemo } from './components/VoxelTaskDemo'
 import { ErrorBoundary } from './components/ErrorBoundary'
@@ -195,6 +196,15 @@ const App = observer(() => {
                 element={
                   <RequireAuth>
                     <TerminsproveGeneratorView />
+                  </RequireAuth>
+                }
+              />
+
+              <Route
+                path="/settings"
+                element={
+                  <RequireAuth>
+                    <SettingsView />
                   </RequireAuth>
                 }
               />

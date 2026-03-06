@@ -22,6 +22,12 @@ jobs:
         with:
           dotnet-version: "9.0.x"
 
+      - uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: nuget-${{ hashFiles('backend/**/*.csproj') }}
+          restore-keys: nuget-
+
       - name: Restore
         run: dotnet restore backend/MatBackend.Tests/MatBackend.Tests.csproj
 
@@ -64,26 +70,34 @@ jobs:
         run: npx keycloakify build
         working-directory: frontend
 
+      - name: Upload frontend dist
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-dist
+          path: frontend/dist
+          retention-days: 1
+
       - name: Upload theme JAR
         uses: actions/upload-artifact@v4
         with:
           name: keycloak-theme-jar
           path: frontend/dist_keycloak/*.jar
+          retention-days: 1
 
-  deploy:
-    name: Build, Push & Deploy
-    needs: [test-backend, test-and-build-frontend]
+  # ── Docker builds (parallel) ─────────────────────────────────────
+  build-backend-image:
+    name: Build & Push Backend Image
+    needs: [test-backend]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Download Keycloak theme JAR
-        uses: actions/download-artifact@v4
         with:
-          name: keycloak-theme-jar
-          path: keycloak-theme-jar
+          sparse-checkout: |
+            backend
+            tasks
+            curriculum
+            .dockerignore
 
-      # ── Docker build ──────────────────────────────────────────────
       - name: Log in to Scaleway Container Registry
         uses: docker/login-action@v3
         with:
@@ -102,24 +116,63 @@ jobs:
           tags: |
             ${{ secrets.SCW_REGISTRY_ENDPOINT }}/mat-backend:${{ env.IMAGE_TAG }}
             ${{ secrets.SCW_REGISTRY_ENDPOINT }}/mat-backend:latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=gha,scope=backend
+          cache-to: type=gha,scope=backend,mode=max
+
+  build-frontend-image:
+    name: Build & Push Frontend Image
+    needs: [test-and-build-frontend]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            frontend/nginx.conf
+            frontend/Dockerfile.ci
+
+      - name: Download frontend dist
+        uses: actions/download-artifact@v4
+        with:
+          name: frontend-dist
+          path: frontend-dist
+
+      - name: Log in to Scaleway Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.SCW_REGISTRY_ENDPOINT }}
+          username: nologin
+          password: ${{ secrets.SCW_SECRET_KEY }}
+
+      - uses: docker/setup-buildx-action@v3
 
       - name: Build & push frontend image
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: frontend/Dockerfile
+          file: frontend/Dockerfile.ci
           push: true
           tags: |
             ${{ secrets.SCW_REGISTRY_ENDPOINT }}/mat-frontend:${{ env.IMAGE_TAG }}
             ${{ secrets.SCW_REGISTRY_ENDPOINT }}/mat-frontend:latest
-          build-args: |
-            VITE_API_BASE_URL=https://${{ secrets.API_DOMAIN }}/api
-            VITE_OIDC_AUTHORITY=https://auth.mattutor.dk/realms/mat-tutor
-            VITE_OIDC_CLIENT_ID=mat-frontend
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=gha,scope=frontend
+          cache-to: type=gha,scope=frontend,mode=max
+
+  # ── Deploy ───────────────────────────────────────────────────────
+  deploy:
+    name: Terraform & Keycloak Deploy
+    needs: [build-backend-image, build-frontend-image]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            infra
+
+      - name: Download Keycloak theme JAR
+        uses: actions/download-artifact@v4
+        with:
+          name: keycloak-theme-jar
+          path: keycloak-theme-jar
 
       # ── Terraform deploy ──────────────────────────────────────────
       - uses: hashicorp/setup-terraform@v3
@@ -152,36 +205,41 @@ jobs:
           TF_VAR_keycloak_db_password: ${{ secrets.KEYCLOAK_DB_PASSWORD }}
           TF_VAR_ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
 
-      # ── Deploy Keycloak theme ────────────────────────────────────
+      # ── Deploy Keycloak theme & realm config ───────────────────────
       - name: Get Keycloak VM IP
         id: kc-ip
         working-directory: infra
         run: echo "ip=$(terraform output -raw keycloak_vm_public_ip)" >> "$GITHUB_OUTPUT"
 
-      - name: Deploy Keycloak theme JAR
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ steps.kc-ip.outputs.ip }}
-          username: root
-          key: ${{ secrets.KEYCLOAK_SSH_PRIVATE_KEY }}
-          source: keycloak-theme-jar/*.jar
-          target: /opt/keycloak/providers/
-          strip_components: 1
-
-      - name: Deploy Keycloak realm configs
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ steps.kc-ip.outputs.ip }}
-          username: root
-          key: ${{ secrets.KEYCLOAK_SSH_PRIVATE_KEY }}
-          source: infra/keycloak/realm-export.json,infra/keycloak/realm-dev-export.json
-          target: /opt/keycloak/
-          strip_components: 2
-
-      - name: Restart Keycloak to load theme and realm config
+      - name: Deploy Keycloak theme & realm configs
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ steps.kc-ip.outputs.ip }}
           username: root
           key: ${{ secrets.KEYCLOAK_SSH_PRIVATE_KEY }}
-          script: cd /opt/keycloak && docker compose restart keycloak
+          script: mkdir -p /opt/keycloak/providers
+
+      - name: Upload Keycloak files
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ steps.kc-ip.outputs.ip }}
+          username: root
+          key: ${{ secrets.KEYCLOAK_SSH_PRIVATE_KEY }}
+          source: keycloak-theme-jar/*.jar,infra/keycloak/realm-export.json,infra/keycloak/realm-dev-export.json,infra/keycloak/docker-compose.yml,infra/keycloak/Caddyfile
+          target: /tmp/keycloak-deploy/
+          strip_components: 0
+
+      - name: Move files & restart Keycloak
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ steps.kc-ip.outputs.ip }}
+          username: root
+          key: ${{ secrets.KEYCLOAK_SSH_PRIVATE_KEY }}
+          script: |
+            cp /tmp/keycloak-deploy/keycloak-theme-jar/*.jar /opt/keycloak/providers/
+            cp /tmp/keycloak-deploy/infra/keycloak/realm-export.json /opt/keycloak/
+            cp /tmp/keycloak-deploy/infra/keycloak/realm-dev-export.json /opt/keycloak/
+            cp /tmp/keycloak-deploy/infra/keycloak/docker-compose.yml /opt/keycloak/
+            cp /tmp/keycloak-deploy/infra/keycloak/Caddyfile /opt/keycloak/ 2>/dev/null || true
+            rm -rf /tmp/keycloak-deploy
+            cd /opt/keycloak && docker compose up -d --force-recreate keycloak

@@ -33,6 +33,7 @@ services:
     volumes:
       - ./realm-export.json:/opt/keycloak/data/import/realm-export.json:ro
       - ./realm-dev-export.json:/opt/keycloak/data/import/realm-dev-export.json:ro
+      - ./providers:/opt/keycloak/providers:ro
     expose:
       - "8080"
     healthcheck:

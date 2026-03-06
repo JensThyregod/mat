@@ -209,13 +209,13 @@ jobs:
           TF_VAR_keycloak_db_password: ${{ secrets.KEYCLOAK_DB_PASSWORD }}
           TF_VAR_ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
 
-      # ── Deploy Keycloak theme & realm config ───────────────────────
+      # ── Deploy Keycloak theme JAR ─────────────────────────────────
       - name: Get Keycloak VM IP
         id: kc-ip
         working-directory: infra
         run: echo "ip=$(terraform output -raw keycloak_vm_public_ip)" >> "$GITHUB_OUTPUT"
 
-      - name: Deploy Keycloak theme & realm configs
+      - name: Ensure providers directory exists
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ steps.kc-ip.outputs.ip }}
@@ -229,7 +229,7 @@ jobs:
           host: ${{ steps.kc-ip.outputs.ip }}
           username: root
           key: ${{ secrets.KEYCLOAK_SSH_PRIVATE_KEY }}
-          source: keycloak-theme-jar/*.jar,infra/keycloak/realm-export.json,infra/keycloak/realm-dev-export.json,infra/keycloak/docker-compose.yml,infra/keycloak/Caddyfile
+          source: keycloak-theme-jar/*.jar,infra/keycloak/docker-compose.yml,infra/keycloak/Caddyfile
           target: /tmp/keycloak-deploy/
           strip_components: 0
 
@@ -241,8 +241,6 @@ jobs:
           key: ${{ secrets.KEYCLOAK_SSH_PRIVATE_KEY }}
           script: |
             cp /tmp/keycloak-deploy/keycloak-theme-jar/*.jar /opt/keycloak/providers/
-            cp /tmp/keycloak-deploy/infra/keycloak/realm-export.json /opt/keycloak/
-            cp /tmp/keycloak-deploy/infra/keycloak/realm-dev-export.json /opt/keycloak/
             cp /tmp/keycloak-deploy/infra/keycloak/docker-compose.yml /opt/keycloak/
             cp /tmp/keycloak-deploy/infra/keycloak/Caddyfile /opt/keycloak/ 2>/dev/null || true
             rm -rf /tmp/keycloak-deploy
@@ -270,37 +268,3 @@ jobs:
             docker compose logs --tail=50 keycloak
             exit 1
 
-      - name: Apply realm theme via Keycloak Admin API
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ steps.kc-ip.outputs.ip }}
-          username: root
-          key: ${{ secrets.KEYCLOAK_SSH_PRIVATE_KEY }}
-          command_timeout: 2m
-          script: |
-            cd /opt/keycloak
-            KC_URL="http://127.0.0.1:8080"
-            KC_ADMIN="admin"
-            KC_PASS=$(grep 'KEYCLOAK_ADMIN_PASSWORD=' .env | sed 's/.*KEYCLOAK_ADMIN_PASSWORD=//')
-
-            TOKEN=$(curl -sf -X POST "$KC_URL/realms/master/protocol/openid-connect/token" \
-              -d "client_id=admin-cli" \
-              -d "username=$KC_ADMIN" \
-              -d "password=$KC_PASS" \
-              -d "grant_type=password" | grep -o '"access_token":"[^"]*"' | cut -d'"' -f4)
-
-            if [ -z "$TOKEN" ]; then
-              echo "Failed to obtain admin token" && exit 1
-            fi
-
-            curl -sf -X PUT "$KC_URL/admin/realms/mat-tutor" \
-              -H "Authorization: Bearer $TOKEN" \
-              -H "Content-Type: application/json" \
-              -d '{"loginTheme":"mat-tutor"}' \
-              && echo "Login theme set to mat-tutor on mat-tutor realm"
-
-            curl -sf -X PUT "$KC_URL/admin/realms/mat-tutor-dev" \
-              -H "Authorization: Bearer $TOKEN" \
-              -H "Content-Type: application/json" \
-              -d '{"loginTheme":"mat-tutor"}' \
-              && echo "Login theme set to mat-tutor on mat-tutor-dev realm"

@@ -10,6 +10,10 @@ terraform {
       source  = "cloudflare/cloudflare"
       version = "~> 4.0"
     }
+    keycloak = {
+      source  = "keycloak/keycloak"
+      version = "~> 5.0"
+    }
   }
 
   backend "s3" {
@@ -35,6 +39,14 @@ provider "scaleway" {
 
 provider "cloudflare" {
   api_token = var.cloudflare_api_token
+}
+
+provider "keycloak" {
+  client_id     = "admin-cli"
+  username      = "admin"
+  password      = var.keycloak_admin_password
+  url           = "https://${var.keycloak_hostname}"
+  initial_login = false
 }
 
 # ---------------------------------------------------------------------------

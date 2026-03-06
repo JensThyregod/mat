@@ -33,10 +33,11 @@ alwaysApply: false
 
 ## Realm Configuration (IaC)
 
-- Realm JSON files: `infra/keycloak/realm-export.json` (prod) and `realm-dev-export.json` (dev).
-- These are the **source of truth** — they are SCPed to the Keycloak VM and imported on every deploy via `--import-realm`.
-- The same realm config is also embedded inline in `infra/keycloak/cloud-init.yml` for initial VM provisioning. **Keep all three in sync** when changing realm settings.
-- Key realm settings: `registrationEmailAsUsername: true`, `defaultLocale: "da"`, `verifyEmail: true`.
+- All realm config is in **Terraform** (`infra/keycloak.tf`). This is the single source of truth for both production (`mat-tutor`) and dev (`mat-tutor-dev`) realms.
+- Managed resources: `keycloak_realm`, `keycloak_openid_client`, `keycloak_openid_audience_protocol_mapper`, `keycloak_realm_user_profile`.
+- **Never** configure realms via the Keycloak Admin Console — changes will be overwritten by the next `terraform apply`.
+- Key realm settings: `registration_email_as_username = true`, `default_locale = "da"`, `verify_email = true`.
+- `infra/keycloak/realm-dev-export.json` still exists for local dev only (used by root `docker-compose.yml`).
 
 ## Local Dev
 
@@ -47,9 +48,9 @@ alwaysApply: false
 
 ## Deploy Pipeline
 
-1. Theme JAR is built in CI (`npm run build-keycloak-theme` in `frontend/`), SCPed to `/opt/keycloak/providers/`.
-2. Realm JSON files are SCPed to `/opt/keycloak/`.
-3. Keycloak container is restarted to pick up both.
+1. `terraform apply` in CI manages all infrastructure + Keycloak realm config.
+2. Theme JAR is built in CI (`npm run build-keycloak-theme` in `frontend/`), SCPed to `/opt/keycloak/providers/`.
+3. Keycloak container is restarted to pick up the new theme JAR.
 
 ## Login Form Internals
 

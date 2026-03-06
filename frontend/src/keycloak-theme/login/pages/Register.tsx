@@ -97,6 +97,7 @@ export default function Register(props: RegisterProps) {
             </a>
           </p>
         </div>
+
       </div>
     </div>
   );

@@ -166,6 +166,18 @@ jobs:
     name: Terraform & Keycloak Deploy
     needs: [build-backend-image, build-frontend-image]
     runs-on: ubuntu-latest
+    env:
+      TF_VAR_scw_access_key: ${{ secrets.SCW_ACCESS_KEY }}
+      TF_VAR_scw_secret_key: ${{ secrets.SCW_SECRET_KEY }}
+      TF_VAR_scw_project_id: ${{ secrets.SCW_PROJECT_ID }}
+      TF_VAR_openai_api_key: ${{ secrets.OPENAI_API_KEY }}
+      TF_VAR_gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+      TF_VAR_cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      TF_VAR_cloudflare_zone_id: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+      TF_VAR_scw_tem_domain_verification_token: ${{ secrets.SCW_TEM_DOMAIN_VERIFICATION_TOKEN }}
+      TF_VAR_keycloak_admin_password: ${{ secrets.KEYCLOAK_ADMIN_PASSWORD }}
+      TF_VAR_keycloak_db_password: ${{ secrets.KEYCLOAK_DB_PASSWORD }}
+      TF_VAR_ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -178,7 +190,7 @@ jobs:
           name: keycloak-theme-jar
           path: keycloak-theme-jar
 
-      # ── Terraform deploy ──────────────────────────────────────────
+      # ── Terraform init ──────────────────────────────────────────
       - uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: "1.14.5"
@@ -190,26 +202,7 @@ jobs:
             -backend-config="access_key=${{ secrets.SCW_ACCESS_KEY }}" \
             -backend-config="secret_key=${{ secrets.SCW_SECRET_KEY }}"
 
-      - name: Terraform Apply
-        working-directory: infra
-        run: |
-          terraform apply -auto-approve \
-            -var "backend_image_tag=${{ env.IMAGE_TAG }}" \
-            -var "frontend_image_tag=${{ env.IMAGE_TAG }}"
-        env:
-          TF_VAR_scw_access_key: ${{ secrets.SCW_ACCESS_KEY }}
-          TF_VAR_scw_secret_key: ${{ secrets.SCW_SECRET_KEY }}
-          TF_VAR_scw_project_id: ${{ secrets.SCW_PROJECT_ID }}
-          TF_VAR_openai_api_key: ${{ secrets.OPENAI_API_KEY }}
-          TF_VAR_gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
-          TF_VAR_cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          TF_VAR_cloudflare_zone_id: ${{ secrets.CLOUDFLARE_ZONE_ID }}
-          TF_VAR_scw_tem_domain_verification_token: ${{ secrets.SCW_TEM_DOMAIN_VERIFICATION_TOKEN }}
-          TF_VAR_keycloak_admin_password: ${{ secrets.KEYCLOAK_ADMIN_PASSWORD }}
-          TF_VAR_keycloak_db_password: ${{ secrets.KEYCLOAK_DB_PASSWORD }}
-          TF_VAR_ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
-
-      # ── Deploy Keycloak theme JAR ─────────────────────────────────
+      # ── Deploy Keycloak files & ensure healthy before apply ─────
       - name: Get Keycloak VM IP
         id: kc-ip
         working-directory: infra
@@ -244,7 +237,7 @@ jobs:
             cp /tmp/keycloak-deploy/infra/keycloak/docker-compose.yml /opt/keycloak/
             cp /tmp/keycloak-deploy/infra/keycloak/Caddyfile /opt/keycloak/ 2>/dev/null || true
             rm -rf /tmp/keycloak-deploy
-            cd /opt/keycloak && docker compose up -d --force-recreate keycloak
+            cd /opt/keycloak && docker compose up -d --force-recreate
 
       - name: Wait for Keycloak to become healthy
         uses: appleboy/ssh-action@v1.0.3
@@ -267,4 +260,12 @@ jobs:
             echo "Keycloak did not become healthy in time"
             docker compose logs --tail=50 keycloak
             exit 1
+
+      # ── Terraform apply (Keycloak is now healthy) ──────────────
+      - name: Terraform Apply
+        working-directory: infra
+        run: |
+          terraform apply -auto-approve \
+            -var "backend_image_tag=${{ env.IMAGE_TAG }}" \
+            -var "frontend_image_tag=${{ env.IMAGE_TAG }}"
 

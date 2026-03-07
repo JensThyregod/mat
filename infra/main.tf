@@ -14,10 +14,6 @@ terraform {
     #   source  = "zitadel/zitadel"
     #   version = "~> 2.0"
     # }
-    keycloak = {
-      source  = "keycloak/keycloak"
-      version = "~> 5.0"
-    }
   }
 
   backend "s3" {
@@ -52,10 +48,6 @@ provider "cloudflare" {
 #  access_token = var.zitadel_admin_token
 #}
 
-provider "keycloak" {
-  url       = "https://placeholder.invalid"
-  client_id = "placeholder"
-}
 
 # ---------------------------------------------------------------------------
 # Container Registry — stores Docker images for both frontend and backend

@@ -16,41 +16,34 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddOpenApi();
 
-// Keycloak JWT authentication
-var keycloakAuthority = builder.Configuration["Keycloak:Authority"] ?? "https://auth.mattutor.dk/realms/mat-tutor";
-var keycloakAudience = builder.Configuration["Keycloak:Audience"] ?? "mat-backend";
+// Zitadel JWT authentication
+var zitadelAuthority = builder.Configuration["Zitadel:Authority"] ?? "https://auth.mattutor.dk";
+var zitadelAudience = builder.Configuration["Zitadel:ProjectResourceId"] ?? "";
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
-        options.Authority = keycloakAuthority;
-        options.Audience = keycloakAudience;
+        options.Authority = zitadelAuthority;
         options.RequireHttpsMetadata = !builder.Environment.IsDevelopment();
         options.TokenValidationParameters.NameClaimType = "name";
         options.TokenValidationParameters.RoleClaimType = ClaimTypes.Role;
+        options.TokenValidationParameters.ValidateAudience = !string.IsNullOrEmpty(zitadelAudience);
+        if (!string.IsNullOrEmpty(zitadelAudience))
+            options.Audience = zitadelAudience;
     });
 builder.Services.AddAuthorization();
-Console.WriteLine($"🔐 Keycloak: authority={keycloakAuthority}, audience={keycloakAudience}");
 
-// Keycloak Admin API (for test-user deletion)
-var keycloakBaseUrl = keycloakAuthority.Contains("/realms/")
-    ? keycloakAuthority[..keycloakAuthority.IndexOf("/realms/")]
-    : keycloakAuthority;
-var keycloakRealm = keycloakAuthority.Contains("/realms/")
-    ? keycloakAuthority[(keycloakAuthority.LastIndexOf("/realms/") + "/realms/".Length)..]
-    : "mat-tutor";
-var kcAdminClientId = builder.Configuration["Keycloak:AdminClientId"] ?? "admin-cli";
-var kcAdminClientSecret = builder.Configuration["Keycloak:AdminClientSecret"]
-                          ?? Environment.GetEnvironmentVariable("KEYCLOAK_ADMIN_CLIENT_SECRET") ?? "";
+// Zitadel Admin API (for test-user deletion)
+var zitadelServiceToken = builder.Configuration["Zitadel:ServiceToken"]
+                          ?? Environment.GetEnvironmentVariable("ZITADEL_SERVICE_TOKEN") ?? "";
 
-builder.Services.AddHttpClient("KeycloakAdmin");
-builder.Services.AddScoped<IKeycloakAdminService>(provider =>
+builder.Services.AddHttpClient("ZitadelAdmin");
+builder.Services.AddScoped<IIdentityAdminService>(provider =>
 {
-    var httpClient = provider.GetRequiredService<IHttpClientFactory>().CreateClient("KeycloakAdmin");
-    var logger = provider.GetRequiredService<ILogger<KeycloakAdminService>>();
-    return new KeycloakAdminService(httpClient, keycloakBaseUrl, keycloakRealm, kcAdminClientId, kcAdminClientSecret, logger);
+    var httpClient = provider.GetRequiredService<IHttpClientFactory>().CreateClient("ZitadelAdmin");
+    var logger = provider.GetRequiredService<ILogger<ZitadelAdminService>>();
+    return new ZitadelAdminService(httpClient, zitadelAuthority, zitadelServiceToken, logger);
 });
-Console.WriteLine($"🔑 Keycloak Admin: base={keycloakBaseUrl}, realm={keycloakRealm}, client={kcAdminClientId}");
 
 // Add CORS for frontend
 builder.Services.AddCors(options =>

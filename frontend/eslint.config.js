@@ -7,7 +7,7 @@ import tseslint from 'typescript-eslint'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist', 'dist_keycloak', 'coverage', 'playwright', 'public/keycloakify-dev-resources']),
+  globalIgnores(['dist', 'coverage', 'playwright']),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [

@@ -165,46 +165,58 @@ variable "scw_tem_domain_verification_token" {
 }
 
 # ---------------------------------------------------------------------------
-# Keycloak — identity provider (VM + managed PostgreSQL)
+# Zitadel — identity provider (serverless container + managed PostgreSQL)
 # ---------------------------------------------------------------------------
-variable "keycloak_admin_password" {
-  description = "Keycloak admin console password"
+variable "zitadel_admin_token" {
+  description = "Personal access token for the Zitadel admin service account"
   type        = string
   sensitive   = true
 }
 
-variable "keycloak_db_password" {
-  description = "Password for the Keycloak PostgreSQL database user"
+variable "zitadel_masterkey" {
+  description = "Zitadel encryption masterkey (exactly 32 characters)"
   type        = string
   sensitive   = true
 }
 
-variable "keycloak_hostname" {
-  description = "Public hostname for Keycloak (e.g. auth.mattutor.dk)"
+variable "zitadel_db_password" {
+  description = "Password for the Zitadel PostgreSQL database user"
+  type        = string
+  sensitive   = true
+}
+
+variable "zitadel_hostname" {
+  description = "Public hostname for Zitadel (e.g. auth.mattutor.dk)"
   type        = string
   default     = "auth.mattutor.dk"
 }
 
-variable "keycloak_vm_type" {
-  description = "Scaleway instance type for the Keycloak VM"
+variable "zitadel_image_tag" {
+  description = "Zitadel Docker image tag"
   type        = string
-  default     = "DEV1-S"
+  default     = "v4.11.0"
 }
 
-variable "keycloak_db_node_type" {
-  description = "Scaleway managed database node type for Keycloak"
+variable "zitadel_db_node_type" {
+  description = "Scaleway managed database node type for Zitadel"
   type        = string
   default     = "DB-DEV-S"
 }
 
-variable "keycloak_image_tag" {
-  description = "Keycloak Docker image tag"
-  type        = string
-  default     = "26.0"
+variable "zitadel_cpu_limit" {
+  description = "CPU limit for the Zitadel container (in mVCPU)"
+  type        = number
+  default     = 1120
 }
 
-variable "ssh_public_key" {
-  description = "SSH public key for VM access"
+variable "zitadel_memory_limit" {
+  description = "Memory limit for the Zitadel container (in MB)"
+  type        = number
+  default     = 1024
+}
+
+variable "zitadel_project_resource_id" {
+  description = "Zitadel project resource ID (used as audience in JWT tokens)"
   type        = string
   default     = ""
 }

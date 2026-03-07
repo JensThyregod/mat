@@ -28,7 +28,7 @@ public class EvaluationController : ControllerBase
             return BadRequest("No submission data.");
         }
 
-        var studentId = User.GetKeycloakUserId();
+        var studentId = User.GetUserId();
         submission.StudentId = studentId;
 
         var results = await _evaluationService.EvaluateSubmissionAsync(submission);

@@ -33,19 +33,18 @@ output "backend_custom_domain" {
   value       = "${var.api_subdomain}.${var.domain_name}"
 }
 
-# Keycloak
-output "keycloak_url" {
-  description = "Public URL of the Keycloak identity provider"
-  value       = "https://${var.keycloak_hostname}"
+output "zitadel_url" {
+  description = "Public URL of the Zitadel identity provider"
+  value       = "https://${var.zitadel_hostname}"
 }
 
-output "keycloak_vm_public_ip" {
-  description = "Public IP address of the Keycloak VM"
-  value       = scaleway_instance_ip.keycloak.address
+output "zitadel_container_url" {
+  description = "Scaleway domain of the Zitadel container"
+  value       = scaleway_container.zitadel.domain_name
 }
 
-output "keycloak_db_endpoint" {
-  description = "Endpoint of the Keycloak managed PostgreSQL instance"
-  value       = "${scaleway_rdb_instance.keycloak.endpoint_ip}:${scaleway_rdb_instance.keycloak.endpoint_port}"
+output "zitadel_db_endpoint" {
+  description = "Endpoint of the Zitadel managed PostgreSQL instance"
+  value       = "${scaleway_rdb_instance.zitadel.endpoint_ip}:${scaleway_rdb_instance.zitadel.endpoint_port}"
   sensitive   = true
 }

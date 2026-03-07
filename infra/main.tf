@@ -10,9 +10,9 @@ terraform {
       source  = "cloudflare/cloudflare"
       version = "~> 4.0"
     }
-    keycloak = {
-      source  = "keycloak/keycloak"
-      version = "~> 5.0"
+    zitadel = {
+      source  = "zitadel/zitadel"
+      version = "~> 2.0"
     }
   }
 
@@ -41,13 +41,12 @@ provider "cloudflare" {
   api_token = var.cloudflare_api_token
 }
 
-provider "keycloak" {
-  client_id     = "admin-cli"
-  username      = "admin"
-  password      = var.keycloak_admin_password
-  url           = "https://${var.keycloak_hostname}"
-  initial_login = false
-}
+#provider "zitadel" {
+#  domain       = var.zitadel_hostname
+#  port         = "443"
+#  insecure     = "false"
+#  access_token = var.zitadel_admin_token
+#}
 
 # ---------------------------------------------------------------------------
 # Container Registry — stores Docker images for both frontend and backend
@@ -95,8 +94,8 @@ resource "scaleway_container" "backend" {
     "Gemini__ImageGenerationEnabled"  = "false"
     "Generation__FastMode"            = "true"
     "Auth__FrontendUrl"               = "https://${var.domain_name}"
-    "Keycloak__Authority"             = "https://${var.keycloak_hostname}/realms/mat-tutor"
-    "Keycloak__Audience"              = "mat-backend"
+    "Zitadel__Authority"              = "https://${var.zitadel_hostname}"
+    "Zitadel__ProjectResourceId"      = var.zitadel_project_resource_id
     "ScalewayTem__Region"             = var.scw_region
     "ScalewayTem__SenderEmail"        = "noreply@${var.domain_name}"
     "ScalewayTem__SenderName"         = "Matematik Tutor"
@@ -222,23 +221,15 @@ resource "cloudflare_record" "tem_dmarc" {
 }
 
 # ===========================================================================
-# SSH Key — used for VM access
-# ===========================================================================
-resource "scaleway_account_ssh_key" "main" {
-  name       = "${var.app_name}-deploy-key"
-  public_key = var.ssh_public_key
-}
-
-# ===========================================================================
-# Keycloak Identity Provider — VM + Managed PostgreSQL + DNS
+# Zitadel Identity Provider — Serverless Container + Managed PostgreSQL
 # ===========================================================================
 
 # ---------------------------------------------------------------------------
-# Managed PostgreSQL — dedicated database for Keycloak
+# Managed PostgreSQL — dedicated database for Zitadel
 # ---------------------------------------------------------------------------
-resource "scaleway_rdb_instance" "keycloak" {
-  name           = "${var.app_name}-keycloak-db"
-  node_type      = var.keycloak_db_node_type
+resource "scaleway_rdb_instance" "zitadel" {
+  name           = "${var.app_name}-zitadel-db"
+  node_type      = var.zitadel_db_node_type
   engine         = "PostgreSQL-16"
   is_ha_cluster  = false
   disable_backup = false
@@ -247,95 +238,85 @@ resource "scaleway_rdb_instance" "keycloak" {
   volume_type    = "lssd"
 }
 
-resource "scaleway_rdb_database" "keycloak" {
-  instance_id = scaleway_rdb_instance.keycloak.id
-  name        = "keycloak"
+resource "scaleway_rdb_database" "zitadel" {
+  instance_id = scaleway_rdb_instance.zitadel.id
+  name        = "zitadel"
 }
 
-resource "scaleway_rdb_user" "keycloak" {
-  instance_id = scaleway_rdb_instance.keycloak.id
-  name        = "keycloak_app"
-  password    = var.keycloak_db_password
+resource "scaleway_rdb_user" "zitadel" {
+  instance_id = scaleway_rdb_instance.zitadel.id
+  name        = "zitadel_app"
+  password    = var.zitadel_db_password
   is_admin    = false
 }
 
-resource "scaleway_rdb_privilege" "keycloak" {
-  instance_id   = scaleway_rdb_instance.keycloak.id
-  user_name     = scaleway_rdb_user.keycloak.name
-  database_name = scaleway_rdb_database.keycloak.name
+resource "scaleway_rdb_privilege" "zitadel" {
+  instance_id   = scaleway_rdb_instance.zitadel.id
+  user_name     = scaleway_rdb_user.zitadel.name
+  database_name = scaleway_rdb_database.zitadel.name
   permission    = "all"
 }
 
 # ---------------------------------------------------------------------------
-# Keycloak VM — Instance with Docker Compose (Keycloak + Caddy)
+# Zitadel — Serverless Container
 # ---------------------------------------------------------------------------
-resource "scaleway_instance_ip" "keycloak" {}
+resource "scaleway_container" "zitadel" {
+  name         = "${var.app_name}-zitadel"
+  namespace_id = scaleway_container_namespace.main.id
+  description  = "Zitadel identity provider"
 
-resource "scaleway_instance_security_group" "keycloak" {
-  name                    = "${var.app_name}-keycloak-sg"
-  inbound_default_policy  = "drop"
-  outbound_default_policy = "accept"
+  registry_image = "ghcr.io/zitadel/zitadel:${var.zitadel_image_tag}"
+  port           = 8080
+  cpu_limit      = var.zitadel_cpu_limit
+  memory_limit   = var.zitadel_memory_limit
+  min_scale      = 1
+  max_scale      = 1
+  privacy        = "public"
+  protocol       = "http1"
+  deploy         = true
 
-  inbound_rule {
-    action   = "accept"
-    protocol = "TCP"
-    port     = 443
+  environment_variables = {
+    "ZITADEL_EXTERNALDOMAIN"                               = var.zitadel_hostname
+    "ZITADEL_EXTERNALPORT"                                 = "443"
+    "ZITADEL_EXTERNALSECURE"                               = "true"
+    "ZITADEL_TLS_ENABLED"                                  = "false"
+    "ZITADEL_DATABASE_POSTGRES_HOST"                       = scaleway_rdb_instance.zitadel.endpoint_ip
+    "ZITADEL_DATABASE_POSTGRES_PORT"                       = tostring(scaleway_rdb_instance.zitadel.endpoint_port)
+    "ZITADEL_DATABASE_POSTGRES_DATABASE"                   = scaleway_rdb_database.zitadel.name
+    "ZITADEL_DATABASE_POSTGRES_ADMIN_USERNAME"             = "zitadel_app"
+    "ZITADEL_DATABASE_POSTGRES_ADMIN_SSL_MODE"             = "require"
+    "ZITADEL_DATABASE_POSTGRES_USER_USERNAME"              = "zitadel_app"
+    "ZITADEL_DATABASE_POSTGRES_USER_SSL_MODE"              = "require"
+    "ZITADEL_FIRSTINSTANCE_ORG_HUMAN_PASSWORDCHANGEREQUIRED" = "true"
   }
 
-  inbound_rule {
-    action   = "accept"
-    protocol = "TCP"
-    port     = 80
+  secret_environment_variables = {
+    "ZITADEL_MASTERKEY"                            = var.zitadel_masterkey
+    "ZITADEL_DATABASE_POSTGRES_ADMIN_PASSWORD"     = var.zitadel_db_password
+    "ZITADEL_DATABASE_POSTGRES_USER_PASSWORD"      = var.zitadel_db_password
   }
 
-  inbound_rule {
-    action   = "accept"
-    protocol = "TCP"
-    port     = 22
-  }
-}
-
-resource "scaleway_instance_server" "keycloak" {
-  name  = "${var.app_name}-keycloak"
-  type  = var.keycloak_vm_type
-  image = "ubuntu_noble"
-  ip_id = scaleway_instance_ip.keycloak.id
-
-  security_group_id = scaleway_instance_security_group.keycloak.id
-
-  root_volume {
-    size_in_gb = 20
-  }
-
-  user_data = {
-    cloud-init = templatefile("${path.module}/keycloak/cloud-init.yml", {
-      keycloak_image_tag    = var.keycloak_image_tag
-      keycloak_hostname     = var.keycloak_hostname
-      keycloak_admin_password = var.keycloak_admin_password
-      db_host               = scaleway_rdb_instance.keycloak.endpoint_ip
-      db_port               = scaleway_rdb_instance.keycloak.endpoint_port
-      db_name               = scaleway_rdb_database.keycloak.name
-      db_user               = scaleway_rdb_user.keycloak.name
-      db_password           = var.keycloak_db_password
-      tem_secret_key        = var.scw_secret_key
-      tem_project_id        = var.scw_project_id
-      tem_region            = var.scw_region
-      tem_sender_email      = "noreply@${var.domain_name}"
-    })
-  }
+  timeout = 600
 }
 
 # ---------------------------------------------------------------------------
-# Cloudflare DNS — auth subdomain pointing to Keycloak VM
-# DNS-only (no Cloudflare proxy) so Caddy handles TLS via Let's Encrypt
+# Custom domain for Zitadel
 # ---------------------------------------------------------------------------
-resource "cloudflare_record" "keycloak" {
+resource "scaleway_container_domain" "zitadel" {
+  container_id = scaleway_container.zitadel.id
+  hostname     = var.zitadel_hostname
+}
+
+# ---------------------------------------------------------------------------
+# Cloudflare DNS — auth subdomain pointing to Zitadel container
+# ---------------------------------------------------------------------------
+resource "cloudflare_record" "zitadel" {
   zone_id = var.cloudflare_zone_id
   name    = "auth"
-  type    = "A"
-  content = scaleway_instance_ip.keycloak.address
-  ttl     = 300
-  proxied = false
+  type    = "CNAME"
+  content = scaleway_container.zitadel.domain_name
+  ttl     = 1
+  proxied = true
 }
 
 # ---------------------------------------------------------------------------

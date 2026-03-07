@@ -4,7 +4,7 @@ namespace MatBackend.Api.Extensions;
 
 public static class ClaimsPrincipalExtensions
 {
-    public static string GetKeycloakUserId(this ClaimsPrincipal principal)
+    public static string GetUserId(this ClaimsPrincipal principal)
     {
         var sub = principal.FindFirstValue(ClaimTypes.NameIdentifier)
                   ?? principal.FindFirstValue("sub");

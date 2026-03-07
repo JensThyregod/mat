@@ -1,6 +1,6 @@
 namespace MatBackend.Core.Interfaces;
 
-public interface IKeycloakAdminService
+public interface IIdentityAdminService
 {
     Task<bool> DeleteUserAsync(string userId);
 }

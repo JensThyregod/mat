@@ -78,7 +78,7 @@ export const SettingsView = observer(() => {
                 <p className="settings__danger-description">
                   Din konto er oprettet i et udviklingsmiljø. Du kan permanent
                   slette alle data knyttet til din bruger, inklusiv
-                  Keycloak-identiteten.
+                  din identitet.
                 </p>
 
                 <AnimatePresence mode="wait">

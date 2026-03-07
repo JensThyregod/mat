@@ -20,7 +20,7 @@ public class StudentsController : ControllerBase
         _answerRepository = answerRepository;
     }
 
-    private string GetStudentId() => User.GetKeycloakUserId();
+    private string GetStudentId() => User.GetUserId();
 
     [HttpGet("me/tasks")]
     public async Task<ActionResult<List<TaskDto>>> GetTasks()

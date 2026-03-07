@@ -35,10 +35,8 @@ appsettings.Development.json
 # Generated terminsprøver data
 backend/data/terminsprover/
 
-# Keycloakify build output
-keycloak-theme/dist/
-keycloak-theme/dist_keycloak/
-frontend/dist_keycloak/
+# Debug logs
+debug-*.log
 
 # Local env overrides
 frontend/.env.local
@@ -50,3 +48,11 @@ infra/*.tfstate
 infra/*.tfstate.backup
 infra/terraform.tfvars
 infra/.terraform.tfstate.lock.info
+infra/local/.terraform/
+infra/local/.terraform.lock.hcl
+infra/local/*.tfstate
+infra/local/*.tfstate.backup
+infra/local/terraform.tfvars
+infra/local/admin.pat
+infra/local/admin-key.json
+infra/.zitadel-admin-key.json

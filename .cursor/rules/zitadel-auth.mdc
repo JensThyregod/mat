@@ -1,0 +1,55 @@
+---
+description: Zitadel authentication architecture and conventions
+globs: frontend/src/auth/**,backend/**/AuthController.cs,infra/**/zitadel.tf,infra/local/**
+alwaysApply: false
+---
+
+# Zitadel Authentication
+
+## Architecture
+
+- **Zitadel** handles all authentication (login, registration, password reset, email verification). The app has no custom auth forms.
+- Users sign up with **first name, last name, email, and password**. Zitadel's built-in login UI is used with Terraform-managed branding.
+- The frontend uses `react-oidc-context` with OIDC Authorization Code + PKCE flow. Config lives in `frontend/src/auth/oidcConfig.ts`.
+- The backend validates Zitadel JWTs. The `GET /api/auth/me` endpoint auto-provisions a `Student` record from token claims on first login.
+
+## User Identity
+
+- Display name is built from `given_name` + `family_name` JWT claims, never from `preferred_username`.
+- Backend: `AuthController.cs` reads `given_name` and `family_name` claims.
+- Frontend: `authStore.ts` reads `profile.given_name` and `profile.family_name` from the OIDC user.
+- If both are empty, fall back to the `name` claim, then `"Student"`.
+- User ID comes from the `sub` claim via `ClaimsPrincipalExtensions.GetUserId()`.
+
+## Branding
+
+- Zitadel's login UI is customized via Terraform (`zitadel_default_label_policy`), not custom code.
+- Brand colors: primary `#C2725A` (terracotta), background `#F8F7F4`, font `#1A1A1A`.
+- No custom theme build, no JAR files, no Java/Maven dependency.
+
+## Zitadel Configuration (IaC)
+
+- All Zitadel config is in **Terraform** (`infra/zitadel.tf` for production, `infra/local/main.tf` for local dev).
+- Managed resources: `zitadel_org`, `zitadel_project`, `zitadel_application_oidc`, `zitadel_project_role`, `zitadel_default_label_policy`.
+- **Never** configure Zitadel via the admin console — changes will be overwritten by the next `terraform apply`.
+- The Zitadel Terraform provider authenticates with a service account PAT (personal access token).
+
+## Local Dev
+
+- `docker-compose.yml` at repo root runs Zitadel + Traefik + Postgres locally on port 8080.
+- `frontend/.env` points `VITE_OIDC_AUTHORITY` at `http://localhost:8080`.
+- Default admin: `zitadel-admin@zitadel.localhost` / `Password1!`.
+- After first start, create a service account PAT in the console for Terraform.
+- Run `npm run zitadel:apply` to configure the org, project, and OIDC app via Terraform.
+
+## Deploy Pipeline
+
+1. `terraform apply` in CI manages all infrastructure + Zitadel config.
+2. No theme build, no JAR, no SCP, no SSH, no container restart.
+3. Branding changes are applied via Terraform — just update the label policy resource.
+
+## Admin API
+
+- Test-user deletion uses the Zitadel Management API (`DELETE /management/v1/users/{id}`).
+- The `ZitadelAdminService` authenticates with a service token (`Zitadel:ServiceToken` config).
+- The interface is `IIdentityAdminService` — provider-agnostic naming.

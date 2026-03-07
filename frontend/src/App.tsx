@@ -55,8 +55,6 @@ const OidcSync = observer(({ children }: { children: React.ReactNode }) => {
   const { authStore, api, taskStore } = useStore()
 
   useEffect(() => {
-    authStore.setOidcUser(auth.user)
-
     if (auth.user && !auth.user.expired) {
       const token = auth.user.access_token
       api.setAccessToken(token)
@@ -67,6 +65,8 @@ const OidcSync = observer(({ children }: { children: React.ReactNode }) => {
       setTrainingApiToken(null)
       setCurrentAccessToken(null)
     }
+
+    authStore.setOidcUser(auth.user)
   }, [auth.user, authStore, api])
 
   useEffect(() => {

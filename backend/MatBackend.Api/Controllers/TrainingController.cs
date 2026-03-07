@@ -21,7 +21,7 @@ public class TrainingController : ControllerBase
         _logger = logger;
     }
 
-    private string GetStudentId() => User.GetKeycloakUserId();
+    private string GetStudentId() => User.GetUserId();
 
     [HttpGet("me/skills")]
     public async Task<ActionResult<SkillsResponse>> GetSkills()

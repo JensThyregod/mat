@@ -1,0 +1,288 @@
+{
+  "regnearter": {
+    "SkillId": "regnearter",
+    "Distribution": {
+      "Alpha": 1,
+      "Beta": 1
+    },
+    "TotalAttempts": 0,
+    "LastPracticed": null,
+    "ReviewInterval": null,
+    "NextReviewAt": null,
+    "Mean": 0.5,
+    "Variance": 0.08333333333333333
+  },
+  "regnehierarki": {
+    "SkillId": "regnehierarki",
+    "Distribution": {
+      "Alpha": 1,
+      "Beta": 1
+    },
+    "TotalAttempts": 0,
+    "LastPracticed": null,
+    "ReviewInterval": null,
+    "NextReviewAt": null,
+    "Mean": 0.5,
+    "Variance": 0.08333333333333333
+  },
+  "broeker": {
+    "SkillId": "broeker",
+    "Distribution": {
+      "Alpha": 1,
+      "Beta": 1
+    },
+    "TotalAttempts": 0,
+    "LastPracticed": null,
+    "ReviewInterval": null,
+    "NextReviewAt": null,
+    "Mean": 0.5,
+    "Variance": 0.08333333333333333
+  },
+  "overslag": {
+    "SkillId": "overslag",
+    "Distribution": {
+      "Alpha": 1,
+      "Beta": 1
+    },
+    "TotalAttempts": 0,
+    "LastPracticed": null,
+    "ReviewInterval": null,
+    "NextReviewAt": null,
+    "Mean": 0.5,
+    "Variance": 0.08333333333333333
+  },
+  "ligninger": {
+    "SkillId": "ligninger",
+    "Distribution": {
+      "Alpha": 1,
+      "Beta": 1
+    },
+    "TotalAttempts": 0,
+    "LastPracticed": null,
+    "ReviewInterval": null,
+    "NextReviewAt": null,
+    "Mean": 0.5,
+    "Variance": 0.08333333333333333
+  },
+  "algebraiske_udtryk": {
+    "SkillId": "algebraiske_udtryk",
+    "Distribution": {
+      "Alpha": 1,
+      "Beta": 1
+    },
+    "TotalAttempts": 0,
+    "LastPracticed": null,
+    "ReviewInterval": null,
+    "NextReviewAt": null,
+    "Mean": 0.5,
+    "Variance": 0.08333333333333333
+  },
+  "lineaere_funktioner": {
+    "SkillId": "lineaere_funktioner",
+    "Distribution": {
+      "Alpha": 1,
+      "Beta": 1
+    },
+    "TotalAttempts": 0,
+    "LastPracticed": null,
+    "ReviewInterval": null,
+    "NextReviewAt": null,
+    "Mean": 0.5,
+    "Variance": 0.08333333333333333
+  },
+  "pris_rabat": {
+    "SkillId": "pris_rabat",
+    "Distribution": {
+      "Alpha": 1,
+      "Beta": 1
+    },
+    "TotalAttempts": 0,
+    "LastPracticed": null,
+    "ReviewInterval": null,
+    "NextReviewAt": null,
+    "Mean": 0.5,
+    "Variance": 0.08333333333333333
+  },
+  "forholdstalsregning": {
+    "SkillId": "forholdstalsregning",
+    "Distribution": {
+      "Alpha": 1,
+      "Beta": 1
+    },
+    "TotalAttempts": 0,
+    "LastPracticed": null,
+    "ReviewInterval": null,
+    "NextReviewAt": null,
+    "Mean": 0.5,
+    "Variance": 0.08333333333333333
+  },
+  "hastighed_tid": {
+    "SkillId": "hastighed_tid",
+    "Distribution": {
+      "Alpha": 1,
+      "Beta": 1
+    },
+    "TotalAttempts": 0,
+    "LastPracticed": null,
+    "ReviewInterval": null,
+    "NextReviewAt": null,
+    "Mean": 0.5,
+    "Variance": 0.08333333333333333
+  },
+  "enhedsomregning": {
+    "SkillId": "enhedsomregning",
+    "Distribution": {
+      "Alpha": 1,
+      "Beta": 1
+    },
+    "TotalAttempts": 0,
+    "LastPracticed": null,
+    "ReviewInterval": null,
+    "NextReviewAt": null,
+    "Mean": 0.5,
+    "Variance": 0.08333333333333333
+  },
+  "vinkelsum": {
+    "SkillId": "vinkelsum",
+    "Distribution": {
+      "Alpha": 1,
+      "Beta": 1
+    },
+    "TotalAttempts": 0,
+    "LastPracticed": null,
+    "ReviewInterval": null,
+    "NextReviewAt": null,
+    "Mean": 0.5,
+    "Variance": 0.08333333333333333
+  },
+  "trekant_elementer": {
+    "SkillId": "trekant_elementer",
+    "Distribution": {
+      "Alpha": 1,
+      "Beta": 1
+    },
+    "TotalAttempts": 0,
+    "LastPracticed": null,
+    "ReviewInterval": null,
+    "NextReviewAt": null,
+    "Mean": 0.5,
+    "Variance": 0.08333333333333333
+  },
+  "ligedannethed": {
+    "SkillId": "ligedannethed",
+    "Distribution": {
+      "Alpha": 1,
+      "Beta": 1
+    },
+    "TotalAttempts": 0,
+    "LastPracticed": null,
+    "ReviewInterval": null,
+    "NextReviewAt": null,
+    "Mean": 0.5,
+    "Variance": 0.08333333333333333
+  },
+  "sammensat_figur": {
+    "SkillId": "sammensat_figur",
+    "Distribution": {
+      "Alpha": 1,
+      "Beta": 1
+    },
+    "TotalAttempts": 0,
+    "LastPracticed": null,
+    "ReviewInterval": null,
+    "NextReviewAt": null,
+    "Mean": 0.5,
+    "Variance": 0.08333333333333333
+  },
+  "rumfang": {
+    "SkillId": "rumfang",
+    "Distribution": {
+      "Alpha": 1,
+      "Beta": 1
+    },
+    "TotalAttempts": 0,
+    "LastPracticed": null,
+    "ReviewInterval": null,
+    "NextReviewAt": null,
+    "Mean": 0.5,
+    "Variance": 0.08333333333333333
+  },
+  "transformationer": {
+    "SkillId": "transformationer",
+    "Distribution": {
+      "Alpha": 1,
+      "Beta": 1
+    },
+    "TotalAttempts": 0,
+    "LastPracticed": null,
+    "ReviewInterval": null,
+    "NextReviewAt": null,
+    "Mean": 0.5,
+    "Variance": 0.08333333333333333
+  },
+  "projektioner": {
+    "SkillId": "projektioner",
+    "Distribution": {
+      "Alpha": 1,
+      "Beta": 1
+    },
+    "TotalAttempts": 0,
+    "LastPracticed": null,
+    "ReviewInterval": null,
+    "NextReviewAt": null,
+    "Mean": 0.5,
+    "Variance": 0.08333333333333333
+  },
+  "soejlediagram": {
+    "SkillId": "soejlediagram",
+    "Distribution": {
+      "Alpha": 1,
+      "Beta": 1
+    },
+    "TotalAttempts": 0,
+    "LastPracticed": null,
+    "ReviewInterval": null,
+    "NextReviewAt": null,
+    "Mean": 0.5,
+    "Variance": 0.08333333333333333
+  },
+  "statistiske_maal": {
+    "SkillId": "statistiske_maal",
+    "Distribution": {
+      "Alpha": 1,
+      "Beta": 1
+    },
+    "TotalAttempts": 0,
+    "LastPracticed": null,
+    "ReviewInterval": null,
+    "NextReviewAt": null,
+    "Mean": 0.5,
+    "Variance": 0.08333333333333333
+  },
+  "boksplot": {
+    "SkillId": "boksplot",
+    "Distribution": {
+      "Alpha": 1,
+      "Beta": 1
+    },
+    "TotalAttempts": 0,
+    "LastPracticed": null,
+    "ReviewInterval": null,
+    "NextReviewAt": null,
+    "Mean": 0.5,
+    "Variance": 0.08333333333333333
+  },
+  "sandsynlighed": {
+    "SkillId": "sandsynlighed",
+    "Distribution": {
+      "Alpha": 1,
+      "Beta": 1
+    },
+    "TotalAttempts": 0,
+    "LastPracticed": null,
+    "ReviewInterval": null,
+    "NextReviewAt": null,
+    "Mean": 0.5,
+    "Variance": 0.08333333333333333
+  }
+}

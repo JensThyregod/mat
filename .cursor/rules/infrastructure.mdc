@@ -10,33 +10,41 @@ alwaysApply: false
 
 All infrastructure and service configuration lives in Terraform (`infra/`). A single `terraform apply` manages everything:
 
-- **Scaleway**: VM, managed PostgreSQL, serverless containers, object storage, TEM
+- **Scaleway**: Serverless containers, managed PostgreSQL, object storage, TEM
 - **Cloudflare**: DNS records, firewall rules
-- **Keycloak**: Realms, OpenID clients, audience mappers, user profiles
+- **Zitadel**: Organization, project, OIDC applications, branding, roles
 
 **Never** configure production services through admin consoles, CLIs, or shell scripts. If it's not in Terraform, it will drift and break.
 
-## Keycloak Configuration
+## Zitadel Configuration
 
-- Realm config is in `infra/keycloak.tf`, not JSON files or the Keycloak Admin Console.
-- The Keycloak provider uses `initial_login = false` so `terraform plan` works even when Keycloak is unreachable.
-- On first-ever VM provisioning, use `-target` to create the VM first, then run the full apply (see `infra/README.md`).
-- The theme JAR is the only Keycloak artifact deployed via SCP (it's a filesystem file, not API-managed).
+- Zitadel config is in `infra/zitadel.tf` (production) and `infra/local/main.tf` (local dev).
+- The Zitadel provider authenticates with a service account PAT.
+- Branding (colors, logo, watermark) is managed via `zitadel_default_label_policy`.
+- OIDC applications are managed via `zitadel_application_oidc`.
 
 ## File Layout
 
-- `infra/main.tf` — providers, Scaleway infra, Cloudflare DNS
-- `infra/keycloak.tf` — all Keycloak resources (realms, clients, user profile)
+- `infra/main.tf` — providers, Scaleway infra (containers, DB, DNS), Cloudflare DNS
+- `infra/zitadel.tf` — all Zitadel resources (org, project, apps, branding, roles)
 - `infra/variables.tf` — variable declarations
+- `infra/outputs.tf` — output values
 - `infra/terraform.tfvars` — local values (**gitignored**, never commit)
-- `infra/keycloak/cloud-init.yml` — VM bootstrap only (Docker install, docker-compose up)
-- `infra/keycloak/docker-compose.yml` — production Keycloak + Caddy stack
+- `infra/local/main.tf` — local dev Zitadel Terraform config
+- `infra/local/variables.tf` — local dev variable declarations
 
 ## Adding New Configuration
 
-When adding a new service setting (e.g., a new Keycloak client, a new realm attribute):
+When adding a new service setting (e.g., a new Zitadel role, a new OIDC app):
 
 1. Add the Terraform resource in the appropriate `.tf` file.
 2. Run `terraform plan` to verify.
 3. If the resource already exists in production, `terraform import` it first.
-4. Never add shell-based Admin API calls or JSON config files as workarounds.
+4. Never add shell-based API calls or JSON config files as workarounds.
+
+## Deployment Architecture
+
+- **Zitadel**: Serverless container on Scaleway + managed PostgreSQL. No VM, no SSH.
+- **Frontend**: Serverless container (nginx serving SPA).
+- **Backend**: Serverless container (.NET 9).
+- All containers are deployed via `terraform apply` — no SCP, no SSH, no manual restarts.

@@ -38,7 +38,7 @@ jobs:
         run: dotnet test backend/MatBackend.Tests/MatBackend.Tests.csproj --no-build --verbosity normal
 
   test-and-build-frontend:
-    name: Frontend Lint, Build & Theme
+    name: Frontend Lint & Build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -48,11 +48,6 @@ jobs:
           node-version: 22
           cache: npm
           cache-dependency-path: frontend/package-lock.json
-
-      - uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: 21
 
       - name: Install dependencies
         run: npm ci
@@ -66,26 +61,15 @@ jobs:
         run: npm run build
         working-directory: frontend
         env:
-          VITE_OIDC_AUTHORITY: https://auth.mattutor.dk/realms/mat-tutor
+          VITE_OIDC_AUTHORITY: https://auth.mattutor.dk
           VITE_OIDC_CLIENT_ID: mat-frontend
           VITE_API_BASE_URL: /api
-
-      - name: Build Keycloak theme JAR
-        run: npx keycloakify build
-        working-directory: frontend
 
       - name: Upload frontend dist
         uses: actions/upload-artifact@v4
         with:
           name: frontend-dist
           path: frontend/dist
-          retention-days: 1
-
-      - name: Upload theme JAR
-        uses: actions/upload-artifact@v4
-        with:
-          name: keycloak-theme-jar
-          path: frontend/dist_keycloak/*.jar
           retention-days: 1
 
   # ── Docker builds (parallel) ─────────────────────────────────────
@@ -163,7 +147,7 @@ jobs:
 
   # ── Deploy ───────────────────────────────────────────────────────
   deploy:
-    name: Terraform & Keycloak Deploy
+    name: Terraform Deploy
     needs: [build-backend-image, build-frontend-image]
     runs-on: ubuntu-latest
     steps:
@@ -172,13 +156,6 @@ jobs:
           sparse-checkout: |
             infra
 
-      - name: Download Keycloak theme JAR
-        uses: actions/download-artifact@v4
-        with:
-          name: keycloak-theme-jar
-          path: keycloak-theme-jar
-
-      # ── Terraform deploy ──────────────────────────────────────────
       - uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: "1.14.5"
@@ -205,66 +182,6 @@ jobs:
           TF_VAR_cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           TF_VAR_cloudflare_zone_id: ${{ secrets.CLOUDFLARE_ZONE_ID }}
           TF_VAR_scw_tem_domain_verification_token: ${{ secrets.SCW_TEM_DOMAIN_VERIFICATION_TOKEN }}
-          TF_VAR_keycloak_admin_password: ${{ secrets.KEYCLOAK_ADMIN_PASSWORD }}
-          TF_VAR_keycloak_db_password: ${{ secrets.KEYCLOAK_DB_PASSWORD }}
-          TF_VAR_ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
-
-      # ── Deploy Keycloak theme JAR ─────────────────────────────────
-      - name: Get Keycloak VM IP
-        id: kc-ip
-        working-directory: infra
-        run: echo "ip=$(terraform output -raw keycloak_vm_public_ip)" >> "$GITHUB_OUTPUT"
-
-      - name: Ensure providers directory exists
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ steps.kc-ip.outputs.ip }}
-          username: root
-          key: ${{ secrets.KEYCLOAK_SSH_PRIVATE_KEY }}
-          script: mkdir -p /opt/keycloak/providers
-
-      - name: Upload Keycloak files
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ steps.kc-ip.outputs.ip }}
-          username: root
-          key: ${{ secrets.KEYCLOAK_SSH_PRIVATE_KEY }}
-          source: keycloak-theme-jar/*.jar,infra/keycloak/docker-compose.yml,infra/keycloak/Caddyfile
-          target: /tmp/keycloak-deploy/
-          strip_components: 0
-
-      - name: Move files & restart Keycloak
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ steps.kc-ip.outputs.ip }}
-          username: root
-          key: ${{ secrets.KEYCLOAK_SSH_PRIVATE_KEY }}
-          script: |
-            cp /tmp/keycloak-deploy/keycloak-theme-jar/*.jar /opt/keycloak/providers/
-            cp /tmp/keycloak-deploy/infra/keycloak/docker-compose.yml /opt/keycloak/
-            cp /tmp/keycloak-deploy/infra/keycloak/Caddyfile /opt/keycloak/ 2>/dev/null || true
-            rm -rf /tmp/keycloak-deploy
-            cd /opt/keycloak && docker compose up -d --force-recreate keycloak
-
-      - name: Wait for Keycloak to become healthy
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ steps.kc-ip.outputs.ip }}
-          username: root
-          key: ${{ secrets.KEYCLOAK_SSH_PRIVATE_KEY }}
-          command_timeout: 5m
-          script: |
-            cd /opt/keycloak
-            for i in $(seq 1 40); do
-              STATUS=$(docker compose ps keycloak --format json 2>/dev/null | grep -o '"Health":"[^"]*"' | cut -d'"' -f4)
-              if [ "$STATUS" = "healthy" ]; then
-                echo "Keycloak is healthy"
-                exit 0
-              fi
-              echo "Waiting for Keycloak... ($i/40, status: ${STATUS:-starting})"
-              sleep 5
-            done
-            echo "Keycloak did not become healthy in time"
-            docker compose logs --tail=50 keycloak
-            exit 1
-
+          TF_VAR_zitadel_admin_token: ${{ secrets.ZITADEL_ADMIN_TOKEN }}
+          TF_VAR_zitadel_masterkey: ${{ secrets.ZITADEL_MASTERKEY }}
+          TF_VAR_zitadel_db_password: ${{ secrets.ZITADEL_DB_PASSWORD }}

@@ -10,10 +10,10 @@ terraform {
       source  = "cloudflare/cloudflare"
       version = "~> 4.0"
     }
-    zitadel = {
-      source  = "zitadel/zitadel"
-      version = "~> 2.0"
-    }
+    # zitadel = {
+    #   source  = "zitadel/zitadel"
+    #   version = "~> 2.0"
+    # }
   }
 
   backend "s3" {

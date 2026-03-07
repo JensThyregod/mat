@@ -212,7 +212,7 @@ variable "zitadel_cpu_limit" {
 variable "zitadel_memory_limit" {
   description = "Memory limit for the Zitadel container (in MB)"
   type        = number
-  default     = 1024
+  default     = 1120
 }
 
 variable "zitadel_project_resource_id" {

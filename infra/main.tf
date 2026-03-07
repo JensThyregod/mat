@@ -275,6 +275,7 @@ resource "scaleway_container" "zitadel" {
   privacy        = "public"
   protocol       = "http1"
   deploy         = true
+  command        = ["start-from-init"]
 
   environment_variables = {
     "ZITADEL_EXTERNALDOMAIN"                               = var.zitadel_hostname

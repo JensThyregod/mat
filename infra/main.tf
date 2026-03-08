@@ -248,7 +248,7 @@ resource "scaleway_rdb_user" "zitadel" {
   instance_id = scaleway_rdb_instance.zitadel.id
   name        = "zitadel_app"
   password    = var.zitadel_db_password
-  is_admin    = false
+  is_admin    = true
 }
 
 resource "scaleway_rdb_privilege" "zitadel" {
@@ -273,7 +273,7 @@ resource "scaleway_container" "zitadel" {
   min_scale      = 1
   max_scale      = 1
   privacy        = "public"
-  protocol       = "http1"
+  protocol       = "h2c"
   deploy         = true
   command        = ["start-from-init"]
 

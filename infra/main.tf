@@ -275,13 +275,14 @@ resource "scaleway_container" "zitadel" {
   privacy        = "public"
   protocol       = "http1"
   deploy         = true
-  args           = ["start-from-init", "--masterkeyFromEnv", "--tlsMode", "disabled"]
+  sandbox        = "v2"
+  command        = ["start-from-init", "--masterkeyFromEnv", "--tlsMode", "disabled"]
 
   environment_variables = {
+    "ZITADEL_PORT"                                         = "8080"
     "ZITADEL_EXTERNALDOMAIN"                               = var.zitadel_hostname
     "ZITADEL_EXTERNALPORT"                                 = "443"
     "ZITADEL_EXTERNALSECURE"                               = "true"
-    "ZITADEL_TLS_ENABLED"                                  = "false"
     "ZITADEL_DATABASE_POSTGRES_HOST"                       = scaleway_rdb_instance.zitadel.endpoint_ip
     "ZITADEL_DATABASE_POSTGRES_PORT"                       = tostring(scaleway_rdb_instance.zitadel.endpoint_port)
     "ZITADEL_DATABASE_POSTGRES_DATABASE"                   = scaleway_rdb_database.zitadel.name

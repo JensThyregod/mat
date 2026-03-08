@@ -276,7 +276,8 @@ resource "scaleway_container" "zitadel" {
   protocol       = "http1"
   deploy         = true
   sandbox        = "v2"
-  command        = ["start-from-init", "--masterkeyFromEnv", "--tlsMode", "disabled"]
+  command        = ["/app/zitadel"]
+  args           = ["start-from-init", "--masterkeyFromEnv", "--tlsMode", "disabled"]
 
   environment_variables = {
     "ZITADEL_PORT"                                         = "8080"

@@ -273,9 +273,9 @@ resource "scaleway_container" "zitadel" {
   min_scale      = 1
   max_scale      = 1
   privacy        = "public"
-  protocol       = "h2c"
+  protocol       = "http1"
   deploy         = true
-  command        = ["start-from-init"]
+  args           = ["start-from-init", "--masterkeyFromEnv", "--tlsMode", "disabled"]
 
   environment_variables = {
     "ZITADEL_EXTERNALDOMAIN"                               = var.zitadel_hostname
